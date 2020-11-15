@@ -1,0 +1,20 @@
+.card {
+  min-width: 195;
+  max-width: 225;
+  padding: 12;
+  margin-bottom: 35;
+
+  @media (max-width: 1024px) {
+    margin: 0.5rem 0;
+    font-size: 20px;
+    align-self: flex-start;
+  }
+}
+
+.card-subtitle {
+  margin-bottom: 0.45rem;
+}
+
+.card-link:hover {
+  font-style: italic;
+}

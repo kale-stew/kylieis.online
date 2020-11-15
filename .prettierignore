@@ -1,0 +1,5 @@
+build/*
+yarn.lock
+node_modules/
+public/
+gatsby-browser.js

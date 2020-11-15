@@ -1,0 +1,60 @@
+$top-header-text-color: #fff;
+$accent-pink: #e92d9e;
+$accent-purple: #291e95;
+$accent-light-purple: #6101a0;
+$theme-gradient: linear-gradient(72deg, $accent-purple, $accent-pink);
+$inline-dimmed-color: #ebebeb;
+$inline-text-color: #4b2043;
+
+// shades of gray
+$dark-gray: #333;
+$middle-gray: #7d7d7d;
+$light-gray: #aaa;
+
+//////////////////////////////
+//////// LIGHT MODE //////////
+//////////////////////////////
+// body
+$light-background-color: #fff;
+$light-link-color: $accent-purple;
+$light-text-shadow: 0 0 0.1px rgba(0, 0, 0, 0.3);
+$light-hover-text-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+$light-colored-font-color: $accent-light-purple;
+
+// blog-templates
+$light-navigator-text-color: $accent-light-purple;
+$light-navigator-background-color: #f2ddff;
+$blockquote-text-color: #999;
+
+// category
+$light-category-background-color: #f4f7f8;
+$light-category-border-color: #ecf0f2;
+$light-category-highlight-border-color: #909da1;
+$light-category-highlight-text-color: #636c6e;
+$light-category-item-color: #fff;
+
+//////////////////////////////
+///////// DARK MODE //////////
+//////////////////////////////
+// body
+$dark-background-color: #282c35;
+$dark-link-color: $accent-pink;
+$dark-lightest-font-color: #fff;
+$dark-light-font-color: #eeeeee;
+$dark-middle-font-color: #c4c3c3;
+$dark-colored-font-color: $accent-pink;
+
+$dark-text-shadow: 0 0 0.1px rgba(255, 255, 255, 0.3);
+$dark-hover-text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+
+// blog-templates
+$dark-navigator-text-color: $accent-pink;
+$dark-navigator-background-color: #ffe3f4;
+
+// category
+$dark-category-background-color: #24272c;
+$dark-category-border-color: rgb(56, 54, 54);
+$dark-category-highlight-border-color: #666;
+$dark-category-highlight-text-color: #fff;
+$dark-category-item-color: #282c35;
+$dark-category-text-color: #d8d7d7;
