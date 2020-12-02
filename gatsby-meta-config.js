@@ -1,8 +1,8 @@
 module.exports = {
   title: `Kylie is Online`,
-  description: `A blog about JavaScript, Notion, and things in between.`,
+  description: `A blog about JavaScript and software, among other things.`,
   author: `Kylie Stewart`,
-  introduction: `Software Engineer at Formidable · Big fan of dogs, hiking, and climbing`,
+  introduction: `Software Engineer · Big fan of dogs, hiking, and climbing`,
   siteUrl: `https://kyliestewart.tech/blog`,
   social: {
     twitter: `kyliestew`,
