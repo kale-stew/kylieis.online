@@ -7,7 +7,7 @@ body.light {
   }
 
   ::selection {
-    background-color: $accent-pink;
+    background-color: $accent-blue;
   }
 
   .project-wrapper {
@@ -50,10 +50,10 @@ body.light {
       a {
         color: $light-link-color;
       }
-      &[aria-selected='true'] {
+      &[aria-selected="true"] {
         border: 2px solid $light-category-highlight-border-color;
       }
-      &[aria-selected='true'] a {
+      &[aria-selected="true"] a {
         color: $light-category-highlight-text-color;
       }
     }
@@ -78,5 +78,11 @@ body.light {
       background-color: $light-navigator-background-color;
       color: $light-navigator-text-color;
     }
+  }
+
+  // inline code
+  :not(pre) > code[class*="language-"] {
+    background: $light-inline-code-bg-color;
+    color: $light-inline-code-color;
   }
 }

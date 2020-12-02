@@ -54,13 +54,13 @@ body.dark {
       -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
       box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
       a {
-        color: $dark-category-text-color;
+        color: $dark-middle-font-color;
       }
-      &[aria-selected='true'] {
+      &[aria-selected="true"] {
         border: 2px solid $dark-category-highlight-border-color;
         font-weight: bolder;
       }
-      &[aria-selected='true'] a {
+      &[aria-selected="true"] a {
         color: $dark-category-highlight-text-color;
       }
     }
@@ -98,5 +98,11 @@ body.dark {
   }
   td {
     border-bottom: 1px solid #eee;
+  }
+
+  // inline code
+  :not(pre) > code[class*="language-"] {
+    background: $dark-inline-code-bg-color;
+    color: $dark-inline-code-color;
   }
 }
