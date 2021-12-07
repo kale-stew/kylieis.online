@@ -1,8 +1,6 @@
 ---
-title: Draft - How I Use Notion as a Personal Wiki
-date: 2019-09-26 11:33:50
-category: notion
-draft: true
+title: 'How I Use Notion as a Personal Wiki'
+date: '2019-09-26'
 ---
 
 I use Notion as a one-stop-shop for a lot of my life's work. Between planning camping trips to remembering to stop by the post office, I have to write things down or I simply will not remember to do them. Notion has helped me track these things in a very straightforward way. I start my workday on a single page, from which I can view my week or month ahead, as well as the tasks I intend to accomplish in that time. I call this my **Basecamp**.
@@ -16,31 +14,31 @@ This **Basecamp** approach consists of two main subsections:
 
 **The Week Ahead** refers to my schedule of events. I alternate between a handful of views within my **Master Schedule**, from which I derive a number of other relational databases (e.g. a retrospective view of the hikes I've gone on in that past year, or a forward-looking approach to planning out my upcoming year). I call this a "category-driven" approach, where the `Category` is the crux by which I reference every item on my calendar.
 
-![Master Schedule categories](./images/wiki-avail-categories.png)
+![Master Schedule categories](/images/wiki-avail-categories.png)
 
 I like to keep a card view of my week within sight, but I find myself primarily alternating between this "Current Week" card view, and the all-encompassing "Calendar View", allowing me to look at all events ahead on a clear calendar.
 
 A shot of my current week view with its applied filters:
 
-![Current Week View with filters](./images/wiki-current-week.png)
+![Current Week View with filters](/images/wiki-current-week.png)
 
 ### Relational Databases
 
 A prime example of a relational database I derive from this **Master Schedule** is the view I link to within my **The Great Outdoors** page, which is filtered using a defined `Category` of "Hiking":
 
-![2019 Hikes, Card View](./images/wiki-2019-hikes.png)
+![2019 Hikes, Card View](/images/wiki-2019-hikes.png)
 
-![2019 Hikes, applied filters](./images/wiki-2019-filters.png)
+![2019 Hikes, applied filters](/images/wiki-2019-filters.png)
 
 Another example of a relational database I derive from the same **Master Schedule** is my forward-looking annual planning view, where I plan out and account for upcoming travel and vacation hours spent in a given year. For example, from this view, by summing up the numeric total of my `$Dog Sitter` property, I can determine how much money I intend to spend on dog sitters for the rest of the year.
 
-![2019 Travel Plans](./images/wiki-2019-travel.png)
+![2019 Travel Plans](/images/wiki-2019-travel.png)
 
 ## The Tasks Ahead
 
 **The Tasks Ahead** is a much more simplistic subsection. I keep an extremely simple to-do list, consisting of three columns: `Backlog`, `Doing`, and `Done`.
 
-![My To-Do List](./images/wiki-to-do.png)
+![My To-Do List](/images/wiki-to-do.png)
 
 The `Backlog` is where I typically throw items I want to look into within the next few weeks, but aren't a pressing priority. `Doing` is where the higher priority items typically land, things I believe I can accomplish that day or week. `Done` only exists as a point of pride; it's nice to see all those checked-off items populating the far right column at the end of a long week. I always end up deleting the completed tasks (I used to maintain an Archive, but I never went back in 🤷‍♀️), but it's nice to bask in your accomplishments for a day or two beforehand.
 
