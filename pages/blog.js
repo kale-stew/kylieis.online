@@ -8,6 +8,7 @@ import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE } from '../utils/constants'
 
 import categoryStyles from '../components/Category.module.css'
+import selectorStyles from '../styles/selectors.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function BlogLandingPage({ allPostsData }) {
@@ -81,11 +82,11 @@ export default function BlogLandingPage({ allPostsData }) {
         </button>
       </section>
 
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <ul className={utilStyles.list}>
+      <section className={utilStyles.headingMd}>
+        <ul className={selectorStyles.list}>
           {allPostsData.map(({ id, category, date, preview, title }) => (
             <li
-              className={utilStyles.listItem}
+              className={selectorStyles.listItem}
               key={id}
               style={{
                 display:
@@ -96,16 +97,16 @@ export default function BlogLandingPage({ allPostsData }) {
               }}
             >
               <Link href="/[category]/[id]" as={`/${category}/${id}`}>
-                <a className={`${utilStyles.blogPostHeading}`}>{title}</a>
+                <a className={`${selectorStyles.blogPostHeading}`}>{title}</a>
               </Link>
               <br />
               <small
-                className={`${utilStyles.lightText} ${utilStyles.blogItemCategory}`}
+                className={`${utilStyles.lightText} ${selectorStyles.blogItemCategory}`}
               >
                 <FormattedDate dateString={date} />{' '}
                 <Category category={category} />
               </small>
-              <small className={utilStyles.listItem}>{preview}...</small>
+              <small className={selectorStyles.listItem}>{preview}...</small>
             </li>
           ))}
         </ul>

@@ -3,6 +3,7 @@ import Headshot from '../public/headshot.png'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 
+import selectorStyles from '../styles/selectors.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const AboutPage = () => (
@@ -12,7 +13,7 @@ const AboutPage = () => (
     </Head>
     <h1 className={utilStyles.headingXl}>More about Kylie Stewart</h1>
     <br />
-    <div className={utilStyles.aboutBlock}>
+    <div className={selectorStyles.aboutBlock}>
       <Image
         src={Headshot}
         className={utilStyles.roundImage}

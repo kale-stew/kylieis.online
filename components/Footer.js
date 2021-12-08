@@ -8,10 +8,10 @@ import {
 import { MdOutlineMail } from 'react-icons/md'
 import { SocialLinks } from '../utils/constants'
 
-import utilStyles from '../styles/utils.module.css'
+import selectorStyles from '../styles/selectors.module.css'
 
 const Footer = () => (
-  <footer className={utilStyles.socialIcons}>
+  <footer className={selectorStyles.socialIcons}>
     <a target="_blank" href={SocialLinks.Email} network="email">
       <MdOutlineMail />
     </a>

@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 12rem 3rem 12rem;
+  margin: 0 18rem 3rem 18rem;
 }
 
 @media (max-width: 1024px) {
