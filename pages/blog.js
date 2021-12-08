@@ -7,6 +7,7 @@ import Layout from '../components/Layout'
 import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE } from '../utils/constants'
 
+import categoryStyles from '../components/Category.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function BlogLandingPage({ allPostsData }) {
@@ -23,7 +24,7 @@ export default function BlogLandingPage({ allPostsData }) {
         <button
           className={
             viewCategory === CATEGORY_TYPE.ALL
-              ? utilStyles.categorySelected
+              ? categoryStyles.categorySelected
               : 'categoryButton'
           }
           onClick={() => setCategory(CATEGORY_TYPE.ALL)}
@@ -33,7 +34,7 @@ export default function BlogLandingPage({ allPostsData }) {
         <button
           className={
             viewCategory === CATEGORY_TYPE.NOTION
-              ? utilStyles.categorySelected
+              ? categoryStyles.categorySelected
               : 'categoryButton'
           }
           onClick={() =>
@@ -49,7 +50,7 @@ export default function BlogLandingPage({ allPostsData }) {
         <button
           className={
             viewCategory === CATEGORY_TYPE.OSS
-              ? utilStyles.categorySelected
+              ? categoryStyles.categorySelected
               : 'categoryButton'
           }
           onClick={() =>
@@ -65,7 +66,7 @@ export default function BlogLandingPage({ allPostsData }) {
         <button
           className={
             viewCategory === CATEGORY_TYPE.JAVASCRIPT
-              ? utilStyles.categorySelected
+              ? categoryStyles.categorySelected
               : 'categoryButton'
           }
           onClick={() =>
