@@ -1,0 +1,41 @@
+.navigation a {
+  font-size: 1.25rem;
+  padding: 1.5rem;
+  text-decoration: none;
+  margin-top: 1.4rem;
+}
+
+.navigation a:hover {
+  text-decoration: underline;
+}
+
+.landingHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.landingPage {
+  width: 100%;
+  color: #0794e0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 18rem 3rem 18rem;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin: 0 2rem;
+  }
+
+  .navigation a {
+    font-size: 17.5px;
+    padding: none;
+  }
+}

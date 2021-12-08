@@ -1,5 +1,5 @@
 build/*
+public/*
+node_modules/*
+.next/*
 yarn.lock
-node_modules/
-public/
-gatsby-browser.js

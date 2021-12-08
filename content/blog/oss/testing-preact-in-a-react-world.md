@@ -1,8 +1,6 @@
 ---
-title: Testing Preact in a React-Focused Codebase
-date: 2020-05-03 08:46:11
-category: oss
-draft: true
+title: 'Testing Preact in a React-Focused Codebase'
+date: '2020-05-03'
 ---
 
 So, today I had to write tests for an open-sourced library that is meant to compare deeply nested objects in the context of React, called [`react-fast-compare`](https://github.com/FormidableLabs/react-fast-compare). Essentially, we introduced support for Preact and needed to mirror existing tests written for React components to extend over Preact-compiled components.

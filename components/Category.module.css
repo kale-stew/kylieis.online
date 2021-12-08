@@ -1,0 +1,33 @@
+.categoryOne {
+  border: 1px solid #69a101;
+  color: #69a101;
+  border-radius: 1em;
+  margin-left: 0.6rem;
+  padding: 0.2em 0.5em;
+  line-height: 1.3em;
+  font-size: 13px;
+}
+
+.categoryTwo {
+  border: 1px solid #0174a1;
+  color: #0174a1;
+  border-radius: 1em;
+  margin-left: 0.6rem;
+  padding: 0.2em 0.5em;
+  line-height: 1.3em;
+  font-size: 13px;
+}
+
+.categoryThree {
+  border: 1px solid #8d7403;
+  color: #8d7403;
+  border-radius: 1em;
+  margin-left: 0.6rem;
+  padding: 0.2em 0.5em;
+  line-height: 1.3em;
+  font-size: 13px;
+}
+
+.categorySelected {
+  background-color: #6d6d6d;
+}

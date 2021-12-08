@@ -1,8 +1,6 @@
 ---
-title: Using Formulas to Calculate Weight
-date: 2019-08-16 20:08:47
-category: notion
-draft: false
+title: 'Using Formulas to Calculate Weight'
+date: '2019-08-16'
 ---
 
 Over the weekend, I decided to formally document all of my backpacking, camping, hiking, and climbing gear. I wanted to create a centralized tracker for a few reasons, the most important few being:
@@ -39,14 +37,14 @@ Properties I got rid of
 
 Hinging around the `Category` property, I've created a few different views of this Gear table to serve as a packing list of sorts for various activities.
 
-![List of views](./images/gear-views.png)
+![List of views](/images/gear-views.png)
 
 When one navigates to the view, it's filtered down to the appropriate category and I've hidden that property column entirely to clean up the view.
 
-![14er packing list](./images/gear-14er-list.png)
+![14er packing list](/images/gear-14er-list.png)
 
 ## In Conclusion
 
 It's very simple to appropriate a template for your own uses, if you're willing to make some small changes. Thanks to flexibility of databases within Notion, it's also very simple to change the way you consume that data.
 
-Thanks for reading about my Gear Tracker and the approach I took to get here! Check out [my other Notion posts](https://www.kyliestewart.tech/blog) for more organizational fun.
+Thanks for reading about my Gear Tracker and the approach I took to get here! Check out [my other Notion posts](https://www.kyliestewart.tech/blog?notion) for more organizational fun.
