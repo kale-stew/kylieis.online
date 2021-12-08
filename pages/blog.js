@@ -86,7 +86,7 @@ export default function BlogLandingPage({ allPostsData }) {
         <ul className={selectorStyles.list}>
           {allPostsData.map(({ id, category, date, preview, title }) => (
             <li
-              className={selectorStyles.listItem}
+              className={selectorStyles.blogItemPreview}
               key={id}
               style={{
                 display:
@@ -106,7 +106,9 @@ export default function BlogLandingPage({ allPostsData }) {
                 <FormattedDate dateString={date} />{' '}
                 <Category category={category} />
               </small>
-              <small className={selectorStyles.listItem}>{preview}...</small>
+              <small className={selectorStyles.blogItemPreview}>
+                {preview}...
+              </small>
             </li>
           ))}
         </ul>
