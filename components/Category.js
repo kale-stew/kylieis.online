@@ -1,5 +1,4 @@
 import { CATEGORY_TYPE } from '../utils/constants'
-
 import styles from './Category.module.css'
 
 const Category = ({ category }) => {
