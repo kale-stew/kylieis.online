@@ -23,29 +23,27 @@ const ossDirectory = path.join(
 // Get all the post IDs
 export function getAllPostIds() {
   // Get file names under each categories directory
-  const gearFileNames = fs.readdirSync(notionDirectory)
-  const thoughtsFileNames = fs.readdirSync(jsDirectory)
-  const tripReportsFileNames = fs.readdirSync(ossDirectory)
+  const notionFileNames = fs.readdirSync(notionDirectory)
+  const jsFileNames = fs.readdirSync(jsDirectory)
+  const ossFileNames = fs.readdirSync(ossDirectory)
 
   // Holds all [category] names
   let categoryNames = []
 
   // Loop through each xxxFileNames array.
   // Add relevant category name to categoryNames array
-  gearFileNames.forEach(function (gearFileName) {
+  notionFileNames.forEach(function (notionFile) {
     categoryNames.push(CATEGORY_TYPE.NOTION)
   })
-  thoughtsFileNames.forEach(function (thoughtsFileName) {
+  jsFileNames.forEach(function (jsFile) {
     categoryNames.push(CATEGORY_TYPE.OSS)
   })
-  tripReportsFileNames.forEach(function (tripReportsFileName) {
+  ossFileNames.forEach(function (ossFile) {
     categoryNames.push(CATEGORY_TYPE.JAVASCRIPT)
   })
 
   // Concatenate each articles name in one array (id)
-  const fileNames = gearFileNames
-    .concat(thoughtsFileNames)
-    .concat(tripReportsFileNames)
+  const fileNames = notionFileNames.concat(jsFileNames).concat(ossFileNames)
 
   // Combine categoryNames & fileNames arrays
   const postParams = categoryNames.map(function (e, i) {
@@ -65,12 +63,12 @@ export function getAllPostIds() {
 
 export function getSortedPostsData() {
   // Get file names under each category directory
-  const gearFileNames = fs.readdirSync(notionDirectory)
-  const thoughtsFileNames = fs.readdirSync(jsDirectory)
-  const tripReportsFileNames = fs.readdirSync(ossDirectory)
+  const notionFileNames = fs.readdirSync(notionDirectory)
+  const jsFileNames = fs.readdirSync(jsDirectory)
+  const ossFileNames = fs.readdirSync(ossDirectory)
 
-  // get data from Gear posts
-  const gearFilesData = gearFileNames.map((fileName) => {
+  // Get data from Notion posts
+  const notionFileData = notionFileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
 
@@ -94,38 +92,13 @@ export function getSortedPostsData() {
     }
   })
 
-  // get data from Thoughts posts
-  const thoughtsFilesData = thoughtsFileNames.map((fileName) => {
+  // Get data from Javascript posts
+  const jsFileData = jsFileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
 
     // Read markdown file as string
     const fullPath = path.join(jsDirectory, fileName)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents)
-    const longPreview = matterResult.content
-
-    // Set the category
-    const category = CATEGORY_TYPE.OSS
-
-    // Combine the data with the id
-    return {
-      id,
-      category,
-      preview: longPreview.substring(0, 350),
-      ...matterResult.data,
-    }
-  })
-
-  // get data from Trip Report posts
-  const tripReportsFilesData = tripReportsFileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '')
-
-    // Read markdown file as string
-    const fullPath = path.join(ossDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
     // Use gray-matter to parse the post metadata section
@@ -144,10 +117,33 @@ export function getSortedPostsData() {
     }
   })
 
+  // Get data from OSS posts
+  const ossFileData = ossFileNames.map((fileName) => {
+    // Remove ".md" from file name to get id
+    const id = fileName.replace(/\.md$/, '')
+
+    // Read markdown file as string
+    const fullPath = path.join(ossDirectory, fileName)
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents)
+    const longPreview = matterResult.content
+
+    // Set the category
+    const category = CATEGORY_TYPE.OSS
+
+    // Combine the data with the id
+    return {
+      id,
+      category,
+      preview: longPreview.substring(0, 350),
+      ...matterResult.data,
+    }
+  })
+
   // Concatenate each articles data in one array
-  const allPostsData = gearFilesData
-    .concat(thoughtsFilesData)
-    .concat(tripReportsFilesData)
+  const allPostsData = notionFileData.concat(jsFileData).concat(ossFileData)
 
   // Sort articles by date
   return allPostsData.sort((a, b) => {

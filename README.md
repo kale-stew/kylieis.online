@@ -13,9 +13,8 @@ Now built with ✨[nextjs](https://nextjs.org)!
 ```md
 ---
 title: <String>
-date: 2020-00-00 00:00:00
+date: '2020-00-00'
 category: <String>
-draft: <Bool>
 ---
 ```
 
