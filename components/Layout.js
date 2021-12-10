@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Router from 'next/router'
 import Footer from './Footer'
 import Loading from './Loading'
-import Navigation from './Navigation'
+import Header from './Header'
 
 import styles from './Layout.module.css'
 
@@ -13,7 +13,7 @@ export default function Layout({ children, home }) {
 
   return (
     <>
-      <Navigation />
+      <Header />
       <div className={styles.wrapper}>
         <main>{!loading ? children : <Loading />}</main>
       </div>

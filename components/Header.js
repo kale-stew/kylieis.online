@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import styles from './Layout.module.css'
 
-const Navigation = () => (
+const Header = () => (
   <header className={styles.header}>
-    <h2>kyliestewart.tech</h2>
+    <h2>
+      <Link href="/">kyliestewart.tech</Link>
+    </h2>
     <div className={styles.navLinks}>
-      <Link href="/">Home</Link>
       <Link href="/blog">Blog</Link>
       <Link href="/talks">Talks</Link>
       <Link href="/about">About</Link>
@@ -13,4 +14,4 @@ const Navigation = () => (
   </header>
 )
 
-export default Navigation
+export default Header

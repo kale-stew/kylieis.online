@@ -16,7 +16,7 @@ const Talks = ({ talks }) => (
     </h1>
     <div className={styles.cardWrapper}>
       {talks.map((talk) => (
-        <Card item={talk} />
+        <Card key={talk.title} item={talk} />
       ))}
     </div>
   </Layout>

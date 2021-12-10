@@ -18,9 +18,9 @@ const findMatchingSlug = (str) => {
   return false
 }
 
-const formatDate = (date) => format(date, 'LLL d, yyyy')
+const formatDate = (date) => format(new Date(date), 'PP')
 
-const formatDateWithDayOfWeek = (date) => format(date, 'iiii, LLLL do, yyyy')
+const formatDateWithDayOfWeek = (date) => format(date, 'PPPP')
 
 // Metric to Imperial conversion
 const formatStatsImperial = (distance, gain) =>
