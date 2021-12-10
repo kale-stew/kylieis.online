@@ -1,26 +1,20 @@
 .categoryOne {
-  border: 1px solid #69a101;
-  color: #69a101;
-  border-radius: 1em;
-  margin-left: 0.6rem;
-  padding: 0.2em 0.5em;
-  line-height: 1.3em;
-  font-size: 13px;
+  border: 2px solid #ff2dd1;
+  color: #ff2dd1;
 }
 
 .categoryTwo {
-  border: 1px solid #0174a1;
-  color: #0174a1;
-  border-radius: 1em;
-  margin-left: 0.6rem;
-  padding: 0.2em 0.5em;
-  line-height: 1.3em;
-  font-size: 13px;
+  border: 2px solid #2b00e9;
+  color: #2b00e9;
 }
 
 .categoryThree {
-  border: 1px solid #8d7403;
-  color: #8d7403;
+  border: 2px solid #9544ff;
+  color: #9544ff;
+}
+
+.categoryPill {
+  font-weight: bold;
   border-radius: 1em;
   margin-left: 0.6rem;
   padding: 0.2em 0.5em;
