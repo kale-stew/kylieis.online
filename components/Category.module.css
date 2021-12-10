@@ -1,3 +1,8 @@
+.categoryDefault {
+  border: 2px solid #575757;
+  color: #575757;
+}
+
 .categoryOne {
   border: 2px solid #ff2dd1;
   color: #ff2dd1;
@@ -11,6 +16,11 @@
 .categoryThree {
   border: 2px solid #9544ff;
   color: #9544ff;
+}
+
+.categoryFour {
+  border: 2px solid #00b1dd;
+  color: #00b1dd;
 }
 
 .categoryPill {

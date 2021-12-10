@@ -1,11 +1,12 @@
 export const CATEGORY_TYPE = {
   ALL: 'all',
+  JAVASCRIPT: 'javascript',
   NOTION: 'notion',
   OSS: 'oss',
-  JAVASCRIPT: 'javascript',
+  REACT: 'react',
 }
 
-export const CONTENT_DIRECTORY = 'content/blog'
+export const CONTENT_DIRECTORY = 'content'
 
 export const METADATA = {
   NAME: 'Kylie Stewart',

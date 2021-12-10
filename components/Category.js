@@ -21,6 +21,18 @@ const Category = ({ category }) => {
           {CATEGORY_TYPE.JAVASCRIPT}
         </div>
       )
+    case CATEGORY_TYPE.REACT:
+      return (
+        <div className={`${styles.categoryPill} ${styles.categoryFour}`}>
+          {CATEGORY_TYPE.REACT}
+        </div>
+      )
+    default:
+      return (
+        <div className={`${styles.categoryPill} ${styles.categoryDefault}`}>
+          {category}
+        </div>
+      )
   }
 }
 

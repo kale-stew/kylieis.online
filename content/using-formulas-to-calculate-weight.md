@@ -1,6 +1,7 @@
 ---
 title: 'Using Formulas to Calculate Weight'
 date: '2019-08-16'
+category: 'notion'
 ---
 
 Over the weekend, I decided to formally document all of my backpacking, camping, hiking, and climbing gear. I wanted to create a centralized tracker for a few reasons, the most important few being:
