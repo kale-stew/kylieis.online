@@ -1,11 +1,11 @@
-.navigation a {
+.header a {
   font-size: 1.25rem;
   padding: 1.5rem;
   text-decoration: none;
   margin-top: 1.4rem;
 }
 
-.navigation a:hover {
+.header a:hover {
   text-decoration: underline;
 }
 
@@ -33,7 +33,8 @@
 
 @media (max-width: 1024px) {
   .wrapper {
-    margin: 0 2rem;
+    width: auto;
+    margin: 0 6em;
   }
 
   .navigation a {

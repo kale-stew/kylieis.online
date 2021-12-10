@@ -12,9 +12,9 @@ This **Basecamp** approach consists of two main subsections:
 
 ## The Week Ahead
 
-**The Week Ahead** refers to my schedule of events. I alternate between a handful of views within my **Master Schedule**, from which I derive a number of other relational databases (e.g. a retrospective view of the hikes I've gone on in that past year, or a forward-looking approach to planning out my upcoming year). I call this a "category-driven" approach, where the `Category` is the crux by which I reference every item on my calendar.
+**The Week Ahead** refers to my schedule of events. I alternate between a handful of views within my **Primary Schedule**, from which I derive a number of other relational databases (e.g. a retrospective view of the hikes I've gone on in that past year, or a forward-looking approach to planning out my upcoming year). I call this a "category-driven" approach, where the `Category` is the crux by which I reference every item on my calendar.
 
-![Master Schedule categories](/images/wiki-avail-categories.png)
+![Primary Schedule categories](/images/wiki-avail-categories.png)
 
 I like to keep a card view of my week within sight, but I find myself primarily alternating between this "Current Week" card view, and the all-encompassing "Calendar View", allowing me to look at all events ahead on a clear calendar.
 
@@ -24,13 +24,13 @@ A shot of my current week view with its applied filters:
 
 ### Relational Databases
 
-A prime example of a relational database I derive from this **Master Schedule** is the view I link to within my **The Great Outdoors** page, which is filtered using a defined `Category` of "Hiking":
+A prime example of a relational database I derive from this **Primary Schedule** is the view I link to within my **The Great Outdoors** page, which is filtered using a defined `Category` of "Hiking":
 
 ![2019 Hikes, Card View](/images/wiki-2019-hikes.png)
 
 ![2019 Hikes, applied filters](/images/wiki-2019-filters.png)
 
-Another example of a relational database I derive from the same **Master Schedule** is my forward-looking annual planning view, where I plan out and account for upcoming travel and vacation hours spent in a given year. For example, from this view, by summing up the numeric total of my `$Dog Sitter` property, I can determine how much money I intend to spend on dog sitters for the rest of the year.
+Another example of a relational database I derive from the same **Primary Schedule** is my forward-looking annual planning view, where I plan out and account for upcoming travel and vacation hours spent in a given year. For example, from this view, by summing up the numeric total of my `$Dog Sitter` property, I can determine how much money I intend to spend on dog sitters for the rest of the year.
 
 ![2019 Travel Plans](/images/wiki-2019-travel.png)
 
@@ -50,6 +50,6 @@ Between these two subsections, I manage to track most of the things I need to do
 
 - [Basecamp](https://www.notion.so/kalestew/Template-Basecamp-8df1b95502454bdebeecfe7f99082428)
 
-- [The Week Ahead (a.k.a. **Master Schedule**)](https://www.notion.so/kalestew/0de5c8318a944e39a7bb9ba0942269ea?v=70ccd14075c44c48bed9878451b5f4da)
+- [The Week Ahead (a.k.a. **Primary Schedule**)](https://www.notion.so/kalestew/0de5c8318a944e39a7bb9ba0942269ea?v=70ccd14075c44c48bed9878451b5f4da)
 
 - [The Great Outdoors](https://www.notion.so/kalestew/The-Great-Outdoors-5961e3ccff27459db2be58b89c94ceda)
