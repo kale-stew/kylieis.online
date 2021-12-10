@@ -11,7 +11,7 @@ const Talks = ({ talks }) => (
     <Head>
       <title>Talks & Presentations | kyliestewart.tech</title>
     </Head>
-    <h1 className={utilStyles.headingXl}>
+    <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
       Kylie's Technical Talks & Presentations
     </h1>
     <div className={styles.cardWrapper}>

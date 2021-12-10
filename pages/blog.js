@@ -5,7 +5,7 @@ import Category from '../components/Category'
 import FormattedDate from '../components/Date'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../utils/posts'
-import { CATEGORY_TYPE } from '../utils/constants'
+import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 
 import categoryStyles from '../components/Category.module.css'
 import styles from '../styles/blog.module.css'
@@ -17,7 +17,7 @@ export default function BlogLandingPage({ allPostsData }) {
   return (
     <Layout>
       <Head>
-        <title>kyliestewart.tech | Blog</title>
+        <title>{METADATA.SITE_NAME} | Blog</title>
       </Head>
       <h1 className={utilStyles.headingXl}>Blog</h1>
 

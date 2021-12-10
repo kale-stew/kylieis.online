@@ -1,13 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import { METADATA } from '../utils/constants'
 
 import utilStyles from '../styles/utils.module.css'
 
 const NotFoundPage = () => (
   <Layout>
     <Head>
-      <title>Page Not Found | kyliestewart.tech</title>
+      <title>Page Not Found | {METADATA.SITE_NAME}</title>
     </Head>
 
     <h1>Oh no!</h1>

@@ -12,12 +12,17 @@ const Card = ({ item }) => {
         {item.location && item.location !== 'virtual' ? (
           <small>
             · {formatDate(item.eventDate)}: Presented at{' '}
-            <a href={item.eventUrl}>{item.eventName}</a> in {item.location}
+            <a href={item.eventUrl} className={styles.eventName}>
+              {item.eventName}
+            </a>{' '}
+            in {item.location}
           </small>
         ) : (
           <small>
             · {formatDate(item.eventDate)}: Presented at{' '}
-            <a href={item.eventUrl}>{item.eventName}</a>
+            <a href={item.eventUrl} className={styles.eventName}>
+              {item.eventName}
+            </a>
           </small>
         )}
         {item.recordedPresentationUrl && (

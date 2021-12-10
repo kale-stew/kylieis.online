@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import styles from './Layout.module.css'
 
+import { METADATA } from '../utils/constants'
+
 const Header = () => (
   <header className={styles.header}>
     <h2>
-      <Link href="/">kyliestewart.tech</Link>
+      <Link href="/">{METADATA.SITE_NAME}</Link>
     </h2>
     <div className={styles.navLinks}>
       <Link href="/blog">Blog</Link>
