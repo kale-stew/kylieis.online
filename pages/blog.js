@@ -8,7 +8,7 @@ import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE } from '../utils/constants'
 
 import categoryStyles from '../components/Category.module.css'
-import selectorStyles from '../styles/selectors.module.css'
+import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function BlogLandingPage({ allPostsData }) {
@@ -21,7 +21,7 @@ export default function BlogLandingPage({ allPostsData }) {
       </Head>
       <h1 className={utilStyles.headingXl}>Blog</h1>
 
-      <section>
+      <section className={utilStyles.blogCategoryWrapper}>
         <button
           className={
             viewCategory === CATEGORY_TYPE.ALL
@@ -83,10 +83,10 @@ export default function BlogLandingPage({ allPostsData }) {
       </section>
 
       <section className={utilStyles.headingMd}>
-        <ul className={selectorStyles.list}>
+        <ul className={styles.blogItemList}>
           {allPostsData.map(({ id, category, date, preview, title }) => (
             <li
-              className={selectorStyles.blogItemPreview}
+              className={styles.blogItemPreview}
               key={id}
               style={{
                 display:
@@ -97,18 +97,16 @@ export default function BlogLandingPage({ allPostsData }) {
               }}
             >
               <Link href="/[category]/[id]" as={`/${category}/${id}`}>
-                <a className={`${selectorStyles.blogPostHeading}`}>{title}</a>
+                <a className={`${styles.blogPostHeading}`}>{title}</a>
               </Link>
               <br />
               <small
-                className={`${utilStyles.lightText} ${selectorStyles.blogItemCategory}`}
+                className={`${utilStyles.lightText} ${styles.blogItemCategory}`}
               >
                 <FormattedDate dateString={date} />{' '}
                 <Category category={category} />
               </small>
-              <small className={selectorStyles.blogItemPreview}>
-                {preview}...
-              </small>
+              <small className={styles.blogItemPreview}>{preview}...</small>
             </li>
           ))}
         </ul>

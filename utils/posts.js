@@ -36,10 +36,10 @@ export function getAllPostIds() {
     categoryNames.push(CATEGORY_TYPE.NOTION)
   })
   jsFileNames.forEach(function (jsFile) {
-    categoryNames.push(CATEGORY_TYPE.OSS)
+    categoryNames.push(CATEGORY_TYPE.JAVASCRIPT)
   })
   ossFileNames.forEach(function (ossFile) {
-    categoryNames.push(CATEGORY_TYPE.JAVASCRIPT)
+    categoryNames.push(CATEGORY_TYPE.OSS)
   })
 
   // Concatenate each articles name in one array (id)

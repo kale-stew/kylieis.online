@@ -13,7 +13,7 @@ const NotFoundPage = () => (
     <h1>Oh no!</h1>
     <h3>You've found a route that doesn't exist.</h3>
     <div className={utilStyles.singleRow}>
-      <p>Let's get you back to </p>
+      Let's get you back to
       <Link href="/blog">a functional page</Link> so we can try this again.
     </div>
   </Layout>

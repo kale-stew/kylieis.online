@@ -3,7 +3,7 @@ import Headshot from '../public/headshot.png'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 
-import selectorStyles from '../styles/selectors.module.css'
+import styles from '../styles/about.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const AboutPage = () => (
@@ -11,9 +11,11 @@ const AboutPage = () => (
     <Head>
       <title>About Kylie Stewart | kyliestewart.tech</title>
     </Head>
-    <h1 className={utilStyles.headingXl}>More about Kylie Stewart</h1>
+    <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      More about Kylie Stewart
+    </h1>
     <br />
-    <div className={selectorStyles.aboutBlock}>
+    <div className={styles.aboutBlock}>
       <Image
         src={Headshot}
         className={utilStyles.roundImage}
@@ -21,7 +23,9 @@ const AboutPage = () => (
         width={250}
         layout="intrinsic"
       />
-      <div className={utilStyles.vertical}>
+      <div
+        className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
+      >
         <p>
           Kylie Stewart is a software engineer and technical speaker with
           experience across the web stack. Her expertise lies primarily in API

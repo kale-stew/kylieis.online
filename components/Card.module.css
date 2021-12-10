@@ -1,0 +1,28 @@
+.card {
+  width: 320px;
+}
+
+.eventItem {
+  padding: 0 1em;
+}
+
+.eventItem a:hover {
+  text-decoration: underline;
+}
+c
+.youtubeLink:hover {
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 710px) {
+  .card {
+    max-width: 310px;
+    padding: 0;
+  }
+}
