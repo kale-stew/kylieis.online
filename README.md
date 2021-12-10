@@ -10,25 +10,13 @@ Now built with ✨[nextjs](https://nextjs.org)!
 
 ### Adding a New Blog Post
 
-```md
----
-title: <String>
-date: '2020-00-00'
-category: <String>
----
-```
+All blog posts live in the `content/` directory.
+Every new post requires a `title`, YYYY-MM-DD formatted `date`, and category `string` to properly compile.
 
 ### Adding a New Talk
+
+Talks are sourced from [my `all-talks` repo](https://github.com/kale-stew/all-talks) here on Github.
 
 ## Deployment
 
 Vercel's deployment pipeline takes care of publication on merge to `main`.
-
-However, manual deployments are sometimes necessary:
-
-```sh
-$
-
-# or, use the short version
-$ yarn run deploy
-```
