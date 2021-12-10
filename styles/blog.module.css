@@ -17,6 +17,14 @@
   align-items: center;
 }
 
+.blogItemList {
+  padding-left: 0;
+}
+
+.blogItemPreview {
+  margin: 0 0 1.9em;
+}
+
 .blogPostHeading {
   font-size: 1.5rem;
   color: #020202;
@@ -24,10 +32,6 @@
 
 .blogPostHeading:hover {
   text-decoration: underline;
-}
-
-.blogItemPreview {
-  margin: 0 0 1.9em;
 }
 
 @media (max-width: 1024px) {
