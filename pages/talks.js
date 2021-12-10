@@ -1,22 +1,36 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import Card from '../components/Card'
 import Layout from '../components/Layout'
+import { TALK_URL } from '../utils/constants'
 
+import styles from '../styles/talks.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-const NotFoundPage = () => (
+const Talks = ({ talks }) => (
   <Layout>
     <Head>
       <title>Talks & Presentations | kyliestewart.tech</title>
     </Head>
-
-    <h1>Well this is embarrassing...</h1>
-    <h3>This page isn't quite done yet.</h3>
-    <div className={utilStyles.singleRow}>
-      <p>Let's get you back </p>
-      <Link href="/">home</Link> for now.
+    <h1 className={utilStyles.headingXl}>
+      Kylie's Technical Talks & Presentations
+    </h1>
+    <div className={styles.cardWrapper}>
+      {talks.map((talk) => (
+        <Card item={talk} />
+      ))}
     </div>
   </Layout>
 )
 
-export default NotFoundPage
+export async function getStaticProps() {
+  const res = await fetch(TALK_URL)
+  const talks = await res.json()
+
+  return {
+    props: {
+      talks,
+    },
+  }
+}
+
+export default Talks
