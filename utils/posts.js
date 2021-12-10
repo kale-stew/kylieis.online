@@ -178,3 +178,31 @@ export async function getPostData(category, id) {
     ...matterResult.data,
   }
 }
+
+export async function getMostRecentPosts() {
+  const recentBlogs = getSortedPostsData().splice(0, 3)
+  const featuredBlogs = recentBlogs.map((post) => {
+    return {
+      id: post.id,
+      date: post.date,
+      title: post.title,
+      href: `/${post.category}/${post.id}`,
+      description: `${post.preview.substring(0, 150)}...`,
+    }
+  })
+
+  return [...featuredBlogs]
+
+  // const allTalks = await fetchAllTalks()
+  // grab eventDates from the presentedAt key on each talk
+  // const recentTalks = allTalks.splice(0, 3)
+  // const featuredClimbs = recentTalks.map((talk) => {
+  //   return {
+  //     id: talk.id,
+  //     date: talk.date,
+  //     title: talk.title,
+  //     href: '/talks',
+  //     description: talk.description,
+  //   }
+  // })
+}
