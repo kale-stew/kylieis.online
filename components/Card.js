@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import { formatDate } from '../utils/helpers'
 import styles from './Card.module.css'
 
-const Card = ({ item }) => {
+const Card = ({ item, type }) => {
   // Every talk has: title, description, presentedAt{},
   // exportedSlidesUrl, hostedSlidesUrl, previewImg
   const buildEvent = ({ title, item }) => {
@@ -10,31 +11,29 @@ const Card = ({ item }) => {
     return (
       <div className={styles.eventItem}>
         {item.location && item.location !== 'virtual' ? (
-          <small>
-            · {formatDate(item.eventDate)}: Presented at{' '}
+          <p>
+            {formatDate(item.eventDate)}: Presented at{' '}
             <a href={item.eventUrl} className={styles.eventName}>
               {item.eventName}
             </a>{' '}
             in {item.location}
-          </small>
+          </p>
         ) : (
-          <small>
-            · {formatDate(item.eventDate)}: Presented at{' '}
+          <p>
+            {formatDate(item.eventDate)}: Presented at{' '}
             <a href={item.eventUrl} className={styles.eventName}>
               {item.eventName}
             </a>
-          </small>
+          </p>
         )}
         {item.recordedPresentationUrl && (
-          <small>
-            <a
-              href={item.recordedPresentationUrl}
-              alt={`Watch a recording of ${title} on Youtube.`}
-              className={styles.youtubeLink}
-            >
-              → watch the recording
-            </a>
-          </small>
+          <a
+            href={item.recordedPresentationUrl}
+            alt={`Watch a recording of ${title} on Youtube.`}
+            className={styles.youtubeLink}
+          >
+            → watch the recording
+          </a>
         )}
       </div>
     )
@@ -42,13 +41,24 @@ const Card = ({ item }) => {
 
   return (
     <div className={styles.card}>
-      <h2>{item.title}</h2>
+      {type == 'post' ? (
+        <h2 className={styles.titleLink}>
+          <Link href={item.href} alt={`Read ${item.title} on the blog.`}>
+            {item.title}
+          </Link>
+        </h2>
+      ) : (
+        <h2>{item.title}</h2>
+      )}
+      {item.date && <small>{formatDate(item.date)}</small>}
       <p>{item.description}</p>
-      <div className={styles.eventWrapper}>
-        {item.presentedAt.map(
-          (item) => item.eventDate && buildEvent({ title: item.title, item })
-        )}
-      </div>
+      {item.presentedAt && (
+        <div className={styles.eventWrapper}>
+          {item.presentedAt.map(
+            (item) => item.eventDate && buildEvent({ title: item.title, item })
+          )}
+        </div>
+      )}
     </div>
   )
 }

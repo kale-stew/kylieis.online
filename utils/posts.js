@@ -104,13 +104,13 @@ export async function getPostData(category, id) {
 }
 
 export async function getMostRecentPosts() {
-  const recentBlogs = getSortedPostsData().splice(0, 3)
+  const recentBlogs = getSortedPostsData().splice(0, 4)
   const featuredBlogs = recentBlogs.map((post) => {
     return {
       id: post.id,
       date: post.date,
       title: post.title,
-      href: `/${post.id}`,
+      href: `/${post.category}/${post.id}`,
       description: `${post.preview.substring(0, 150)}...`,
     }
   })

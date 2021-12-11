@@ -1,8 +1,10 @@
+import Card from '../components/Card'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { getMostRecentPosts } from '../utils/posts'
 
+import cardStyles from '../components/Card.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const HomePage = ({ featuredPosts }) => (
@@ -13,9 +15,11 @@ const HomePage = ({ featuredPosts }) => (
       </title>
     </Head>
     <h1 className={utilStyles.headingXl}>Most Recent Posts</h1>
-    {featuredPosts.map((post) => (
-      <p>{post.title}</p>
-    ))}
+    <div className={cardStyles.cardWrapper}>
+      {featuredPosts.map((post) => (
+        <Card key={post.id} item={post} type="post" />
+      ))}
+    </div>
   </Layout>
 )
 

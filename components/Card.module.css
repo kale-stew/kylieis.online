@@ -1,22 +1,63 @@
 .card {
-  width: 420px;
+  width: auto;
+  background-color: white;
+  padding: 0.5rem 2rem 2rem 2rem;
+  border-collapse: collapse;
+  border: 1px gainsboro;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.cardWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 2em;
+  grid-row-gap: 2.25em;
+  margin: 2.2em 0;
 }
 
 .eventItem {
-  padding: 0 1em;
+  font-size: 15px;
+}
+
+.eventItem p {
+  margin: 1em 0 0 0;
 }
 
 .eventName:hover {
   text-decoration: underline;
 }
 
+.titleLink:hover {
+  text-decoration: underline;
+}
+
+.youtubeLink {
+  padding-left: 1.25em;
+  margin: 0;
+}
+
 .youtubeLink:hover {
   font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .cardWrapper {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 3em;
+    grid-row-gap: 2.75em;
+  }
 }
 
 @media (max-width: 710px) {
   .card {
     max-width: 420px;
     text-align: center;
+  }
+
+  .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
