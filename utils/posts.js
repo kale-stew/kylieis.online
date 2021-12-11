@@ -3,8 +3,8 @@ import html from 'remark-html'
 import matter from 'gray-matter'
 import path from 'path'
 import { remark } from 'remark'
-
-import { CONTENT_DIRECTORY } from './constants'
+import { CONTENT_DIRECTORY, TALK_URL } from './constants'
+import { sortByDateDesc } from './helpers'
 
 const postsDirectory = path.join(process.cwd(), CONTENT_DIRECTORY)
 
@@ -70,13 +70,7 @@ export function getSortedPostsData() {
   })
 
   // Sort articles by date
-  return allFileData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1
-    } else {
-      return -1
-    }
-  })
+  return sortByDateDesc(allFileData)
 }
 
 // Get relevant post data
@@ -109,24 +103,32 @@ export async function getMostRecentPosts() {
     return {
       id: post.id,
       date: post.date,
-      title: post.title,
-      href: `/${post.category}/${post.id}`,
       description: `${post.preview.substring(0, 150)}...`,
+      href: `/${post.category}/${post.id}`,
+      title: post.title,
     }
   })
 
-  return [...featuredBlogs]
+  const fetchedTalks = await fetch(TALK_URL)
+  const allTalks = await fetchedTalks.json()
+  const allEvents = allTalks.flatMap((talk) =>
+    talk.presentedAt.map((event) => ({
+      id: talk.title,
+      date: event.eventDate,
+      description: `Presented at ${
+        event.eventType == 'meetup'
+          ? `the ${event.eventName} meetup`
+          : event.eventName
+      }${
+        event.location !== 'virtual' ? ` in ${event.location}.` : ', online.'
+      }`,
+      event: event.eventName,
+      href: '/talks',
+      location: event.location,
+      title: talk.title,
+    }))
+  )
 
-  // const allTalks = await fetchAllTalks()
-  // grab eventDates from the presentedAt key on each talk
-  // const recentTalks = allTalks.splice(0, 3)
-  // const featuredClimbs = recentTalks.map((talk) => {
-  //   return {
-  //     id: talk.id,
-  //     date: talk.date,
-  //     title: talk.title,
-  //     href: '/talks',
-  //     description: talk.description,
-  //   }
-  // })
+  const featuredTalks = sortByDateDesc(allEvents).splice(0, 4)
+  return [...featuredBlogs, ...featuredTalks]
 }

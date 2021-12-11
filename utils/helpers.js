@@ -37,6 +37,16 @@ const formatStatsMetric = (distance, gain) =>
     `${milesToKilometers(distance)} km & ${feetToMeters(gain)} m`) ||
   null
 
+const sortByDateDesc = (arr) => {
+  return arr.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+}
+
 export {
   addCommas,
   feetToMeters,
@@ -47,4 +57,5 @@ export {
   formatStatsMetric,
   getLocationData,
   milesToKilometers,
+  sortByDateDesc,
 }

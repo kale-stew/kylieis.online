@@ -14,11 +14,23 @@ const HomePage = ({ featuredPosts }) => (
         {METADATA.NAME} | {METADATA.SITE_NAME}
       </title>
     </Head>
-    <h1 className={utilStyles.headingXl}>Most Recent Posts</h1>
+    <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      Recent Blog Posts
+    </h1>
     <div className={cardStyles.cardWrapper}>
-      {featuredPosts.map((post) => (
-        <Card key={post.id} item={post} type="post" />
-      ))}
+      {featuredPosts.map(
+        (post) => !post.event && <Card key={post.id} item={post} type="post" />
+      )}
+    </div>
+
+    <br />
+    <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      Recent Tech Talks
+    </h1>
+    <div className={cardStyles.cardWrapper}>
+      {featuredPosts.map(
+        (post) => post.event && <Card key={post.id} item={post} type="post" />
+      )}
     </div>
   </Layout>
 )
