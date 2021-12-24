@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Card from '../components/Card'
+import TalkCard from '../components/TalkCard'
 import Layout from '../components/Layout'
 import { TALK_URL } from '../utils/constants'
 
-import cardStyles from '../components/Card.module.css'
+import cardStyles from '../components/TalkCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const Talks = ({ talks }) => (
@@ -14,9 +14,9 @@ const Talks = ({ talks }) => (
     <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
       Kylie's Technical Talks & Presentations
     </h1>
-    <div className={cardStyles.cardWrapper}>
+    <div className={cardStyles.talkCardWrapper}>
       {talks.map((talk) => (
-        <Card key={talk.title} item={talk} type="talk" />
+        <TalkCard key={talk.title} item={talk} />
       ))}
     </div>
   </Layout>

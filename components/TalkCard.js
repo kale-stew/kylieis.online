@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { formatDate } from '../utils/helpers'
-import styles from './Card.module.css'
+import styles from './TalkCard.module.css'
 
-const Card = ({ item, type }) => {
+const TalkCard = ({ item, page }) => {
   // Every talk has: title, description, presentedAt{},
   // exportedSlidesUrl, hostedSlidesUrl, previewImg
-  const buildEvent = ({ title, item }) => {
+  const buildEvent = (title, item) => {
     // Every event item in presentedAt{} has eventDate,
     // eventName, eventType, eventUrl, recordedPresentationUrl?, location?
     return (
@@ -40,8 +40,8 @@ const Card = ({ item, type }) => {
   }
 
   return (
-    <div className={styles.card}>
-      {type == 'post' ? (
+    <div className={styles.talkCard}>
+      {page == 'home' ? (
         <h2 className={styles.titleLink}>
           <Link href={item.href} alt={`Read ${item.title} on the blog.`}>
             {item.title}
@@ -55,7 +55,7 @@ const Card = ({ item, type }) => {
       {item.presentedAt && (
         <div className={styles.eventWrapper}>
           {item.presentedAt.map(
-            (item) => item.eventDate && buildEvent({ title: item.title, item })
+            (item) => item.eventDate && buildEvent(item.title, item)
           )}
         </div>
       )}
@@ -63,4 +63,4 @@ const Card = ({ item, type }) => {
   )
 }
 
-export default Card
+export default TalkCard
