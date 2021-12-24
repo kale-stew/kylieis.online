@@ -104,6 +104,7 @@ export async function getMostRecentPosts() {
       id: post.id,
       date: post.date,
       description: `${post.preview.substring(0, 150)}...`,
+      category: post.category,
       href: `/${post.category}/${post.id}`,
       title: post.title,
     }
