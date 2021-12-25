@@ -14,21 +14,15 @@ body {
   font-size: 16px;
 }
 
-pre code {
+pre {
   display: block;
   white-space: pre;
-  background-color: #222222;
-  color: #f1f1f1;
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   tab-size: 2;
-  max-width: 90%;
-  min-width: 100px;
-  padding: 1rem;
-  border: 1px gainsboro;
+  /* max-width: 90%; */
+  margin: 0;
   border-radius: 0.4rem;
-  border-collapse: collapse;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 code {
@@ -36,7 +30,6 @@ code {
   font-size: inherit;
 }
 
-/* Code in text */
 p > code,
 li > code,
 dd > code,
