@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400&display=swap');
 
 html,
 body {
@@ -13,9 +14,38 @@ body {
   font-size: 16px;
 }
 
+pre code {
+  display: block;
+  white-space: pre;
+  background-color: #222222;
+  color: #f1f1f1;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  tab-size: 2;
+  max-width: 90%;
+  min-width: 100px;
+  padding: 1rem;
+  border: 1px gainsboro;
+  border-radius: 0.4rem;
+  border-collapse: collapse;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Fira Code', monospace;
+  font-size: inherit;
+}
+
+/* Code in text */
+p > code,
+li > code,
+dd > code,
+td > code {
+  background: #dfdfdf;
+  word-wrap: break-word;
+  box-decoration-break: clone;
+  padding: 0.1rem 0.3rem 0.2rem;
+  border-radius: 0.2rem;
 }
 
 button {
@@ -85,8 +115,8 @@ h3 {
 }
 
 article {
-  max-width: 62vw;
-  margin: 3em 0;
+  max-width: 75vw;
+  margin: auto;
 }
 
 footer {
@@ -126,5 +156,9 @@ img {
   h1,
   h3 {
     text-align: center;
+  }
+
+  pre code {
+    white-space: pre-wrap;
   }
 }

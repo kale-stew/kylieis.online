@@ -64,7 +64,7 @@ export function getSortedPostsData() {
     return {
       id,
       category,
-      preview: longPreview.substring(0, 350),
+      preview: `${longPreview.substring(0, 225)}...`,
       ...matterResult.data,
     }
   })
@@ -103,7 +103,7 @@ export async function getMostRecentPosts() {
     return {
       id: post.id,
       date: post.date,
-      preview: `${post.preview.substring(0, 225)}...`,
+      preview: post.preview,
       category: post.category,
       id: post.id,
       title: post.title,
