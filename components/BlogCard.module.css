@@ -15,7 +15,15 @@
   padding: 0;
 }
 
-.blogCategoryWrapper {
+.blogCardWrapperUl {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.blogCardSmallText {
   display: flex;
   align-items: center;
 }
@@ -38,13 +46,18 @@
 }
 
 @media (max-width: 710px) {
-  .blogCategoryWrapper {
+  .blogCardSmallText {
     justify-content: center;
   }
 
   .blogCard {
-    max-width: 420px;
     text-align: center;
+    margin: auto;
+  }
+
+  .blogCategoryWrapper {
+    margin: 0 1.5rem;
+    width: 320px;
   }
 
   .blogCardWrapper {

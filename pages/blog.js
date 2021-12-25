@@ -41,10 +41,12 @@ export default function BlogLandingPage({ allPostsData }) {
       </Head>
       <h1 className={utilStyles.headingXl}>Blog</h1>
 
-      <section>{buildCategories()}</section>
+      <section className={cardStyles.blogCategoryWrapper}>
+        {buildCategories()}
+      </section>
 
       <section className={utilStyles.headingMd}>
-        <ul className={cardStyles.blogCardWrapper}>
+        <ul className={cardStyles.blogCardWrapperUl}>
           {allPostsData.map((post) => (
             <li
               key={post.id}

@@ -17,7 +17,7 @@ const BlogCard = ({ item }) => (
         {item.title}
       </Link>
     </h2>
-    <small className={`${utilStyles.lightText} ${styles.blogCategoryWrapper}`}>
+    <small className={`${utilStyles.lightText} ${styles.blogCardSmallText}`}>
       <FormattedDate dateString={item.date} />{' '}
       <Category category={item.category} />
     </small>
