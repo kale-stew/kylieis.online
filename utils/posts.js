@@ -116,7 +116,10 @@ export async function getMostRecentPosts() {
     talk.presentedAt.map((event) => ({
       id: talk.title,
       date: event.eventDate,
-      description: `Presented at ${
+      description: event.description
+        ? event.description
+        : 'Longer description coming soon.',
+      shortDescription: `Presented at ${
         event.eventType == 'meetup'
           ? `the ${event.eventName} meetup`
           : event.eventName
