@@ -94,8 +94,8 @@ export async function getMostRecentPosts() {
       event: event.eventName,
       location: event.location,
       href: '/talks',
-      description: event.description
-        ? event.description
+      description: talk.description
+        ? talk.description
         : 'Longer description coming soon.',
       shortDescription: `Presented at ${
         event.eventType == 'meetup'
