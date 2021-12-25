@@ -103,8 +103,9 @@ export async function getMostRecentPosts() {
     return {
       id: post.id,
       date: post.date,
-      description: `${post.preview.substring(0, 150)}...`,
-      href: `/${post.category}/${post.id}`,
+      preview: `${post.preview.substring(0, 225)}...`,
+      category: post.category,
+      id: post.id,
       title: post.title,
     }
   })
@@ -115,7 +116,10 @@ export async function getMostRecentPosts() {
     talk.presentedAt.map((event) => ({
       id: talk.title,
       date: event.eventDate,
-      description: `Presented at ${
+      description: event.description
+        ? event.description
+        : 'Longer description coming soon.',
+      shortDescription: `Presented at ${
         event.eventType == 'meetup'
           ? `the ${event.eventName} meetup`
           : event.eventName

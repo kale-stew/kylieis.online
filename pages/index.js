@@ -1,10 +1,12 @@
-import Card from '../components/Card'
+import BlogCard from '../components/BlogCard'
+import TalkCard from '../components/TalkCard'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { getMostRecentPosts } from '../utils/posts'
 
-import cardStyles from '../components/Card.module.css'
+import blogStyles from '../components/BlogCard.module.css'
+import talkStyles from '../components/TalkCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const HomePage = ({ featuredPosts }) => (
@@ -17,9 +19,9 @@ const HomePage = ({ featuredPosts }) => (
     <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
       Recent Blog Posts
     </h1>
-    <div className={cardStyles.cardWrapper}>
+    <div className={blogStyles.blogCardWrapper}>
       {featuredPosts.map(
-        (post) => !post.event && <Card key={post.id} item={post} type="post" />
+        (post) => !post.event && <BlogCard key={post.id} item={post} />
       )}
     </div>
 
@@ -27,9 +29,10 @@ const HomePage = ({ featuredPosts }) => (
     <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
       Recent Tech Talks
     </h1>
-    <div className={cardStyles.cardWrapper}>
+    <div className={talkStyles.talkCardWrapper}>
       {featuredPosts.map(
-        (post) => post.event && <Card key={post.id} item={post} type="post" />
+        (post) =>
+          post.event && <TalkCard key={post.id} item={post} page={'home'} />
       )}
     </div>
   </Layout>

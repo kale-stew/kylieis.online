@@ -5,7 +5,6 @@ import FormattedDate from '../../components/Date'
 import Layout from '../../components/Layout'
 import { getAllPostIds, getPostData } from '../../utils/posts'
 
-import styles from '../../styles/blog.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
 const Post = ({ postData }) => (
@@ -21,7 +20,7 @@ const Post = ({ postData }) => (
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </article>
-    <div className={styles.backToHome}>
+    <div className={utilStyles.backToHome}>
       <Link href="/blog">
         <a>← Back to blog</a>
       </Link>
