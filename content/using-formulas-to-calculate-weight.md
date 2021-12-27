@@ -1,6 +1,6 @@
 ---
 title: 'Using Formulas to Calculate Weight'
-date: '2019-08-16'
+date: '2020-04-16'
 category: 'notion'
 ---
 

@@ -22,30 +22,30 @@ const TalkCard = ({ item, page }) => {
     <div className={styles.eventItem}>
       {item.location && item.location !== 'virtual' ? (
         <p>
-          {formatDate(item.eventDate)}:{' '}
+          →{' '}
           <a href={item.eventUrl} className={styles.eventName}>
             {item.eventName}
           </a>{' '}
-          in {item.location}
+          in {item.location} on {formatDate(item.eventDate)}.
         </p>
       ) : (
         <p>
-          {formatDate(item.eventDate)}:{' '}
+          →{' '}
           <a href={item.eventUrl} className={styles.eventName}>
             {item.eventName}
-          </a>
-          , online.
+          </a>{' '}
+          online on {formatDate(item.eventDate)}.
         </p>
       )}
-      {item.recordedPresentationUrl && (
+      {/* {item.recordedPresentationUrl && (
         <a
           href={item.recordedPresentationUrl}
           alt={`Watch a recording of ${title} on Youtube.`}
           className={styles.youtubeLink}
         >
-          → watch the recording
+          watch the recording
         </a>
-      )}
+      )} */}
     </div>
   )
 

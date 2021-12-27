@@ -39,7 +39,9 @@ const AboutPage = () => (
           internally.
         </p>
         <p>
-          To find out more about her work or to discuss working together,{' '}
+          To see some of her other projects, check out her{' '}
+          <a href={SocialLinks.Homepage}>personal website</a>. To find out more
+          about her work or to discuss working together,{' '}
           <a href={SocialLinks.Email}>send Kylie an email</a>.
         </p>
       </div>

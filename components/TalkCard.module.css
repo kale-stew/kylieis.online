@@ -24,6 +24,10 @@
   margin: 1em 0 0 0;
 }
 
+.eventItem:last-child {
+  padding-bottom: 1.5rem;
+}
+
 .eventName:hover {
   text-decoration: underline;
 }
