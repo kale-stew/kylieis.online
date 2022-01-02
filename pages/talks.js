@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import TalkCard from '../components/TalkCard'
 import Layout from '../components/Layout'
 import { METADATA, TALK_URL } from '../utils/constants'
@@ -7,18 +6,17 @@ import { socialImage } from '../utils/preview-cards'
 import cardStyles from '../components/TalkCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function Talks({ talks }) {
+export default function Talks({ talks, title }) {
+  const randomId = Math.floor(Math.random() * 100)
+
   return (
     <Layout>
-      <Head>
-        <title>Talks & Presentations | kyliestewart.tech</title>
-      </Head>
       <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        Kylie's Technical Talks & Presentations
+        {title}
       </h1>
       <div className={cardStyles.talkCardWrapper}>
         {talks.map((talk) => (
-          <TalkCard key={talk.title} item={talk} />
+          <TalkCard key={`${talk.title}-${randomId}`} item={talk} />
         ))}
       </div>
     </Layout>

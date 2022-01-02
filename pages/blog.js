@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Head from 'next/head'
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../utils/posts'
@@ -36,11 +35,7 @@ export default function BlogLandingPage({ allPostsData }) {
 
   return (
     <Layout>
-      <Head>
-        <title>{METADATA.SITE_NAME} | Blog</title>
-      </Head>
       <h1 className={utilStyles.headingXl}>Blog</h1>
-
       <section className={cardStyles.blogCategoryWrapper}>
         {buildCategories()}
       </section>

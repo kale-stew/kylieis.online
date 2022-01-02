@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Headshot from '../public/notion-kylie.png'
 import Image from 'next/image'
 import Layout from '../components/Layout'
@@ -11,11 +10,6 @@ import utilStyles from '../styles/utils.module.css'
 export default function AboutPage() {
   return (
     <Layout>
-      <Head>
-        <title>
-          About {METADATA.NAME} | {METADATA.SITE_NAME}
-        </title>
-      </Head>
       <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
         More about {METADATA.NAME}
       </h1>

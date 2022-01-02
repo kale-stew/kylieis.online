@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
@@ -9,10 +8,6 @@ import utilStyles from '../styles/utils.module.css'
 export default function NotFoundPage() {
   return (
     <Layout>
-      <Head>
-        <title>Page Not Found | {METADATA.SITE_NAME}</title>
-      </Head>
-
       <h1>Oh no!</h1>
       <h3>You've found a route that doesn't exist.</h3>
       <div className={utilStyles.singleRow}>

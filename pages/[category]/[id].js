@@ -1,6 +1,5 @@
 import Category from '../../components/Category'
 import FormattedDate from '../../components/Date'
-import Head from 'next/head'
 import Layout from '../../components/Layout'
 import Link from 'next/link'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
@@ -14,9 +13,6 @@ import utilStyles from '../../styles/utils.module.css'
 export default function Post({ postData }) {
   return (
     <Layout>
-      <Head>
-        <title>{postData.title} | kylies.photos</title>
-      </Head>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={`${utilStyles.lightText} ${utilStyles.singleRow}`}>
