@@ -9,16 +9,16 @@ const Category = ({ category }) => {
           {CATEGORY_TYPE.NOTION}
         </div>
       )
-    case CATEGORY_TYPE.TYPESCRIPT:
-      return (
-        <div className={`${styles.categoryPill} ${styles.categoryTwo}`}>
-          {CATEGORY_TYPE.TYPESCRIPT}
-        </div>
-      )
     case CATEGORY_TYPE.JAVASCRIPT:
       return (
-        <div className={`${styles.categoryPill} ${styles.categoryThree}`}>
+        <div className={`${styles.categoryPill} ${styles.categoryTwo}`}>
           {CATEGORY_TYPE.JAVASCRIPT}
+        </div>
+      )
+    case CATEGORY_TYPE.TYPESCRIPT:
+      return (
+        <div className={`${styles.categoryPill} ${styles.categoryThree}`}>
+          {CATEGORY_TYPE.TYPESCRIPT}
         </div>
       )
     case CATEGORY_TYPE.REACT:

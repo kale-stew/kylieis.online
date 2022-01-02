@@ -3,13 +3,13 @@ import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
-import { socialImage } from '../utils/preview-cards'
+import { defaultSocialImage } from '../utils/preview-cards'
 
 import cardStyles from '../components/BlogCard.module.css'
 import categoryStyles from '../components/Category.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function BlogLandingPage({ allPostsData }) {
+export default function BlogLandingPage({ allPostsData, title }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => {
@@ -35,7 +35,7 @@ export default function BlogLandingPage({ allPostsData }) {
 
   return (
     <Layout>
-      <h1 className={utilStyles.headingXl}>Blog</h1>
+      <h1 className={utilStyles.headingXl}>{title}</h1>
       <section className={cardStyles.blogCategoryWrapper}>
         {buildCategories()}
       </section>
@@ -64,13 +64,13 @@ export default function BlogLandingPage({ allPostsData }) {
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
-  const title = `${METADATA.NAME}'s Technical Blog`
+  const title = 'The Blog'
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {
     props: {
       allPostsData,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'blog',

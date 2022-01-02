@@ -1,5 +1,5 @@
 ---
-title: 'Using Formulas to Calculate Weight'
+title: 'Using Notion Formulas to Calculate Weight'
 date: '2020-04-16'
 category: 'notion'
 ---
