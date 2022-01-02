@@ -7,11 +7,11 @@ import { socialImage } from '../utils/preview-cards'
 import styles from '../styles/about.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function AboutPage() {
+export default function AboutPage({ title }) {
   return (
     <Layout>
       <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        More about {METADATA.NAME}
+        {title}
       </h1>
       <br />
       <div className={styles.aboutBlock}>
