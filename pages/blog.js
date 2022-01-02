@@ -4,6 +4,7 @@ import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
+import { socialImage } from '../utils/preview-cards'
 
 import cardStyles from '../components/BlogCard.module.css'
 import categoryStyles from '../components/Category.module.css'
@@ -11,7 +12,6 @@ import utilStyles from '../styles/utils.module.css'
 
 export default function BlogLandingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
-
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => {
       return (
@@ -69,9 +69,17 @@ export default function BlogLandingPage({ allPostsData }) {
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
+  const title = `${METADATA.NAME}'s Technical Blog`
+  const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
+
   return {
     props: {
       allPostsData,
+      ...(await socialImage({
+        title,
+        description,
+        baseName: 'blog',
+      })),
     },
   }
 }

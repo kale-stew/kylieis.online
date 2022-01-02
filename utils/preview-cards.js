@@ -2,7 +2,7 @@ import path from 'path'
 import { compileLocalTemplate } from '@resoc/create-img'
 import { FacebookOpenGraph } from '@resoc/core'
 
-async function landingImage({ title, description, baseName }) {
+async function defaultSocialImage({ title, description, baseName }) {
   const ogImage = await compileLocalTemplate(
     'resoc-templates/landing/resoc.manifest.json',
     {},
@@ -34,4 +34,4 @@ async function socialImage({ title, description, baseName }) {
   }
 }
 
-export { landingImage, socialImage }
+export { defaultSocialImage, socialImage }
