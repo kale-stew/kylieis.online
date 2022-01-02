@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Fira+Code:wght@300;600&display=swap');
 
 html,
 body {
@@ -20,7 +19,6 @@ pre {
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   tab-size: 2;
-  /* max-width: 90%; */
   margin: 0;
   border-radius: 0.4rem;
 }

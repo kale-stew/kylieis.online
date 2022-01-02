@@ -20,9 +20,10 @@ export const METADATA = {
 export const SocialLinks = {
   Email: 'mailTo:kylie@kyliestewart.tech',
   Github: 'https://github.com/kale-stew',
-  Homepage: 'https://kyliestewart.tech',
   Instagram: 'https://instagram.com/kalestews',
   LinkedIn: 'https://www.linkedin.com/in/kylieastewart/',
+  PersonalHomepage: 'https://kylieis.online',
+  ProfessionalHomepage: 'https://kyliestewart.tech',
   Twitter: 'https://twitter.com/kyliestew',
 }
 
