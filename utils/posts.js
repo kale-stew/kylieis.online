@@ -75,11 +75,6 @@ export async function getMostRecentPosts() {
   const recentBlogs = getSortedPostsData().splice(0, 4)
   const featuredBlogs = recentBlogs.map((post) => {
     return {
-      id: post.id,
-      date: post.date,
-      preview: post.preview,
-      category: post.category,
-      title: post.title,
       ...post,
     }
   })
