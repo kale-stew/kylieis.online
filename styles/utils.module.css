@@ -79,16 +79,8 @@
 
 .singleRow {
   display: flex;
-  align-items: baseline;
-}
-
-.singleRow a {
-  padding: 0 5px;
-  color: #b800a8;
-}
-
-.singleRow a:hover {
-  text-decoration: underline;
+  align-items: center;
+  gap: 1em;
 }
 
 .vertical {
@@ -102,5 +94,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap: 1em;
   }
 }

@@ -40,28 +40,18 @@ td > code {
 }
 
 button {
-  background-color: #c5c5c5;
   display: inline-block;
-  padding: 0.3em 1.2em;
-  margin: 0 0.8em 1.2em 0;
-  border-radius: 2em;
   border: none;
-
-  text-decoration: none;
   font-weight: 300;
   font-size: 15px;
-  color: #fff;
   text-align: center;
   transition: all 0.2s;
+  background-color: whitesmoke;
 
   @media all and (max-width: 1024px) {
     display: block;
     margin: 0.2em auto;
   }
-}
-
-button:hover {
-  background-color: #6d6d6d;
 }
 
 a {
@@ -90,16 +80,6 @@ header {
   color: white;
 }
 
-header a {
-  text-decoration: none;
-  padding: 0.6rem;
-  color: white;
-}
-
-header a:hover {
-  text-decoration: underline;
-}
-
 h1,
 h2,
 h3 {
@@ -108,7 +88,7 @@ h3 {
 }
 
 article {
-  max-width: 75vw;
+  max-width: 60vw;
   margin: auto;
 }
 
@@ -134,9 +114,8 @@ img {
 }
 
 @media (max-width: 1024px) {
-  header a {
-    font-size: 14px;
-    padding: 0.4rem;
+  article {
+    max-width: 85vw;
   }
 
   header {

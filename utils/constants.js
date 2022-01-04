@@ -1,13 +1,11 @@
 export const CATEGORY_TYPE = {
   ALL: 'all',
-  // CAREER: 'career',
-  // GQL: 'graphql',
-  // JAVASCRIPT: 'javascript',
-  // ML: 'machine learning',
-  NOTION: 'notion',
   REACT: 'react',
-  // TOOLS: 'tools',
+  JAVASCRIPT: 'javascript',
+  NOTION: 'notion',
+  ML: 'machine learning',
   TYPESCRIPT: 'typescript',
+  GQL: 'graphql',
 }
 
 export const CONTENT_DIRECTORY = 'content'

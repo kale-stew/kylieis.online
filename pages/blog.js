@@ -6,7 +6,7 @@ import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 
 import cardStyles from '../components/BlogCard.module.css'
-import categoryStyles from '../components/Category.module.css'
+import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function BlogLandingPage({ allPostsData, title }) {
@@ -17,8 +17,8 @@ export default function BlogLandingPage({ allPostsData, title }) {
         <button
           className={
             viewCategory === CATEGORY_TYPE[key]
-              ? categoryStyles.categorySelected
-              : 'categoryButton'
+              ? `${styles.categorySelected} ${styles.categoryButton}`
+              : styles.categoryButton
           }
           onClick={() =>
             setCategory(
@@ -28,36 +28,38 @@ export default function BlogLandingPage({ allPostsData, title }) {
             )
           }
         >
-          {value}
+          {value === 'all' ? value : `#${value}`}
         </button>
       )
     })
 
   return (
     <Layout>
-      <h1 className={utilStyles.headingXl}>{title}</h1>
-      <section className={cardStyles.blogCategoryWrapper}>
-        {buildCategories()}
-      </section>
+      <div className={styles.wrapper}>
+        <h1 className={utilStyles.headingXl}>{title}</h1>
+        <section className={cardStyles.categoryWrapper}>
+          {buildCategories()}
+        </section>
 
-      <section className={utilStyles.headingMd}>
-        <ul className={cardStyles.blogCardWrapperUl}>
-          {allPostsData.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                display:
-                  viewCategory === post.category ||
-                  viewCategory === CATEGORY_TYPE.ALL
-                    ? 'block'
-                    : 'none',
-              }}
-            >
-              <BlogCard item={post} />
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className={utilStyles.headingMd}>
+          <ul className={cardStyles.blogCardWrapperUl}>
+            {allPostsData.map((post) => (
+              <li
+                key={post.id}
+                style={{
+                  display:
+                    viewCategory === post.category ||
+                    viewCategory === CATEGORY_TYPE.ALL
+                      ? 'block'
+                      : 'none',
+                }}
+              >
+                <BlogCard item={post} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </Layout>
   )
 }

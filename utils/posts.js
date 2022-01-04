@@ -1,8 +1,9 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { CONTENT_DIRECTORY, TALK_URL } from './constants'
+import { CONTENT_DIRECTORY } from './constants'
 import { sortByDateDesc } from './helpers'
+import { getAllTalkEvents } from './talks'
 
 const postsDirectory = path.join(process.cwd(), CONTENT_DIRECTORY)
 
@@ -40,7 +41,6 @@ export function getSortedPostsData() {
     const id = fileName.replace(/\.md$/, '')
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-
     const { data, content } = matter(fileContents)
     const category = data.category
 
@@ -59,7 +59,6 @@ export function getSortedPostsData() {
 export async function getPostData(category, id) {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
-
   const { data, content } = matter(fileContents)
 
   return {
@@ -72,6 +71,8 @@ export async function getPostData(category, id) {
 
 // Get a short arr of recent blogs and talks for the home page
 export async function getMostRecentPosts() {
+  const allEvents = await getAllTalkEvents()
+  const featuredTalks = sortByDateDesc(allEvents).splice(0, 3)
   const recentBlogs = getSortedPostsData().splice(0, 2)
   const featuredBlogs = recentBlogs.map((post) => {
     return {
@@ -79,29 +80,5 @@ export async function getMostRecentPosts() {
     }
   })
 
-  const fetchedTalks = await fetch(TALK_URL)
-  const allTalks = await fetchedTalks.json()
-  const allEvents = allTalks.flatMap((talk) =>
-    talk.presentedAt.map((event) => ({
-      id: talk.title,
-      date: event.eventDate,
-      title: talk.title,
-      event: event.eventName,
-      location: event.location,
-      href: '/talks',
-      description: talk.description
-        ? talk.description
-        : 'Longer description coming soon.',
-      shortDescription: `Presented at ${
-        event.eventType == 'meetup'
-          ? `the ${event.eventName} meetup`
-          : event.eventName
-      }${
-        event.location !== 'virtual' ? ` in ${event.location}.` : ', online.'
-      }`,
-    }))
-  )
-
-  const featuredTalks = sortByDateDesc(allEvents).splice(0, 3)
   return [...featuredBlogs, ...featuredTalks]
 }

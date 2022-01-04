@@ -19,6 +19,7 @@ export default function Post({ postData }) {
           <FormattedDate dateString={postData.date} withDOW />{' '}
           <Category category={postData.category} />
         </div>
+
         <ReactMarkdown
           components={{
             code({ node, inline, className, children, ...props }) {
@@ -41,6 +42,7 @@ export default function Post({ postData }) {
           {postData.content}
         </ReactMarkdown>
       </article>
+
       <div className={utilStyles.backToHome}>
         <Link href="/blog">
           <a>← Back to blog</a>
