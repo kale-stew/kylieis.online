@@ -7,14 +7,28 @@
     transform: translateY(0);
   }
   20% {
-    -webkit-transform: translateY(-12px);
-    -ms-transform: translateY(-12px);
-    transform: translateY(-12px);
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
   }
   60% {
-    -webkit-transform: translateY(12px);
-    -ms-transform: translateY(12px);
-    transform: translateY(12px);
+    -webkit-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+}
+
+@keyframes jump {
+  0%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
   }
 }
 
@@ -38,6 +52,10 @@
 
 .centerText {
   text-align: center;
+}
+
+.copyright a:hover {
+  text-decoration: underline;
 }
 
 .heading2Xl {
@@ -65,12 +83,12 @@
   line-height: 1.5;
 }
 
-.padding1px {
-  padding-top: 1px;
-}
-
 .lightText {
   color: #666;
+}
+
+.padding1px {
+  padding-top: 1px;
 }
 
 .roundImage {
@@ -81,6 +99,27 @@
   display: flex;
   align-items: center;
   gap: 1em;
+}
+
+.socialIcons {
+  width: max-content;
+  margin-right: 3vw;
+}
+
+.socialIcons a {
+  margin: 0 0.5em;
+  cursor: pointer;
+}
+
+.socialIcons a > svg {
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.socialIcons a > svg:hover {
+  animation: jump 0.5s;
+  -moz-animation: jump 0.5s;
+  animation-iteration-count: infinite;
 }
 
 .vertical {
@@ -95,5 +134,9 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1em;
+  }
+
+  .socialIcons {
+    margin: 0 0 1vh 0;
   }
 }

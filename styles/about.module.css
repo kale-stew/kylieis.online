@@ -10,15 +10,6 @@
   margin-bottom: 3em;
 }
 
-.socialIcons {
-  display: flex;
-  align-items: center;
-}
-
-.socialIcons a {
-  margin: 0 1em;
-}
-
 @media (max-width: 1024px) {
   .aboutBlockText {
     margin: auto;
