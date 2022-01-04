@@ -5,12 +5,13 @@
   border-collapse: collapse;
   border: 1px gainsboro;
   border-radius: 1rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: #c921c866 -5px 5px, #c921c84d -10px 10px, #c921c833 -15px 15px,
+    #c921c81a -20px 20px;
 }
 
 .talkCardWrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
   grid-column-gap: 2em;
   grid-row-gap: 2.25em;
   margin: 2.2em 0;
@@ -37,10 +38,12 @@
   color: #ff2dd1;
   padding: 0 1rem 0 0;
   margin: 0 1rem 0 0;
+  cursor: pointer;
 }
 
 .flipButton:hover {
   background-color: white;
+  text-decoration: underline;
 }
 
 .titleLink:hover {
@@ -58,22 +61,28 @@
 
 @media (max-width: 1024px) {
   .talkCardWrapper {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: 3em;
     grid-row-gap: 2.75em;
+  }
+
+  .flipButton {
+    padding: 0;
+    margin: 0;
   }
 }
 
 @media (max-width: 710px) {
   .talkCard {
     text-align: center;
+    box-shadow: #c921c866 0px 5px, #c921c84d 0px 10px, #c921c833 0px 15px,
+      #c921c81a 0px 20px;
   }
 
   .talkCardWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 320px;
     margin: auto auto 2rem auto;
   }
 }

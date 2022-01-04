@@ -1,7 +1,8 @@
 .header a {
+  text-decoration: none;
+  color: white;
   font-size: 1.25rem;
   padding: 1.5rem;
-  text-decoration: none;
   margin-top: 1.4rem;
 }
 
@@ -16,29 +17,31 @@
   font-family: 'Bree Serif', serif;
 }
 
-.landingPage {
-  width: 100%;
-  color: #0794e0;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 750px;
+  max-width: 60vw;
   margin: auto;
   padding-bottom: 4em;
 }
 
 @media (max-width: 1024px) {
-  .wrapper {
-    width: auto;
-    margin: 0 6em;
+  .header {
+    font-size: 14px;
+    padding: 0.4rem;
   }
 
-  .navigation a {
-    font-size: 17.5px;
-    padding: none;
+  .wrapper {
+    max-width: 85vw;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 710px) {
+  .wrapper {
+    width: 75vw;
+    margin: 0 auto;
   }
 }

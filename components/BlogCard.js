@@ -6,7 +6,7 @@ import styles from './BlogCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const BlogCard = ({ item }) => (
-  <div className={styles.blogCard}>
+  <div className={`${utilStyles.card} ${styles.blogCard}`}>
     <h2 className={styles.titleLink}>
       <Link
         className={styles.blogCardTitle}

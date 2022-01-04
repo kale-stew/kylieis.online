@@ -1,10 +1,4 @@
-import {
-  FaGithub,
-  FaFlickr,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { MdOutlineMail } from 'react-icons/md'
 import { SocialLinks } from '../utils/constants'
 
@@ -18,14 +12,8 @@ const Footer = () => (
     <a target="_blank" href={SocialLinks.Twitter}>
       <FaTwitter />
     </a>
-    <a target="_blank" href={SocialLinks.Flickr}>
-      <FaFlickr />
-    </a>
     <a target="_blank" href={SocialLinks.LinkedIn}>
       <FaLinkedinIn />
-    </a>
-    <a target="_blank" href={SocialLinks.Instagram}>
-      <FaInstagram />
     </a>
     <a target="_blank" href={SocialLinks.Github}>
       <FaGithub />

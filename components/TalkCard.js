@@ -4,6 +4,7 @@ import ReactCardFlip from 'react-card-flip'
 import { formatDate } from '../utils/helpers'
 
 import styles from './TalkCard.module.css'
+import utilStyles from '../styles/utils.module.css'
 
 const TalkCard = ({ item, page }) => {
   const [isFlipped, setFlip] = useState(false)
@@ -51,7 +52,7 @@ const TalkCard = ({ item, page }) => {
 
   return (
     <ReactCardFlip isFlipped={isFlipped} infinite>
-      <div className={styles.talkCard}>
+      <div className={`${utilStyles.card} ${styles.talkCard}`}>
         {page == 'home' ? (
           <h2 className={styles.titleLink}>
             <Link
@@ -71,7 +72,7 @@ const TalkCard = ({ item, page }) => {
         <FlipButton />
       </div>
 
-      <div className={styles.talkCard}>
+      <div className={`${utilStyles.card} ${styles.talkCard}`}>
         {item.presentedAt ? (
           <>
             <h3>Presented At</h3>
