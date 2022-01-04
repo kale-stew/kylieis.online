@@ -12,6 +12,7 @@ async function defaultSocialImage({ title, baseName }) {
 
   return {
     title,
+    baseName,
     ogImage: path.basename(ogImage),
   }
 }
@@ -29,6 +30,7 @@ async function socialImage({ title, description, baseName }) {
   return {
     title,
     description,
+    baseName,
     ogImage: path.basename(ogImage),
   }
 }

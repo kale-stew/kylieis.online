@@ -12,26 +12,24 @@ import utilStyles from '../styles/utils.module.css'
 export default function BlogLandingPage({ allPostsData, title }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>
-    Object.entries(CATEGORY_TYPE).map(([key, value]) => {
-      return (
-        <button
-          className={
+    Object.entries(CATEGORY_TYPE).map(([key, value]) => (
+      <button
+        className={
+          viewCategory === CATEGORY_TYPE[key]
+            ? `${styles.categorySelected} ${styles.categoryButton}`
+            : styles.categoryButton
+        }
+        onClick={() =>
+          setCategory(
             viewCategory === CATEGORY_TYPE[key]
-              ? `${styles.categorySelected} ${styles.categoryButton}`
-              : styles.categoryButton
-          }
-          onClick={() =>
-            setCategory(
-              viewCategory === CATEGORY_TYPE[key]
-                ? CATEGORY_TYPE.ALL
-                : CATEGORY_TYPE[key]
-            )
-          }
-        >
-          {value === 'all' ? value : `#${value}`}
-        </button>
-      )
-    })
+              ? CATEGORY_TYPE.ALL
+              : CATEGORY_TYPE[key]
+          )
+        }
+      >
+        {value === 'all' ? value : `#${value}`}
+      </button>
+    ))
 
   return (
     <Layout>

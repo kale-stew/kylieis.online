@@ -11,6 +11,7 @@ const CustomHead = (pageProps) => {
     }
     return `https://${METADATA.SITE_NAME}/${pageProps.baseName}`
   }
+
   const description = pageProps.description
     ? pageProps.description
     : `${METADATA.NAME} is a web developer and public speaker creating content.`
