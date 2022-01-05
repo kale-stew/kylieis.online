@@ -5,12 +5,15 @@ import Link from 'next/link'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/constants'
-import { getAllPostIds, getPostData } from '../../utils/data/posts'
+import { getAllPostIds } from '../../utils/data/posts'
+import { getBlogPostData } from '../../utils/data/blog'
+import { getTalkData } from '../../utils/data/talks'
 import { socialImage } from '../../utils/preview-cards'
 
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Post({ postData }) {
+  const isTalk = postData.category === 'talks'
   return (
     <Layout>
       <article>
@@ -44,17 +47,22 @@ export default function Post({ postData }) {
       </article>
 
       <div className={utilStyles.backToHome}>
-        <Link href="/blog">
-          <a>← Back to blog</a>
-        </Link>
+        {isTalk ? (
+          <Link href="/talks">
+            <a>← Back to all talks</a>
+          </Link>
+        ) : (
+          <Link href="/blog">
+            <a>← Back to blog</a>
+          </Link>
+        )}
       </div>
     </Layout>
   )
 }
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
-
+  const paths = await getAllPostIds()
   return {
     paths,
     fallback: false,
@@ -62,7 +70,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.category, params.id)
+  const postData =
+    params.category === 'talks'
+      ? await getTalkData(params.id)
+      : await getBlogPostData(params.category, params.id)
   const title = postData.title
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 

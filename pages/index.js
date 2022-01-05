@@ -27,8 +27,7 @@ export default function HomePage({ featuredPosts }) {
       </h1>
       <div className={talkStyles.talkCardWrapper}>
         {featuredPosts.map(
-          (post) =>
-            post.event && <TalkCard key={post.id} item={post} page={'home'} />
+          (post) => post.event && <TalkCard key={post.id} item={post} />
         )}
       </div>
     </Layout>

@@ -1,34 +1,52 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { CONTENT_DIRECTORY } from '../constants'
+import { BLOG_POSTS_DIR } from './blog.js'
 import { sortByDateDesc } from '../helpers'
-import { getAllTalkEvents } from './talks'
+import { getAllTalkEvents, getTalkIds } from './talks'
 
-const postsDirectory = path.join(process.cwd(), CONTENT_DIRECTORY)
+// Create post params for any category
+const createPostParams = ({ categoryArr, categoryStr, itemNames }) =>
+  categoryArr
+    ? categoryArr.map((e, i) => {
+        return { categoryName: e, id: itemNames[i].replace(/\.md$/, '') }
+      })
+    : categoryStr
+    ? itemNames.map((e) => {
+        return { categoryName: categoryStr, id: e }
+      })
+    : null
 
 // Get all the post IDs
-export function getAllPostIds() {
-  const allFileNames = fs.readdirSync(postsDirectory)
+export async function getAllPostIds() {
+  const blogFileNames = fs.readdirSync(BLOG_POSTS_DIR)
+  const talkItemNames = await getTalkIds()
 
   let categoryNames = []
-  allFileNames.forEach(function (file) {
-    const fullPath = path.join(postsDirectory, file)
+  blogFileNames.forEach(function (file) {
+    const fullPath = path.join(BLOG_POSTS_DIR, file)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data } = matter(fileContents)
     const category = data.category
     categoryNames.push(category)
   })
 
-  const postParams = categoryNames.map(function (e, i) {
-    return { categoryName: e, id: allFileNames[i] }
+  const blogParams = createPostParams({
+    categoryArr: categoryNames,
+    itemNames: blogFileNames,
   })
+  const talkParams = createPostParams({
+    categoryStr: 'talks',
+    itemNames: talkItemNames,
+  })
+
+  const postParams = [...blogParams, ...talkParams]
 
   return postParams.map((postParam) => {
     return {
       params: {
         category: postParam.categoryName,
-        id: postParam.id.replace(/\.md$/, ''),
+        id: postParam.id,
       },
     }
   })
@@ -36,10 +54,10 @@ export function getAllPostIds() {
 
 // Get all post data except content, sorted by desc date
 export function getSortedPostsData() {
-  const allFileNames = fs.readdirSync(postsDirectory)
+  const allFileNames = fs.readdirSync(BLOG_POSTS_DIR)
   const allFileData = allFileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '')
-    const fullPath = path.join(postsDirectory, fileName)
+    const fullPath = path.join(BLOG_POSTS_DIR, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     const category = data.category
@@ -53,20 +71,6 @@ export function getSortedPostsData() {
   })
 
   return sortByDateDesc(allFileData)
-}
-
-// Get data for an single post
-export async function getPostData(category, id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
-
-  return {
-    id,
-    content,
-    category,
-    ...data,
-  }
 }
 
 // Get a short arr of recent blogs and talks for the home page
