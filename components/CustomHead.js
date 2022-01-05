@@ -26,7 +26,7 @@ const CustomHead = (pageProps) => {
     <Head>
       <meta property="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@kyliestew" />
-      <meta name="twitter:title" content={pageProps.title} />
+      <meta name="twitter:title" content={getPageTitle()} />
       <meta name="twitter:description" content={getPageDescription()} />
       <meta
         property="twitter:image"
@@ -39,7 +39,7 @@ const CustomHead = (pageProps) => {
       <meta property="og:type" content="website" />
       <meta property="og:url" content={getPageUrl()} />
 
-      <meta property="og:title" content={pageProps.title} />
+      <meta property="og:title" content={getPageTitle()} />
       <title>{getPageTitle()}</title>
 
       <meta property="og:description" content={getPageDescription()} />
