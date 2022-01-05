@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
-import { getSortedPostsData } from '../utils/posts'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
+import { getSortedPostsData } from '../utils/data/posts'
 
 import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'

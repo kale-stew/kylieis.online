@@ -1,9 +1,10 @@
-import { TALK_URL } from './constants'
+import { TALK_URL } from '../constants'
 
 // Get a flatmap of every event ever spoken at
 export async function getAllTalkEvents() {
   const fetchedTalks = await fetch(TALK_URL)
   const allTalks = await fetchedTalks.json()
+
   return allTalks.flatMap((talk) =>
     talk.presentedAt.map((event) => ({
       id: talk.title,

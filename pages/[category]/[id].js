@@ -5,7 +5,7 @@ import Link from 'next/link'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/constants'
-import { getAllPostIds, getPostData } from '../../utils/posts'
+import { getAllPostIds, getPostData } from '../../utils/data/posts'
 import { socialImage } from '../../utils/preview-cards'
 
 import utilStyles from '../../styles/utils.module.css'

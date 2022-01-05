@@ -1,8 +1,8 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { CONTENT_DIRECTORY } from './constants'
-import { sortByDateDesc } from './helpers'
+import { CONTENT_DIRECTORY } from '../constants'
+import { sortByDateDesc } from '../helpers'
 import { getAllTalkEvents } from './talks'
 
 const postsDirectory = path.join(process.cwd(), CONTENT_DIRECTORY)
