@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+
 const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
 export const ALL_TALK_DATA = `${TALK_PREFIX}/talks.json`
@@ -13,13 +14,11 @@ async function getAllTalks() {
 export async function getAllTalkEvents() {
   const allTalks = await getAllTalks()
 
-  return allTalks.flatMap((talk) =>
+  return allTalks.flatMap(({ title, id, ...talk }) =>
     talk.presentedAt.map((event) => ({
-      id: talk.id,
+      id,
+      title,
       date: event.eventDate,
-      title: talk.title,
-      event: event.eventName,
-      location: event.location,
       description: talk.description
         ? talk.description
         : 'Longer description coming soon.',
@@ -49,10 +48,12 @@ export async function getTalkData(id) {
   )
   const text = await fetchedReadme.text()
   const { data, content } = matter(text)
+  const categories = data.category.split(',')
+  categories.unshift('talks')
 
   return {
     id,
-    category: 'talks',
+    category: categories,
     content,
     title: data.title ? data.title : match.title,
     date: match.presentedAt[0].eventDate,

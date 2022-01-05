@@ -14,14 +14,20 @@ import buttonStyles from '../../components/Button.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Post({ postData }) {
-  const isTalk = postData.category === 'talks'
+  const isTalk = postData.category.includes('talks')
   return (
     <Layout>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={`${utilStyles.lightText} ${utilStyles.singleRow}`}>
           <FormattedDate dateString={postData.date} withDOW />{' '}
-          <Category category={postData.category} />
+          {postData.category.includes('talks') ? (
+            postData.category.map((category) => (
+              <Category category={category} />
+            ))
+          ) : (
+            <Category category={postData.category} />
+          )}
         </div>
 
         <ReactMarkdown

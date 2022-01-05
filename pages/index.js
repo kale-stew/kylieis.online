@@ -17,7 +17,8 @@ export default function HomePage({ featuredPosts }) {
       </h1>
       <div className={blogStyles.blogCardWrapper}>
         {featuredPosts.map(
-          (post) => !post.event && <BlogCard key={post.id} item={post} />
+          (post) =>
+            !post.shortDescription && <BlogCard key={post.id} item={post} />
         )}
       </div>
 
@@ -27,7 +28,8 @@ export default function HomePage({ featuredPosts }) {
       </h1>
       <div className={talkStyles.talkCardWrapper}>
         {featuredPosts.map(
-          (post) => post.event && <TalkCard key={post.id} item={post} />
+          (post) =>
+            post.shortDescription && <TalkCard key={post.id} item={post} />
         )}
       </div>
     </Layout>
