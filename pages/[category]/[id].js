@@ -10,6 +10,7 @@ import { getBlogPostData } from '../../utils/data/blog'
 import { getTalkData } from '../../utils/data/talks'
 import { socialImage } from '../../utils/preview-cards'
 
+import buttonStyles from '../../components/Button.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Post({ postData }) {
@@ -46,7 +47,11 @@ export default function Post({ postData }) {
         </ReactMarkdown>
       </article>
 
-      <div className={utilStyles.backToHome}>
+      <div
+        className={`${buttonStyles.backToPosts} ${
+          isTalk ? buttonStyles.talkButton : buttonStyles.blogButton
+        }`}
+      >
         {isTalk ? (
           <Link href="/talks">
             <a>← Back to all talks</a>
