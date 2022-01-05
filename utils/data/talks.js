@@ -1,3 +1,4 @@
+import matter from 'gray-matter'
 const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
 export const ALL_TALK_DATA = `${TALK_PREFIX}/talks.json`
@@ -43,13 +44,14 @@ export async function getTalkData(id) {
   const fetchedReadme = await fetch(
     `${TALK_PREFIX}/${match.year}/${id}/README.md`
   )
-  const content = await fetchedReadme.text()
+  const text = await fetchedReadme.text()
+  const { data, content } = matter(text)
 
   return {
     id,
     category: 'talks',
     content,
-    title: match.title,
+    title: data.title,
     date: match.presentedAt[0].eventDate,
     description: match.description,
   }
