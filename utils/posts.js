@@ -72,7 +72,7 @@ export async function getPostData(category, id) {
 // Get a short arr of recent blogs and talks for the home page
 export async function getMostRecentPosts() {
   const allEvents = await getAllTalkEvents()
-  const featuredTalks = sortByDateDesc(allEvents).splice(0, 3)
+  const featuredTalks = sortByDateDesc(allEvents).splice(0, 4)
   const recentBlogs = getSortedPostsData().splice(0, 2)
   const featuredBlogs = recentBlogs.map((post) => {
     return {

@@ -52,7 +52,7 @@ const TalkCard = ({ item, page }) => {
 
   return (
     <ReactCardFlip isFlipped={isFlipped} infinite>
-      <div className={`${utilStyles.card} ${styles.talkCard}`}>
+      <div className={styles.talkCard}>
         {page == 'home' ? (
           <h2 className={styles.titleLink}>
             <Link
@@ -72,7 +72,7 @@ const TalkCard = ({ item, page }) => {
         <FlipButton />
       </div>
 
-      <div className={`${utilStyles.card} ${styles.talkCard}`}>
+      <div className={styles.talkCard}>
         {item.presentedAt ? (
           <>
             <h3>Presented At</h3>
