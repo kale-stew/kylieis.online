@@ -59,12 +59,16 @@ a {
   text-decoration: none;
 }
 
-p a {
+p a,
+ul a,
+ol a {
   color: #c921c8;
   font-weight: 500;
 }
 
-p a:hover {
+p a:hover,
+ul a:hover,
+ol a:hover {
   text-decoration: none;
   box-shadow: inset 0 -2px 0 0 #c921c9a9;
 }

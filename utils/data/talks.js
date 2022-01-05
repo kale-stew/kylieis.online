@@ -3,10 +3,15 @@ const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
 export const ALL_TALK_DATA = `${TALK_PREFIX}/talks.json`
 
+async function getAllTalks() {
+  const fetched = await fetch(ALL_TALK_DATA)
+  const allTalks = await fetched.json()
+  return allTalks
+}
+
 // Get a flatmap of every event ever spoken at
 export async function getAllTalkEvents() {
-  const fetchedTalks = await fetch(ALL_TALK_DATA)
-  const allTalks = await fetchedTalks.json()
+  const allTalks = await getAllTalks()
 
   return allTalks.flatMap((talk) =>
     talk.presentedAt.map((event) => ({
@@ -31,14 +36,12 @@ export async function getAllTalkEvents() {
 
 // Get a simple arr of only titles
 export async function getTalkIds() {
-  const fetched = await fetch(ALL_TALK_DATA)
-  const allTalks = await fetched.json()
+  const allTalks = await getAllTalks()
   return allTalks.map((talk) => talk.id)
 }
 
 export async function getTalkData(id) {
-  const fetched = await fetch(ALL_TALK_DATA)
-  const allTalks = await fetched.json()
+  const allTalks = await getAllTalks()
   const match = allTalks.find((talk) => talk.id === id)
 
   const fetchedReadme = await fetch(
@@ -51,7 +54,7 @@ export async function getTalkData(id) {
     id,
     category: 'talks',
     content,
-    title: data.title,
+    title: data.title ? data.title : match.title,
     date: match.presentedAt[0].eventDate,
     description: match.description,
   }
