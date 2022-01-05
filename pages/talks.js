@@ -1,6 +1,7 @@
 import TalkCard from '../components/TalkCard'
 import Layout from '../components/Layout'
-import { METADATA, TALK_URL } from '../utils/constants'
+import { METADATA } from '../utils/constants'
+import { ALL_TALK_DATA } from '../utils/data/talks'
 import { socialImage } from '../utils/preview-cards'
 
 import cardStyles from '../components/TalkCard.module.css'
@@ -24,7 +25,7 @@ export default function Talks({ talks, title }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(TALK_URL)
+  const res = await fetch(ALL_TALK_DATA)
   const talks = await res.json()
   const title = 'Technical Talks & Presentations'
   const description = `${METADATA.NAME} is talking about Javascript, open source, GraphQL, and more.`

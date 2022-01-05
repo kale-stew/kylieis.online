@@ -98,11 +98,6 @@
   font-size: 15px;
 }
 
-.blogCardTitle {
-  font-size: 1.5rem;
-  color: #020202;
-}
-
 .categoryWrapper {
   padding: 0 0.25rem;
   display: flex;
@@ -110,8 +105,15 @@
   justify-content: flex-start;
 }
 
-.titleLink:hover {
+.titleLink a {
+  font-size: 1.5rem;
+  color: #1b1b1b;
+  font-weight: 300;
+}
+
+.titleLink a:hover {
   text-decoration: underline;
+  box-shadow: none;
 }
 
 @media (max-width: 1024px) {

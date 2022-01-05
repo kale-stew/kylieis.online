@@ -25,9 +25,6 @@ export const SocialLinks = {
   Twitter: 'https://twitter.com/kyliestew',
 }
 
-export const TALK_URL =
-  'https://raw.githubusercontent.com/kale-stew/all-talks/main/content/talks.json'
-
 export const THEME = {
   LIGHT: 'light',
   DARK: 'dark',

@@ -5,19 +5,29 @@ import Link from 'next/link'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/constants'
-import { getAllPostIds, getPostData } from '../../utils/posts'
+import { getAllPostIds } from '../../utils/data/posts'
+import { getBlogPostData } from '../../utils/data/blog'
+import { getTalkData } from '../../utils/data/talks'
 import { socialImage } from '../../utils/preview-cards'
 
+import buttonStyles from '../../components/Button.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Post({ postData }) {
+  const isTalk = postData.category.includes('talks')
   return (
     <Layout>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={`${utilStyles.lightText} ${utilStyles.singleRow}`}>
           <FormattedDate dateString={postData.date} withDOW />{' '}
-          <Category category={postData.category} />
+          {postData.category.includes('talks') ? (
+            postData.category.map((category) => (
+              <Category category={category} />
+            ))
+          ) : (
+            <Category category={postData.category} />
+          )}
         </div>
 
         <ReactMarkdown
@@ -43,18 +53,27 @@ export default function Post({ postData }) {
         </ReactMarkdown>
       </article>
 
-      <div className={utilStyles.backToHome}>
-        <Link href="/blog">
-          <a>← Back to blog</a>
-        </Link>
+      <div
+        className={`${buttonStyles.backToPosts} ${
+          isTalk ? buttonStyles.talkButton : buttonStyles.blogButton
+        }`}
+      >
+        {isTalk ? (
+          <Link href="/talks">
+            <a>← Back to all talks</a>
+          </Link>
+        ) : (
+          <Link href="/blog">
+            <a>← Back to blog</a>
+          </Link>
+        )}
       </div>
     </Layout>
   )
 }
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
-
+  const paths = await getAllPostIds()
   return {
     paths,
     fallback: false,
@@ -62,7 +81,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.category, params.id)
+  const postData =
+    params.category === 'talks'
+      ? await getTalkData(params.id)
+      : await getBlogPostData(params.category, params.id)
   const title = postData.title
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 

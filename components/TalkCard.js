@@ -1,12 +1,11 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import ReactCardFlip from 'react-card-flip'
 import { formatDate } from '../utils/helpers'
+import { useState } from 'react'
 
 import styles from './TalkCard.module.css'
-import utilStyles from '../styles/utils.module.css'
 
-const TalkCard = ({ item, page }) => {
+const TalkCard = ({ item }) => {
   const [isFlipped, setFlip] = useState(false)
   const handleClick = (e) => {
     e.preventDefault()
@@ -53,18 +52,17 @@ const TalkCard = ({ item, page }) => {
   return (
     <ReactCardFlip isFlipped={isFlipped} infinite>
       <div className={styles.talkCard}>
-        {page == 'home' ? (
+        {
           <h2 className={styles.titleLink}>
             <Link
-              href={item.href}
+              href="/talks/[id]"
+              as={`/talks/${item.id}`}
               alt={`See more information about this talk: '${item.title}.'`}
             >
               {item.title}
             </Link>
           </h2>
-        ) : (
-          <h2>{item.title}</h2>
-        )}
+        }
         {item.date && <small>{formatDate(item.date)}</small>}
         <p>
           {item.shortDescription ? item.shortDescription : item.description}

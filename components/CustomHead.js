@@ -3,6 +3,16 @@ import { FacebookOpenGraph } from '@resoc/core'
 import { METADATA } from '../utils/constants'
 
 const CustomHead = (pageProps) => {
+  const getPageTitle = () =>
+    pageProps.title === METADATA.SITE_NAME
+      ? `${METADATA.NAME} · software engineer, speaker, creator`
+      : `${pageProps.title} · ${METADATA.SITE_NAME}`
+
+  const getPageDescription = () =>
+    pageProps.description
+      ? pageProps.description
+      : `${METADATA.NAME} is a web developer and public speaker creating content.`
+
   const getPageUrl = () => {
     if (pageProps.baseName && pageProps.baseName.indexOf('post-') === 0) {
       return `https://${METADATA.SITE_NAME}/${pageProps.postData.category}/${pageProps.postData.id}`
@@ -12,16 +22,12 @@ const CustomHead = (pageProps) => {
     return `https://${METADATA.SITE_NAME}/${pageProps.baseName}`
   }
 
-  const description = pageProps.description
-    ? pageProps.description
-    : `${METADATA.NAME} is a web developer and public speaker creating content.`
-
   return (
     <Head>
       <meta property="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@kyliestew" />
       <meta name="twitter:title" content={pageProps.title} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={getPageDescription()} />
       <meta
         property="twitter:image"
         content={`https://raw.githubusercontent.com/kale-stew/kyliestewart.tech/main/public/open-graph/${pageProps.ogImage}`}
@@ -34,10 +40,10 @@ const CustomHead = (pageProps) => {
       <meta property="og:url" content={getPageUrl()} />
 
       <meta property="og:title" content={pageProps.title} />
-      <title>{`${pageProps.title} · ${METADATA.SITE_NAME}`}</title>
+      <title>{getPageTitle()}</title>
 
-      <meta property="og:description" content={description} />
-      <meta name="description" content={description} />
+      <meta property="og:description" content={getPageDescription()} />
+      <meta name="description" content={getPageDescription()} />
     </Head>
   )
 }

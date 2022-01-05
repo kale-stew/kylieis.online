@@ -1,0 +1,80 @@
+@keyframes blog-accordion {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    box-shadow: #2f11b166 -5px 5px, #2f11b14d -10px 10px;
+  }
+  20% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+    box-shadow: #2f11b166 -5px 8px, #2f11b14d -10px 15px;
+  }
+  60% {
+    -webkit-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    transform: translateY(10px);
+    box-shadow: #2f11b166 -5px 2.5px, #2f11b14d -10px 5px;
+  }
+}
+
+@keyframes talk-accordion {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    box-shadow: #c921c866 -5px 5px, #c921c84d -10px 10px;
+  }
+  20% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+    box-shadow: #c921c866 -5px 8px, #c921c84d -10px 15px;
+  }
+  60% {
+    -webkit-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    transform: translateY(10px);
+    box-shadow: #c921c866 -5px 2.5px, #c921c84d -10px 5px;
+  }
+}
+
+.backToPosts {
+  margin: 7vh 0;
+  cursor: pointer;
+}
+
+.backToPosts {
+  padding: 0.5em 0.75em;
+  border-radius: 5em;
+  width: max-content;
+  font-size: 13.5px;
+}
+
+.backToPosts a {
+  color: white;
+  font-weight: 600;
+}
+
+.blogButton {
+  background-color: #2000acdc;
+  box-shadow: #2f11b166 -5px 5px, #2f11b14d -10px 10px;
+}
+
+.blogButton:hover {
+  animation: blog-accordion 0.5s ease-in-out;
+}
+
+.talkButton {
+  background-color: #c921c8da;
+  box-shadow: #c921c866 -5px 5px, #c921c84d -10px 10px;
+}
+
+.talkButton:hover {
+  animation: talk-accordion 0.5s ease-in-out;
+}

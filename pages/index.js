@@ -2,8 +2,8 @@ import BlogCard from '../components/BlogCard'
 import TalkCard from '../components/TalkCard'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
-import { getMostRecentPosts } from '../utils/posts'
 import { defaultSocialImage } from '../utils/preview-cards'
+import { getMostRecentPosts } from '../utils/data/posts'
 
 import blogStyles from '../components/BlogCard.module.css'
 import talkStyles from '../components/TalkCard.module.css'
@@ -17,7 +17,8 @@ export default function HomePage({ featuredPosts }) {
       </h1>
       <div className={blogStyles.blogCardWrapper}>
         {featuredPosts.map(
-          (post) => !post.event && <BlogCard key={post.id} item={post} />
+          (post) =>
+            !post.shortDescription && <BlogCard key={post.id} item={post} />
         )}
       </div>
 
@@ -28,7 +29,7 @@ export default function HomePage({ featuredPosts }) {
       <div className={talkStyles.talkCardWrapper}>
         {featuredPosts.map(
           (post) =>
-            post.event && <TalkCard key={post.id} item={post} page={'home'} />
+            post.shortDescription && <TalkCard key={post.id} item={post} />
         )}
       </div>
     </Layout>
