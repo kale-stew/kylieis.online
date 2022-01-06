@@ -17,6 +17,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "date-fns": "^2.27.0",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",

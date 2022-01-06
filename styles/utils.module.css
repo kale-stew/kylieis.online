@@ -50,7 +50,7 @@
 }
 
 .lightText {
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .padding1px {

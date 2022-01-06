@@ -5,19 +5,20 @@
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
-    box-shadow: #2f11b166 -5px 5px, #2f11b14d -10px 10px;
+    box-shadow: var(--color-purple-1) -5px 5px, var(--color-purple-2) -10px 10px;
   }
   20% {
     -webkit-transform: translateY(-10px);
     -ms-transform: translateY(-10px);
     transform: translateY(-10px);
-    box-shadow: #2f11b166 -5px 8px, #2f11b14d -10px 15px;
+    box-shadow: var(--color-purple-1) -5px 8px, var(--color-purple-2) -10px 15px;
   }
   60% {
     -webkit-transform: translateY(10px);
     -ms-transform: translateY(10px);
     transform: translateY(10px);
-    box-shadow: #2f11b166 -5px 2.5px, #2f11b14d -10px 5px;
+    box-shadow: var(--color-purple-1) -5px 2.5px,
+      var(--color-purple-2) -10px 5px;
   }
 }
 
@@ -28,19 +29,19 @@
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
-    box-shadow: #c921c866 -5px 5px, #c921c84d -10px 10px;
+    box-shadow: var(--color-pink-1) -5px 5px, var(--color-pink-2) -10px 10px;
   }
   20% {
     -webkit-transform: translateY(-10px);
     -ms-transform: translateY(-10px);
     transform: translateY(-10px);
-    box-shadow: #c921c866 -5px 8px, #c921c84d -10px 15px;
+    box-shadow: var(--color-pink-1) -5px 8px, var(--color-pink-2) -10px 15px;
   }
   60% {
     -webkit-transform: translateY(10px);
     -ms-transform: translateY(10px);
     transform: translateY(10px);
-    box-shadow: #c921c866 -5px 2.5px, #c921c84d -10px 5px;
+    box-shadow: var(--color-pink-1) -5px 2.5px, var(--color-pink-2) -10px 5px;
   }
 }
 
@@ -62,8 +63,8 @@
 }
 
 .blogButton {
-  background-color: #2000acdc;
-  box-shadow: #2f11b166 -5px 5px, #2f11b14d -10px 10px;
+  background-color: var(--color-purple-0);
+  box-shadow: var(--color-purple-1) -5px 5px, var(--color-purple-2) -10px 10px;
 }
 
 .blogButton:hover {
@@ -71,10 +72,22 @@
 }
 
 .talkButton {
-  background-color: #c921c8da;
-  box-shadow: #c921c866 -5px 5px, #c921c84d -10px 10px;
+  background-color: var(--color-pink-0);
+  box-shadow: var(--color-pink-1) -5px 5px, var(--color-pink-2) -10px 10px;
 }
 
 .talkButton:hover {
   animation: talk-accordion 0.5s ease-in-out;
+}
+
+.toggleWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2vh 2vw 0 0;
+}
+
+@media (max-width: 1024px) {
+  .toggleWrapper {
+    padding: 3vh 5vw 0 0;
+  }
 }
