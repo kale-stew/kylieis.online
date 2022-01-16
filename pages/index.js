@@ -1,48 +1,47 @@
-import BlogCard from '../components/BlogCard'
-import TalkCard from '../components/TalkCard'
+// import Headshot from '../public/notion-kylie.png'
+// import Image from 'next/image'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getMostRecentPosts } from '../utils/data/posts'
 
-import blogStyles from '../components/BlogCard.module.css'
-import talkStyles from '../components/TalkCard.module.css'
+import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function HomePage({ featuredPosts }) {
+export default function HomePage(/*{ title, description }*/) {
   return (
     <Layout home>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        Recent Blog Posts
-      </h1>
-      <div className={blogStyles.blogCardWrapper}>
-        {featuredPosts.map(
-          (post) =>
-            !post.shortDescription && <BlogCard key={post.id} item={post} />
-        )}
-      </div>
-
-      <br />
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        Recent Tech Talks
-      </h1>
-      <div className={talkStyles.talkCardWrapper}>
-        {featuredPosts.map(
-          (post) =>
-            post.shortDescription && <TalkCard key={post.id} item={post} />
-        )}
+      {/* <Image src={Headshot} height={250} width={250} layout="intrinsic" /> */}
+      <div
+        className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
+      >
+        <p>
+          {METADATA.NAME} is a software engineer and technical speaker with
+          experience across the web stack. Her expertise lies primarily in API
+          design and the implementation of a number of Javascript frameworks.
+        </p>
+        <p>
+          She currently works as a freelance web developer and{' '}
+          <a href="https://notion.so" alt="Go to Notion's home page.">
+            Notion
+          </a>{' '}
+          Ambassador, helping her clients transition from other knowledge
+          management tools to an enterprise Notion setup while simultaneously
+          building user-friendly integrations using the API for them to leverage
+          internally.
+        </p>
       </div>
     </Layout>
   )
 }
 
 export async function getStaticProps() {
-  const featuredPosts = await getMostRecentPosts()
   const title = `${METADATA.SITE_NAME}`
+  const description = 'Web developer and public speaker.'
 
   return {
     props: {
-      featuredPosts,
+      title,
+      description,
       ...(await defaultSocialImage({
         title,
         baseName: 'home',
