@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react'
-import styled from '@emotion/styled'
-
 import buttonStyles from './Button.module.css'
+import styled from '@emotion/styled'
+import { useState, useEffect } from 'react'
+
+/**
+ * TODO:
+ *  - make a transparent square button
+ *  - use react-icons instead of emojis
+ */
 
 const ToggleButton = styled.button`
   --toggle-width: 80px;

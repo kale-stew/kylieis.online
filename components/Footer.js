@@ -4,6 +4,12 @@ import { SocialLinks, METADATA } from '../utils/constants'
 
 import utilStyles from '../styles/utils.module.css'
 
+/**
+ * TODO:
+ *  - no longer sticky, just display at the bottom of every page
+ *  - move social links to bottom of full-screen navigation
+ */
+
 const Footer = () => (
   <footer>
     <small className={utilStyles.copyright}>
