@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import Router from 'next/router'
+import Footer from './Footer'
 import HeaderNavigation from './HeaderNavigation'
 import Loading from './Loading'
-import Footer from './Footer'
+import Router from 'next/router'
+import { useState } from 'react'
 
 import styles from './Layout.module.css'
 

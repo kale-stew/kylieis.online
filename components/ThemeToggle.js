@@ -1,16 +1,16 @@
 import styled from '@emotion/styled'
-import { CgMoon } from 'react-icons/cg'
-import { FaRegSun } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 
 const ToggleButton = styled.button`
-  font-size: 1.5rem;
-  line-height: 1;
-  border: 0;
   cursor: pointer;
+  border: 2px solid var(--color-text-accent);
+  border-radius: 5px;
+  color: white;
+  font-size: 0.75rem;
   background: transparent;
   transition: background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-  color: var(--color-white);
+  margin: 0 auto;
+  width: max-content;
   &:focus:not(:focus-visible) {
     outline: none;
   }
@@ -31,7 +31,11 @@ const ThemeToggle = () => {
       type="button"
       onClick={() => setActiveTheme(inactiveTheme)}
     >
-      {activeTheme === 'light' ? <FaRegSun /> : <CgMoon />}
+      {activeTheme === 'light' ? (
+        <span>Toggle {inactiveTheme} mode</span>
+      ) : (
+        <span>Toggle {inactiveTheme} mode</span>
+      )}
     </ToggleButton>
   )
 }

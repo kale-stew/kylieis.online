@@ -14,6 +14,7 @@ export default function WritingPage({ allPostsData }) {
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => (
       <button
+        style={{ background: 'transparent' }}
         className={
           viewCategory === CATEGORY_TYPE[key]
             ? `${styles.categorySelected} ${styles.categoryButton}`
@@ -54,7 +55,7 @@ export default function WritingPage({ allPostsData }) {
                       : 'none',
                 }}
               >
-                <BlogCard item={post} />
+                <BlogCard post={post} />
               </li>
             ))}
           </ul>

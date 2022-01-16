@@ -1,10 +1,10 @@
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
+import { getMostRecentPosts } from '../utils/data/posts'
 
 import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
-import { getMostRecentPosts } from '../utils/data/posts'
 
 export default function HomePage({ recentPosts }) {
   return (

@@ -1,50 +1,98 @@
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import styled from '@emotion/styled'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import { IoMdClose } from 'react-icons/io'
+import { IoEllipsisVerticalOutline } from 'react-icons/io5'
 import { METADATA, SocialLinks } from '../utils/constants'
 import { MdOutlineMail } from 'react-icons/md'
+import { useState } from 'react'
 
-import styles from './Layout.module.css'
-import utilStyles from '../styles/utils.module.css'
+import styles from './HeaderNavigation.module.css'
 
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
   ssr: false,
 })
 
-/**
- * TODO:
- *  - turn into a toggle for full-screen nav (on mobile only?)
- *  - nav should have up to two screens, expand posts on click
- *  - properly display ThemeToggle
- */
+const MenuToggleButton = styled.button`
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  @media (max-width: 1024px) {
+    transform: rotate(90deg);
+  }
+`
 
-const HeaderNavigation = () => (
-  <header className={styles.header}>
-    <h2>
-      <Link href="/">{METADATA.SITE_NAME}</Link>
-    </h2>
-    <div className={styles.navLinks}>
-      <Link href="/writing">Writing</Link>
-      <Link href="/speaking">Speaking</Link>
-      {/* <Link href="/projects">Projects</Link> */}
-      {/* <Link href="/about">More About Kylie</Link> */}
-      <ThemeToggle />
-    </div>
-    <div className={utilStyles.socialIcons}>
-      <a href={SocialLinks.Email} network="email" target="_blank">
-        <MdOutlineMail />
-      </a>
-      <a href={SocialLinks.Twitter} target="_blank">
-        <FaTwitter />
-      </a>
-      <a href={SocialLinks.LinkedIn} target="_blank">
-        <FaLinkedinIn />
-      </a>
-      <a href={SocialLinks.Github} target="_blank">
-        <FaGithub />
-      </a>
-    </div>
-  </header>
-)
+const FullScreenNavigation = styled.div`
+  background-image: linear-gradient(
+    72deg,
+    var(--color-purple),
+    var(--color-pink)
+  );
+  z-index: 100;
+  width: 15vw;
+  height: min-content;
+  margin: auto 0 auto auto;
+  padding: 2vh 2vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 1rem;
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+    width: 85vw;
+    height: max-content;
+    -webkit-transform: translate3d(0, 0, 0);
+    align-items: center;
+    gap: 1;
+  }
+`
+
+const HeaderNavigation = () => {
+  const [showMenu, toggleShowMenu] = useState(false)
+
+  return (
+    <header>
+      <h2>
+        <Link href="/">{METADATA.SITE_NAME}</Link>
+      </h2>
+      {showMenu ? (
+        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)}>
+          <IoEllipsisVerticalOutline size="1.5rem" />
+        </MenuToggleButton>
+      ) : (
+        <FullScreenNavigation>
+          <MenuToggleButton
+            onClick={() => toggleShowMenu(!showMenu)}
+            style={{ textAlign: 'right', padding: 0 }}
+          >
+            <IoMdClose size="1rem" />
+          </MenuToggleButton>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Link href="/writing">Writing</Link>
+            <Link href="/speaking">Speaking</Link>
+            {/* <Link href="/projects">Projects</Link> */}
+            <Link href="/about">About Kylie</Link>
+          </div>
+          <div className={styles.socialIcons}>
+            <a href={SocialLinks.Email} network="email" target="_blank">
+              <MdOutlineMail />
+            </a>
+            <a href={SocialLinks.Twitter} target="_blank">
+              <FaTwitter />
+            </a>
+            <a href={SocialLinks.LinkedIn} target="_blank">
+              <FaLinkedinIn />
+            </a>
+            <a href={SocialLinks.Github} target="_blank">
+              <FaGithub />
+            </a>
+          </div>
+          <ThemeToggle />
+        </FullScreenNavigation>
+      )}
+    </header>
+  )
+}
 
 export default HeaderNavigation
