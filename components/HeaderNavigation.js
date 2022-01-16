@@ -64,7 +64,9 @@ const HeaderNavigation = ({ isHome }) => {
           >
             <IoMdClose size="1rem" />
           </MenuToggleButton>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', lineHeight: 2 }}
+          >
             {!isHome && <Link href="/">Home</Link>}
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>

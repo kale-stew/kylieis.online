@@ -10,6 +10,7 @@ const ToggleButton = styled.button`
   background: transparent;
   transition: background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
   margin: 0 auto;
+  padding: 0.4em;
   width: max-content;
   &:focus:not(:focus-visible) {
     outline: none;

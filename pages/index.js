@@ -2,16 +2,21 @@ import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
+import BlogCard from '../components/BlogCard'
+import TalkCard from '../components/TalkCard'
 
 import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function HomePage({ recentPosts }) {
+  console.log(recentPosts)
   return (
     <Layout home>
       <div
         className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
       >
+        <br />
+        <br />
         <p>
           {METADATA.NAME} is a software engineer and technical speaker with
           experience across the web stack. Her expertise lies primarily in API
@@ -19,7 +24,11 @@ export default function HomePage({ recentPosts }) {
         </p>
         <p>
           She currently works as a freelance web developer and{' '}
-          <a href="https://notion.so" alt="Go to Notion's home page.">
+          <a
+            href="https://notion.so"
+            alt="Go to Notion's home page."
+            target="_blank"
+          >
             Notion
           </a>{' '}
           Ambassador, helping her clients transition from other knowledge
@@ -29,12 +38,15 @@ export default function HomePage({ recentPosts }) {
         </p>
       </div>
       <h2>Recent Posts</h2>
-      {recentPosts.map((recentPost) => (
-        <>
-          <h3>{recentPost.title}</h3>
-          <p>{recentPost.description}</p>
-        </>
-      ))}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {recentPosts.map((recentPost) =>
+          recentPost.category ? (
+            <BlogCard post={recentPost} />
+          ) : (
+            <TalkCard item={recentPost} />
+          )
+        )}
+      </div>
     </Layout>
   )
 }
