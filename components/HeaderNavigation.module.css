@@ -33,9 +33,3 @@
   -moz-animation: jump 0.5s;
   animation-iteration-count: infinite;
 }
-
-@media (max-width: 1024px) {
-  .socialIcons {
-    width: 25vw;
-  }
-}

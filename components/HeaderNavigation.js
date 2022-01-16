@@ -2,8 +2,8 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import styled from '@emotion/styled'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
-import { IoMdClose } from 'react-icons/io'
 import { IoEllipsisVerticalOutline } from 'react-icons/io5'
+import { IoMdClose } from 'react-icons/io'
 import { METADATA, SocialLinks } from '../utils/constants'
 import { MdOutlineMail } from 'react-icons/md'
 import { useState } from 'react'
@@ -18,9 +18,6 @@ const MenuToggleButton = styled.button`
   background: transparent;
   color: white;
   cursor: pointer;
-  @media (max-width: 1024px) {
-    transform: rotate(90deg);
-  }
 `
 
 const FullScreenNavigation = styled.div`
@@ -39,16 +36,19 @@ const FullScreenNavigation = styled.div`
   border-radius: 5px;
   gap: 1rem;
   @media (max-width: 1024px) {
-    margin: 0 auto;
-    width: 85vw;
     height: max-content;
     -webkit-transform: translate3d(0, 0, 0);
-    align-items: center;
     gap: 1;
+  }
+  @media (max-width: 700px) {
+    margin: 0 0 auto auto;
+    width: 60vw;
+    padding: 1rem;
+    font-size: 18px;
   }
 `
 
-const HeaderNavigation = () => {
+const HeaderNavigation = ({ isHome }) => {
   const [showMenu, toggleShowMenu] = useState(false)
 
   return (
@@ -57,10 +57,6 @@ const HeaderNavigation = () => {
         <Link href="/">{METADATA.SITE_NAME}</Link>
       </h2>
       {showMenu ? (
-        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)}>
-          <IoEllipsisVerticalOutline size="1.5rem" />
-        </MenuToggleButton>
-      ) : (
         <FullScreenNavigation>
           <MenuToggleButton
             onClick={() => toggleShowMenu(!showMenu)}
@@ -69,6 +65,7 @@ const HeaderNavigation = () => {
             <IoMdClose size="1rem" />
           </MenuToggleButton>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            {!isHome && <Link href="/">Home</Link>}
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>
             {/* <Link href="/projects">Projects</Link> */}
@@ -90,6 +87,10 @@ const HeaderNavigation = () => {
           </div>
           <ThemeToggle />
         </FullScreenNavigation>
+      ) : (
+        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)}>
+          <IoEllipsisVerticalOutline size="1.5rem" />
+        </MenuToggleButton>
       )}
     </header>
   )

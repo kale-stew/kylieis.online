@@ -13,7 +13,7 @@ export default function Layout({ children, home }) {
 
   return (
     <>
-      <HeaderNavigation />
+      <HeaderNavigation isHome={home} />
       <div className={styles.wrapper}>
         <main>{!loading ? children : <Loading />}</main>
       </div>

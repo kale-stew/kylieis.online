@@ -16,8 +16,8 @@ import utilStyles from '../styles/utils.module.css'
 export default function AboutPage() {
   return (
     <Layout home>
-      <Image src={Headshot} height={250} width={250} layout="intrinsic" />
       <div className={`${utilStyles.centerText} ${utilStyles.vertical}`}>
+        <Image src={Headshot} height={250} width={250} layout="intrinsic" />
         <p>
           {METADATA.NAME} is a software engineer and technical speaker with
           experience across the web stack. Her expertise lies primarily in API
