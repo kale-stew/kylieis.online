@@ -1,7 +1,7 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { WRITINGS_DIR } from './writing'
+import { getSortedWritingsData, WRITINGS_DIR } from './writing'
 import { getAllSpeakingEvents, getAllTalkIds } from './speaking'
 import { sortByDateDesc } from '../helpers'
 
@@ -17,7 +17,7 @@ const createPostParams = ({ categoryArr, categoryStr, itemNames }) =>
       })
     : null
 
-// Get all the speaking & writing post IDs
+// Get all speaking & writing post IDs
 export async function getAllPostIds() {
   const blogFileNames = fs.readdirSync(WRITINGS_DIR)
   const talkItemNames = await getAllTalkIds()
@@ -49,37 +49,8 @@ export async function getAllPostIds() {
   }))
 }
 
-// Get all post data except content, sorted by desc date
-export function getSortedPostsData() {
-  const allFileNames = fs.readdirSync(WRITINGS_DIR)
-  const allFileData = allFileNames.map((fileName) => {
-    const id = fileName.replace(/\.md$/, '')
-    const fullPath = path.join(WRITINGS_DIR, fileName)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
-    const category = data.category
-
-    return {
-      id,
-      category,
-      preview: `${content.substring(0, 225)}...`,
-      ...data,
-    }
-  })
-
-  return sortByDateDesc(allFileData)
-}
-
-// Get a short arr of recent blogs and talks for the home page
+// Get one recent speaking & writing post
 export async function getMostRecentPosts() {
   const allEvents = await getAllSpeakingEvents()
-  const featuredTalks = sortByDateDesc(allEvents).splice(0, 4)
-  const recentBlogs = getSortedPostsData().splice(0, 2)
-  const featuredBlogs = recentBlogs.map((post) => {
-    return {
-      ...post,
-    }
-  })
-
-  return [...featuredBlogs, ...featuredTalks]
+  return [getSortedWritingsData().pop(0), sortByDateDesc(allEvents).pop(0)]
 }

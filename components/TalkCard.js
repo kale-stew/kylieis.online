@@ -65,7 +65,7 @@ const TalkCard = ({ item }) => {
         }
         {item.date && <small>{formatDate(item.date)}</small>}
         <p>
-          {item.shortDescription ? item.shortDescription : item.description}
+          {item.eventDescription ? item.eventDescription : item.description}
         </p>
         <FlipButton />
       </div>

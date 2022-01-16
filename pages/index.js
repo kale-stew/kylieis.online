@@ -1,16 +1,14 @@
-// import Headshot from '../public/notion-kylie.png'
-// import Image from 'next/image'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 
 import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
+import { getMostRecentPosts } from '../utils/data/posts'
 
-export default function HomePage(/*{ title, description }*/) {
+export default function HomePage({ recentPosts }) {
   return (
     <Layout home>
-      {/* <Image src={Headshot} height={250} width={250} layout="intrinsic" /> */}
       <div
         className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
       >
@@ -30,6 +28,12 @@ export default function HomePage(/*{ title, description }*/) {
           internally.
         </p>
       </div>
+      {recentPosts.map((recentPost) => (
+        <>
+          <h3>{recentPost.title}</h3>
+          <p>{recentPost.description}</p>
+        </>
+      ))}
     </Layout>
   )
 }
@@ -37,11 +41,13 @@ export default function HomePage(/*{ title, description }*/) {
 export async function getStaticProps() {
   const title = `${METADATA.SITE_NAME}`
   const description = 'Web developer and public speaker.'
+  const recent = await getMostRecentPosts()
 
   return {
     props: {
       title,
       description,
+      recentPosts: recent,
       ...(await defaultSocialImage({
         title,
         baseName: 'home',

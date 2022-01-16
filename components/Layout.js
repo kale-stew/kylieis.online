@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Router from 'next/router'
-import Header from './Header'
+import HeaderNavigation from './HeaderNavigation'
 import Loading from './Loading'
 import Footer from './Footer'
 
@@ -13,7 +13,7 @@ export default function Layout({ children, home }) {
 
   return (
     <>
-      <Header />
+      <HeaderNavigation />
       <div className={styles.wrapper}>
         <main>{!loading ? children : <Loading />}</main>
       </div>

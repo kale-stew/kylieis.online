@@ -20,15 +20,16 @@ export async function getAllSpeakingEvents() {
       title,
       date: event.eventDate,
       description: talk.description
-        ? talk.description
+        ? `${talk.description} Presented at ${
+            event.eventType == 'meetup'
+              ? `the ${event.eventName} meetup`
+              : event.eventName
+          }${
+            event.location !== 'virtual'
+              ? ` in ${event.location}.`
+              : ', online.'
+          }`
         : 'Longer description coming soon.',
-      shortDescription: `Presented at ${
-        event.eventType == 'meetup'
-          ? `the ${event.eventName} meetup`
-          : event.eventName
-      }${
-        event.location !== 'virtual' ? ` in ${event.location}.` : ', online.'
-      }`,
     }))
   )
 }

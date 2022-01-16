@@ -2,7 +2,7 @@ import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getSortedPostsData } from '../utils/data/posts'
+import { getSortedWritingsData } from '../utils/data/writing'
 import { useState } from 'react'
 
 import cardStyles from '../components/BlogCard.module.css'
@@ -34,7 +34,9 @@ export default function WritingPage({ allPostsData }) {
   return (
     <Layout>
       <div className={styles.wrapper}>
-        <br />
+        <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+          Technical Writings and Tutorials
+        </h1>
         <section className={cardStyles.categoryWrapper}>
           {buildCategories()}
         </section>
@@ -63,7 +65,7 @@ export default function WritingPage({ allPostsData }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = getSortedWritingsData()
   const title = 'Writing'
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 
