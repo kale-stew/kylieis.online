@@ -2,17 +2,17 @@ import matter from 'gray-matter'
 
 const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
-export const ALL_TALK_DATA = `${TALK_PREFIX}/talks.json`
+export const SPEAKING_DATA = `${TALK_PREFIX}/talks.json`
 
-async function getAllTalks() {
-  const fetched = await fetch(ALL_TALK_DATA)
+async function getAllSpeakingData() {
+  const fetched = await fetch(SPEAKING_DATA)
   const allTalks = await fetched.json()
   return allTalks
 }
 
 // Get a flatmap of every event ever spoken at
-export async function getAllTalkEvents() {
-  const allTalks = await getAllTalks()
+export async function getAllSpeakingEvents() {
+  const allTalks = await getAllSpeakingData()
 
   return allTalks.flatMap(({ title, id, ...talk }) =>
     talk.presentedAt.map((event) => ({
@@ -34,13 +34,13 @@ export async function getAllTalkEvents() {
 }
 
 // Get a simple arr of only titles
-export async function getTalkIds() {
-  const allTalks = await getAllTalks()
+export async function getAllTalkIds() {
+  const allTalks = await getAllSpeakingData()
   return allTalks.map((talk) => talk.id)
 }
 
-export async function getTalkData(id) {
-  const allTalks = await getAllTalks()
+export async function getSingleTalkData(id) {
+  const allTalks = await getAllSpeakingData()
   const match = allTalks.find((talk) => talk.id === id)
 
   const fetchedReadme = await fetch(
@@ -49,7 +49,7 @@ export async function getTalkData(id) {
   const text = await fetchedReadme.text()
   const { data, content } = matter(text)
   const categories = data.category.split(',')
-  categories.unshift('talks')
+  categories.unshift('speaking')
 
   return {
     id,

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import Layout from '../components/Layout'
+import Link from 'next/link'
 import { METADATA } from '../utils/constants'
 import { socialImage } from '../utils/preview-cards'
 
@@ -12,7 +12,7 @@ export default function NotFoundPage() {
       <h3>You've found a route that doesn't exist.</h3>
       <div className={utilStyles.singleRow}>
         Let's get you back to
-        <Link href="/blog">a functional page</Link> so we can try this again.
+        <Link href="/writing">a functional page</Link> so we can try this again.
       </div>
     </Layout>
   )

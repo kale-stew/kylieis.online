@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import styles from './Layout.module.css'
 import { METADATA } from '../utils/constants'
+
+import styles from './Layout.module.css'
 
 const ThemeToggle = dynamic(() => import('../components/ThemeToggle'), {
   ssr: false,
@@ -11,7 +12,7 @@ const ThemeToggle = dynamic(() => import('../components/ThemeToggle'), {
  * TODO:
  *  - turn into a toggle for full-screen nav (on mobile only?)
  *  - nav should have up to two screens, expand posts on click
- *  - add ThemeToggle
+ *  - properly display ThemeToggle
  */
 
 const Header = () => (
@@ -20,10 +21,11 @@ const Header = () => (
       <Link href="/">{METADATA.SITE_NAME}</Link>
     </h2>
     <div className={styles.navLinks}>
-      <Link href="/blog">Writing</Link>
-      <Link href="/talks">Speaking</Link>
+      <Link href="/writing">Writing</Link>
+      <Link href="/speaking">Speaking</Link>
+      {/* <Link href="/projects">Projects</Link> */}
+      {/* <Link href="/about">More About Kylie</Link> */}
       <ThemeToggle />
-      {/* <Link href="/contact">Contact</Link> */}
     </div>
   </header>
 )

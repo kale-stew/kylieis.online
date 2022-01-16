@@ -3,11 +3,11 @@ import matter from 'gray-matter'
 import path from 'path'
 import { CONTENT_DIRECTORY } from '../constants'
 
-export const BLOG_POSTS_DIR = path.join(process.cwd(), CONTENT_DIRECTORY)
+export const WRITINGS_DIR = path.join(process.cwd(), CONTENT_DIRECTORY)
 
 // Get data for a single post
 export async function getBlogPostData(category, id) {
-  const fullPath = path.join(BLOG_POSTS_DIR, `${id}.md`)
+  const fullPath = path.join(WRITINGS_DIR, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 

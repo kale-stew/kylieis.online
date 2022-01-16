@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getSortedPostsData } from '../utils/data/posts'
+import { useState } from 'react'
 
 import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function BlogLandingPage({ allPostsData, title }) {
+export default function WritingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => (
@@ -34,7 +34,7 @@ export default function BlogLandingPage({ allPostsData, title }) {
   return (
     <Layout>
       <div className={styles.wrapper}>
-        <h1 className={utilStyles.headingXl}>{title}</h1>
+        <br />
         <section className={cardStyles.categoryWrapper}>
           {buildCategories()}
         </section>
@@ -64,7 +64,7 @@ export default function BlogLandingPage({ allPostsData, title }) {
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
-  const title = 'The Blog'
+  const title = 'Writing'
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {
