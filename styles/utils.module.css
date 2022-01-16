@@ -20,10 +20,6 @@
   text-align: center;
 }
 
-.copyright a:hover {
-  text-decoration: underline;
-}
-
 .heading2Xl {
   font-size: 2.8rem;
   line-height: 1.2;

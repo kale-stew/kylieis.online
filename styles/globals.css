@@ -137,18 +137,18 @@ footer {
   background-image: linear-gradient(72deg, #1f00ac, #ff2dd1);
   color: white;
   padding: 2vh 2vw;
-
   bottom: 0;
-  position: fixed;
   width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  font-size: 12px;
 }
 
 footer a {
   color: white;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 img {
@@ -161,10 +161,7 @@ img {
   }
 
   footer {
-    flex-direction: column-reverse;
-    grid-gap: 0;
-    justify-content: center;
-    padding: 1.5vh 0 1vh 0;
+    padding: 0.75vh auto;
   }
 
   header {
