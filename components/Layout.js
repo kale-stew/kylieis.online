@@ -1,13 +1,8 @@
-import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
-import Router from 'next/router'
-import Header from './Header'
-import Loading from './Loading'
 import Footer from './Footer'
-
-const ThemeToggle = dynamic(() => import('../components/ThemeToggle'), {
-  ssr: false,
-})
+import HeaderNavigation from './HeaderNavigation'
+import Loading from './Loading'
+import Router from 'next/router'
+import { useState } from 'react'
 
 import styles from './Layout.module.css'
 
@@ -18,8 +13,7 @@ export default function Layout({ children, home }) {
 
   return (
     <>
-      <Header />
-      <ThemeToggle />
+      <HeaderNavigation isHome={home} />
       <div className={styles.wrapper}>
         <main>{!loading ? children : <Loading />}</main>
       </div>

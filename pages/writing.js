@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import { CATEGORY_TYPE, METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getSortedPostsData } from '../utils/data/posts'
+import { getSortedWritingsData } from '../utils/data/writing'
+import { useState } from 'react'
 
 import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function BlogLandingPage({ allPostsData, title }) {
+export default function WritingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => (
       <button
+        style={{ background: 'transparent' }}
         className={
           viewCategory === CATEGORY_TYPE[key]
             ? `${styles.categorySelected} ${styles.categoryButton}`
@@ -34,7 +35,9 @@ export default function BlogLandingPage({ allPostsData, title }) {
   return (
     <Layout>
       <div className={styles.wrapper}>
-        <h1 className={utilStyles.headingXl}>{title}</h1>
+        <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+          Technical Writings and Tutorials
+        </h1>
         <section className={cardStyles.categoryWrapper}>
           {buildCategories()}
         </section>
@@ -52,7 +55,7 @@ export default function BlogLandingPage({ allPostsData, title }) {
                       : 'none',
                 }}
               >
-                <BlogCard item={post} />
+                <BlogCard post={post} />
               </li>
             ))}
           </ul>
@@ -63,8 +66,8 @@ export default function BlogLandingPage({ allPostsData, title }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  const title = 'The Blog'
+  const allPostsData = getSortedWritingsData()
+  const title = 'Writing'
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {

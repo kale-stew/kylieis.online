@@ -6,22 +6,22 @@ import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/constants'
 import { getAllPostIds } from '../../utils/data/posts'
-import { getBlogPostData } from '../../utils/data/blog'
-import { getTalkData } from '../../utils/data/talks'
+import { getBlogPostData } from '../../utils/data/writing'
+import { getSingleTalkData } from '../../utils/data/speaking'
 import { socialImage } from '../../utils/preview-cards'
 
 import buttonStyles from '../../components/Button.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
 export default function Post({ postData }) {
-  const isTalk = postData.category.includes('talks')
+  const isTalk = postData.category.includes('speaking')
   return (
     <Layout>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={`${utilStyles.lightText} ${utilStyles.singleRow}`}>
           <FormattedDate dateString={postData.date} withDOW />{' '}
-          {postData.category.includes('talks') ? (
+          {postData.category.includes('speaking') ? (
             postData.category.map((category) => (
               <Category category={category} />
             ))
@@ -59,11 +59,11 @@ export default function Post({ postData }) {
         }`}
       >
         {isTalk ? (
-          <Link href="/talks">
+          <Link href="/speaking">
             <a>← Back to all talks</a>
           </Link>
         ) : (
-          <Link href="/blog">
+          <Link href="/writing">
             <a>← Back to blog</a>
           </Link>
         )}
@@ -82,8 +82,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const postData =
-    params.category === 'talks'
-      ? await getTalkData(params.id)
+    params.category === 'speaking'
+      ? await getSingleTalkData(params.id)
       : await getBlogPostData(params.category, params.id)
   const title = postData.title
   const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`

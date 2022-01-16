@@ -1,0 +1,35 @@
+@keyframes jump {
+  0%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+}
+
+.socialIcons {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.socialIcons a {
+  cursor: pointer;
+}
+
+.socialIcons a > svg {
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.socialIcons a > svg:hover {
+  animation: jump 0.5s;
+  -moz-animation: jump 0.5s;
+  animation-iteration-count: infinite;
+}

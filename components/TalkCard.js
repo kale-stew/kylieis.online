@@ -55,8 +55,8 @@ const TalkCard = ({ item }) => {
         {
           <h2 className={styles.titleLink}>
             <Link
-              href="/talks/[id]"
-              as={`/talks/${item.id}`}
+              href="/speaking/[id]"
+              as={`/speaking/${item.id}`}
               alt={`See more information about this talk: '${item.title}.'`}
             >
               {item.title}
@@ -65,7 +65,7 @@ const TalkCard = ({ item }) => {
         }
         {item.date && <small>{formatDate(item.date)}</small>}
         <p>
-          {item.shortDescription ? item.shortDescription : item.description}
+          {item.eventDescription ? item.eventDescription : item.description}
         </p>
         <FlipButton />
       </div>

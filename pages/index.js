@@ -1,35 +1,50 @@
-import BlogCard from '../components/BlogCard'
-import TalkCard from '../components/TalkCard'
 import Layout from '../components/Layout'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
+import BlogCard from '../components/BlogCard'
+import TalkCard from '../components/TalkCard'
 
-import blogStyles from '../components/BlogCard.module.css'
-import talkStyles from '../components/TalkCard.module.css'
+import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-export default function HomePage({ featuredPosts }) {
+export default function HomePage({ recentPosts }) {
+  console.log(recentPosts)
   return (
     <Layout home>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        Recent Blog Posts
-      </h1>
-      <div className={blogStyles.blogCardWrapper}>
-        {featuredPosts.map(
-          (post) =>
-            !post.shortDescription && <BlogCard key={post.id} item={post} />
-        )}
+      <div
+        className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
+      >
+        <br />
+        <br />
+        <p>
+          {METADATA.NAME} is a software engineer and technical speaker with
+          experience across the web stack. Her expertise lies primarily in API
+          design and the implementation of a number of Javascript frameworks.
+        </p>
+        <p>
+          She currently works as a freelance web developer and{' '}
+          <a
+            href="https://notion.so"
+            alt="Go to Notion's home page."
+            target="_blank"
+          >
+            Notion
+          </a>{' '}
+          Ambassador, helping her clients transition from other knowledge
+          management tools to an enterprise Notion setup while simultaneously
+          building user-friendly integrations using the API for them to leverage
+          internally.
+        </p>
       </div>
-
-      <br />
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-        Recent Tech Talks
-      </h1>
-      <div className={talkStyles.talkCardWrapper}>
-        {featuredPosts.map(
-          (post) =>
-            post.shortDescription && <TalkCard key={post.id} item={post} />
+      <h2>Recent Posts</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {recentPosts.map((recentPost) =>
+          recentPost.category ? (
+            <BlogCard post={recentPost} />
+          ) : (
+            <TalkCard item={recentPost} />
+          )
         )}
       </div>
     </Layout>
@@ -37,12 +52,15 @@ export default function HomePage({ featuredPosts }) {
 }
 
 export async function getStaticProps() {
-  const featuredPosts = await getMostRecentPosts()
   const title = `${METADATA.SITE_NAME}`
+  const description = 'Web developer and public speaker.'
+  const recent = await getMostRecentPosts()
 
   return {
     props: {
-      featuredPosts,
+      title,
+      description,
+      recentPosts: recent,
       ...(await defaultSocialImage({
         title,
         baseName: 'home',
