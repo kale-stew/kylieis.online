@@ -1,52 +1,19 @@
-import buttonStyles from './Button.module.css'
 import styled from '@emotion/styled'
+import { CgMoon } from 'react-icons/cg'
+import { FaRegSun } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 
-/**
- * TODO:
- *  - make a transparent square button
- *  - use react-icons instead of emojis
- */
-
 const ToggleButton = styled.button`
-  --toggle-width: 80px;
-  --toggle-height: 38px;
-  --toggle-padding: 4px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   font-size: 1.5rem;
   line-height: 1;
-  width: var(--toggle-width);
-  height: var(--toggle-height);
-  padding: var(--toggle-padding);
   border: 0;
-  border-radius: calc(var(--toggle-width) / 2);
   cursor: pointer;
-  background: var(--color-bg-toggle);
+  background: transparent;
   transition: background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-  &:focus {
-    outline-offset: 5px;
-  }
+  color: var(--color-white);
   &:focus:not(:focus-visible) {
     outline: none;
   }
-`
-
-const TogglePoint = styled.span`
-  position: absolute;
-  top: var(--toggle-padding);
-  left: var(--toggle-padding);
-  width: calc(var(--toggle-height) - (var(--toggle-padding) * 2));
-  height: calc(var(--toggle-height) - (var(--toggle-padding) * 2));
-  border-radius: 50%;
-  background: white;
-  transition: transform 0.25s ease-in-out;
-  transform: ${(p) =>
-    p.activeTheme === 'dark'
-      ? 'translate3d(calc(var(--toggle-width) - var(--toggle-height)), 0, 0)'
-      : 'none'};
 `
 
 const ThemeToggle = () => {
@@ -58,18 +25,14 @@ const ThemeToggle = () => {
   }, [activeTheme])
 
   return (
-    <div className={buttonStyles.toggleWrapper}>
-      <ToggleButton
-        aria-label={`Change to ${inactiveTheme} mode`}
-        title={`Change to ${inactiveTheme} mode`}
-        type="button"
-        onClick={() => setActiveTheme(inactiveTheme)}
-      >
-        <TogglePoint activeTheme={activeTheme} />
-        <span>🌙</span>
-        <span>☀️</span>
-      </ToggleButton>
-    </div>
+    <ToggleButton
+      aria-label={`Change to ${inactiveTheme} mode`}
+      title={`Change to ${inactiveTheme} mode`}
+      type="button"
+      onClick={() => setActiveTheme(inactiveTheme)}
+    >
+      {activeTheme === 'light' ? <FaRegSun /> : <CgMoon />}
+    </ToggleButton>
   )
 }
 

@@ -28,6 +28,7 @@ export default function HomePage({ recentPosts }) {
           internally.
         </p>
       </div>
+      <h2>Recent Posts</h2>
       {recentPosts.map((recentPost) => (
         <>
           <h3>{recentPost.title}</h3>

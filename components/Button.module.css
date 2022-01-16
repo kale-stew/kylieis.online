@@ -79,15 +79,3 @@
 .talkButton:hover {
   animation: talk-accordion 0.5s ease-in-out;
 }
-
-.toggleWrapper {
-  display: flex;
-  justify-content: flex-end;
-  padding: 2vh 2vw 0 0;
-}
-
-@media (max-width: 1024px) {
-  .toggleWrapper {
-    padding: 3vh 5vw 0 0;
-  }
-}
