@@ -8,10 +8,14 @@ export const CATEGORY_TYPE = {
   GQL: 'graphql',
 }
 
+export const CONTACT_ENDPOINT =
+  'https://public.herotofu.com/v1/528dd450-728b-11ec-b2d5-af79f33d926c'
+
 export const CONTENT_DIRECTORY = 'content'
 
 export const METADATA = {
-  NAME: 'Kylie Stewart',
+  FULL_NAME: 'Kylie Stewart',
+  FIRST_NAME: 'Kylie',
   SITE_NAME: 'kyliestewart.tech',
 }
 

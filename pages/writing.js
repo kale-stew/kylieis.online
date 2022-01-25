@@ -68,7 +68,7 @@ export default function WritingPage({ allPostsData }) {
 export async function getStaticProps() {
   const allPostsData = getSortedWritingsData()
   const title = 'Writing'
-  const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
+  const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {
     props: {

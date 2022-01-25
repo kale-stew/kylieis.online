@@ -5,13 +5,13 @@ import { METADATA } from '../utils/constants'
 const CustomHead = (pageProps) => {
   const getPageTitle = () =>
     pageProps.title === METADATA.SITE_NAME
-      ? `${METADATA.NAME} · software engineer, speaker, creator`
+      ? `${METADATA.FULL_NAME} · software engineer, speaker, creator`
       : `${pageProps.title} · ${METADATA.SITE_NAME}`
 
   const getPageDescription = () =>
     pageProps.description
       ? pageProps.description
-      : `${METADATA.NAME} is a web developer and public speaker creating content.`
+      : `${METADATA.FIRST_NAME} is a web developer and public speaker creating content.`
 
   const getPageUrl = () => {
     if (pageProps.baseName && pageProps.baseName.indexOf('post-') === 0) {

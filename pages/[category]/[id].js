@@ -86,7 +86,7 @@ export async function getStaticProps({ params }) {
       ? await getSingleTalkData(params.id)
       : await getBlogPostData(params.category, params.id)
   const title = postData.title
-  const description = `${METADATA.NAME} is writing about Javascript, GraphQl, open source, and more.`
+  const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {
     props: {
