@@ -26,6 +26,7 @@ export const SocialLinks = {
   LinkedIn: 'https://www.linkedin.com/in/kylieastewart/',
   PersonalHomepage: 'https://kylieis.online',
   ProfessionalHomepage: 'https://kyliestewart.tech',
+  HikingHomepage: 'https://kylies.photos',
   Twitter: 'https://twitter.com/kyliestew',
 }
 
