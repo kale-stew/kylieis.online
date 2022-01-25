@@ -18,9 +18,10 @@ export default function HomePage({ recentPosts }) {
         <br />
         <br />
         <p>
-          {METADATA.NAME} is a software engineer and technical speaker with
-          experience across the web stack. Her expertise lies primarily in API
-          design and the implementation of a number of Javascript frameworks.
+          {METADATA.FIRST_NAME} is a software engineer and technical speaker
+          with experience across the web stack. Her expertise lies primarily in
+          API design and the implementation of a number of Javascript
+          frameworks.
         </p>
         <p>
           She currently works as a freelance web developer and{' '}

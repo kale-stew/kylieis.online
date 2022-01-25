@@ -28,7 +28,7 @@ export async function getStaticProps() {
   const res = await fetch(SPEAKING_DATA)
   const allTalks = await res.json()
   const title = 'Speaking'
-  const description = `${METADATA.NAME} is talking about Javascript, open source, GraphQL, and more.`
+  const description = `${METADATA.FIRST_NAME} is talking about Javascript, open source, GraphQL, and more.`
 
   return {
     props: {

@@ -20,7 +20,7 @@ export default function NotFoundPage() {
 
 export async function getStaticProps() {
   const title = 'Page Not Found'
-  const description = `${METADATA.NAME} is developing websites with Javascript.`
+  const description = `${METADATA.FULL_NAME} is developing websites with Javascript.`
 
   return {
     props: {

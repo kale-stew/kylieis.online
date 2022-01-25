@@ -8,7 +8,7 @@ const Footer = () => (
       target="_blank"
       style={{ marginLeft: '0.4em' }}
     >
-      {METADATA.NAME}
+      {METADATA.FULL_NAME}
     </a>
   </footer>
 )

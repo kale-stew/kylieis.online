@@ -1,17 +1,17 @@
+import ContactForm from '../components/ContactForm'
 import Headshot from '../public/notion-kylie.png'
 import Image from 'next/image'
 import Layout from '../components/Layout'
-import { METADATA } from '../utils/constants'
+import { METADATA, SocialLinks } from '../utils/constants'
 import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
-/**
- * TODO:
- *  - add 'contact me' (to notion db?)
- *  - 'timeline'
- *  - 'resume'
- */
+const captionStyles = {
+  margin: '0 auto 1rem auto',
+  fontSize: '14px',
+  textAlign: 'center',
+}
 
 export default function AboutPage() {
   return (
@@ -19,9 +19,10 @@ export default function AboutPage() {
       <div className={`${utilStyles.centerText} ${utilStyles.vertical}`}>
         <Image src={Headshot} height={250} width={250} layout="intrinsic" />
         <p>
-          {METADATA.NAME} is a software engineer and technical speaker with
-          experience across the web stack. Her expertise lies primarily in API
-          design and the implementation of a number of Javascript frameworks.
+          {METADATA.FIRST_NAME} is a software engineer and technical speaker
+          with experience across the web stack. Her expertise lies primarily in
+          API design and the implementation of a number of Javascript
+          frameworks.
         </p>
         <p>
           She currently works as a freelance web developer and{' '}
@@ -34,6 +35,17 @@ export default function AboutPage() {
           internally.
         </p>
       </div>
+
+      <br />
+      <h2 className={utilStyles.centerText}>Contact {METADATA.FIRST_NAME}</h2>
+      <p style={captionStyles}>
+        To stay up to date with {METADATA.FIRST_NAME}'s work, follow her{' '}
+        <a href={SocialLinks.Twitter}>on Twitter</a>. To see some of her other
+        projects, visit her{' '}
+        <a href={SocialLinks.PersonalHomepage}>personal site</a>. To discuss
+        working together, or to just say hi, use the following form:
+      </p>
+      <ContactForm />
     </Layout>
   )
 }
