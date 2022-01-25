@@ -1,12 +1,14 @@
+import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
+import TalkCard from '../components/TalkCard'
 import { METADATA } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
-import BlogCard from '../components/BlogCard'
-import TalkCard from '../components/TalkCard'
 
 import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
+
+// TODO: BlogCard has cursor: pointer on *, TalkCard only has it on the clickable parts (intended behavior)
 
 export default function HomePage({ recentPosts }) {
   console.log(recentPosts)
@@ -23,21 +25,8 @@ export default function HomePage({ recentPosts }) {
           API design and the implementation of a number of Javascript
           frameworks.
         </p>
-        <p>
-          She currently works as a freelance web developer and{' '}
-          <a
-            href="https://notion.so"
-            alt="Go to Notion's home page."
-            target="_blank"
-          >
-            Notion
-          </a>{' '}
-          Ambassador, helping her clients transition from other knowledge
-          management tools to an enterprise Notion setup while simultaneously
-          building user-friendly integrations using the API for them to leverage
-          internally.
-        </p>
       </div>
+
       <h2>Recent Posts</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {recentPosts.map((recentPost) =>

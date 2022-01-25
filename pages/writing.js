@@ -9,6 +9,11 @@ import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
 
+/**
+ * TODO:
+ * - Should display *all* posts
+ */
+
 export default function WritingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>

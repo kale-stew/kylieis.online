@@ -5,6 +5,9 @@ import { useState } from 'react'
 
 import styles from './TalkCard.module.css'
 
+// In mobile: should remove all headers, display data inline
+// Only clickable in desktop
+
 const TalkCard = ({ item }) => {
   const [isFlipped, setFlip] = useState(false)
   const handleClick = (e) => {

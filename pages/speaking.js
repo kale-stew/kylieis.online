@@ -42,7 +42,7 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
         ))}
       </div>
       <br />
-      <Image src={Panorama} layout="intrinsic" />
+      <Image src={Panorama} layout="intrinsic" placeholder="blur" />
       <div className={utilStyles.centerText} style={{ fontSize: '12px' }}>
         {METADATA.FIRST_NAME} presenting "ML on the CL" at js.la in June of
         2018.
