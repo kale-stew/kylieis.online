@@ -29,6 +29,11 @@ export const SocialLinks = {
   Twitter: 'https://twitter.com/kyliestew',
 }
 
+export const TALK_TYPE = {
+  M: 'meetup',
+  C: 'conference',
+}
+
 export const THEME = {
   LIGHT: 'light',
   DARK: 'dark',

@@ -18,6 +18,7 @@ export async function getAllSpeakingEvents() {
     talk.presentedAt.map((event) => ({
       id,
       title,
+      type: event.eventType,
       date: event.eventDate,
       description: talk.description
         ? `${talk.description} Presented at ${
