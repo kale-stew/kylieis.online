@@ -11,6 +11,7 @@ const captionStyles = {
   margin: '0 auto 1rem auto',
   fontSize: '14px',
   textAlign: 'center',
+  maxWidth: '80%',
 }
 
 export default function AboutPage() {
@@ -40,10 +41,12 @@ export default function AboutPage() {
       <h2 className={utilStyles.centerText}>Contact {METADATA.FIRST_NAME}</h2>
       <p style={captionStyles}>
         To stay up to date with {METADATA.FIRST_NAME}'s work, follow her{' '}
-        <a href={SocialLinks.Twitter}>on Twitter</a>. To see some of her other
-        projects, visit her{' '}
-        <a href={SocialLinks.PersonalHomepage}>personal site</a>. To discuss
-        working together, or to just say hi, use the following form:
+        <a href={SocialLinks.Twitter}>on Twitter</a>. To discuss working
+        together (you can download her resume{' '}
+        <a href="/Kylie Stewart cv.pdf" download>
+          here
+        </a>
+        ), use the following form:
       </p>
       <ContactForm />
     </Layout>
