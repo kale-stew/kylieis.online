@@ -9,7 +9,7 @@ export const CATEGORY_TYPE = {
 }
 
 export const CONTACT_ENDPOINT =
-  'https://public.herotofu.com/v1/528dd450-728b-11ec-b2d5-af79f33d926c'
+  'https://public.herotofu.com/v1/e4ac2d90-7e08-11ec-93f9-6712a4805a99'
 
 export const CONTENT_DIRECTORY = 'content'
 

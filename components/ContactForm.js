@@ -144,6 +144,7 @@ const ContactForm = () => {
       target="_blank"
     >
       <SmallInput type="text" placeholder="Your Name" name="name" required />
+      <SmallInput type="text" placeholder="Company Name" name="company" />
       <SmallInput
         type="email"
         placeholder="your@email.com"
