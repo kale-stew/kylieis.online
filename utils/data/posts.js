@@ -52,5 +52,5 @@ export async function getAllPostIds() {
 // Get one recent speaking & writing post
 export async function getMostRecentPosts() {
   const allEvents = await getAllSpeakingEvents()
-  return [getSortedWritingsData().pop(0), sortByDateDesc(allEvents).pop(0)]
+  return [getSortedWritingsData().shift(), sortByDateDesc(allEvents).shift()]
 }

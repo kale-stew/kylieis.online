@@ -35,6 +35,13 @@ export default function AboutPage() {
           building user-friendly integrations using the API for them to leverage
           internally.
         </p>
+        <p>
+          In her free time, {METADATA.FIRST_NAME} is an avid hiker and
+          photographer that documents her adventures{' '}
+          <a href={SocialLinks.HikingHomepage}>on a hiking blog</a>, built using
+          Next.js and Notion. She is tracking progress towards her goal of
+          summitting every 14,000+' peak in the lower 48 United States there.
+        </p>
       </div>
 
       <br />

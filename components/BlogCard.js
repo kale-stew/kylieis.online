@@ -6,7 +6,7 @@ import styles from './BlogCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 const BlogCard = ({ post }) => (
-  <div className={styles.blogCard}>
+  <div className={styles.blogCard} key={post.id}>
     <h2 className={styles.titleLink}>
       <Link
         className={styles.blogCardTitle}

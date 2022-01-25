@@ -1,9 +1,13 @@
+import FormattedDate from './Date'
 import Link from 'next/link'
 import ReactCardFlip from 'react-card-flip'
 import { formatDate } from '../utils/helpers'
 import { useState } from 'react'
 
 import styles from './TalkCard.module.css'
+
+// In mobile: should remove all headers, display data inline
+// Only clickable in desktop
 
 const TalkCard = ({ item }) => {
   const [isFlipped, setFlip] = useState(false)
@@ -18,7 +22,7 @@ const TalkCard = ({ item }) => {
     </button>
   )
 
-  const buildEvent = (title, item) => (
+  const buildEvent = (item) => (
     <div className={styles.eventItem}>
       {item.location && item.location !== 'virtual' ? (
         <p>
@@ -40,7 +44,7 @@ const TalkCard = ({ item }) => {
       {/* {item.recordedPresentationUrl && (
         <a
           href={item.recordedPresentationUrl}
-          alt={`Watch a recording of ${title} on Youtube.`}
+          alt={`Watch a recording of ${item.title} on Youtube.`}
           className={styles.youtubeLink}
         >
           watch the recording
@@ -63,7 +67,11 @@ const TalkCard = ({ item }) => {
             </Link>
           </h2>
         }
-        {item.date && <small>{formatDate(item.date)}</small>}
+        {item.date && (
+          <small>
+            <FormattedDate dateString={item.date} />
+          </small>
+        )}
         <p>
           {item.eventDescription ? item.eventDescription : item.description}
         </p>
@@ -76,7 +84,7 @@ const TalkCard = ({ item }) => {
             <h3>Presented At</h3>
             <div className={styles.eventWrapper}>
               {item.presentedAt.map(
-                (item) => item.eventDate && buildEvent(item.title, item)
+                (item) => item.eventDate && buildEvent(item)
               )}
             </div>
           </>

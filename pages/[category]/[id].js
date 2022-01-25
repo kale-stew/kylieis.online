@@ -53,6 +53,7 @@ export default function Post({ postData }) {
         </ReactMarkdown>
       </article>
 
+      {/* TODO: update to use referrer (if from /all, go back to /all, if from /speaking, go back to /speaking) */}
       <div
         className={`${buttonStyles.backToPosts} ${
           isTalk ? buttonStyles.talkButton : buttonStyles.blogButton
@@ -64,7 +65,7 @@ export default function Post({ postData }) {
           </Link>
         ) : (
           <Link href="/writing">
-            <a>← Back to blog</a>
+            <a>← Back to all posts</a>
           </Link>
         )}
       </div>
