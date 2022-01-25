@@ -59,7 +59,6 @@
   border-radius: 1rem;
   box-shadow: var(--color-purple-1) -5px 5px, var(--color-purple-2) -10px 10px,
     var(--color-purple-3) -15px 15px, var(--color-purple-4) -20px 20px;
-  cursor: pointer;
 
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;

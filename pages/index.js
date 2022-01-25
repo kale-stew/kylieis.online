@@ -8,16 +8,12 @@ import { getMostRecentPosts } from '../utils/data/posts'
 import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
-// TODO: BlogCard has cursor: pointer on *, TalkCard only has it on the clickable parts (intended behavior)
-
 export default function HomePage({ recentPosts }) {
-  console.log(recentPosts)
   return (
     <Layout home>
       <div
         className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
       >
-        <br />
         <br />
         <p>
           {METADATA.FIRST_NAME} is a software engineer and technical speaker
@@ -27,7 +23,7 @@ export default function HomePage({ recentPosts }) {
         </p>
       </div>
 
-      <h2>Recent Posts</h2>
+      <h1 className={utilStyles.centerText}>Recent Posts</h1>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {recentPosts.map((recentPost) =>
           recentPost.category ? (
