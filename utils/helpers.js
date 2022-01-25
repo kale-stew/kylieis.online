@@ -13,11 +13,6 @@ const getLocationData = (str) => {
   }
 }
 
-// TODO: Match hike_title to existing NextJs generated slugs
-const findMatchingSlug = (str) => {
-  return false
-}
-
 const formatDate = (date) => format(new Date(date), 'PPP')
 
 const formatDateWithDayOfWeek = (date) => format(date, 'PPPP')
@@ -50,7 +45,6 @@ const sortByDateDesc = (arr) => {
 export {
   addCommas,
   feetToMeters,
-  findMatchingSlug,
   formatDate,
   formatDateWithDayOfWeek,
   formatStatsImperial,
