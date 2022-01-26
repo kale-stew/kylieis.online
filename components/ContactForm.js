@@ -50,6 +50,8 @@ const SubmitButton = styled.button`
   max-width: 420px;
   border: 1px solid var(--color-bg-tertiary);
   border-radius: 2px;
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
   font-weight: 600;
   font-size: 14px;
   padding: 0.3em 0.6em;

@@ -41,15 +41,6 @@ const TalkCard = ({ item }) => {
           online on {formatDate(item.eventDate)}.
         </p>
       )}
-      {/* {item.recordedPresentationUrl && (
-        <a
-          href={item.recordedPresentationUrl}
-          alt={`Watch a recording of ${item.title} on Youtube.`}
-          className={styles.youtubeLink}
-        >
-          watch the recording
-        </a>
-      )} */}
     </div>
   )
 

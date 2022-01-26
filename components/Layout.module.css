@@ -21,10 +21,3 @@
     margin: 0 auto;
   }
 }
-
-@media (max-width: 710px) {
-  .wrapper {
-    width: 75vw;
-    margin: 0 auto;
-  }
-}

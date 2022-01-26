@@ -39,33 +39,31 @@ export default function WritingPage({ allPostsData }) {
 
   return (
     <Layout>
-      <div className={styles.wrapper}>
-        <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
-          Technical Writings and Tutorials
-        </h1>
-        <section className={cardStyles.categoryWrapper}>
-          {buildCategories()}
-        </section>
+      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+        Technical Writings and Tutorials
+      </h1>
+      <section className={cardStyles.categoryWrapper}>
+        {buildCategories()}
+      </section>
 
-        <section className={utilStyles.headingMd}>
-          <ul className={cardStyles.blogCardWrapperUl}>
-            {allPostsData.map((post) => (
-              <li
-                key={post.id}
-                style={{
-                  display:
-                    viewCategory === post.category ||
-                    viewCategory === CATEGORY_TYPE.ALL
-                      ? 'block'
-                      : 'none',
-                }}
-              >
-                <BlogCard post={post} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <section className={utilStyles.headingMd}>
+        <ul className={cardStyles.blogCardWrapperUl}>
+          {allPostsData.map((post) => (
+            <li
+              key={post.id}
+              style={{
+                display:
+                  viewCategory === post.category ||
+                  viewCategory === CATEGORY_TYPE.ALL
+                    ? 'block'
+                    : 'none',
+              }}
+            >
+              <BlogCard post={post} />
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   )
 }

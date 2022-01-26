@@ -54,7 +54,7 @@
   width: auto;
   background-color: var(--color-bg-secondary);
   border: 1px var(--color-bg-secondary);
-  padding: 0.5rem 2rem 2rem 2rem;
+  padding: 0.5rem 1rem;
   border-collapse: collapse;
   border-radius: 1rem;
   box-shadow: var(--color-pink-1) -5px 5px, var(--color-pink-2) -10px 10px,
@@ -148,6 +148,6 @@
     flex-direction: column;
     align-items: center;
     margin: auto auto 6vh auto;
-    max-width: 70vw;
+    font-size: 14px;
   }
 }

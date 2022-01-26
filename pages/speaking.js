@@ -55,7 +55,7 @@ export async function getStaticProps() {
   const res = await fetch(SPEAKING_DATA)
   const allTalks = await res.json()
   const allEvents = await getAllSpeakingEvents()
-  const title = 'Technical Talks and Presentations'
+  const title = 'Conference Talks & Presentations'
   const description = `${METADATA.FIRST_NAME} is talking about Javascript, open source, GraphQL, and more.`
 
   return {
