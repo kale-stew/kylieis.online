@@ -8,7 +8,7 @@ import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { useState } from 'react'
 
-import styles from './HeaderNavigation.module.css'
+import utilStyles from '../styles/utils.module.css'
 
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
   ssr: false,
@@ -64,6 +64,7 @@ const HeaderNavigation = ({ isHome }) => {
           >
             <IoMdClose size="1rem" />
           </MenuToggleButton>
+
           <div
             style={{ display: 'flex', flexDirection: 'column', lineHeight: 2 }}
           >
@@ -73,7 +74,16 @@ const HeaderNavigation = ({ isHome }) => {
             {/* <Link href="/projects">Projects</Link> */}
             <Link href="/#about">About Kylie</Link>
           </div>
-          <div className={styles.socialIcons}>
+
+          <div
+            className={utilStyles.socialIcons}
+            style={{
+              width: '100%',
+              marginTop: '1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
               <MdOutlineMail />
             </a>

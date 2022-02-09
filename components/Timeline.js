@@ -4,12 +4,29 @@ const ItemDescription = styled.div`
   margin-left: 1.75rem;
   line-height: 2;
   font-size: 15px;
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+    line-height: 1.6;
+  }
 `
 
 const TimelineItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 1px 2fr;
   margin-bottom: 1rem;
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+  }
+`
+
+const Divider = styled.hr`
+  height: 100%;
+  border: 1px solid var(--color-text-accent);
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `
 
 const Timeline = ({ events }) => {
@@ -30,12 +47,7 @@ const Timeline = ({ events }) => {
         <br />
         {startDate} － {endDate}
       </div>
-      <hr
-        style={{
-          height: '100%',
-          borderRight: '1px solid var(--color-text-accent)',
-        }}
-      ></hr>
+      <Divider />
       <ItemDescription>{description}</ItemDescription>
     </TimelineItem>
   )

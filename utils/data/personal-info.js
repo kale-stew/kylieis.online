@@ -18,8 +18,7 @@ export const SOCIAL_LINKS = {
 export const WORK_TIMELINE = [
   {
     jobTitle: 'Software Engineer II',
-    company: 'Formidable Labs',
-    companyUrl: 'https://formidable.com',
+    company: 'Formidable',
     location: 'Denver, Colorado',
     startDate: 'Jan 2019',
     endDate: 'Sept 2020',
@@ -28,8 +27,7 @@ export const WORK_TIMELINE = [
   },
   {
     jobTitle: 'Software Engineer I',
-    company: 'Formidable Labs',
-    companyUrl: 'https://formidable.com',
+    company: 'Formidable',
     location: 'Phoenix, Arizona',
     startDate: 'Jan 2018',
     endDate: 'Jan 2019',
@@ -39,11 +37,10 @@ export const WORK_TIMELINE = [
   {
     jobTitle: 'Student',
     company: 'DevMountain',
-    companyUrl: '',
     location: 'Phoenix, Arizona',
     startDate: 'Aug 2017',
     endDate: 'Nov 2017',
     description:
-      "Attended DevMountain's Full-Time 12 Week Web Development bootcamp, learning React, Node.js, Express.",
+      'Attended the full-time 12-week web development course, focused on fullstack JavaScript. Technologies learned include React, Node.js, HTML/CSS, Express, and Heroku.',
   },
 ]

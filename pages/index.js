@@ -2,12 +2,14 @@ import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import TalkCard from '../components/TalkCard'
 import Timeline from '../components/Timeline'
+import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { GiMountainRoad } from 'react-icons/gi'
 import {
   METADATA,
   SOCIAL_LINKS,
   WORK_TIMELINE,
 } from '../utils/data/personal-info'
+import { MdOutlineMail } from 'react-icons/md'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
 
@@ -76,11 +78,32 @@ export default function HomePage({ recentPosts }) {
         </p>
       </div>
 
-      <div style={{ margin: '2rem' }}>
-        <h1 className={utilStyles.centerText} id="work">
-          Work
-        </h1>
-        <Timeline events={WORK_TIMELINE} />
+      <h1 className={utilStyles.centerText} id="work">
+        Work
+      </h1>
+      <Timeline events={WORK_TIMELINE} />
+
+      <div
+        className={utilStyles.socialIcons}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          margin: '5rem auto 0 auto',
+          maxWidth: '40%',
+        }}
+      >
+        <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
+          <MdOutlineMail />
+        </a>
+        <a href={SOCIAL_LINKS.Twitter} target="_blank">
+          <FaTwitter />
+        </a>
+        <a href={SOCIAL_LINKS.LinkedIn} target="_blank">
+          <FaLinkedinIn />
+        </a>
+        <a href={SOCIAL_LINKS.Github} target="_blank">
+          <FaGithub />
+        </a>
       </div>
     </Layout>
   )
