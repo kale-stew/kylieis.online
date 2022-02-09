@@ -1,7 +1,12 @@
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import TalkCard from '../components/TalkCard'
-import { METADATA } from '../utils/constants'
+import Timeline from '../components/Timeline'
+import {
+  METADATA,
+  SOCIAL_LINKS,
+  WORK_TIMELINE,
+} from '../utils/data/personal-info'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
 
@@ -15,15 +20,47 @@ export default function HomePage({ recentPosts }) {
         className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
       >
         <br />
+        <h1 id="about">About</h1>
         <p>
           {METADATA.FIRST_NAME} is a software engineer and technical speaker
           with experience across the web stack. Her expertise lies primarily in
           API design and the implementation of a number of Javascript
           frameworks.
         </p>
+        <p>
+          She currently works as a freelance web developer and{' '}
+          <a href="https://notion.so" alt="Go to Notion's home page.">
+            Notion
+          </a>{' '}
+          Ambassador, helping her clients transition from other knowledge
+          management tools to an enterprise Notion setup while simultaneously
+          building user-friendly integrations using the API for them to leverage
+          internally. She is also currently open to new opportunities. You can
+          download her resume →{' '}
+          <a href="/Kylie Stewart cv.pdf" download>
+            here
+          </a>
+          .
+        </p>
+        <p>
+          In her free time, {METADATA.FIRST_NAME} is an avid hiker and
+          photographer that documents her adventures on{' '}
+          <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a> built using
+          Next.js and Notion. She is tracking progress towards her goal of
+          summitting every 14,000+' peak in the lower 48 United States there.
+        </p>
       </div>
 
-      <h1 className={utilStyles.centerText}>Recent Posts</h1>
+      <div style={{ margin: '2rem' }}>
+        <h1 className={utilStyles.centerText} id="work">
+          Work
+        </h1>
+        <Timeline events={WORK_TIMELINE} />
+      </div>
+
+      <h1 className={utilStyles.centerText} style={{ marginTop: '2rem' }}>
+        Recent Posts
+      </h1>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {recentPosts.map((recentPost) =>
           recentPost.category ? (
