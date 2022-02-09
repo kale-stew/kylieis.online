@@ -2,6 +2,7 @@ import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
 import TalkCard from '../components/TalkCard'
 import Timeline from '../components/Timeline'
+import { GiMountainRoad } from 'react-icons/gi'
 import {
   METADATA,
   SOCIAL_LINKS,
@@ -16,11 +17,35 @@ import utilStyles from '../styles/utils.module.css'
 export default function HomePage({ recentPosts }) {
   return (
     <Layout home>
+      <br />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <GiMountainRoad size="5rem" style={{ marginTop: '2rem' }} />
+        <h1 className={utilStyles.heading2Xl}>Hello! I'm Kylie.</h1>
+      </div>
+
+      <h1 className={utilStyles.centerText}>Recent Posts</h1>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {recentPosts.map((recentPost) =>
+          recentPost.category ? (
+            <BlogCard post={recentPost} />
+          ) : (
+            <TalkCard item={recentPost} />
+          )
+        )}
+      </div>
+
       <div
         className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
       >
-        <br />
-        <h1 id="about">About</h1>
+        <h1 id="about" style={{ marginTop: '5rem' }}>
+          About
+        </h1>
         <p>
           {METADATA.FIRST_NAME} is a software engineer and technical speaker
           with experience across the web stack. Her expertise lies primarily in
@@ -56,19 +81,6 @@ export default function HomePage({ recentPosts }) {
           Work
         </h1>
         <Timeline events={WORK_TIMELINE} />
-      </div>
-
-      <h1 className={utilStyles.centerText} style={{ marginTop: '2rem' }}>
-        Recent Posts
-      </h1>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        {recentPosts.map((recentPost) =>
-          recentPost.category ? (
-            <BlogCard post={recentPost} />
-          ) : (
-            <TalkCard item={recentPost} />
-          )
-        )}
       </div>
     </Layout>
   )

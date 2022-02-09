@@ -71,7 +71,7 @@ const HeaderNavigation = ({ isHome }) => {
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>
             {/* <Link href="/projects">Projects</Link> */}
-            <Link href="/about">About Kylie</Link>
+            <Link href="/#about">About Kylie</Link>
           </div>
           <div className={styles.socialIcons}>
             <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
