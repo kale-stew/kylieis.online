@@ -13,23 +13,6 @@ export const CONTACT_ENDPOINT =
 
 export const CONTENT_DIRECTORY = 'content'
 
-export const METADATA = {
-  FULL_NAME: 'Kylie Stewart',
-  FIRST_NAME: 'Kylie',
-  SITE_NAME: 'kyliestewart.tech',
-}
-
-export const SocialLinks = {
-  Email: 'mailTo:hello@kyliestewart.tech',
-  Github: 'https://github.com/kale-stew',
-  Instagram: 'https://instagram.com/kalestews',
-  LinkedIn: 'https://www.linkedin.com/in/kylieastewart/',
-  PersonalHomepage: 'https://kylieis.online',
-  ProfessionalHomepage: 'https://kyliestewart.tech',
-  HikingHomepage: 'https://kylies.photos',
-  Twitter: 'https://twitter.com/kyliestew',
-}
-
 export const TALK_TYPE = {
   M: 'meetup',
   C: 'conference',

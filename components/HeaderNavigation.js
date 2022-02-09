@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { IoEllipsisVerticalOutline } from 'react-icons/io5'
 import { IoMdClose } from 'react-icons/io'
-import { METADATA, SocialLinks } from '../utils/constants'
+import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { useState } from 'react'
 
@@ -74,16 +74,16 @@ const HeaderNavigation = ({ isHome }) => {
             <Link href="/about">About Kylie</Link>
           </div>
           <div className={styles.socialIcons}>
-            <a href={SocialLinks.Email} network="email" target="_blank">
+            <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
               <MdOutlineMail />
             </a>
-            <a href={SocialLinks.Twitter} target="_blank">
+            <a href={SOCIAL_LINKS.Twitter} target="_blank">
               <FaTwitter />
             </a>
-            <a href={SocialLinks.LinkedIn} target="_blank">
+            <a href={SOCIAL_LINKS.LinkedIn} target="_blank">
               <FaLinkedinIn />
             </a>
-            <a href={SocialLinks.Github} target="_blank">
+            <a href={SOCIAL_LINKS.Github} target="_blank">
               <FaGithub />
             </a>
           </div>

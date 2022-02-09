@@ -2,7 +2,7 @@ import ContactForm from '../components/ContactForm'
 import Headshot from '../public/notion-kylie.png'
 import Image from 'next/image'
 import Layout from '../components/Layout'
-import { METADATA, SocialLinks } from '../utils/constants'
+import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { defaultSocialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
@@ -44,7 +44,7 @@ export default function AboutPage() {
         <p>
           In her free time, {METADATA.FIRST_NAME} is an avid hiker and
           photographer that documents her adventures on{' '}
-          <a href={SocialLinks.HikingHomepage}>a hiking blog</a> (built using
+          <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a> (built using
           Next.js and Notion). She is tracking progress towards her goal of
           summitting every 14,000+' peak in the lower 48 United States there.
         </p>
@@ -53,8 +53,8 @@ export default function AboutPage() {
       <h2 className={utilStyles.centerText}>📫 Get in Touch</h2>
       <p style={captionStyles}>
         To stay up to date with {METADATA.FIRST_NAME}'s projects, follow her{' '}
-        <a href={SocialLinks.Twitter}>on Twitter</a>. To discuss working
-        together, send her <a href={SocialLinks.Email}>an email</a> or use the
+        <a href={SOCIAL_LINKS.Twitter}>on Twitter</a>. To discuss working
+        together, send her <a href={SOCIAL_LINKS.Email}>an email</a> or use the
         following form:
       </p>
       <ContactForm />
