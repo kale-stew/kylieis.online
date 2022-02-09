@@ -1,6 +1,6 @@
 import Layout from '../components/Layout'
 import Link from 'next/link'
-import { METADATA } from '../utils/constants'
+import { METADATA } from '../utils/data/personal-info'
 import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'

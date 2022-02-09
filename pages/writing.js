@@ -1,6 +1,7 @@
 import BlogCard from '../components/BlogCard'
 import Layout from '../components/Layout'
-import { CATEGORY_TYPE, METADATA } from '../utils/constants'
+import { CATEGORY_TYPE } from '../utils/constants'
+import { METADATA } from '../utils/data/personal-info'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getSortedWritingsData } from '../utils/data/writing'
 import { useState } from 'react'

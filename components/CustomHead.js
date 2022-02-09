@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FacebookOpenGraph } from '@resoc/core'
-import { METADATA } from '../utils/constants'
+import { METADATA } from '../utils/data/personal-info'
 
 const CustomHead = (pageProps) => {
   const getPageTitle = () =>
