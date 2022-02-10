@@ -1,20 +1,18 @@
 import Category from '../../components/Category'
 import FormattedDate from '../../components/Date'
 import Layout from '../../components/Layout'
-import Link from 'next/link'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/data/personal-info'
-import { getAllPostIds } from '../../utils/data/posts'
+import { buildNavigation } from '../../components/BlogNavigation'
+import { getAllPostData, getAllPostIds } from '../../utils/data/posts'
 import { getBlogPostData } from '../../utils/data/writing'
 import { getSingleTalkData } from '../../utils/data/speaking'
 import { socialImage } from '../../utils/preview-cards'
 
-import buttonStyles from '../../components/Button.module.css'
 import utilStyles from '../../styles/utils.module.css'
 
-export default function Post({ postData }) {
-  const isTalk = postData.category.includes('speaking')
+export default function Post({ postData, postIds }) {
   return (
     <Layout>
       <article>
@@ -53,22 +51,7 @@ export default function Post({ postData }) {
         </ReactMarkdown>
       </article>
 
-      {/* TODO: update to use referrer (if from /all, go back to /all, if from /speaking, go back to /speaking) */}
-      <div
-        className={`${buttonStyles.backToPosts} ${
-          isTalk ? buttonStyles.talkButton : buttonStyles.blogButton
-        }`}
-      >
-        {isTalk ? (
-          <Link href="/speaking">
-            <a>← Back to all talks</a>
-          </Link>
-        ) : (
-          <Link href="/writing">
-            <a>← Back to all posts</a>
-          </Link>
-        )}
-      </div>
+      {buildNavigation(postIds, postData)}
     </Layout>
   )
 }
@@ -88,10 +71,12 @@ export async function getStaticProps({ params }) {
       : await getBlogPostData(params.category, params.id)
   const title = postData.title
   const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
+  const postIds = await getAllPostData()
 
   return {
     props: {
       postData,
+      postIds,
       ...(await socialImage({
         title,
         description,
