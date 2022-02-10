@@ -56,7 +56,7 @@ export async function getAllPostIds() {
 // Get all post data except content, sorted by desc date
 export async function getAllPostData() {
   const allFileNames = fs.readdirSync(WRITINGS_DIR)
-  const fileData = allFileNames.map((fileName) => {
+  const blogData = allFileNames.map((fileName) => {
     const fullPath = path.join(WRITINGS_DIR, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
@@ -66,12 +66,13 @@ export async function getAllPostData() {
       description: data.description
         ? data.description
         : `${content.substring(0, 175)}...`,
+      type: 'blog',
       ...data,
     }
   })
 
   const talkData = await getAllSpeakingData()
-  const allData = [...talkData, ...fileData]
+  const allData = [...talkData, ...blogData]
 
   return sortByDateDesc(allData)
 }

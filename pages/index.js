@@ -6,8 +6,8 @@ import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { GiDeskLamp } from 'react-icons/gi'
 import {
   METADATA,
+  PERSONAL_TIMELINE,
   SOCIAL_LINKS,
-  WORK_TIMELINE,
 } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { defaultSocialImage } from '../utils/preview-cards'
@@ -95,7 +95,7 @@ export default function HomePage({ recentPosts }) {
         </a>
         .
       </p>
-      <Timeline events={WORK_TIMELINE} />
+      <Timeline events={PERSONAL_TIMELINE} />
 
       <div
         className={utilStyles.socialIcons}

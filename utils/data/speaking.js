@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import matter from 'gray-matter'
 
 const TALK_PREFIX =
@@ -43,18 +44,15 @@ export async function getTalkMetadata() {
 export async function getSingleTalkData(id) {
   const allTalks = await getAllSpeakingData()
   const match = allTalks.find((talk) => talk.id === id)
-
   const fetchedReadme = await fetch(
-    `${TALK_PREFIX}/${match.year}/${id}/README.md`
+    `${TALK_PREFIX}/${format(new Date(match.date), 'y')}/${id}/README.md`
   )
   const text = await fetchedReadme.text()
   const { data, content } = matter(text)
-  const categories = data.category.split(',')
-  categories.unshift('speaking')
 
   return {
     id,
-    category: categories,
+    category: match.category,
     content,
     title: data.title ? data.title : match.title,
     date: match.presentedAt[0].eventDate,

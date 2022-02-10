@@ -1,7 +1,6 @@
 export const CATEGORY_TYPE = {
   ALL: 'all',
   REACT: 'react',
-  JAVASCRIPT: 'javascript',
   NOTION: 'notion',
   ML: 'machine learning',
   TYPESCRIPT: 'typescript',
