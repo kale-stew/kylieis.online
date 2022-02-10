@@ -72,7 +72,7 @@ const HeaderNavigation = ({ isHome }) => {
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>
             {/* <Link href="/projects">Projects</Link> */}
-            <Link href="/#about">About Kylie</Link>
+            <Link href="/#timeline">Personal Timeline</Link>
           </div>
 
           <div

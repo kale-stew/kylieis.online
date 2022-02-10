@@ -2,11 +2,9 @@ import styled from '@emotion/styled'
 
 const ItemDescription = styled.div`
   margin-left: 1.75rem;
-  line-height: 2;
-  font-size: 15px;
+  line-height: 1.7;
   @media (max-width: 1024px) {
     margin: 0 auto;
-    line-height: 1.6;
   }
 `
 
@@ -34,7 +32,6 @@ const Timeline = ({ events }) => {
     jobTitle,
     location,
     company,
-    companyUrl,
     startDate,
     endDate,
     description,
@@ -45,7 +42,8 @@ const Timeline = ({ events }) => {
         <br />
         📍 {location}
         <br />
-        {startDate} － {endDate}
+        {startDate}
+        {endDate && `－${endDate}`}
       </div>
       <Divider />
       <ItemDescription>{description}</ItemDescription>

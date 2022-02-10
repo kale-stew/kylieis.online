@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import TalkCard from '../components/TalkCard'
 import Timeline from '../components/Timeline'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
-import { GiMountainRoad } from 'react-icons/gi'
+import { GiDeskLamp } from 'react-icons/gi'
 import {
   METADATA,
   SOCIAL_LINKS,
@@ -13,7 +13,6 @@ import { MdOutlineMail } from 'react-icons/md'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getMostRecentPosts } from '../utils/data/posts'
 
-import styles from '../styles/home.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 export default function HomePage({ recentPosts }) {
@@ -27,12 +26,47 @@ export default function HomePage({ recentPosts }) {
           flexDirection: 'column',
         }}
       >
-        <GiMountainRoad size="5rem" style={{ marginTop: '2rem' }} />
+        <GiDeskLamp size="5rem" style={{ marginTop: '2rem' }} />
         <h1 className={utilStyles.heading2Xl}>Hello! I'm Kylie.</h1>
       </div>
 
+      <div
+        id="about"
+        className={`${utilStyles.centerText} ${utilStyles.vertical}`}
+        style={{ maxWidth: '80%', margin: '0 auto' }}
+      >
+        <p style={{ marginTop: '0' }}>
+          I am a software engineer, technical speaker, and digital creator with
+          experience across the web stack. My expertise lies primarily in API
+          design and the implementation of a number of Javascript frameworks.
+        </p>
+        <p>
+          I currently work as a freelance web developer and{' '}
+          <a href="https://notion.so" alt="Go to Notion's home page.">
+            Notion
+          </a>{' '}
+          Ambassador, helping my clients transition from other knowledge
+          management tools to an enterprise Notion setup while simultaneously
+          building user-friendly integrations using the API for them to leverage
+          internally.
+        </p>
+        <p>
+          In my free time, I am an avid hiker and photographer that documents my
+          adventures on <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a>{' '}
+          built with Next.js. I am tracking progress towards my goal of
+          summitting every 14,000+' peak in the lower 48 United States there.
+        </p>
+      </div>
+
       <h1 className={utilStyles.centerText}>Recent Posts</h1>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem',
+          marginBottom: '3rem',
+        }}
+      >
         {recentPosts.map((recentPost) =>
           recentPost.category ? (
             <BlogCard post={recentPost} />
@@ -42,45 +76,25 @@ export default function HomePage({ recentPosts }) {
         )}
       </div>
 
-      <div
-        className={`${utilStyles.centerText} ${utilStyles.vertical} ${styles.aboutBlockText}`}
-      >
-        <h1 id="about" style={{ marginTop: '5rem' }}>
-          About
-        </h1>
-        <p>
-          {METADATA.FIRST_NAME} is a software engineer and technical speaker
-          with experience across the web stack. Her expertise lies primarily in
-          API design and the implementation of a number of Javascript
-          frameworks.
-        </p>
-        <p>
-          She currently works as a freelance web developer and{' '}
-          <a href="https://notion.so" alt="Go to Notion's home page.">
-            Notion
-          </a>{' '}
-          Ambassador, helping her clients transition from other knowledge
-          management tools to an enterprise Notion setup while simultaneously
-          building user-friendly integrations using the API for them to leverage
-          internally. She is also currently open to new opportunities. You can
-          download her resume →{' '}
-          <a href="/Kylie Stewart cv.pdf" download>
-            here
-          </a>
-          .
-        </p>
-        <p>
-          In her free time, {METADATA.FIRST_NAME} is an avid hiker and
-          photographer that documents her adventures on{' '}
-          <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a> built using
-          Next.js and Notion. She is tracking progress towards her goal of
-          summitting every 14,000+' peak in the lower 48 United States there.
-        </p>
-      </div>
-
-      <h1 className={utilStyles.centerText} id="work">
-        Work
+      <h1 className={utilStyles.centerText} id="timeline">
+        Personal Timeline
       </h1>
+      <p
+        className={utilStyles.centerText}
+        style={{
+          fontSize: '13px',
+          fontStyle: 'italic',
+          maxWidth: '70%',
+          margin: '0 auto 2rem auto',
+        }}
+      >
+        I am currently open to new opportunities! You can download a PDF of my
+        resume →{' '}
+        <a href="/Kylie Stewart cv.pdf" download>
+          here
+        </a>
+        .
+      </p>
       <Timeline events={WORK_TIMELINE} />
 
       <div
@@ -88,8 +102,8 @@ export default function HomePage({ recentPosts }) {
         style={{
           display: 'flex',
           justifyContent: 'space-around',
-          margin: '5rem auto 0 auto',
           maxWidth: '40%',
+          margin: '5rem auto 0 auto',
         }}
       >
         <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
