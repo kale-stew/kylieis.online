@@ -11,8 +11,12 @@ const BlogCard = ({ post }) => (
       <Link
         className={styles.blogCardTitle}
         href="/[category]/[id]"
-        as={`/${post.category}/${post.id}`}
-        alt={`Read ${post.title} on the blog.`}
+        as={
+          post.type === 'blog'
+            ? `/${post.category}/${post.id}`
+            : `/speaking/${post.id}`
+        }
+        alt={`Read '${post.title}'.`}
       >
         {post.title}
       </Link>

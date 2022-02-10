@@ -15,15 +15,15 @@ export const SOCIAL_LINKS = {
   Twitter: 'https://twitter.com/kyliestew',
 }
 
-export const WORK_TIMELINE = [
+export const PERSONAL_TIMELINE = [
   {
-    jobTitle: 'Software Engineer II',
-    company: 'Formidable',
-    location: 'Denver, Colorado',
-    startDate: 'Jan 2019',
-    endDate: 'Sep 2020',
+    jobTitle: 'Software + Solutions Engineer',
+    company: 'self-employed',
+    location: 'Georgetown, Colorado',
+    startDate: 'Nov 2020',
+    endDate: 'current',
     description:
-      "Maintained Spectacle, an open-sourced project for building interactive and informational presentations, through a rewrite of the library. Achieved our goal of modernizing the internal architecture and improving the authoring experience through an introduction of React hooks. // Worked with a multinational fast food company to build out an extensive brand-agnostic online ordering and delivery system, using React, AWS Lambdas, and Next.js. // Collaborated with an international medical supply conglomerate to roll out a major update to the company's internal CMS and external e-commerce website, using React, TypeScript, Next.js, and GraphQL.",
+      'Analyze user needs and software requirements to determine feasibility of design within time and cost constraints. // Consult with businesses about software system design and long-term maintenance, leveraging open-sourced systems when applicable. // Automate website deployment and inventory integration using Shopify, Next.js, React, AWS Lambdas, and Notion. // Develop integrations to optimize internal tooling for enterprise teams.',
   },
   {
     jobTitle: 'Ambassador',
@@ -32,7 +32,16 @@ export const WORK_TIMELINE = [
     startDate: 'Oct 2019',
     endDate: 'current',
     description:
-      'Became the second official Ambassador (formally called Notion Pro) in late 2019, advocating for and beta testing the software ahead of official releases. // Organized and hosted the first Notion meetup in the United States. // Notion is an all-in-one workspace for note-taking, knowledge and data management, and project and task management.',
+      'Became the first official Ambassador (formerly called Notion Pro) in the United States, advocating for and beta testing the software ahead of official releases. // Organized and hosted a Notion meetup group in downtown Denver, Colorado. // Notion is an all-in-one workspace for note-taking, knowledge and data management, and project and task management.',
+  },
+  {
+    jobTitle: 'Software Engineer II',
+    company: 'Formidable',
+    location: 'Denver, Colorado',
+    startDate: 'Jan 2019',
+    endDate: 'Sep 2020',
+    description:
+      "Maintained Spectacle, an open-sourced project for building interactive and informational presentations, through a rewrite of the library. Achieved our goal of modernizing the internal architecture and improving the authoring experience through an introduction of React hooks. // Worked with a multinational fast food company to build out an extensive brand-agnostic online ordering and delivery system, using React, AWS Lambdas, and Next.js. // Collaborated with an international medical supply conglomerate to roll out a major update to the company's internal CMS and external e-commerce website, using React, TypeScript, Next.js, and GraphQL.",
   },
   {
     jobTitle: 'First Conference Talk',

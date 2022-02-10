@@ -3,17 +3,12 @@ import Layout from '../components/Layout'
 import { CATEGORY_TYPE } from '../utils/constants'
 import { METADATA } from '../utils/data/personal-info'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getSortedWritingsData } from '../utils/data/writing'
+import { getAllPostData } from '../utils/data/posts'
 import { useState } from 'react'
 
 import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
-
-/**
- * TODO:
- * - Should display *all* posts
- */
 
 export default function WritingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
@@ -70,7 +65,7 @@ export default function WritingPage({ allPostsData }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedWritingsData()
+  const allPostsData = await getAllPostData()
   const title = 'Writing'
   const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
 
