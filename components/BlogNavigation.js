@@ -36,7 +36,8 @@ const NavigationDivider = styled.hr`
  * @returns next js <Link/>
  */
 export const buildNavigation = (postIds, postData) => {
-  let selfPosition = postIds.findIndex((post) => post.id === postData.id)
+  const selfPosition = postIds.findIndex((post) => post.id === postData.id)
+  const currentlyOnBlog = postIds[selfPosition].type === 'blog'
   let nextPost = -1
   let prevPost = -1
   let nextPostLink
@@ -97,8 +98,10 @@ export const buildNavigation = (postIds, postData) => {
   if (prevPost == -1 && nextPost != -1) {
     return (
       <BlogNavigation>
-        <Link href="/blog">
-          <NavigationButton color="purple">← Back to blog</NavigationButton>
+        <Link href={`/${currentlyOnBlog ? 'blog' : 'speaking'}`}>
+          <NavigationButton color={currentlyOnBlog ? 'purple' : 'pink'}>
+            ← Back to {currentlyOnBlog ? 'blog' : 'all talks'}
+          </NavigationButton>
         </Link>
         <NavigationDivider></NavigationDivider>
         {nextPostLink}
@@ -111,10 +114,13 @@ export const buildNavigation = (postIds, postData) => {
       <BlogNavigation>
         {prevPostLink}
         <NavigationDivider></NavigationDivider>
-        <Link href="/blog">
-          <NavigationButton color="purple" style={{ textAlign: 'right' }}>
+        <Link href={`/${currentlyOnBlog ? 'blog' : 'speaking'}`}>
+          <NavigationButton
+            color={currentlyOnBlog ? 'purple' : 'pink'}
+            style={{ textAlign: 'right' }}
+          >
             {' '}
-            Back to blog →
+            Back to {currentlyOnBlog ? 'blog' : 'all talks'} →
           </NavigationButton>
         </Link>
       </BlogNavigation>
