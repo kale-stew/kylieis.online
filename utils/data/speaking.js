@@ -4,7 +4,7 @@ const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
 export const SPEAKING_DATA = `${TALK_PREFIX}/talks.json`
 
-async function getAllSpeakingData() {
+export async function getAllSpeakingData() {
   const fetched = await fetch(SPEAKING_DATA)
   const allTalks = await fetched.json()
   return allTalks
@@ -35,8 +35,7 @@ export async function getAllSpeakingEvents() {
   )
 }
 
-// Get a simple arr of only titles
-export async function getAllTalkIds() {
+export async function getTalkMetadata() {
   const allTalks = await getAllSpeakingData()
   return allTalks.map((talk) => talk.id)
 }
