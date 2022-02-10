@@ -35,6 +35,9 @@ const FullScreenNavigation = styled.div`
   flex-direction: column;
   border-radius: 5px;
   gap: 1rem;
+  a {
+    width: max-content;
+  }
   @media (max-width: 1024px) {
     height: max-content;
     -webkit-transform: translate3d(0, 0, 0);
@@ -42,7 +45,7 @@ const FullScreenNavigation = styled.div`
   }
   @media (max-width: 700px) {
     margin: 0 0 auto auto;
-    width: 60vw;
+    width: max-content;
     padding: 1rem;
     font-size: 18px;
   }
