@@ -2,6 +2,7 @@
 title: 'Automating Social Preview Images on my Next.js Blog'
 date: '2022-01-02'
 category: 'react'
+description: 'Dynamically generating open-graph images for social media previews using resoc and mustache.'
 ---
 
 After taking the time to rewrite this website to use Next.js over Gatsby, I decided to put together a roadmap. Social preview images were added to that roadmap fairly early on because I find it personally frustrating when websites I'm trying to share don't have metadata previews.

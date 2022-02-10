@@ -18,7 +18,7 @@ export const SOCIAL_LINKS = {
 export const PERSONAL_TIMELINE = [
   {
     jobTitle: 'Software + Solutions Engineer',
-    company: 'self-employed',
+    company: 'freelance',
     location: 'Georgetown, Colorado',
     startDate: 'Nov 2020',
     endDate: 'current',

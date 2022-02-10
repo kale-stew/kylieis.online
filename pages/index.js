@@ -1,6 +1,5 @@
-import BlogCard from '../components/BlogCard'
+import Card from '../components/Card'
 import Layout from '../components/Layout'
-import TalkCard from '../components/TalkCard'
 import Timeline from '../components/Timeline'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { GiDeskLamp } from 'react-icons/gi'
@@ -67,13 +66,9 @@ export default function HomePage({ recentPosts }) {
           marginBottom: '3rem',
         }}
       >
-        {recentPosts.map((recentPost) =>
-          recentPost.category ? (
-            <BlogCard post={recentPost} />
-          ) : (
-            <TalkCard item={recentPost} />
-          )
-        )}
+        {recentPosts.map((recentPost) => (
+          <Card item={recentPost} />
+        ))}
       </div>
 
       <h1 className={utilStyles.centerText} id="timeline">
@@ -126,13 +121,13 @@ export default function HomePage({ recentPosts }) {
 export async function getStaticProps() {
   const title = `${METADATA.SITE_NAME}`
   const description = 'Web developer and public speaker.'
-  const recent = await getMostRecentPosts()
+  const recentPosts = await getMostRecentPosts()
 
   return {
     props: {
       title,
       description,
-      recentPosts: recent,
+      recentPosts,
       ...(await defaultSocialImage({
         title,
         baseName: 'home',

@@ -2,11 +2,7 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import { WRITINGS_DIR } from './writing'
-import {
-  getAllSpeakingData,
-  getAllSpeakingEvents,
-  getTalkMetadata,
-} from './speaking'
+import { getAllSpeakingData, getTalkMetadata } from './speaking'
 import { sortByDateDesc } from '../helpers'
 
 // Create post params for any category
@@ -79,7 +75,7 @@ export async function getAllPostData() {
 
 // Get one recent speaking & writing post
 export async function getMostRecentPosts() {
-  const allEvents = await getAllSpeakingEvents()
   const allPosts = await getAllPostData()
-  return [allPosts.shift(), sortByDateDesc(allEvents).shift()]
+  const sorted = sortByDateDesc(allPosts)
+  return sorted.splice(0, 2)
 }

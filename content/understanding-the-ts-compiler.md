@@ -2,6 +2,7 @@
 title: 'Understanding the TypeScript Compiler'
 date: '2020-02-19'
 category: 'typescript'
+description: 'Taking a closer look at how the TypeScript compiler works so I can better implement a testing corner case in an open source library.'
 ---
 
 I am trying to thoroughly test a library that has TypeScript support, but too many use cases to accurately track without contacting hundreds of thousands of consumers of said library to ensure we thoroughly understand it's many, many use cases.

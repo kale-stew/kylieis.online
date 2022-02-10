@@ -1,4 +1,4 @@
-import BlogCard from '../components/BlogCard'
+import Card from '../components/Card'
 import Layout from '../components/Layout'
 import { CATEGORY_TYPE } from '../utils/constants'
 import { METADATA } from '../utils/data/personal-info'
@@ -55,7 +55,7 @@ export default function WritingPage({ allPostsData }) {
                     : 'none',
               }}
             >
-              <BlogCard post={post} />
+              <Card item={post} />
             </li>
           ))}
         </ul>

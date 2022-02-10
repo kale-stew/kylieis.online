@@ -15,12 +15,13 @@ export async function getAllSpeakingData() {
 export async function getAllSpeakingEvents() {
   const allTalks = await getAllSpeakingData()
 
-  return allTalks.flatMap(({ title, id, ...talk }) =>
+  return allTalks.flatMap(({ title, id, category, ...talk }) =>
     talk.presentedAt.map((event) => ({
       id,
       title,
       type: event.eventType,
       date: event.eventDate,
+      category,
       description: talk.description
         ? `${talk.description} Presented at ${
             event.eventType == 'meetup'

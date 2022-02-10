@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import Layout from '../components/Layout'
 import Panorama from '../public/images/speaking-pano.jpeg'
-import TalkCard from '../components/TalkCard'
+import Card from '../components/Card'
 import { METADATA } from '../utils/data/personal-info'
 import { TALK_TYPE } from '../utils/constants'
 import { getAllSpeakingEvents, SPEAKING_DATA } from '../utils/data/speaking'
 import { socialImage } from '../utils/preview-cards'
 
-import cardStyles from '../components/TalkCard.module.css'
+import cardStyles from '../components/FlippableCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 /**
@@ -39,7 +39,7 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
       </p>
       <div className={cardStyles.talkCardWrapper}>
         {allTalks.map((talk) => (
-          <TalkCard key={`${talk.title}-${randomId}`} item={talk} />
+          <Card flippable key={`${talk.title}-${randomId}`} item={talk} />
         ))}
       </div>
       <br />
