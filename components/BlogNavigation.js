@@ -45,7 +45,6 @@ export const buildNavigation = (postIds, postData) => {
   // If previous post exists,
   if (selfPosition + 1 <= postIds.length - 1) {
     nextPost = selfPosition + 1
-    console.log('NEXT POST------>', postIds[nextPost])
     nextPostLink = (
       <Link
         href="/[category]/[id]"
