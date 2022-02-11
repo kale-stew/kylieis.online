@@ -63,6 +63,11 @@ body[data-theme='dark'] {
   --color-bg-toggle: #575757;
 }
 
+::selection {
+  background: var(--color-text-accent);
+  color: white;
+}
+
 pre {
   display: block;
   white-space: pre;
