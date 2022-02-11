@@ -98,7 +98,7 @@ export const buildNavigation = (postIds, postData) => {
   if (prevPost == -1 && nextPost != -1) {
     return (
       <BlogNavigation>
-        <Link href={`/${currentlyOnBlog ? 'blog' : 'speaking'}`}>
+        <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
           <NavigationButton color={currentlyOnBlog ? 'purple' : 'pink'}>
             ← Back to {currentlyOnBlog ? 'blog' : 'all talks'}
           </NavigationButton>
@@ -114,7 +114,7 @@ export const buildNavigation = (postIds, postData) => {
       <BlogNavigation>
         {prevPostLink}
         <NavigationDivider></NavigationDivider>
-        <Link href={`/${currentlyOnBlog ? 'blog' : 'speaking'}`}>
+        <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
           <NavigationButton
             color={currentlyOnBlog ? 'purple' : 'pink'}
             style={{ textAlign: 'right' }}
