@@ -19,9 +19,9 @@ const TimelineItem = styled.div`
   }
 `
 
-const Divider = styled.hr`
+const TimelineDivider = styled.hr`
   height: 100%;
-  border: 1px solid var(--color-text-accent);
+  border: 2px solid var(--color-text-accent);
   @media (max-width: 1024px) {
     width: 100%;
   }
@@ -45,7 +45,7 @@ const Timeline = ({ events }) => {
         {startDate}
         {endDate && `－${endDate}`}
       </div>
-      <Divider />
+      <TimelineDivider />
       <ItemDescription>{description}</ItemDescription>
     </TimelineItem>
   )

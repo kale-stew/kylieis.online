@@ -36,10 +36,12 @@ body {
 
   /* gradient variable */
   --linear-gradient: linear-gradient(
-    72deg,
-    var(--color-purple),
-    var(--color-pink)
-  );
+      217deg,
+      var(--color-pink),
+      var(--color-purple)
+    ),
+    linear-gradient(127deg, var(--color-purple), var(--color-pink) 70.71%),
+    linear-gradient(336deg, var(--color-pink), var(--color-purple) 70.71%);
 }
 
 body,
