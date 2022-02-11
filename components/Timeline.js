@@ -21,8 +21,12 @@ const TimelineItem = styled.div`
 
 const TimelineDivider = styled.hr`
   height: 100%;
-  border: 2px solid var(--color-text-accent);
+  width: 1.5px;
+  border: none;
+  color: var(--color-text-accent);
+  background-color: var(--color-text-accent);
   @media (max-width: 1024px) {
+    height: 1.5px;
     width: 100%;
   }
 `
