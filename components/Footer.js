@@ -1,4 +1,8 @@
-import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import {
+  METADATA,
+  SOCIAL_LINKS,
+  SOURCE_CODE,
+} from '../utils/data/personal-info'
 
 const Footer = () => (
   <footer>
@@ -6,9 +10,13 @@ const Footer = () => (
     <a
       href={SOCIAL_LINKS.PersonalHomepage}
       target="_blank"
-      style={{ marginLeft: '0.4em' }}
+      style={{ margin: '0 0.3rem' }}
     >
       {METADATA.FULL_NAME}
+    </a>
+    － built with 🤍 on
+    <a href={SOURCE_CODE} target="_blank" style={{ marginLeft: '0.3rem' }}>
+      github
     </a>
   </footer>
 )

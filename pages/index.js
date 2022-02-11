@@ -1,6 +1,7 @@
 import Card from '../components/Card'
 import Layout from '../components/Layout'
 import Timeline from '../components/Timeline'
+import styled from '@emotion/styled'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { GiDeskLamp } from 'react-icons/gi'
 import {
@@ -14,25 +15,43 @@ import { getMostRecentPosts } from '../utils/data/posts'
 
 import utilStyles from '../styles/utils.module.css'
 
+const HighlightBackground = styled.div`
+  z-index: -50;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--linear-gradient);
+  @media (max-width: 750px) {
+    height: 1200px;
+  }
+`
+
+const IntroParagraph = styled.div`
+  max-width: 80%;
+  margin: 0 auto;
+  color: white;
+  a {
+    color: var(--color-pink);
+  }
+`
+
 export default function HomePage({ recentPosts }) {
   return (
     <Layout home>
+      <HighlightBackground />
       <br />
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <GiDeskLamp size="5rem" style={{ marginTop: '2rem' }} />
-        <h1 className={utilStyles.heading2Xl}>Hello! I'm Kylie.</h1>
+      <div className={utilStyles.vertical}>
+        <GiDeskLamp size="5rem" style={{ marginTop: '2rem', color: 'white' }} />
+        <h1 className={utilStyles.heading2Xl} style={{ color: 'white' }}>
+          Hello! I'm {METADATA.FIRST_NAME}.
+        </h1>
       </div>
 
-      <div
+      <IntroParagraph
         id="about"
         className={`${utilStyles.centerText} ${utilStyles.vertical}`}
-        style={{ maxWidth: '80%', margin: '0 auto' }}
       >
         <p style={{ marginTop: '0' }}>
           I am a software engineer, technical speaker, and digital creator with
@@ -55,9 +74,11 @@ export default function HomePage({ recentPosts }) {
           built with Next.js. I am tracking progress towards my goal of
           summitting every 14,000+' peak in the lower 48 United States there.
         </p>
-      </div>
+      </IntroParagraph>
 
-      <h1 className={utilStyles.centerText}>Recent Posts</h1>
+      <h1 className={utilStyles.centerText} style={{ color: 'white' }}>
+        Recent Posts
+      </h1>
       <div
         style={{
           display: 'flex',

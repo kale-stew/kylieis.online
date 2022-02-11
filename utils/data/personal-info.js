@@ -15,6 +15,8 @@ export const SOCIAL_LINKS = {
   Twitter: 'https://twitter.com/kyliestew',
 }
 
+export const SOURCE_CODE = 'https://github.com/kale-stew/kyliestewart.tech'
+
 export const PERSONAL_TIMELINE = [
   {
     jobTitle: 'Software + Solutions Engineer',

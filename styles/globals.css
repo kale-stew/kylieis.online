@@ -33,6 +33,13 @@ body {
   --color-pink-2: #c921c84d;
   --color-pink-3: #c921c833;
   --color-pink-4: #c921c81a;
+
+  /* gradient variable */
+  --linear-gradient: linear-gradient(
+    72deg,
+    var(--color-purple),
+    var(--color-pink)
+  );
 }
 
 body,
@@ -116,11 +123,7 @@ ol a:hover {
 }
 
 header {
-  background-image: linear-gradient(
-    72deg,
-    var(--color-purple),
-    var(--color-pink)
-  );
+  background-image: var(--linear-gradient);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -151,19 +154,16 @@ article {
 }
 
 footer {
-  background-image: linear-gradient(
-    72deg,
-    var(--color-purple),
-    var(--color-pink)
-  );
+  background-image: var(--linear-gradient);
   color: white;
   bottom: 0;
   width: 100%;
+  height: 50px;
+  font-size: 12px;
+  padding: 0.5rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
-  height: 50px;
 }
 
 footer a {

@@ -21,16 +21,12 @@ const MenuToggleButton = styled.button`
 `
 
 const FullScreenNavigation = styled.div`
-  background-image: linear-gradient(
-    72deg,
-    var(--color-purple),
-    var(--color-pink)
-  );
+  background-image: var(--linear-gradient);
   z-index: 100;
   width: 15vw;
   height: min-content;
   margin: auto 0 auto auto;
-  padding: 2vh 2vw;
+  padding: 2vh 4vw 2vh 2vw;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -55,7 +51,7 @@ const HeaderNavigation = ({ isHome }) => {
   const [showMenu, toggleShowMenu] = useState(false)
 
   return (
-    <header>
+    <header style={isHome ? { background: 'transparent' } : null}>
       <h2>
         <Link href="/">{METADATA.SITE_NAME}</Link>
       </h2>
