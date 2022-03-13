@@ -17,19 +17,35 @@ const captionStyles = {
   maxWidth: '80%',
 }
 
+const SmallerSection = styled.div`
+  max-width: 60vw;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    max-width: 90vw;
+  }
+`
+
 const BlogListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 1;
+  gap: 1rem;
   padding: 0;
   list-style: none;
+`
+
+const IntroParagraph = styled.p`
+  max-width: 50vw;
+  margin: 0 auto 3rem auto;
+  @media (max-width: 1024px) {
+    max-width: 80vw;
+  }
 `
 
 const PageDivider = styled.hr`
   height: 1.5px;
   width: 100%;
   border: none;
-  margin: 4rem 0 2rem 0;
+  margin: 4rem 0 2.5rem 0;
   color: var(--color-text-accent);
   background-color: var(--color-text-accent);
 `
@@ -44,7 +60,7 @@ export default function NotionTemplatesPage({ title, blogPostData }) {
         {title}
       </h1>
 
-      <p className={utilStyles.centerText} style={{ marginBottom: '3rem' }}>
+      <IntroParagraph className={utilStyles.centerText}>
         Notion is an all-in-one workspace for note-taking, knowledge and data
         management, and project and task management. As the first U.S.-based
         Notion Ambassador, I work with the company to beta test their programs
@@ -59,28 +75,32 @@ export default function NotionTemplatesPage({ title, blogPostData }) {
         </a>
         . The following are interviews, templates, blog posts, and other guides
         I've produced in my time working with Notion over the years.
-      </p>
+      </IntroParagraph>
 
-      <h2 className={utilStyles.headingXl}>Featured Projects</h2>
+      <SmallerSection>
+        <h2 className={utilStyles.headingXl}>Featured Projects</h2>
+      </SmallerSection>
       <ProjectCarousel>
         {NOTION_PROJECTS.map((project) => (
           <ProjectCard item={project} />
         ))}
       </ProjectCarousel>
 
-      <h2 className={utilStyles.headingXl} style={{ marginTop: '3rem' }}>
-        Blog Posts
-      </h2>
-      <BlogListWrapper>
-        {blogPostData.map(
-          (post) =>
-            post && (
-              <li key={post.id}>
-                <BlogItem item={post} />
-              </li>
-            )
-        )}
-      </BlogListWrapper>
+      <SmallerSection>
+        <h2 className={utilStyles.headingXl} style={{ marginTop: '3rem' }}>
+          Blog Posts
+        </h2>
+        <BlogListWrapper>
+          {blogPostData.map(
+            (post) =>
+              post && (
+                <li key={post.id}>
+                  <BlogItem item={post} />
+                </li>
+              )
+          )}
+        </BlogListWrapper>
+      </SmallerSection>
 
       <PageDivider />
       <h2 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>

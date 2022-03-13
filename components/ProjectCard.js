@@ -17,7 +17,9 @@ const Wrapper = styled.div`
 `
 
 const ProjectPreview = styled.img`
-  max-width: 25rem;
+  width: 25rem;
+  height: 12rem;
+  object-fit: cover;
 `
 
 const ProjectTitle = styled.div`

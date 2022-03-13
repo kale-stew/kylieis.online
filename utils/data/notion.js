@@ -1,21 +1,21 @@
 export const NOTION_PROJECTS = [
   {
-    title: 'Recipe Box',
-    type: 'template',
-    previewImgUrl: '/images/preview-recipe-box.png',
-    description:
-      "Officially published on the Notion Template Gallery, this Recipe Box serves as an online database for recipes I have collected over the years. Users can sort by category (like 'Dinner' or 'Haven't Tried') and easily copy & paste the Shopping List into a separate Groceries page to simplify the grocery shopping process.",
-    url: 'https://www.notion.so/templates/recipe-box',
-    date: 'March 2020',
-  },
-  {
-    title: 'Notion Office Hour: Building a Personal Wiki',
+    title: 'Notion Office Hours: Building a Personal Wiki',
     type: 'video',
     description:
       'As a guest on this live-streamed event, I discuss personal workspaces, the conflicts that arise in using Notion for both personal and professional life management, and more with Notion Mastery course creator Marie Poulin.',
     previewImgUrl: '/images/preview-office-hour.png',
     url: 'https://youtu.be/YQCk5uCX3fg',
     date: 'September 2019',
+  },
+  {
+    title: 'Recipe Box',
+    type: 'template',
+    previewImgUrl: '/images/preview-recipe-box.png',
+    description:
+      "Published on the Official Notion Template Gallery, this Recipe Box serves as an online database for recipes I have collected over the years. Users can sort by category (like 'Dinner' or 'Haven't Tried') and easily copy & paste the Shopping List into a separate Groceries page to simplify the grocery shopping process.",
+    url: 'https://www.notion.so/templates/recipe-box',
+    date: 'March 2020',
   },
   {
     title: 'Interview with Keep Productive',
