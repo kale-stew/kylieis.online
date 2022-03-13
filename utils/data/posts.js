@@ -56,7 +56,6 @@ export async function getAllPostData() {
     const fullPath = path.join(WRITINGS_DIR, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
-
     return {
       id: fileName.replace(/\.md$/, ''),
       description: data.description
@@ -69,8 +68,29 @@ export async function getAllPostData() {
 
   const talkData = await getAllSpeakingData()
   const allData = [...talkData, ...blogData]
-
   return sortByDateDesc(allData)
+}
+
+// Get all post data except content for a specific category, sorted by desc date
+export async function getPostDataByCategory(category) {
+  const allFileNames = fs.readdirSync(WRITINGS_DIR)
+  const filteredData = allFileNames.map((fileName) => {
+    const fullPath = path.join(WRITINGS_DIR, fileName)
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { data, content } = matter(fileContents)
+    return data.category === category
+      ? {
+          id: fileName.replace(/\.md$/, ''),
+          description: data.description
+            ? data.description
+            : `${content.substring(0, 175)}...`,
+          type: 'blog',
+          ...data,
+        }
+      : null
+  })
+
+  return sortByDateDesc(filteredData)
 }
 
 // Get one recent speaking & writing post

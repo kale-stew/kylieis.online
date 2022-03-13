@@ -34,7 +34,7 @@ const formatStatsMetric = (distance, gain) =>
 
 const sortByDateDesc = (arr) => {
   return arr.sort((a, b) => {
-    if (a.date < b.date) {
+    if (a && a.date < b.date) {
       return 1
     } else {
       return -1
