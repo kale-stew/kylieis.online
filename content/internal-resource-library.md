@@ -1,5 +1,5 @@
 ---
-title: 'Using Notion to Build an Internal Resource Library'
+title: 'Building an Internal Resource Library in Notion'
 date: '2022-03-06'
 category: 'notion'
 description: 'Using Notion to codify internal systems as a living knowledge base at scale.'
