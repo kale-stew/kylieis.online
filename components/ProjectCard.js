@@ -5,16 +5,14 @@ export const ProjectCarousel = styled.div`
   flex-direction: row;
   overflow: scroll;
   max-height: auto;
-  max-width: 65vw;
   padding-bottom: 2rem;
-
   @media (max-width: 1024px) {
     max-width: 90vw;
   }
 `
 
 const Wrapper = styled.div`
-  max-width: 25rem;
+  max-width: 30rem;
   margin: 1em;
 `
 
@@ -27,7 +25,6 @@ const ProjectTitle = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-
   a:hover {
     text-decoration: underline;
   }
@@ -49,7 +46,12 @@ const ProjectTypePill = styled.div`
 
 const ProjectCard = ({ item }) => (
   <Wrapper>
-    <ProjectPreview src={item.previewImgUrl} />
+    <ProjectPreview
+      src={item.previewImgUrl}
+      alt={`Preview image ${
+        item.type === 'video' ? 'of the video thumbnail for' : 'of the template'
+      } '${item.title}'.`}
+    />
     <ProjectTitle>
       <a
         href={item.url}
