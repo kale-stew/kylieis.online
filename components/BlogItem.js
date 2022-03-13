@@ -8,11 +8,10 @@ import utilStyles from '../styles/utils.module.css'
 const TitleLink = styled.h2`
   a {
     color: var(--color-text-primary);
-  }
-
-  a:hover {
-    text-decoration: underline;
-    box-shadow: none;
+    &:hover {
+      text-decoration: underline;
+      box-shadow: none;
+    }
   }
 `
 
