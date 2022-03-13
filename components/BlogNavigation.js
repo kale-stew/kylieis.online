@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import { accordion } from '../styles/animations'
+import { miniAccordion } from '../styles/animations'
 
 const BlogNavigation = styled.div`
   display: grid;
@@ -18,7 +18,7 @@ const NavigationButton = styled.span`
     `var(--color-${props.color}-1) -5px 5px, var(--color-${props.color}-2) -10px 10px;`};
   &:hover {
     cursor: pointer;
-    animation: ${(props) => accordion(props.color)} 0.5s ease-in-out;
+    animation: ${(props) => miniAccordion(props.color)} 0.5s ease-in-out;
     animation-iteration-count: 2;
   }
 `

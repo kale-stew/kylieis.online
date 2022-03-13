@@ -1,5 +1,5 @@
 ---
-title: 'Using Notion Formulas to Calculate Weight'
+title: 'Using Notion Formulas to Calculate Pack Weight'
 date: '2020-04-16'
 category: 'notion'
 ---
@@ -48,4 +48,4 @@ When one navigates to the view, it's filtered down to the appropriate category a
 
 It's very simple to appropriate a template for your own uses, if you're willing to make some small changes. Thanks to flexibility of databases within Notion, it's also very simple to change the way you consume that data.
 
-Thanks for reading about my Gear Tracker and the approach I took to get here! Check out [my other Notion posts](https://www.kyliestewart.tech/blog?notion) for more organizational fun.
+Thanks for reading about my Gear Tracker and the approach I took to get here! Check out [my other Notion posts](https://www.kyliestewart.tech/notion) for more organizational fun.

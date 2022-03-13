@@ -1,4 +1,4 @@
-import Card from '../components/Card'
+import FeaturedCard from '../components/FeaturedCard'
 import Layout from '../components/Layout'
 import Timeline from '../components/Timeline'
 import styled from '@emotion/styled'
@@ -28,10 +28,20 @@ const HighlightBackground = styled.div`
   }
 `
 
+const Introduction = styled.div`
+  color: white;
+  text-align: center;
+
+  h1 {
+    color: white;
+  }
+`
+
 const IntroParagraph = styled.div`
   max-width: 80%;
   margin: 0 auto;
   color: white;
+  font-size: 18px;
   a {
     color: var(--color-pink);
   }
@@ -42,57 +52,63 @@ export default function HomePage({ recentPosts }) {
     <Layout home>
       <HighlightBackground />
       <br />
-      <div className={utilStyles.vertical}>
-        <GiDeskLamp size="5rem" style={{ marginTop: '2rem', color: 'white' }} />
-        <h1 className={utilStyles.heading2Xl} style={{ color: 'white' }}>
+
+      <Introduction className={utilStyles.vertical}>
+        <GiDeskLamp size="5rem" style={{ marginTop: '2rem' }} />
+        <h1 className={utilStyles.heading2Xl}>
           Hello! I'm {METADATA.FIRST_NAME}.
         </h1>
-      </div>
 
-      <IntroParagraph
-        id="about"
-        className={`${utilStyles.centerText} ${utilStyles.vertical}`}
+        <IntroParagraph id="about">
+          <p style={{ marginTop: '0' }}>
+            I am a software engineer, technical speaker, and digital creator
+            with experience across the web stack. My expertise lies primarily in
+            API design and the implementation of a number of Javascript
+            frameworks.
+          </p>
+          <p>
+            I currently work as a freelance web developer and{' '}
+            <a href="https://notion.so" alt="Go to Notion's home page.">
+              Notion
+            </a>{' '}
+            Ambassador, helping my clients transition from other knowledge
+            management tools to an enterprise Notion setup while simultaneously
+            building user-friendly integrations using the API for them to
+            leverage internally.
+          </p>
+          <p>
+            In my free time, I am an avid hiker and photographer that documents
+            my adventures on{' '}
+            <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a> built with
+            Next.js. I am tracking progress towards my goal of summitting every
+            14,000+' peak in the lower 48 United States there.
+          </p>
+        </IntroParagraph>
+
+        <h1
+          className={utilStyles.headingXl}
+          style={{ margin: '2.5rem auto 2rem auto' }}
+        >
+          Recent Posts
+        </h1>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '2rem',
+          }}
+        >
+          {recentPosts.map((recentPost) => (
+            <FeaturedCard item={recentPost} />
+          ))}
+        </div>
+      </Introduction>
+
+      <h1
+        className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
+        style={{ margin: '3rem auto 2rem auto' }}
+        id="timeline"
       >
-        <p style={{ marginTop: '0' }}>
-          I am a software engineer, technical speaker, and digital creator with
-          experience across the web stack. My expertise lies primarily in API
-          design and the implementation of a number of Javascript frameworks.
-        </p>
-        <p>
-          I currently work as a freelance web developer and{' '}
-          <a href="https://notion.so" alt="Go to Notion's home page.">
-            Notion
-          </a>{' '}
-          Ambassador, helping my clients transition from other knowledge
-          management tools to an enterprise Notion setup while simultaneously
-          building user-friendly integrations using the API for them to leverage
-          internally.
-        </p>
-        <p>
-          In my free time, I am an avid hiker and photographer that documents my
-          adventures on <a href={SOCIAL_LINKS.HikingHomepage}>a hiking blog</a>{' '}
-          built with Next.js. I am tracking progress towards my goal of
-          summitting every 14,000+' peak in the lower 48 United States there.
-        </p>
-      </IntroParagraph>
-
-      <h1 className={utilStyles.centerText} style={{ color: 'white' }}>
-        Recent Posts
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem',
-          marginBottom: '3rem',
-        }}
-      >
-        {recentPosts.map((recentPost) => (
-          <Card item={recentPost} />
-        ))}
-      </div>
-
-      <h1 className={utilStyles.centerText} id="timeline">
         Personal Timeline
       </h1>
       <p

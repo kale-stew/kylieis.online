@@ -1,14 +1,40 @@
-import Card from '../components/Card'
+import BlogItem from '../components/BlogItem'
 import Layout from '../components/Layout'
+import styled from '@emotion/styled'
 import { CATEGORY_TYPE } from '../utils/constants'
 import { METADATA } from '../utils/data/personal-info'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllPostData } from '../utils/data/posts'
 import { useState } from 'react'
 
-import cardStyles from '../components/BlogCard.module.css'
 import styles from '../styles/blog.module.css'
 import utilStyles from '../styles/utils.module.css'
+
+const BlogListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 2;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 50vw;
+
+  @media (max-width: 1024px) {
+    max-width: 90vw;
+  }
+`
+
+const CategoryItemsWrapper = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 0.25rem;
+  margin: 2rem auto;
+
+  @media (max-width: 1024px) {
+    margin: auto;
+    justify-content: center;
+  }
+`
 
 export default function WritingPage({ allPostsData }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
@@ -35,31 +61,30 @@ export default function WritingPage({ allPostsData }) {
 
   return (
     <Layout>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      <h1
+        className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
+        style={{ marginTop: '3rem' }}
+      >
         Technical Writings and Tutorials
       </h1>
-      <section className={cardStyles.categoryWrapper}>
-        {buildCategories()}
-      </section>
+      <CategoryItemsWrapper>{buildCategories()}</CategoryItemsWrapper>
 
-      <section className={utilStyles.headingMd}>
-        <ul className={cardStyles.blogCardWrapperUl}>
-          {allPostsData.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                display:
-                  viewCategory === post.category ||
-                  viewCategory === CATEGORY_TYPE.ALL
-                    ? 'block'
-                    : 'none',
-              }}
-            >
-              <Card item={post} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <BlogListWrapper>
+        {allPostsData.map((post) => (
+          <li
+            key={post.id}
+            style={{
+              display:
+                viewCategory === post.category ||
+                viewCategory === CATEGORY_TYPE.ALL
+                  ? 'block'
+                  : 'none',
+            }}
+          >
+            <BlogItem item={post} />
+          </li>
+        ))}
+      </BlogListWrapper>
     </Layout>
   )
 }
