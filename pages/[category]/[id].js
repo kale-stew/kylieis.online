@@ -16,8 +16,20 @@ export default function Post({ postData, postIds }) {
   return (
     <Layout>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={`${utilStyles.lightText} ${utilStyles.singleRow}`}>
+        <h1
+          className={`${utilStyles.heading2Xl} ${utilStyles.centerText}`}
+          style={{ marginTop: '3rem' }}
+        >
+          {postData.title}
+        </h1>
+        <div
+          className={`${utilStyles.lightText} ${utilStyles.singleRow}`}
+          style={{
+            marginBottom: '2rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <FormattedDate dateString={postData.date} withDOW />{' '}
           {postData.category.includes('speaking') ? (
             postData.category.map((category) => (

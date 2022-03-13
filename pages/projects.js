@@ -15,7 +15,7 @@ const captionStyles = {
 export default function ProjectsPage({ title }) {
   return (
     <Layout>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      <h1 className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}>
         {title}
       </h1>
       {/* TODO: Add projects! */}

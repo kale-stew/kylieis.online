@@ -1,13 +1,13 @@
+import FeaturedCard from '../components/FeaturedCard'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 import Panorama from '../public/images/speaking-pano.jpeg'
-import Card from '../components/Card'
+import styled from '@emotion/styled'
 import { METADATA } from '../utils/data/personal-info'
 import { TALK_TYPE } from '../utils/constants'
 import { getAllSpeakingEvents, SPEAKING_DATA } from '../utils/data/speaking'
 import { socialImage } from '../utils/preview-cards'
 
-import cardStyles from '../components/FlippableCard.module.css'
 import utilStyles from '../styles/utils.module.css'
 
 /**
@@ -17,6 +17,28 @@ import utilStyles from '../styles/utils.module.css'
  * - Filter by [conference, meetup]
  * - Sort by date, descending & ascending
  */
+
+const TalkCardWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+  grid-column-gap: 2em;
+  grid-row-gap: 2.25em;
+  margin: 2.2em 0;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-column-gap: 3em;
+    grid-row-gap: 2.75em;
+  }
+
+  @media (max-width: 710px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto auto 6vh auto;
+    font-size: 14px;
+  }
+`
 
 export default function SpeakingPage({ allTalks, allEvents, title }) {
   const randomId = Math.floor(Math.random() * 100)
@@ -29,19 +51,28 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
 
   return (
     <Layout>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.headingXl}`}>
+      <h1
+        className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
+        style={{ marginTop: '3rem' }}
+      >
         {title}
       </h1>
-      <p className={utilStyles.centerText}>
+      <p className={utilStyles.centerText} style={{ marginBottom: '2rem' }}>
         An experienced speaker and educator, {METADATA.FIRST_NAME} has presented
         at {CONFERENCE_COUNT} conferences and {MEETUP_COUNT} meetups since
         beginning her career in 2018.
       </p>
-      <div className={cardStyles.talkCardWrapper}>
+
+      <TalkCardWrapper>
         {allTalks.map((talk) => (
-          <Card flippable key={`${talk.title}-${randomId}`} item={talk} />
+          <FeaturedCard
+            flippable
+            key={`${talk.title}-${randomId}`}
+            item={talk}
+          />
         ))}
-      </div>
+      </TalkCardWrapper>
+
       <br />
       <Image src={Panorama} layout="intrinsic" placeholder="blur" />
       <div className={utilStyles.centerText} style={{ fontSize: '12px' }}>
