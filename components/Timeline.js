@@ -11,7 +11,8 @@ const ItemDescription = styled.div`
 const TimelineItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 1px 2fr;
-  margin-bottom: 1rem;
+  grid-gap: 10px;
+  margin-bottom: 2rem;
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;

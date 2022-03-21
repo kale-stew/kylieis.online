@@ -111,22 +111,6 @@ export default function HomePage({ recentPosts }) {
       >
         Personal Timeline
       </h1>
-      <p
-        className={utilStyles.centerText}
-        style={{
-          fontSize: '13px',
-          fontStyle: 'italic',
-          maxWidth: '70%',
-          margin: '0 auto 2rem auto',
-        }}
-      >
-        I am currently open to new opportunities! You can download a PDF of my
-        resume →{' '}
-        <a href="/Kylie Stewart cv.pdf" download>
-          here
-        </a>
-        .
-      </p>
       <Timeline events={PERSONAL_TIMELINE} />
 
       <div
