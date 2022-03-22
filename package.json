@@ -22,7 +22,7 @@
     "date-fns": "^2.27.0",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
-    "next": "^12.0.7",
+    "next": "^12.1.0",
     "path": "^0.12.7",
     "react": "^16.10.2",
     "react-card-flip": "^1.1.5",
