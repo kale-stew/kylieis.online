@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import styled from '@emotion/styled'
 import { CATEGORY_TYPE } from '../utils/constants'
 import { METADATA } from '../utils/data/personal-info'
+import { PageDivider } from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllPostData } from '../utils/data/posts'
 import { useState } from 'react'
@@ -28,8 +29,7 @@ const CategoryItemsWrapper = styled.span`
   flex-wrap: wrap;
   justify-content: center;
   padding: 0 0.25rem;
-  margin: 2rem auto;
-
+  margin: 2rem auto 0 auto;
   @media (max-width: 1024px) {
     margin: auto;
     justify-content: center;
@@ -68,6 +68,7 @@ export default function WritingPage({ allPostsData }) {
         Technical Writings and Tutorials
       </h1>
       <CategoryItemsWrapper>{buildCategories()}</CategoryItemsWrapper>
+      <PageDivider />
 
       <BlogListWrapper>
         {allPostsData.map((post) => (

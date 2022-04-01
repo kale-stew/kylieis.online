@@ -12,7 +12,7 @@ export const PageDivider = styled.hr`
   height: 1.5px;
   width: 100%;
   border: none;
-  margin: 4rem 0 2.5rem 0;
+  margin: 3rem 0 2.5rem 0;
   color: var(--color-text-accent);
   background-color: var(--color-text-accent);
 `

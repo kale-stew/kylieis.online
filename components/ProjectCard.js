@@ -6,14 +6,10 @@ export const ProjectCarousel = styled.div`
   overflow: scroll;
   max-height: auto;
   padding-bottom: 2rem;
+  max-width: 95vw;
   @media (max-width: 1024px) {
     max-width: 90vw;
   }
-`
-
-const Wrapper = styled.div`
-  max-width: 30rem;
-  margin: 1em;
 `
 
 const ProjectPreview = styled.img`
@@ -30,6 +26,11 @@ const ProjectTitle = styled.div`
   a:hover {
     text-decoration: underline;
   }
+`
+
+const Wrapper = styled.div`
+  max-width: 30rem;
+  margin: 1em;
 `
 
 const determinePillColor = (str) => {
