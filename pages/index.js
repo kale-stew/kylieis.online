@@ -23,7 +23,7 @@ const HighlightBackground = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-image: var(--linear-gradient);
   @media (max-width: 750px) {
     height: 1200px;
@@ -100,7 +100,7 @@ export default function HomePage({ recentPosts, allProjects }) {
           }}
         >
           {recentPosts.map((recentPost) => (
-            <FeaturedCard item={recentPost} />
+            <FeaturedCard key={recentPost.date} item={recentPost} />
           ))}
         </div>
       </Introduction>
@@ -120,7 +120,7 @@ export default function HomePage({ recentPosts, allProjects }) {
       >
         <ProjectCarousel>
           {allProjects.map((project) => (
-            <ProjectCard item={project} />
+            <ProjectCard key={project.title} item={project} />
           ))}
         </ProjectCarousel>
       </div>

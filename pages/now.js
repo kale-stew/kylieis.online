@@ -60,7 +60,7 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
       </h2>
       <PastEntriesList>
         {allNowPosts.map((post) => (
-          <PastEntry onClick={() => setPost(post)}>
+          <PastEntry key={post.date} onClick={() => setPost(post)}>
             {post.date === currentPost.date && '→ '}
             {format(parseISO(post.date), 'y: iiii, MMMM do')}
           </PastEntry>
