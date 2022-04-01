@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 const addCommas = (num) =>
   num && num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -15,7 +15,7 @@ const getLocationData = (str) => {
 
 const formatDate = (date) => format(new Date(date), 'PPP')
 
-const formatDateWithDayOfWeek = (date) => format(date, 'PPPP')
+const formatDateWithDayOfWeek = (date) => format(parseISO(date), 'PPPP')
 
 // Metric to Imperial conversion
 const formatStatsImperial = (distance, gain) =>
