@@ -21,7 +21,7 @@ export function getAllProjects() {
         "What I'm reading, listening to, working on, celebrating, and watching.",
       previewImgUrl:
         'https://raw.githubusercontent.com/kale-stew/kale-stew.github.io/dev/public/open-graph/now.jpg',
-      url: 'https://kyliestewart.tech/now',
+      url: '/now',
     },
   ]
 }

@@ -8,6 +8,7 @@ const all = [
       "A few things! We eloped this past Monday, and I recently signed an offer to return to full-time work as a software engineer at a company I'm very excited about.",
     read: "'Braving the Wilderness' by Brené Brown.",
     travel: 'To Utah recently for some camping and hiking.',
+    learn: 'A lot of Svelte.',
     watch:
       "As Free As Can Be, a documentary about an unlikely climbing duo's pursuit of one the greatest challenges in sport climbing.",
   },
@@ -51,7 +52,7 @@ const all = [
       "At our friend's home in Castle Rock, house- and dog-sitting while they visit family for the holidays.",
     celebrate: 'The holidays! 🎄',
     learn:
-      'How to integrate Spotify, with a specific focus on pain points for small business owners.',
+      'How to best integrate Shopify, with a specific focus on pain points for small business owners.',
     listen:
       "An equal part informative, funny, and infuriating podcast called 'Q-Anon Anonymous' that unpacks the ridiculous conspiracy theories the fringe group spreads.",
     read: "'Dune'! All three books crammed into one heavy hardback.",

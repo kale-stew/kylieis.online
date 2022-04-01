@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
 export const ProjectCarousel = styled.div`
   display: flex;
@@ -61,6 +62,22 @@ const ProjectPill = styled.div`
   background-color: ${(p) => determinePillColor(p.type)};
 `
 
+const ExternalLink = ({ item }) => (
+  <a
+    href={item.url}
+    target="_blank"
+    alt={`Go to ${item.title}'s landing page.`}
+  >
+    {item.title}
+  </a>
+)
+
+const InternalLink = ({ item }) => (
+  <Link href={item.url} alt={`Go to the ${item.title} project page.`}>
+    {item.title}
+  </Link>
+)
+
 const ProjectCard = ({ item, category }) => {
   const imageDescription = `Preview image ${
     category === 'notion' && item.type === 'video'
@@ -74,13 +91,11 @@ const ProjectCard = ({ item, category }) => {
     <Wrapper>
       <ProjectPreview src={item.previewImgUrl} alt={imageDescription} />
       <ProjectTitle>
-        <a
-          href={item.url}
-          target="_blank"
-          alt={`Go to ${item.title}'s landing page.`}
-        >
-          {item.title}
-        </a>
+        {item.url.startsWith('/') ? (
+          <InternalLink item={item} />
+        ) : (
+          <ExternalLink item={item} />
+        )}
         {item.tech ? (
           item.tech.map((str) => <ProjectPill type={str}>{str}</ProjectPill>)
         ) : (
