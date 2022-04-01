@@ -3,7 +3,7 @@ import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import styled from '@emotion/styled'
-import { IntroParagraph } from '../components/shared'
+import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { getNotionProjects } from '../utils/data/notion'
 import { getPostDataByCategory } from '../utils/data/posts'
@@ -32,15 +32,6 @@ const BlogListWrapper = styled.ul`
   gap: 1rem;
   padding: 0;
   list-style: none;
-`
-
-const PageDivider = styled.hr`
-  height: 1.5px;
-  width: 100%;
-  border: none;
-  margin: 4rem 0 2.5rem 0;
-  color: var(--color-text-accent);
-  background-color: var(--color-text-accent);
 `
 
 export default function NotionTemplatesPage({

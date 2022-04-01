@@ -2,7 +2,6 @@ import FeaturedCard from '../components/FeaturedCard'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 import JslaImage from '../public/images/jsla-speaking-pano.jpeg'
-import DenverImage from '../public/images/formidadenver-speaking.jpg'
 import styled from '@emotion/styled'
 import { IntroParagraph } from '../components/shared'
 import { METADATA } from '../utils/data/personal-info'
@@ -74,13 +73,6 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
           />
         ))}
       </TalkCardWrapper>
-
-      <br />
-      <Image src={DenverImage} layout="intrinsic" placeholder="blur" />
-      <div className={utilStyles.centerText} style={{ fontSize: '12px' }}>
-        {METADATA.FIRST_NAME} presenting "How TypeScript Made me a Better JS
-        Developer" at the FormidaDenver Open House in October of 2018.
-      </div>
 
       <br />
       <Image src={JslaImage} layout="intrinsic" placeholder="blur" />
