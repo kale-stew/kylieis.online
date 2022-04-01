@@ -11,9 +11,9 @@ import {
   SOCIAL_LINKS,
 } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
-import { defaultSocialImage } from '../utils/preview-cards'
 import { getFeaturedProjects } from '../utils/data/projects'
 import { getMostRecentPosts } from '../utils/data/posts'
+import { landingSocialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -172,7 +172,7 @@ export async function getStaticProps() {
       description,
       recentPosts,
       allProjects,
-      ...(await defaultSocialImage({
+      ...(await landingSocialImage({
         title,
         baseName: 'home',
       })),

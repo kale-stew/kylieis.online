@@ -5,7 +5,7 @@ import { NOW_KEYS } from '../utils/constants'
 import { PageDivider, StyledLink } from '../components/shared'
 import { formatDateWithDayOfWeek } from '../utils/helpers'
 import { getAllNowPosts, getMostRecentNow } from '../utils/data/now'
-import { socialImage } from '../utils/preview-cards'
+import { defaultSocialImage } from '../utils/preview-cards'
 import { useState } from 'react'
 import { format, parseISO } from 'date-fns'
 
@@ -91,7 +91,7 @@ export async function getStaticProps() {
       description,
       mostRecentPost,
       allNowPosts,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'now',

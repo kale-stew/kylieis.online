@@ -6,8 +6,8 @@ import styled from '@emotion/styled'
 import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA } from '../utils/data/personal-info'
 import { TALK_TYPE } from '../utils/constants'
+import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllSpeakingEvents, SPEAKING_DATA } from '../utils/data/speaking'
-import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -96,7 +96,7 @@ export async function getStaticProps() {
     props: {
       allTalks,
       allEvents,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'speaking',

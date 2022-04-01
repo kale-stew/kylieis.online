@@ -3,8 +3,8 @@ import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllProjects } from '../utils/data/projects'
-import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -64,7 +64,7 @@ export async function getStaticProps() {
       title,
       description,
       allProjects,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'projects',
