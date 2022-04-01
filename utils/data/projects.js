@@ -20,7 +20,7 @@ export function getAllProjects() {
       description:
         "What I'm reading, listening to, working on, celebrating, and watching.",
       previewImgUrl:
-        'https://raw.githubusercontent.com/kale-stew/kale-stew.github.io/dev/public/open-graph/now.jpg',
+        'https://raw.githubusercontent.com/kale-stew/kyliestewart.tech/main/public/open-graph/now.jpg',
       url: '/now',
     },
   ]
