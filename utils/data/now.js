@@ -2,6 +2,16 @@ import { sortByDateDesc } from '../helpers'
 
 const all = [
   {
+    date: '2022-03-31',
+    location: 'At home in Georgetown, Colorado.',
+    celebrate:
+      "A few things! We eloped this past Monday, and I recently signed an offer to return to full-time work as a software engineer at a company I'm very excited about.",
+    read: "'Braving the Wilderness' by Brené Brown.",
+    travel: 'To Utah recently for some camping and hiking.',
+    watch:
+      "As Free As Can Be, a documentary about an unlikely climbing duo's pursuit of one the greatest challenges in sport climbing.",
+  },
+  {
     date: '2022-01-03',
     location: 'At home, in the mountains of Colorado.',
     read: "'The Magnificent Mountain Women: Adventures in the Colorado Rockies' by Janet Robertson & Arlene Blum.",
@@ -92,5 +102,5 @@ export function getAllNowPosts() {
 }
 
 export function getMostRecentNow() {
-  return sortByDateDesc(all).pop()
+  return sortByDateDesc(all)[0]
 }
