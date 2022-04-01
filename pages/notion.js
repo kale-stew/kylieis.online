@@ -82,7 +82,7 @@ export default function NotionTemplatesPage({ title, blogPostData }) {
       </SmallerSection>
       <ProjectCarousel>
         {NOTION_PROJECTS.map((project) => (
-          <ProjectCard item={project} />
+          <ProjectCard item={project} category="notion" />
         ))}
       </ProjectCarousel>
 
