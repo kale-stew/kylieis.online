@@ -44,7 +44,7 @@ const IntroParagraph = styled.div`
   color: white;
   font-size: 18px;
   a {
-    color: var(--color-pink);
+    color: var(--color-red);
   }
 `
 

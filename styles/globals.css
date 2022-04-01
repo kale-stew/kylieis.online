@@ -20,44 +20,44 @@ body {
   --color-offwhite: #ececec;
 
   /* accent color variables */
-  --color-purple: #1f00ac;
-  --color-purple-0: #2000acdc;
-  --color-purple-1: #2f11b166;
-  --color-purple-2: #2f11b14d;
-  --color-purple-3: #2f11b133;
-  --color-purple-4: #2f11b11a;
+  --color-red: #e23500;
+  --color-red-0: #e23500dc;
+  --color-red-1: #e2350066;
+  --color-red-2: #e235004d;
+  --color-red-3: #e2350033;
+  --color-red-4: #e235001a;
 
-  --color-pink: #ff2dd1;
-  --color-pink-0: #c921c8da;
-  --color-pink-1: #c921c866;
-  --color-pink-2: #c921c84d;
-  --color-pink-3: #c921c833;
-  --color-pink-4: #c921c81a;
+  --color-orange: #ffbc2d;
+  --color-orange-0: #ffbc2dda;
+  --color-orange-1: #ffbc2d66;
+  --color-orange-2: #ffbc2d4d;
+  --color-orange-3: #ffbc2d33;
+  --color-orange-4: #ffbc2d1a;
 
   /* gradient variable */
   --linear-gradient: linear-gradient(
       217deg,
-      var(--color-pink),
-      var(--color-purple)
+      var(--color-orange),
+      var(--color-red)
     ),
-    linear-gradient(127deg, var(--color-purple), var(--color-pink) 70.71%),
-    linear-gradient(336deg, var(--color-pink), var(--color-purple) 70.71%);
+    linear-gradient(127deg, var(--color-red), var(--color-orange) 70.71%),
+    linear-gradient(336deg, var(--color-orange), var(--color-red) 70.71%);
 }
 
 body,
 body[data-theme='light'] {
   --color-text-primary: #0f0f0f;
-  --color-text-accent: var(--color-purple);
+  --color-text-accent: var(--color-red);
   --color-text-secondary: #414141;
   --color-bg-primary: #f5f5f5;
   --color-bg-secondary: #fff;
   --color-bg-tertiary: #b9b9b9;
-  --color-bg-toggle: #3a0effc0;
+  --color-bg-toggle: #e23500c0;
 }
 
 body[data-theme='dark'] {
   --color-text-primary: var(--color-offwhite);
-  --color-text-accent: var(--color-pink);
+  --color-text-accent: var(--color-orange);
   --color-text-secondary: #acacac;
   --color-bg-primary: #1f1f1f;
   --color-bg-secondary: #292929;

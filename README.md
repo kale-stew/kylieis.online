@@ -1,6 +1,6 @@
-# kyliestewart.tech
+# kylieis.online
 
-[This website](https://kyliestewart.tech) serves as my professional landing page,
+[This website](https://kylieis.online) serves as my professional landing page,
 as well as my technical blog, where I post about the various programming things
 I've learned or am actively learning.
 

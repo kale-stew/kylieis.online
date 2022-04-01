@@ -58,11 +58,11 @@ const EventItem = styled.div`
 
 const FlipButton = styled.button`
   background-color: var(--color-bg-secondary);
-  color: var(--color-pink);
+  color: var(--color-red);
   padding: 0.25em;
   cursor: pointer;
   &:hover {
-    box-shadow: inset 0 -2em 0 0 var(--color-pink);
+    box-shadow: inset 0 -2em 0 0 var(--color-red);
     color: var(--color-bg-primary);
     font-weight: 800;
   }
@@ -90,7 +90,7 @@ const FeaturedCard = ({ item, flippable }) => {
 
   return flippable ? (
     <ReactCardFlip isFlipped={isFlipped} infinite>
-      <AccordionCard color="pink">
+      <AccordionCard color="red">
         {
           <TitleLink>
             <Link
@@ -109,7 +109,7 @@ const FeaturedCard = ({ item, flippable }) => {
         <FlipOver />
       </AccordionCard>
 
-      <AccordionCard color="pink">
+      <AccordionCard color="red">
         <>
           <h3>Presented At</h3>
           {item.presentedAt.map((item) => item.eventDate && buildEvent(item))}
@@ -118,7 +118,7 @@ const FeaturedCard = ({ item, flippable }) => {
       </AccordionCard>
     </ReactCardFlip>
   ) : (
-    <AccordionCard color="purple">
+    <AccordionCard color="orange">
       {
         <TitleLink>
           <Link

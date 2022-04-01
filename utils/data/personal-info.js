@@ -1,21 +1,21 @@
 export const METADATA = {
-  FULL_NAME: 'Kylie Stewart',
+  FULL_NAME: 'Kylie Czajkowski',
   FIRST_NAME: 'Kylie',
-  SITE_NAME: 'kyliestewart.tech',
+  SITE_NAME: 'kylieis.online',
 }
 
 export const SOCIAL_LINKS = {
-  Email: 'mailTo:hello@kyliestewart.tech',
+  Email: 'mailTo:hello@kylieis.online',
   Github: 'https://github.com/kale-stew',
   Instagram: 'https://instagram.com/kalestews',
   LinkedIn: 'https://www.linkedin.com/in/kylieastewart/',
   PersonalHomepage: 'https://kylieis.online',
-  ProfessionalHomepage: 'https://kyliestewart.tech',
+  ProfessionalHomepage: 'https://kylieis.online',
   HikingHomepage: 'https://kylies.photos',
   Twitter: 'https://twitter.com/kyliestew',
 }
 
-export const SOURCE_CODE = 'https://github.com/kale-stew/kyliestewart.tech'
+export const SOURCE_CODE = 'https://github.com/kale-stew/kylieis.online'
 
 export const PERSONAL_TIMELINE = [
   {
