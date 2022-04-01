@@ -34,7 +34,7 @@ const NowItem = ({ label, entry }) =>
   )
 
 export default function NowPage({ mostRecentPost, allNowPosts }) {
-  const [post, setPost] = useState(mostRecentPost)
+  const [currentPost, setPost] = useState(mostRecentPost)
 
   return (
     <Layout>
@@ -42,11 +42,11 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
         What I'm Doing "Now"
       </h1>
       <h2 className={utilStyles.centerText}>
-        {formatDateWithDayOfWeek(post.date)}
+        {formatDateWithDayOfWeek(currentPost.date)}
       </h2>
 
-      <ul className="now">
-        {Object.entries(post).map(
+      <ul style={{ lineHeight: 2 }}>
+        {Object.entries(currentPost).map(
           ([key, value]) =>
             value && <NowItem key={key} label={key} entry={value} />
         )}
@@ -61,6 +61,7 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
       <PastEntriesList>
         {allNowPosts.map((post) => (
           <PastEntry onClick={() => setPost(post)}>
+            {post.date === currentPost.date && '→ '}
             {format(parseISO(post.date), 'y: iiii, MMMM do')}
           </PastEntry>
         ))}
