@@ -1,5 +1,6 @@
 import FeaturedCard from '../components/FeaturedCard'
 import Layout from '../components/Layout'
+import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import Timeline from '../components/Timeline'
 import styled from '@emotion/styled'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
@@ -11,6 +12,7 @@ import {
 } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { defaultSocialImage } from '../utils/preview-cards'
+import { getAllProjects } from '../utils/data/projects'
 import { getMostRecentPosts } from '../utils/data/posts'
 
 import utilStyles from '../styles/utils.module.css'
@@ -47,7 +49,7 @@ const IntroParagraph = styled.div`
   }
 `
 
-export default function HomePage({ recentPosts }) {
+export default function HomePage({ recentPosts, allProjects }) {
   return (
     <Layout home>
       <HighlightBackground />
@@ -106,6 +108,26 @@ export default function HomePage({ recentPosts }) {
 
       <h1
         className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
+        style={{ margin: '4rem auto 2rem auto' }}
+      >
+        Featured Projects
+      </h1>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem',
+        }}
+      >
+        <ProjectCarousel>
+          {allProjects.map((project) => (
+            <ProjectCard item={project} />
+          ))}
+        </ProjectCarousel>
+      </div>
+
+      <h1
+        className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
         style={{ margin: '3rem auto 2rem auto' }}
         id="timeline"
       >
@@ -143,12 +165,14 @@ export async function getStaticProps() {
   const title = `${METADATA.SITE_NAME}`
   const description = 'Web developer and public speaker.'
   const recentPosts = await getMostRecentPosts()
+  const allProjects = getAllProjects()
 
   return {
     props: {
       title,
       description,
       recentPosts,
+      allProjects,
       ...(await defaultSocialImage({
         title,
         baseName: 'home',

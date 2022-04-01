@@ -70,7 +70,7 @@ const HeaderNavigation = ({ isHome }) => {
             {!isHome && <Link href="/">Home</Link>}
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>
-            {/* <Link href="/projects">Projects</Link> */}
+            <Link href="/projects">Projects</Link>
             <Link href="/notion">Notion</Link>
             <Link href="/#timeline">Personal Timeline</Link>
           </div>
