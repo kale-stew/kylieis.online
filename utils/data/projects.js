@@ -4,7 +4,7 @@ export function getAllProjects() {
     {
       title: 'kylies.photos',
       type: 'frontend',
-      tech: ['next.js'],
+      tech: ['next.js', 'react'],
       description:
         'My hiking blog and climbing log, built using the Notion API.',
       previewImgUrl:

@@ -3,8 +3,9 @@ import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import styled from '@emotion/styled'
+import { IntroParagraph } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
-import { NOTION_PROJECTS } from '../utils/data/notion'
+import { getNotionProjects } from '../utils/data/notion'
 import { getPostDataByCategory } from '../utils/data/posts'
 import { socialImage } from '../utils/preview-cards'
 
@@ -33,14 +34,6 @@ const BlogListWrapper = styled.ul`
   list-style: none;
 `
 
-const IntroParagraph = styled.p`
-  max-width: 50vw;
-  margin: 0 auto 3rem auto;
-  @media (max-width: 1024px) {
-    max-width: 80vw;
-  }
-`
-
 const PageDivider = styled.hr`
   height: 1.5px;
   width: 100%;
@@ -50,7 +43,11 @@ const PageDivider = styled.hr`
   background-color: var(--color-text-accent);
 `
 
-export default function NotionTemplatesPage({ title, blogPostData }) {
+export default function NotionTemplatesPage({
+  title,
+  blogPostData,
+  notionProjects,
+}) {
   return (
     <Layout>
       <h1
@@ -81,7 +78,7 @@ export default function NotionTemplatesPage({ title, blogPostData }) {
         <h2 className={utilStyles.headingXl}>Featured Projects</h2>
       </SmallerSection>
       <ProjectCarousel>
-        {NOTION_PROJECTS.map((project) => (
+        {notionProjects.map((project) => (
           <ProjectCard item={project} category="notion" />
         ))}
       </ProjectCarousel>
@@ -121,12 +118,14 @@ export async function getStaticProps() {
   const blogPostData = await getPostDataByCategory('notion')
   const title = 'Notion Templates & Guides'
   const description = `${METADATA.FIRST_NAME} is a Notion Ambassador creating templates and guides.`
+  const notionProjects = getNotionProjects()
 
   return {
     props: {
       blogPostData,
       title,
       description,
+      notionProjects,
       ...(await socialImage({
         title,
         description,
