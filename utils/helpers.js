@@ -15,7 +15,10 @@ const getLocationData = (str) => {
 
 const formatDate = (date) => format(new Date(date), 'PPP')
 
-const formatDateWithDayOfWeek = (date) => format(parseISO(date), 'PPPP')
+const formatDateWithDayOfWeek = (date) =>
+  typeof date === 'string'
+    ? format(parseISO(date), 'PPPP')
+    : format(date, 'PPPP')
 
 // Metric to Imperial conversion
 const formatStatsImperial = (distance, gain) =>
