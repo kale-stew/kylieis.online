@@ -3,11 +3,11 @@ import Image from 'next/image'
 import Layout from '../components/Layout'
 import JslaImage from '../public/images/jsla-speaking-pano.jpeg'
 import styled from '@emotion/styled'
-import { IntroParagraph } from '../components/shared'
+import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA } from '../utils/data/personal-info'
 import { TALK_TYPE } from '../utils/constants'
+import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllSpeakingEvents, SPEAKING_DATA } from '../utils/data/speaking'
-import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -75,6 +75,7 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
       </TalkCardWrapper>
 
       <br />
+      <PageDivider />
       <Image src={JslaImage} layout="intrinsic" placeholder="blur" />
       <div className={utilStyles.centerText} style={{ fontSize: '12px' }}>
         {METADATA.FIRST_NAME} presenting "ML on the CL" at js.la in June of
@@ -95,7 +96,7 @@ export async function getStaticProps() {
     props: {
       allTalks,
       allEvents,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'speaking',

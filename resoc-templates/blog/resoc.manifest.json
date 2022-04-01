@@ -1,0 +1,13 @@
+{
+  "partials": {
+    "content": "./blog.html.mustache",
+    "styles": "./blog.css.mustache"
+  },
+  "parameters": [
+    {
+      "name": "title",
+      "type": "text",
+      "demoValue": "Understanding the TypeScript Compiler"
+    }
+  ]
+}

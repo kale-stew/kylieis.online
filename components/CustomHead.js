@@ -30,7 +30,7 @@ const CustomHead = (pageProps) => {
       <meta name="twitter:description" content={getPageDescription()} />
       <meta
         property="twitter:image"
-        content={`https://raw.githubusercontent.com/kale-stew/kyliestewart.tech/main/public/open-graph/${pageProps.ogImage}`}
+        content={`https://raw.githubusercontent.com/kale-stew/kylieis.online/main/public/open-graph/${pageProps.ogImage}`}
       />
 
       <meta property="og:image" content={`/open-graph/${pageProps.ogImage}`} />

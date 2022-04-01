@@ -4,7 +4,7 @@ import Layout from '../components/Layout'
 import Link from 'next/link'
 import { METADATA } from '../utils/data/personal-info'
 import { StyledLink } from '../components/shared'
-import { socialImage } from '../utils/preview-cards'
+import { landingSocialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -47,7 +47,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      ...(await socialImage({
+      ...(await landingSocialImage({
         title,
         description,
         baseName: '404',

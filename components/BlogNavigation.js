@@ -56,7 +56,7 @@ export const buildNavigation = (postIds, postData) => {
         }/${postIds[nextPost].id}`}
       >
         <NavigationButton
-          color={postIds[nextPost].type === 'blog' ? 'purple' : 'pink'}
+          color={postIds[nextPost].type === 'blog' ? 'red' : 'orange'}
           style={{ textAlign: 'right' }}
         >
           {postIds[nextPost].title} →
@@ -77,7 +77,7 @@ export const buildNavigation = (postIds, postData) => {
         }/${postIds[prevPost].id}`}
       >
         <NavigationButton
-          color={postIds[prevPost].type === 'blog' ? 'purple' : 'pink'}
+          color={postIds[prevPost].type === 'blog' ? 'red' : 'orange'}
         >
           ← {postIds[prevPost].title}
         </NavigationButton>
@@ -99,7 +99,7 @@ export const buildNavigation = (postIds, postData) => {
     return (
       <BlogNavigation>
         <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
-          <NavigationButton color={currentlyOnBlog ? 'purple' : 'pink'}>
+          <NavigationButton color={currentlyOnBlog ? 'red' : 'orange'}>
             ← Back to {currentlyOnBlog ? 'blog' : 'all talks'}
           </NavigationButton>
         </Link>
@@ -116,7 +116,7 @@ export const buildNavigation = (postIds, postData) => {
         <NavigationDivider></NavigationDivider>
         <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
           <NavigationButton
-            color={currentlyOnBlog ? 'purple' : 'pink'}
+            color={currentlyOnBlog ? 'red' : 'orange'}
             style={{ textAlign: 'right' }}
           >
             {' '}
@@ -130,7 +130,7 @@ export const buildNavigation = (postIds, postData) => {
   return (
     <BlogNavigation>
       <Link href="/blog">
-        <NavigationButton color="purple">← Back to blog</NavigationButton>
+        <NavigationButton color="red">← Back to blog</NavigationButton>
       </Link>
     </BlogNavigation>
   )

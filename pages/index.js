@@ -11,9 +11,9 @@ import {
   SOCIAL_LINKS,
 } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
-import { defaultSocialImage } from '../utils/preview-cards'
 import { getFeaturedProjects } from '../utils/data/projects'
 import { getMostRecentPosts } from '../utils/data/posts'
+import { landingSocialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -23,7 +23,7 @@ const HighlightBackground = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-image: var(--linear-gradient);
   @media (max-width: 750px) {
     height: 1200px;
@@ -44,7 +44,7 @@ const IntroParagraph = styled.div`
   color: white;
   font-size: 18px;
   a {
-    color: var(--color-pink);
+    color: var(--color-red);
   }
 `
 
@@ -100,7 +100,7 @@ export default function HomePage({ recentPosts, allProjects }) {
           }}
         >
           {recentPosts.map((recentPost) => (
-            <FeaturedCard item={recentPost} />
+            <FeaturedCard key={recentPost.date} item={recentPost} />
           ))}
         </div>
       </Introduction>
@@ -120,7 +120,7 @@ export default function HomePage({ recentPosts, allProjects }) {
       >
         <ProjectCarousel>
           {allProjects.map((project) => (
-            <ProjectCard item={project} />
+            <ProjectCard key={project.title} item={project} />
           ))}
         </ProjectCarousel>
       </div>
@@ -172,7 +172,7 @@ export async function getStaticProps() {
       description,
       recentPosts,
       allProjects,
-      ...(await defaultSocialImage({
+      ...(await landingSocialImage({
         title,
         baseName: 'home',
       })),

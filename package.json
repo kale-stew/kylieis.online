@@ -1,16 +1,16 @@
 {
-  "name": "kyliestewart.tech",
-  "description": "Kylie Stewart's Technical Profile",
-  "version": "4.0.1",
-  "author": "Kylie Stewart <hello@kyliestewart.tech>",
+  "name": "kylieis.online",
+  "description": "Kylie Czajkowski's Technical Profile",
+  "version": "4.1.0",
+  "author": "Kylie Czajkowski <hello@kylieis.online>",
   "bugs": {
-    "url": "https://github.com/kale-stew/kyliestewart.tech/issues"
+    "url": "https://github.com/kale-stew/kylieis.online/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kale-stew/kyliestewart.tech.git"
+    "url": "git+https://github.com/kale-stew/kylieis.online.git"
   },
-  "homepage": "https://kyliestewart.tech",
+  "homepage": "https://kylieis.online",
   "scripts": {
     "build": "next build",
     "dev": "next dev",

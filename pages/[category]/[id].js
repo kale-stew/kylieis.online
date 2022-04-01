@@ -4,11 +4,11 @@ import Layout from '../../components/Layout'
 import MarkdownHighlight from '../../components/MarkdownHighlight'
 import ReactMarkdown from 'react-markdown'
 import { METADATA } from '../../utils/data/personal-info'
+import { blogSocialImage } from '../../utils/preview-cards'
 import { buildNavigation } from '../../components/BlogNavigation'
 import { getAllPostData, getAllPostIds } from '../../utils/data/posts'
 import { getBlogPostData } from '../../utils/data/writing'
 import { getSingleTalkData } from '../../utils/data/speaking'
-import { socialImage } from '../../utils/preview-cards'
 
 import utilStyles from '../../styles/utils.module.css'
 
@@ -89,7 +89,7 @@ export async function getStaticProps({ params }) {
     props: {
       postData,
       postIds,
-      ...(await socialImage({
+      ...(await blogSocialImage({
         title,
         description,
         baseName: `post-${params.id}`,

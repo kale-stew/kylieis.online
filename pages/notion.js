@@ -5,9 +5,9 @@ import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import styled from '@emotion/styled'
 import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import { defaultSocialImage } from '../utils/preview-cards'
 import { getNotionProjects } from '../utils/data/notion'
 import { getPostDataByCategory } from '../utils/data/posts'
-import { socialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -117,7 +117,7 @@ export async function getStaticProps() {
       title,
       description,
       notionProjects,
-      ...(await socialImage({
+      ...(await defaultSocialImage({
         title,
         description,
         baseName: 'notion',

@@ -36,7 +36,7 @@ const CategoryItemsWrapper = styled.span`
   }
 `
 
-export default function WritingPage({ allPostsData }) {
+export default function WritingPage({ allPostsData, title }) {
   const [viewCategory, setCategory] = useState(CATEGORY_TYPE.ALL)
   const buildCategories = () =>
     Object.entries(CATEGORY_TYPE).map(([key, value]) => (
@@ -65,7 +65,7 @@ export default function WritingPage({ allPostsData }) {
         className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
         style={{ marginTop: '3rem' }}
       >
-        Technical Writings and Tutorials
+        {title}
       </h1>
       <CategoryItemsWrapper>{buildCategories()}</CategoryItemsWrapper>
       <PageDivider />
@@ -92,16 +92,17 @@ export default function WritingPage({ allPostsData }) {
 
 export async function getStaticProps() {
   const allPostsData = await getAllPostData()
-  const title = 'Writing'
+  const title = 'Technical Writings and Tutorials'
   const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
 
   return {
     props: {
       allPostsData,
+      title,
       ...(await defaultSocialImage({
         title,
         description,
-        baseName: 'blog',
+        baseName: 'writing',
       })),
     },
   }

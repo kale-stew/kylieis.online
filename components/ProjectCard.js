@@ -43,9 +43,9 @@ const determinePillColor = (str) => {
     case 'react':
       return '#61dafb'
     case 'video':
-      return 'var(--color-pink)'
+      return 'var(--color-orange)'
     default:
-      return 'var(--color-purple)'
+      return 'var(--color-red)'
   }
 }
 

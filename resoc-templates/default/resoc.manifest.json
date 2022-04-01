@@ -1,13 +1,13 @@
 {
   "partials": {
-    "content": "./content.html.mustache",
-    "styles": "./styles.css.mustache"
+    "content": "./default.html.mustache",
+    "styles": "./default.css.mustache"
   },
   "parameters": [
     {
       "name": "title",
       "type": "text",
-      "demoValue": "Understanding the TypeScript Compiler"
+      "demoValue": "Notion Templates & Tutorials"
     }
   ]
 }
