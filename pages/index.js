@@ -12,7 +12,7 @@ import {
 } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getAllProjects } from '../utils/data/projects'
+import { getFeaturedProjects } from '../utils/data/projects'
 import { getMostRecentPosts } from '../utils/data/posts'
 
 import utilStyles from '../styles/utils.module.css'
@@ -33,7 +33,6 @@ const HighlightBackground = styled.div`
 const Introduction = styled.div`
   color: white;
   text-align: center;
-
   h1 {
     color: white;
   }
@@ -165,7 +164,7 @@ export async function getStaticProps() {
   const title = `${METADATA.SITE_NAME}`
   const description = 'Web developer and public speaker.'
   const recentPosts = await getMostRecentPosts()
-  const allProjects = getAllProjects()
+  const allProjects = getFeaturedProjects()
 
   return {
     props: {

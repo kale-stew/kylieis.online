@@ -5,6 +5,7 @@ export function getAllProjects() {
       title: 'kylies.photos',
       type: 'frontend',
       tech: ['next.js', 'react'],
+      featured: true,
       description:
         'My hiking blog and climbing log, built using the Notion API.',
       previewImgUrl:
@@ -15,6 +16,7 @@ export function getAllProjects() {
       title: 'Now',
       type: 'frontend',
       tech: ['react', 'node'],
+      featured: true,
       description:
         "What I'm reading, listening to, working on, celebrating, and watching.",
       previewImgUrl:
@@ -22,4 +24,10 @@ export function getAllProjects() {
       url: 'https://kylieis.online/now',
     },
   ]
+}
+
+// Return any project flagged 'featured' for the home page
+export function getFeaturedProjects() {
+  const all = getAllProjects()
+  return all.filter((project) => project.featured)
 }
