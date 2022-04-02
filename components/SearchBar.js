@@ -14,9 +14,12 @@ const StyledInput = styled.input`
   font-family: 'Fira Sans', sans-serif;
 `
 
-const SearchBar = () => {
-  // search all content: notion projects, other projects, blog posts, talks
-  return <StyledInput />
-}
+const SearchBar = ({ query, onChange }) => (
+  <StyledInput
+    onChange={(e) => onChange(e.target.value)}
+    value={query}
+    placeholder="Search for something..."
+  />
+)
 
 export default SearchBar

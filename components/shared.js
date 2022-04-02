@@ -25,6 +25,22 @@ export const PageDivider = styled.hr`
   background-color: var(--color-text-accent);
 `
 
+export const StyledButton = styled.button`
+  cursor: pointer;
+  border: 2px solid var(--color-text-accent);
+  border-radius: 5px;
+  color: white;
+  font-size: 0.75rem;
+  background: transparent;
+  transition: background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  margin: 0 auto;
+  padding: 0.4em;
+  width: max-content;
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+`
+
 export const StyledLink = styled.a`
   color: var(--color-text-accent);
   display: flex;
