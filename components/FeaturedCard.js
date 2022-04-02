@@ -4,6 +4,7 @@ import ReactCardFlip from 'react-card-flip'
 import styled from '@emotion/styled'
 import { accordion, mobileAccordion } from '../styles/animations'
 import { formatDate } from '../utils/helpers'
+import { parseISO } from 'date-fns'
 import { useState } from 'react'
 
 const AccordionCard = styled.div`
@@ -83,8 +84,8 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
     <EventItem>
       → <a href={item.eventUrl}>{item.eventName}</a>{' '}
       {item.location !== 'virtual'
-        ? `in ${item.location} on ${formatDate(item.eventDate)}.`
-        : `online on ${formatDate(item.eventDate)}.`}
+        ? `in ${item.location} on ${formatDate(parseISO(item.eventDate))}.`
+        : `online on ${formatDate(parseISO(item.eventDate))}.`}
     </EventItem>
   )
 

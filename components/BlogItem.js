@@ -34,8 +34,8 @@ const BlogItem = ({ item }) => (
       className={utilStyles.lightText}
       style={{ display: 'flex', flexDirection: 'row' }}
     >
-      <FormattedDate dateString={item.date} />{' '}
-      <Category category={item.category} />
+      {item.date && <FormattedDate dateString={item.date} />}{' '}
+      {item.category && <Category category={item.category} />}
     </small>
     <p style={{ fontSize: '18px' }}>{item.description}</p>
   </>
