@@ -8,20 +8,25 @@ import { getAllProjects } from '../utils/data/projects'
 import { getNotionProjects } from '../utils/data/notion'
 import { landingSocialImage } from '../utils/preview-cards'
 import { sortByDateDesc } from '../utils/helpers'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function SearchPage({ allData }) {
+  const router = useRouter()
+  const { query } = router.query
   const [userSearch, setUserSearch] = useState('')
   const [filteredData, setFilteredData] = useState(allData)
-
-  const handleSearch = (e) => {
-    if (e === '') {
-      setFilteredData(allData)
-      setUserSearch(e)
-      return
+  useEffect(() => {
+    if (query) {
+      console.log(query)
+      setUserSearch(query)
+      setFilteredData(filterData(query))
     }
-    let searchQuery = e.toUpperCase()
-    let sorted = allData.filter((entry) => {
+  }, [])
+
+  const filterData = (str) => {
+    let searchQuery = str.toUpperCase()
+    return allData.filter((entry) => {
       let title = entry.title.toUpperCase()
       let description = entry.description && entry.description.toUpperCase()
       // let month
@@ -33,6 +38,15 @@ export default function SearchPage({ allData }) {
         // year.includes(searchQuery)
       )
     })
+  }
+
+  const handleSearch = (e) => {
+    if (e === '') {
+      setFilteredData(allData)
+      setUserSearch(e)
+      return
+    }
+    let sorted = filterData(e)
     setFilteredData(sorted)
     setUserSearch(e)
   }
@@ -55,7 +69,6 @@ export default function SearchPage({ allData }) {
 }
 
 export async function getStaticProps() {
-  // query params?
   const title = 'Search'
   const description = `${METADATA.FIRST_NAME} is a web developer and public speaker.`
   const devProjects = getAllProjects()
