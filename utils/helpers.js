@@ -3,6 +3,9 @@ import { format } from 'date-fns'
 const addCommas = (num) =>
   num && num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
+const capitalizeFirstLetter = (str) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
+
 const roundDecimal = (num) => num && num.toFixed(2)
 
 const getLocationData = (str) => {
@@ -44,6 +47,7 @@ const sortByDateDesc = (arr) => {
 
 export {
   addCommas,
+  capitalizeFirstLetter,
   feetToMeters,
   formatDate,
   formatDateWithDayOfWeek,

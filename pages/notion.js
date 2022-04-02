@@ -4,7 +4,11 @@ import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import styled from '@emotion/styled'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
-import { captionStyles, IntroParagraph, PageDivider } from '../components/shared'
+import {
+  captionStyles,
+  IntroParagraph,
+  PageDivider,
+} from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getNotionProjects } from '../utils/data/notion'
 import { getPostDataByCategory } from '../utils/data/posts'

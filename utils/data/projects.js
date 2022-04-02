@@ -4,7 +4,7 @@ export function getAllProjects() {
     {
       title: 'kylies.photos',
       date: '2021-02-25',
-      type: 'frontend',
+      type: 'project',
       tech: ['next.js', 'node'],
       featured: true,
       description:
@@ -16,7 +16,7 @@ export function getAllProjects() {
     {
       title: 'Now',
       date: '2019-10-11',
-      type: 'frontend',
+      type: 'project',
       tech: ['react'],
       featured: true,
       description:

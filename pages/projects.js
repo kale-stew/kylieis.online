@@ -2,7 +2,11 @@ import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
-import { captionStyles, IntroParagraph, PageDivider } from '../components/shared'
+import {
+  captionStyles,
+  IntroParagraph,
+  PageDivider,
+} from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllProjects } from '../utils/data/projects'
 

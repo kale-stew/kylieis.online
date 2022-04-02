@@ -8,7 +8,10 @@ const SPEAKING_DATA = `${TALK_PREFIX}/talks.json`
 export async function getAllSpeakingData() {
   const fetched = await fetch(SPEAKING_DATA)
   const allTalks = await fetched.json()
-  return allTalks
+  return allTalks.map(({ ...talk }) => ({
+    ...talk,
+    type: 'talk',
+  }))
 }
 
 // Get a flatmap of every event ever spoken at

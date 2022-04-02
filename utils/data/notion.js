@@ -4,7 +4,8 @@ export function getNotionProjects() {
     {
       title: 'Notion Office Hours: Building a Personal Wiki',
       date: '2019-09-27',
-      type: 'video',
+      type: 'notion',
+      category: 'video',
       description:
         'As a guest on this live-streamed event, I discuss personal workspaces, the conflicts that arise in using Notion for both personal and professional life management, and more with Notion Mastery course creator Marie Poulin.',
       previewImgUrl: '/images/preview-office-hour.png',
@@ -13,7 +14,8 @@ export function getNotionProjects() {
     {
       title: 'Recipe Box',
       date: '2020-03-12',
-      type: 'template',
+      type: 'notion',
+      category: 'template',
       previewImgUrl: '/images/preview-recipe-box.png',
       description:
         "Published on the Official Notion Template Gallery, this Recipe Box serves as an online database for recipes I have collected over the years. Users can sort by category (like 'Dinner' or 'Haven't Tried') and easily copy & paste the Shopping List into a separate Groceries page to simplify the grocery shopping process.",
@@ -22,7 +24,8 @@ export function getNotionProjects() {
     {
       title: 'Interview with Keep Productive',
       date: '2019-06-24',
-      type: 'video',
+      type: 'notion',
+      category: 'video',
       description:
         'Gave a detailed tour of my personal Notion workspace setup to the YouTube channel Keep Productive. I show my daily task management system, the recipe board to grocery list method, how I plan work and personal events from a weekly, monthly, and annual view, and more.',
       previewImgUrl: '/images/preview-keep-productive.png',
