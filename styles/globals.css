@@ -40,8 +40,18 @@ body {
       var(--color-orange),
       var(--color-red)
     ),
-    linear-gradient(127deg, var(--color-red), var(--color-orange) 70.71%),
-    linear-gradient(336deg, var(--color-orange), var(--color-red) 70.71%);
+    linear-gradient(
+      336deg,
+      var(--color-orange),
+      var(--color-red),
+      var(--color-orange) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      var(--color-red),
+      var(--color-orange),
+      var(--color-red) 70.71%
+    );
 }
 
 body,
@@ -160,27 +170,6 @@ article {
   margin: auto;
 }
 
-footer {
-  background-image: var(--linear-gradient);
-  color: white;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  font-size: 12px;
-  padding: 0.5rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-footer a {
-  color: white;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
 img {
   max-width: 55vw;
 }
@@ -188,10 +177,6 @@ img {
 @media (max-width: 1024px) {
   article {
     max-width: 85vw;
-  }
-
-  footer {
-    padding: 0.75vh auto;
   }
 
   h1 {

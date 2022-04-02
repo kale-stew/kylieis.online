@@ -91,4 +91,20 @@
     flex-wrap: wrap;
     gap: 1em;
   }
+
+  .heading2Xl {
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+  }
+
+  .headingXl {
+    font-size: 1.7rem;
+    line-height: 1;
+  }
+
+  .headingLg {
+    font-size: 1.4rem;
+  }
 }

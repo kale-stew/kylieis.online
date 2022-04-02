@@ -68,7 +68,7 @@ const FlipButton = styled.button`
   }
 `
 
-const FeaturedCard = ({ item, flippable }) => {
+const FeaturedCard = ({ color = 'red', flippable, item }) => {
   const [isFlipped, setFlip] = useState(false)
   const handleClick = (e) => {
     e.preventDefault()
@@ -90,7 +90,7 @@ const FeaturedCard = ({ item, flippable }) => {
 
   return flippable ? (
     <ReactCardFlip isFlipped={isFlipped} infinite>
-      <AccordionCard color="red">
+      <AccordionCard color={color}>
         {
           <TitleLink>
             <Link
@@ -109,7 +109,7 @@ const FeaturedCard = ({ item, flippable }) => {
         <FlipOver />
       </AccordionCard>
 
-      <AccordionCard color="red">
+      <AccordionCard color={color}>
         <>
           <h3>Presented At</h3>
           {item.presentedAt.map((item) => item.eventDate && buildEvent(item))}
@@ -118,7 +118,7 @@ const FeaturedCard = ({ item, flippable }) => {
       </AccordionCard>
     </ReactCardFlip>
   ) : (
-    <AccordionCard color="orange">
+    <AccordionCard color={color}>
       {
         <TitleLink>
           <Link

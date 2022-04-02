@@ -23,7 +23,7 @@ const HighlightBackground = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 90%;
+  height: 98%;
   background-image: var(--linear-gradient);
   @media (max-width: 750px) {
     height: 1200px;

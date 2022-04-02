@@ -1,24 +1,35 @@
-import {
-  METADATA,
-  SOCIAL_LINKS,
-  SOURCE_CODE,
-} from '../utils/data/personal-info'
+import Link from 'next/link'
+import styled from '@emotion/styled'
+import { METADATA, SOURCE_CODE } from '../utils/data/personal-info'
+
+const StyledFooter = styled.footer`
+  background-image: var(--linear-gradient);
+  color: white;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  font-size: 12px;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  a {
+    color: white;
+    margin: 0 5px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+`
 
 const Footer = () => (
-  <footer>
+  <StyledFooter>
     © {new Date().getFullYear()}
-    <a
-      href={SOCIAL_LINKS.PersonalHomepage}
-      target="_blank"
-      style={{ margin: '0 0.3rem' }}
-    >
-      {METADATA.FULL_NAME}
-    </a>
-    － built with 🤍 on
-    <a href={SOURCE_CODE} target="_blank" style={{ marginLeft: '0.3rem' }}>
+    <Link href="/">{METADATA.FULL_NAME}</Link>－ built with 🤍 on
+    <a href={SOURCE_CODE} target="_blank">
       github
     </a>
-  </footer>
+  </StyledFooter>
 )
 
 export default Footer
