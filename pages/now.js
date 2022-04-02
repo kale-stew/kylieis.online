@@ -11,12 +11,21 @@ import { format, parseISO } from 'date-fns'
 
 import utilStyles from '../styles/utils.module.css'
 
+const NowItemsList = styled.ul`
+  line-height: 1.7;
+  max-width: 90%;
+  padding-left: 2vw;
+  margin: 2rem auto;
+  text-indent: -2em;
+`
+
 const PastEntriesList = styled.ul`
   list-style: none;
-  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0;
+  margin: 2rem auto;
 `
 
 const PastEntry = styled.li`
@@ -28,7 +37,7 @@ const PastEntry = styled.li`
 
 const NowItem = ({ label, entry }) =>
   NOW_KEYS[label] !== NOW_KEYS.date && (
-    <li>
+    <li style={{ listStyle: 'none' }}>
       <b>{NOW_KEYS[label]}:</b> {entry}
     </li>
   )
@@ -41,20 +50,24 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
       <h1 className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}>
         What I'm Doing "Now"
       </h1>
-      <h2 className={utilStyles.centerText}>
+      <h2
+        className={`${utilStyles.centerText} ${utilStyles.headingMd}`}
+        style={{ fontStyle: 'italic', fontFamily: 'Fira Code, monospace' }}
+      >
         {formatDateWithDayOfWeek(currentPost.date)}
       </h2>
 
-      <ul style={{ lineHeight: 2 }}>
+      <NowItemsList>
         {Object.entries(currentPost).map(
           ([key, value]) =>
             value && <NowItem key={key} label={key} entry={value} />
         )}
-      </ul>
+      </NowItemsList>
 
+      <PageDivider />
       <h2
-        className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
-        style={{ marginTop: '5rem' }}
+        className={`${utilStyles.centerText} ${utilStyles.headingLg}`}
+        style={{ marginTop: '2rem' }}
       >
         All Entries, Past & Present:
       </h2>
@@ -66,8 +79,6 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
           </PastEntry>
         ))}
       </PastEntriesList>
-
-      <PageDivider />
       <StyledLink
         href="https://nownownow.com/about"
         target="_blank"

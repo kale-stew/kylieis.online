@@ -13,15 +13,15 @@ export const CONTACT_ENDPOINT =
 export const CONTENT_DIRECTORY = 'content'
 
 export const NOW_KEYS = {
-  celebrate: 'Celebrating',
+  celebrate: '🎉 Celebrating',
   date: 'Date',
-  learn: 'Learning',
-  listen: 'Listening To',
-  location: 'Location',
-  read: 'Reading',
-  travel: 'Travel',
-  watch: 'Watching',
-  work: 'Working On',
+  learn: '📚 Learning',
+  listen: '🎧 Listening To',
+  location: '📍 Location',
+  read: '📖 Reading',
+  travel: '🛫 Travel',
+  watch: '📺 Watching',
+  work: '👩🏼‍💻 Working On',
 }
 
 export const TALK_TYPE = {
