@@ -8,7 +8,7 @@ import { blogSocialImage } from '../../utils/preview-cards'
 import { buildNavigation } from '../../components/BlogNavigation'
 import { getAllPostData, getAllPostIds } from '../../utils/data/posts'
 import { getBlogPostData } from '../../utils/data/writing'
-import { getSingleTalkData } from '../../utils/data/speaking'
+import { getSingleTalkData } from '../../utils/data/talks'
 
 import utilStyles from '../../styles/utils.module.css'
 

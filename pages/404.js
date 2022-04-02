@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Layout from '../components/Layout'
 import Link from 'next/link'
 import { METADATA } from '../utils/data/personal-info'
-import { StyledLink } from '../components/shared'
 import { landingSocialImage } from '../utils/preview-cards'
 
 import utilStyles from '../styles/utils.module.css'
@@ -15,19 +14,17 @@ export default function NotFoundPage() {
         className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
         style={{ marginTop: '2rem' }}
       >
-        Congratulations!
+        👀
       </h1>
       <h3 className={utilStyles.centerText}>
         You've found a route that doesn't exist.
       </h3>
       <div className={utilStyles.centerText}>
         Let's get you back home so we can try this again:{' '}
-        <StyledLink>
-          <Link href="/">here</Link>
-        </StyledLink>
+        <Link href="/">🏡</Link>
       </div>
 
-      <div style={{ marginTop: '25%', maxWidth: '100%' }}>
+      <div style={{ marginTop: '3rem', maxWidth: '100%' }}>
         <Image src={DenverImage} layout="intrinsic" placeholder="blur" />
         <div
           className={utilStyles.centerText}

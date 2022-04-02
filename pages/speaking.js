@@ -7,7 +7,7 @@ import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA } from '../utils/data/personal-info'
 import { TALK_TYPE } from '../utils/constants'
 import { defaultSocialImage } from '../utils/preview-cards'
-import { getAllSpeakingEvents, SPEAKING_DATA } from '../utils/data/speaking'
+import { getAllSpeakingData, getAllSpeakingEvents } from '../utils/data/talks'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -86,8 +86,7 @@ export default function SpeakingPage({ allTalks, allEvents, title }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(SPEAKING_DATA)
-  const allTalks = await res.json()
+  const allTalks = await getAllSpeakingData()
   const allEvents = await getAllSpeakingEvents()
   const title = 'Conference Talks & Presentations'
   const description = `${METADATA.FIRST_NAME} is talking about Javascript, open source, GraphQL, and more.`

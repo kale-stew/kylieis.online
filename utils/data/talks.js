@@ -1,20 +1,22 @@
-import { format } from 'date-fns'
 import matter from 'gray-matter'
+import { format } from 'date-fns'
 
 const TALK_PREFIX =
   'https://raw.githubusercontent.com/kale-stew/all-talks/main/content'
-export const SPEAKING_DATA = `${TALK_PREFIX}/talks.json`
+const SPEAKING_DATA = `${TALK_PREFIX}/talks.json`
 
 export async function getAllSpeakingData() {
   const fetched = await fetch(SPEAKING_DATA)
   const allTalks = await fetched.json()
-  return allTalks
+  return allTalks.map(({ ...talk }) => ({
+    ...talk,
+    type: 'talk',
+  }))
 }
 
 // Get a flatmap of every event ever spoken at
 export async function getAllSpeakingEvents() {
   const allTalks = await getAllSpeakingData()
-
   return allTalks.flatMap(({ title, id, category, ...talk }) =>
     talk.presentedAt.map((event) => ({
       id,

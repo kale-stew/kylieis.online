@@ -1,7 +1,10 @@
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 
 const addCommas = (num) =>
   num && num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+const capitalizeFirstLetter = (str) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
 
 const roundDecimal = (num) => num && num.toFixed(2)
 
@@ -13,12 +16,9 @@ const getLocationData = (str) => {
   }
 }
 
-const formatDate = (date) => format(new Date(date), 'PPP')
+const formatDate = (date) => format(date, 'PPP')
 
-const formatDateWithDayOfWeek = (date) =>
-  typeof date === 'string'
-    ? format(parseISO(date), 'PPPP')
-    : format(date, 'PPPP')
+const formatDateWithDayOfWeek = (date) => format(date, 'PPPP')
 
 // Metric to Imperial conversion
 const formatStatsImperial = (distance, gain) =>
@@ -47,6 +47,7 @@ const sortByDateDesc = (arr) => {
 
 export {
   addCommas,
+  capitalizeFirstLetter,
   feetToMeters,
   formatDate,
   formatDateWithDayOfWeek,

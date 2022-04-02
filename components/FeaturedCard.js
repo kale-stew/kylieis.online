@@ -4,6 +4,7 @@ import ReactCardFlip from 'react-card-flip'
 import styled from '@emotion/styled'
 import { accordion, mobileAccordion } from '../styles/animations'
 import { formatDate } from '../utils/helpers'
+import { parseISO } from 'date-fns'
 import { useState } from 'react'
 
 const AccordionCard = styled.div`
@@ -17,6 +18,12 @@ const AccordionCard = styled.div`
     var(--color-${props.color}-2) -10px 10px,
     var(--color-${props.color}-3) -15px 15px,
     var(--color-${props.color}-4) -20px 20px;`};
+
+  p {
+    max-width: ${(props) => (props.featured ? '70%' : 'auto')};
+    margin: 1rem auto;
+    font-family: 'Fira Sans', sans-serif;
+  }
 
   &:hover {
     cursor: pointer;
@@ -83,8 +90,8 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
     <EventItem>
       → <a href={item.eventUrl}>{item.eventName}</a>{' '}
       {item.location !== 'virtual'
-        ? `in ${item.location} on ${formatDate(item.eventDate)}.`
-        : `online on ${formatDate(item.eventDate)}.`}
+        ? `in ${item.location} on ${formatDate(parseISO(item.eventDate))}.`
+        : `online on ${formatDate(parseISO(item.eventDate))}.`}
     </EventItem>
   )
 
@@ -118,7 +125,7 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
       </AccordionCard>
     </ReactCardFlip>
   ) : (
-    <AccordionCard color={color}>
+    <AccordionCard featured color={color}>
       {
         <TitleLink>
           <Link

@@ -2,7 +2,7 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import { WRITINGS_DIR } from './writing'
-import { getAllSpeakingData, getTalkMetadata } from './speaking'
+import { getAllSpeakingData, getTalkMetadata } from './talks'
 import { sortByDateDesc } from '../helpers'
 
 // Create post params for any category

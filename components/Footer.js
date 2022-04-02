@@ -8,7 +8,8 @@ const StyledFooter = styled.footer`
   bottom: 0;
   width: 100%;
   height: 50px;
-  font-size: 12px;
+  font-size: 0.8rem;
+  font-family: 'Fira Sans', sans-serif;
   padding: 0.5rem 0;
   display: flex;
   justify-content: center;

@@ -3,11 +3,11 @@ import styled from '@emotion/styled'
 import { METADATA } from '../utils/data/personal-info'
 import { NOW_KEYS } from '../utils/constants'
 import { PageDivider, StyledLink } from '../components/shared'
+import { defaultSocialImage } from '../utils/preview-cards'
+import { format, parseISO } from 'date-fns'
 import { formatDateWithDayOfWeek } from '../utils/helpers'
 import { getAllNowPosts, getMostRecentNow } from '../utils/data/now'
-import { defaultSocialImage } from '../utils/preview-cards'
 import { useState } from 'react'
-import { format, parseISO } from 'date-fns'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -52,9 +52,9 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
       </h1>
       <h2
         className={`${utilStyles.centerText} ${utilStyles.headingMd}`}
-        style={{ fontStyle: 'italic', fontFamily: 'Fira Code, monospace' }}
+        style={{ fontStyle: 'italic', fontFamily: "'Fira Sans', sans-serif" }}
       >
-        {formatDateWithDayOfWeek(currentPost.date)}
+        {formatDateWithDayOfWeek(parseISO(currentPost.date))}
       </h2>
 
       <NowItemsList>
