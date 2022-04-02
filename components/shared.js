@@ -1,5 +1,13 @@
 import styled from '@emotion/styled'
 
+export const captionStyles = {
+  margin: '0 auto 1rem auto',
+  fontSize: '0.9rem',
+  fontFamily: "'Fira Sans', sans-serif",
+  textAlign: 'center',
+  maxWidth: '80%',
+}
+
 export const IntroParagraph = styled.p`
   max-width: 50vw;
   margin: 0 auto 3rem auto;

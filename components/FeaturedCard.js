@@ -19,6 +19,12 @@ const AccordionCard = styled.div`
     var(--color-${props.color}-3) -15px 15px,
     var(--color-${props.color}-4) -20px 20px;`};
 
+  p {
+    max-width: ${(props) => (props.featured ? '70%' : 'auto')};
+    margin: 1rem auto;
+    font-family: 'Fira Sans', sans-serif;
+  }
+
   &:hover {
     cursor: pointer;
     animation: ${(props) => accordion(props.color)} 0.5s ease-in-out;
@@ -119,7 +125,7 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
       </AccordionCard>
     </ReactCardFlip>
   ) : (
-    <AccordionCard color={color}>
+    <AccordionCard featured color={color}>
       {
         <TitleLink>
           <Link

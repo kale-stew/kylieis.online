@@ -20,6 +20,12 @@ const TimelineItem = styled.div`
   }
 `
 
+const ItemTitle = styled.span`
+  font-weight: 500;
+  font-family: 'Fira Sans', sans-serif;
+  padding-right: 2rem;
+`
+
 const TimelineDivider = styled.hr`
   height: 100%;
   width: 1.5px;
@@ -42,8 +48,8 @@ const Timeline = ({ events }) => {
     description,
   }) => (
     <TimelineItem key={jobTitle}>
-      <div className="timeline-item-title">
-        <strong>{`${jobTitle} @ ${company}`}</strong>
+      <div>
+        <ItemTitle>{`${jobTitle} @ ${company}`}</ItemTitle>
         <br />
         📍 {location}
         <br />

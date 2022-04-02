@@ -3,20 +3,13 @@ import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import styled from '@emotion/styled'
-import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import { captionStyles, IntroParagraph, PageDivider } from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getNotionProjects } from '../utils/data/notion'
 import { getPostDataByCategory } from '../utils/data/posts'
 
 import utilStyles from '../styles/utils.module.css'
-
-const captionStyles = {
-  margin: '0 auto 1rem auto',
-  fontSize: '14px',
-  textAlign: 'center',
-  maxWidth: '80%',
-}
 
 const SmallerSection = styled.div`
   max-width: 60vw;

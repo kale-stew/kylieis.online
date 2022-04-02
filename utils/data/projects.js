@@ -5,7 +5,7 @@ export function getAllProjects() {
       title: 'kylies.photos',
       date: '2021-02-25',
       type: 'frontend',
-      tech: ['next.js', 'react'],
+      tech: ['next.js', 'node'],
       featured: true,
       description:
         'My hiking blog and climbing log, built using the Notion API.',
@@ -17,7 +17,7 @@ export function getAllProjects() {
       title: 'Now',
       date: '2019-10-11',
       type: 'frontend',
-      tech: ['react', 'node'],
+      tech: ['react'],
       featured: true,
       description:
         "What I'm reading, listening to, working on, celebrating, and watching.",

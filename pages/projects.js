@@ -1,19 +1,12 @@
 import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
-import { IntroParagraph, PageDivider } from '../components/shared'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import { captionStyles, IntroParagraph, PageDivider } from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllProjects } from '../utils/data/projects'
 
 import utilStyles from '../styles/utils.module.css'
-
-const captionStyles = {
-  margin: '0 auto 1rem auto',
-  fontSize: '14px',
-  textAlign: 'center',
-  maxWidth: '80%',
-}
 
 export default function ProjectsPage({ title, allProjects }) {
   return (
