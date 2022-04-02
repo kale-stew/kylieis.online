@@ -1,5 +1,8 @@
 import styled from '@emotion/styled'
+import { BsMoonStars, BsSun } from 'react-icons/bs'
 import { useState, useEffect } from 'react'
+
+import utilStyles from '../styles/utils.module.css'
 
 const ToggleButton = styled.button`
   cursor: pointer;
@@ -33,9 +36,14 @@ const ThemeToggle = () => {
       onClick={() => setActiveTheme(inactiveTheme)}
     >
       {activeTheme === 'light' ? (
-        <span>Toggle {inactiveTheme} mode</span>
+        <span className={utilStyles.singleRow}>
+          <BsMoonStars /> Toggle {inactiveTheme} mode
+        </span>
       ) : (
-        <span>Toggle {inactiveTheme} mode</span>
+        <span className={utilStyles.singleRow}>
+          <BsSun />
+          Toggle {inactiveTheme} mode
+        </span>
       )}
     </ToggleButton>
   )
