@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import styled from '@emotion/styled'
+import { BsSearch } from 'react-icons/bs'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { IoEllipsisVerticalOutline } from 'react-icons/io5'
 import { IoMdClose } from 'react-icons/io'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
+import { StyledButton } from './shared'
 import { useState } from 'react'
 
 import utilStyles from '../styles/utils.module.css'
@@ -13,6 +15,12 @@ import utilStyles from '../styles/utils.module.css'
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
   ssr: false,
 })
+
+const SearchButton = () => (
+  <StyledButton>
+    <BsSearch /> <Link href="/search">Search the site</Link>
+  </StyledButton>
+)
 
 const MenuToggleButton = styled.button`
   background: transparent;
@@ -75,7 +83,6 @@ const HeaderNavigation = ({ isHome }) => {
             <Link href="/#timeline">Personal Timeline</Link>
             <Link href="/now">Now</Link>
           </div>
-
           <div
             className={utilStyles.socialIcons}
             style={{
@@ -98,6 +105,7 @@ const HeaderNavigation = ({ isHome }) => {
               <FaGithub />
             </a>
           </div>
+          <SearchButton />
           <ThemeToggle />
         </FullScreenNavigation>
       ) : (
