@@ -91,9 +91,9 @@ export default function WritingPage({ allPostsData, title }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = await getAllPostData()
   const title = 'Technical Writings and Tutorials'
   const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
+  const allPostsData = await getAllPostData()
 
   return {
     props: {
