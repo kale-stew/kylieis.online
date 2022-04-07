@@ -8,7 +8,7 @@ import { IoMdClose } from 'react-icons/io'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { StyledButton } from './shared'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import utilStyles from '../styles/utils.module.css'
 
@@ -56,7 +56,21 @@ const FullScreenNavigation = styled.div`
 `
 
 const HeaderNavigation = ({ isHome }) => {
+  const menuRef = useRef()
   const [showMenu, toggleShowMenu] = useState(false)
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and clicked target isn't within the window
+      // close the HeaderNavigation
+      if (showMenu && menuRef.current && !menuRef.current.contains(e.target)) {
+        toggleShowMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', checkIfClickedOutside)
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside)
+    }
+  }, [showMenu])
 
   return (
     <header style={isHome ? { background: 'transparent' } : null}>
@@ -64,7 +78,7 @@ const HeaderNavigation = ({ isHome }) => {
         <Link href="/">{METADATA.SITE_NAME}</Link>
       </h2>
       {showMenu ? (
-        <FullScreenNavigation>
+        <FullScreenNavigation ref={menuRef}>
           <MenuToggleButton
             onClick={() => toggleShowMenu(!showMenu)}
             style={{ textAlign: 'right', padding: 0 }}
@@ -74,6 +88,7 @@ const HeaderNavigation = ({ isHome }) => {
 
           <div
             style={{ display: 'flex', flexDirection: 'column', lineHeight: 2 }}
+            onClick={() => toggleShowMenu(!showMenu)}
           >
             {!isHome && <Link href="/">Home</Link>}
             <Link href="/writing">Writing</Link>
