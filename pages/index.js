@@ -62,20 +62,21 @@ export default function HomePage({ recentPosts, allProjects }) {
 
         <IntroParagraph id="about">
           <p style={{ marginTop: '0' }}>
-            I am a software engineer, technical speaker, and digital creator
-            with experience across the web stack. My expertise lies primarily in
-            API design and the implementation of a number of Javascript
-            frameworks.
+            I am a web developer, technical speaker, and digital creator with
+            experience across the web stack. My expertise lies primarily in API
+            design and the implementation of a number of Javascript frameworks.
           </p>
           <p>
-            I currently work as a freelance web developer and{' '}
+            I currently work as a software engineer at{' '}
+            <a href="https://vercel.com" alt="Go to Vercel's home page.">
+              Vercel
+            </a>
+            , where I write Javascript and build frontends. I am also a{' '}
             <a href="https://notion.so" alt="Go to Notion's home page.">
               Notion
             </a>{' '}
-            Ambassador, helping my clients transition from other knowledge
-            management tools to an enterprise Notion setup while simultaneously
-            building user-friendly integrations using the API for them to
-            leverage internally.
+            Ambassador, advocating for and beta testing the software ahead of
+            official releases.
           </p>
           <p>
             In my free time, I am an avid hiker and photographer that documents

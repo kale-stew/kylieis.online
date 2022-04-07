@@ -19,12 +19,12 @@ export const SOURCE_CODE = 'https://github.com/kale-stew/kylieis.online'
 
 export const PERSONAL_TIMELINE = [
   {
-    jobTitle: 'Coming Soon',
-    company: 'To Be Announced',
+    jobTitle: 'Software Engineer',
+    company: 'Vercel',
     location: 'Colorado',
     startDate: 'Apr 2022',
     endDate: 'beyond',
-    description: '👀',
+    description: 'Making the web. Faster.',
   },
   {
     jobTitle: 'Software + Solutions Engineer',
