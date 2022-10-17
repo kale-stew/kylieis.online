@@ -19,12 +19,22 @@ export const SOURCE_CODE = 'https://github.com/kale-stew/kylieis.online'
 
 export const PERSONAL_TIMELINE = [
   {
+    jobTitle: 'Engineering Manager',
+    company: 'Vercel',
+    location: 'Colorado',
+    startDate: 'Jul 2022',
+    endDate: 'beyond',
+    description:
+      'Leading a Growth Engineering team that focuses on developing and conducting data-driven experiments.',
+  },
+  {
     jobTitle: 'Software Engineer',
     company: 'Vercel',
     location: 'Colorado',
     startDate: 'Apr 2022',
-    endDate: 'beyond',
-    description: 'Making the web. Faster.',
+    endDate: 'Jul 2022',
+    description:
+      'Introduce new features to both our marketing website and platform. － Using Next.js, Edge Middleware, and TypeScript.',
   },
   {
     jobTitle: 'Software + Solutions Engineer',
