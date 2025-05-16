@@ -67,11 +67,11 @@ export default function HomePage({ recentPosts, allProjects }) {
             design and the implementation of a number of Javascript frameworks.
           </p>
           <p>
-            I currently work as a software engineer at{' '}
-            <a href="https://vercel.com" alt="Go to Vercel's home page.">
-              Vercel
+            I currently work as an engineering manager at{' '}
+            <a href="https://cloudflare.com" alt="Go to Cloudflare's home page.">
+              Cloudflare
             </a>
-            , where I write Javascript and build frontends. I am also a{' '}
+            , where I lead teams that write Javascript, develop frontends, and build AI tooling. I am also a{' '}
             <a href="https://notion.so" alt="Go to Notion's home page.">
               Notion
             </a>{' '}

@@ -7,8 +7,8 @@ export const METADATA = {
 export const SOCIAL_LINKS = {
   Email: 'mailTo:hello@kylieis.online',
   Github: 'https://github.com/kale-stew',
-  Instagram: 'https://instagram.com/kalestews',
-  LinkedIn: 'https://www.linkedin.com/in/kylieastewart/',
+  Instagram: 'https://instagram.com/kalestewski',
+  LinkedIn: 'https://www.linkedin.com/in/kylieski/',
   PersonalHomepage: 'https://kylieis.online',
   ProfessionalHomepage: 'https://kylieis.online',
   HikingHomepage: 'https://kylies.photos',
@@ -19,13 +19,22 @@ export const SOURCE_CODE = 'https://github.com/kale-stew/kylieis.online'
 
 export const PERSONAL_TIMELINE = [
   {
-    jobTitle: 'Engineering Manager',
-    company: 'Vercel',
-    location: 'Colorado',
-    startDate: 'Jul 2022',
+    jobTitle: 'Engineering Manager, Workers',
+    company: 'Cloudflare',
+    location: 'San Francisco, California',
+    startDate: 'Jan 2025',
     endDate: 'beyond',
     description:
-      'Leading a Growth Engineering team that focuses on developing and conducting data-driven experiments.',
+      'Leading a team focused on Growth of the Developer Platform.',
+  },
+  {
+    jobTitle: 'Engineering Manager',
+    company: 'Vercel',
+    location: 'San Francisco, California',
+    startDate: 'Jul 2022',
+    endDate: 'Dec 2024',
+    description:
+      'Led the Growth, Marketing, and Domains teams. Shipped quality experiences and data-driven experiments to the Vercel dashboard.',
   },
   {
     jobTitle: 'Software Engineer',
@@ -34,7 +43,7 @@ export const PERSONAL_TIMELINE = [
     startDate: 'Apr 2022',
     endDate: 'Jul 2022',
     description:
-      'Introduce new features to both our marketing website and platform. － Using Next.js, Edge Middleware, and TypeScript.',
+      'Introduced new features to both the marketing website and platform product. Used Next.js, Edge Middleware, and TypeScript.',
   },
   {
     jobTitle: 'Software + Solutions Engineer',
@@ -43,7 +52,7 @@ export const PERSONAL_TIMELINE = [
     startDate: 'Nov 2020',
     endDate: 'Apr 2022',
     description:
-      'Consult with businesses to analyze user needs and software requirements, determining feasibility of design within time and cost constraints. － Lay the foundation for productive long-term software maintenance, leveraging open-sourced systems when applicable. － Automate tasks like website deployment and inventory integration using Shopify, Next.js, React, AWS Lambdas, and Notion. － Develop optimizations to internal tooling for enterprise teams.',
+      'Consulted with businesses to address their software and organizational needs. － Laid the foundation for productive long-term software maintenance, leveraging open-sourced systems when available. － Automated tasks like website deployment and inventory integration using Shopify, Next.js, React, AWS Lambdas, and Notion.',
   },
   {
     jobTitle: 'Ambassador',
@@ -52,7 +61,7 @@ export const PERSONAL_TIMELINE = [
     startDate: 'Oct 2019',
     endDate: 'current',
     description:
-      'Became the first official Ambassador (formerly called Notion Pro) in the United States, advocating for and beta testing the software ahead of official releases. － Organize and host a Notion meetup group in downtown Denver, Colorado. － Notion is an all-in-one workspace for note-taking, knowledge and data management, and project and task management.',
+      'Became the first official Ambassador (formerly called Notion Pro) in the United States, advocating for and beta testing the software ahead of official releases. － Organized and host a Notion meetup group in downtown Denver, Colorado.',
   },
   {
     jobTitle: 'Software Engineer II',

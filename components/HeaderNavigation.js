@@ -26,6 +26,7 @@ const MenuToggleButton = styled.button`
   background: transparent;
   color: white;
   cursor: pointer;
+  float: right;
 `
 
 const FullScreenNavigation = styled.div`
@@ -34,7 +35,7 @@ const FullScreenNavigation = styled.div`
   width: 15vw;
   height: min-content;
   margin: auto 0 auto auto;
-  padding: 2vh 4vw 2vh 2vw;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -50,7 +51,7 @@ const FullScreenNavigation = styled.div`
   @media (max-width: 700px) {
     margin: 0 0 auto auto;
     width: max-content;
-    padding: 1rem;
+    padding: 1.5rem;
     font-size: 18px;
   }
 `
@@ -124,7 +125,7 @@ const HeaderNavigation = ({ isHome }) => {
           <ThemeToggle />
         </FullScreenNavigation>
       ) : (
-        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)}>
+        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)} >
           <IoEllipsisVerticalOutline size="1.5rem" />
         </MenuToggleButton>
       )}

@@ -114,11 +114,6 @@ button {
   font-size: 15px;
   text-align: center;
   transition: all 0.2s;
-
-  @media all and (max-width: 1024px) {
-    display: block;
-    margin: 0.2em auto;
-  }
 }
 
 a {
