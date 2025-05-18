@@ -11,9 +11,8 @@ const AccordionCard = styled.div`
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px var(--color-bg-secondary);
-  padding: 0.5rem 1rem;
   border-collapse: collapse;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   box-shadow: ${(props) => `var(--color-${props.color}-1) -5px 5px,
     var(--color-${props.color}-2) -10px 10px,
     var(--color-${props.color}-3) -15px 15px,
@@ -95,9 +94,12 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
     </EventItem>
   )
 
+  const speakingPadding = { padding: '0.7rem 1.5rem 1rem 1.5rem' }
+  const homePagePadding = { padding: '0.5rem' }
+
   return flippable ? (
     <ReactCardFlip isFlipped={isFlipped} infinite>
-      <AccordionCard color={color}>
+      <AccordionCard color={color} style={speakingPadding}>
         {
           <TitleLink>
             <Link
@@ -116,7 +118,7 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
         <FlipOver />
       </AccordionCard>
 
-      <AccordionCard color={color}>
+      <AccordionCard color={color} style={speakingPadding}>
         <>
           <h3>Presented At</h3>
           {item.presentedAt.map((item) => item.eventDate && buildEvent(item))}
@@ -125,7 +127,7 @@ const FeaturedCard = ({ color = 'red', flippable, item }) => {
       </AccordionCard>
     </ReactCardFlip>
   ) : (
-    <AccordionCard featured color={color}>
+    <AccordionCard featured color={color} style={homePagePadding}>
       {
         <TitleLink>
           <Link

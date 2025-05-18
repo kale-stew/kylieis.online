@@ -12,7 +12,7 @@ body {
     'Ubuntu', 'Cantarell', 'Arsenal', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-bg-primary);
+  background-image: var(--linear-gradient);
   line-height: 1.5;
   font-size: 16px;
 
@@ -42,7 +42,7 @@ body {
     ),
     linear-gradient(
       336deg,
-      var(--color-orange),
+      var(--color-red),
       var(--color-red),
       var(--color-orange) 70.71%
     ),
@@ -50,7 +50,7 @@ body {
       336deg,
       var(--color-red),
       var(--color-orange),
-      var(--color-red) 70.71%
+      var(--color-orange) 70.71%
     );
 }
 
@@ -135,12 +135,10 @@ ol a:hover {
 }
 
 header {
-  background-image: var(--linear-gradient);
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  max-height: 50px;
-  min-height: 45px;
+  height: 35px;
   padding: 0.75em 1.25em;
 }
 

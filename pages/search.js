@@ -11,6 +11,8 @@ import { sortByDateDesc } from '../utils/helpers'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
+import utilStyles from '../styles/utils.module.css'
+
 export default function SearchPage({ allData }) {
   const router = useRouter()
   const { query } = router.query
@@ -55,15 +57,19 @@ export default function SearchPage({ allData }) {
     <Layout>
       <SearchBar query={userSearch} onChange={handleSearch} />
       <PageDivider />
-      <ul style={{ minWidth: '70%' }}>
-        {filteredData.length ? (
-          filteredData.map((item) => <BlogItem key={item.title} item={item} />)
-        ) : (
-          <i>
-            Nothing to show for that query ({userSearch}), try something else.
-          </i>
-        )}
-      </ul>
+      <div className={utilStyles.whiteBg}>
+        <ul style={{ padding: 0 }}>
+          {filteredData.length ? (
+            filteredData.map((item) => (
+              <BlogItem key={item.title} item={item} />
+            ))
+          ) : (
+            <i>
+              Nothing to show for that query ({userSearch}), try something else.
+            </i>
+          )}
+        </ul>
+      </div>
     </Layout>
   )
 }

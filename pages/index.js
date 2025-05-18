@@ -17,7 +17,6 @@ const HighlightBackground = styled.div`
 
 const HomePageLayout = styled.div`
   height: 70vh;
-  width: 50vw;
   display: flex;
   text-align: center;
   flex-direction: column;

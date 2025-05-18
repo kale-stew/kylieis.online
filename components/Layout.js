@@ -15,7 +15,9 @@ export default function Layout({ children, home }) {
     <>
       <HeaderNavigation isHome={home} />
       <div className={styles.wrapper}>
-        <main>{!loading ? children : <Loading />}</main>
+        <main className={styles.contentWrapper}>
+          {!loading ? children : <Loading />}
+        </main>
       </div>
       {!loading && <Footer isHome={home} />}
     </>

@@ -66,6 +66,12 @@
   align-items: center;
 }
 
+.whiteBg {
+  background: var(--color-bg-primary);
+  padding: 0.75rem 3rem;
+  border-radius: 0.75rem;
+}
+
 @media (max-width: 1024px) {
   .singleRow {
     justify-content: center;

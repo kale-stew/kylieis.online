@@ -1,11 +1,7 @@
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
-import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
-import {
-  captionStyles,
-  IntroParagraph,
-  PageDivider,
-} from '../components/shared'
+import { METADATA } from '../utils/data/personal-info'
+import { IntroParagraph, PageDivider } from '../components/shared'
 import { defaultSocialImage } from '../utils/preview-cards'
 import { getAllProjects } from '../utils/data/projects'
 
@@ -20,35 +16,32 @@ export default function ProjectsPage({ title, allProjects }) {
       >
         {title}
       </h1>
+      <IntroParagraph
+        className={utilStyles.centerText}
+        style={{ margin: '0.5rem auto' }}
+      >
+        The following is a selection of projects I'm especially excited about.
+      </IntroParagraph>
       <IntroParagraph className={utilStyles.centerText}>
-        While the majority of my projects are available on{' '}
+        Click on a project's title to visit the live website; technologies
+        involved are tagged. See{' '}
         <a
           href="https://github.com/kale-stew"
           target="_blank"
           rel="noopener noreferrer"
         >
           my Github profile
-        </a>
-        , the following are some projects I'm especially proud of or eager to
-        show off. The technologies involved are tagged, and you can click on the
-        project title to visit the live website.
+        </a>{' '}
+        for a longer list.
       </IntroParagraph>
 
-      <ProjectCarousel>
+      <ProjectCarousel className={utilStyles.whiteBg}>
         {allProjects.map((project) => (
           <ProjectCard item={project} />
         ))}
       </ProjectCarousel>
 
       <PageDivider />
-      <h2 className={utilStyles.centerText} style={{ marginTop: '5rem' }}>
-        📫 Get in Touch
-      </h2>
-      <p style={captionStyles}>
-        To stay up to date with {METADATA.FIRST_NAME}'s projects, follow her{' '}
-        <a href={SOCIAL_LINKS.Twitter}>on Twitter</a>. To discuss working
-        together, send her <a href={SOCIAL_LINKS.Email}>an email</a>.
-      </p>
     </Layout>
   )
 }

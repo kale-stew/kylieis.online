@@ -22,9 +22,11 @@ export default function Post({ postData, postIds }) {
         >
           {postData.title}
         </h1>
+
         <div
           className={`${utilStyles.lightText} ${utilStyles.singleRow}`}
           style={{
+            color: 'var(--color-text-primary)',
             marginBottom: '2rem',
             display: 'flex',
             justifyContent: 'center',
@@ -40,27 +42,29 @@ export default function Post({ postData, postIds }) {
           )}
         </div>
 
-        <ReactMarkdown
-          components={{
-            code({ node, inline, className, children, ...props }) {
-              const match = /language-(\w+)/.exec(className || '')
-              return !inline && match ? (
-                <MarkdownHighlight
-                  value={String(children).replace(/\n$/, '')}
-                  language={match[1]}
-                  PreTag="div"
-                  {...props}
-                />
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              )
-            },
-          }}
-        >
-          {postData.content}
-        </ReactMarkdown>
+        <div className={utilStyles.whiteBg}>
+          <ReactMarkdown
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '')
+                return !inline && match ? (
+                  <MarkdownHighlight
+                    value={String(children).replace(/\n$/, '')}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  />
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                )
+              },
+            }}
+          >
+            {postData.content}
+          </ReactMarkdown>
+        </div>
       </article>
 
       {buildNavigation(postIds, postData)}

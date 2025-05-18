@@ -2,14 +2,16 @@ import styled from '@emotion/styled'
 import Link from 'next/link'
 
 export const ProjectCarousel = styled.div`
+  max-height: auto;
+  width: 55vw;
   display: flex;
   flex-direction: row;
   overflow: scroll;
-  max-height: auto;
-  padding-bottom: 2rem;
-  max-width: 95vw;
+  padding: 1rem;
+  margin: 0 auto;
+
   @media (max-width: 1024px) {
-    max-width: 90vw;
+    width: 60vw;
   }
 `
 
@@ -57,7 +59,7 @@ const ProjectPill = styled.div`
   font-size: 10px;
   font-weight: 500;
   margin-left: 8px;
-  border-radius: 10px;
+  border-radius: 0.3rem;
   color: white;
   background-color: ${(p) => determinePillColor(p.type)};
 `

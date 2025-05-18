@@ -18,20 +18,20 @@ const HighlightBackground = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 98%;
-  background-image: var(--linear-gradient);
-  @media (max-width: 750px) {
-    height: 1200px;
-  }
+  height: 100%;
+  background-color: transparent;
 `
 
 const Introduction = styled.div`
+  height: 70vh;
   color: white;
   text-align: center;
-  height: 70vh;
   justify-content: center;
   h1 {
     color: white;
+  }
+  @media (max-width: 750px) {
+    height: 750px;
   }
 `
 
@@ -43,6 +43,16 @@ const IntroParagraph = styled.div`
   font-family: 'Arsenal';
   a {
     color: var(--color-red);
+  }
+  @media (max-width: 750px) {
+    height: 1200px;
+  }
+`
+
+const Space = styled.div`
+  height: 12rem;
+  @media (max-width: 750px) {
+    display: none;
   }
 `
 
@@ -91,16 +101,18 @@ export default function AboutPage({ recentPosts }) {
         </IntroParagraph>
       </Introduction>
 
-      <div style={{ height: '12rem' }} />
+      <Space />
 
-      <h1
-        className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
-        style={{ margin: '3rem auto 2rem auto' }}
-        id="timeline"
-      >
-        Personal Timeline
-      </h1>
-      <Timeline events={PERSONAL_TIMELINE} />
+      <div className={utilStyles.whiteBg}>
+        <h1
+          className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
+          style={{ margin: '3rem auto 2rem auto' }}
+          id="timeline"
+        >
+          Personal Timeline
+        </h1>
+        <Timeline events={PERSONAL_TIMELINE} />
+      </div>
     </Layout>
   )
 }
