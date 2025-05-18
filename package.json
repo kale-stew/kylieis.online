@@ -25,9 +25,9 @@
     "gray-matter": "^4.0.3",
     "next": "^14.2.26",
     "path": "^0.12.7",
-    "react": "^16.10.2",
-    "react-card-flip": "^1.1.5",
-    "react-dom": "^16.10.2",
+    "react": "^19.1.0",
+    "react-card-flip": "^1.2.3",
+    "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-markdown": "^7.1.1",
     "react-syntax-highlighter": "^15.4.5"
