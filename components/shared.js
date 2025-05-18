@@ -20,7 +20,7 @@ export const PageDivider = styled.hr`
   height: 1.5px;
   width: 100%;
   border: none;
-  margin: 3rem 0 2.5rem 0;
+  margin: 2.5rem 0 2rem 0;
   color: var(--color-text-accent);
   background-color: var(--color-text-accent);
 `
@@ -28,7 +28,7 @@ export const PageDivider = styled.hr`
 export const StyledButton = styled.button`
   cursor: pointer;
   border: 2px solid var(--color-text-accent);
-  border-radius: 5px;
+  border-radius: 0.3rem;
   color: white;
   font-size: 0.75rem;
   background: transparent;
@@ -42,7 +42,8 @@ export const StyledButton = styled.button`
 `
 
 export const StyledLink = styled.a`
-  color: var(--color-text-accent);
+  color: ${(p) =>
+    p.color ? `var(--color-${p.color})` : 'var(--color-text-accent)'};
   display: flex;
   justify-content: center;
   margin: 0 auto;

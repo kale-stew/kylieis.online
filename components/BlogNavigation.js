@@ -13,7 +13,7 @@ const NavigationButton = styled.span`
   padding: 0.5rem 1rem;
   text-decoration: none;
   background-color: ${(props) => `var(--color-${props.color}-0)`};
-  border-radius: 5px;
+  border-radius: 0.3rem;
   box-shadow: ${(props) =>
     `var(--color-${props.color}-1) -5px 5px, var(--color-${props.color}-2) -10px 10px;`};
   &:hover {

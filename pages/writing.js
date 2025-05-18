@@ -17,10 +17,6 @@ const BlogListWrapper = styled.ul`
   gap: 2;
   padding: 0;
   margin: 0 auto;
-  max-width: 80vw;
-  @media (max-width: 1024px) {
-    max-width: 90vw;
-  }
 `
 
 const CategoryItemsWrapper = styled.span`
@@ -29,10 +25,6 @@ const CategoryItemsWrapper = styled.span`
   justify-content: center;
   padding: 0 0.25rem;
   margin: 2rem auto 0 auto;
-  @media (max-width: 1024px) {
-    margin: auto;
-    justify-content: center;
-  }
 `
 
 export default function WritingPage({ allPostsData, title }) {
@@ -60,37 +52,33 @@ export default function WritingPage({ allPostsData, title }) {
 
   return (
     <Layout>
-      <h1
-        className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
-        style={{ marginTop: '3rem' }}
-      >
-        {title}
-      </h1>
       <CategoryItemsWrapper>{buildCategories()}</CategoryItemsWrapper>
       <PageDivider />
 
-      <BlogListWrapper>
-        {allPostsData.map((post) => (
-          <li
-            key={post.id}
-            style={{
-              display:
-                viewCategory === post.category ||
-                viewCategory === CATEGORY_TYPE.ALL
-                  ? 'block'
-                  : 'none',
-            }}
-          >
-            <BlogItem item={post} />
-          </li>
-        ))}
-      </BlogListWrapper>
+      <div className={utilStyles.whiteBg}>
+        <BlogListWrapper>
+          {allPostsData.map((post) => (
+            <li
+              key={post.id}
+              style={{
+                display:
+                  viewCategory === post.category ||
+                  viewCategory === CATEGORY_TYPE.ALL
+                    ? 'block'
+                    : 'none',
+              }}
+            >
+              <BlogItem item={post} />
+            </li>
+          ))}
+        </BlogListWrapper>
+      </div>
     </Layout>
   )
 }
 
 export async function getStaticProps() {
-  const title = 'Technical Writings'
+  const title = 'Written Thoughts'
   const description = `${METADATA.FIRST_NAME} is writing about Javascript, AI, and more.`
   const allPostsData = await getAllPostData()
 

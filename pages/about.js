@@ -19,7 +19,7 @@ const HighlightBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: var(--linear-gradient);
+  background-color: transparent;
 `
 
 const Introduction = styled.div`
@@ -42,7 +42,7 @@ const IntroParagraph = styled.div`
   font-size: 21px;
   font-family: 'Arsenal';
   a {
-    color: var(--color-orange);
+    color: var(--color-red);
   }
   @media (max-width: 750px) {
     height: 1200px;
@@ -103,14 +103,16 @@ export default function AboutPage({ recentPosts }) {
 
       <Space />
 
-      <h1
-        className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
-        style={{ margin: '3rem auto 2rem auto' }}
-        id="timeline"
-      >
-        Personal Timeline
-      </h1>
-      <Timeline events={PERSONAL_TIMELINE} />
+      <div className={utilStyles.whiteBg}>
+        <h1
+          className={`${utilStyles.centerText} ${utilStyles.headingXl}`}
+          style={{ margin: '3rem auto 2rem auto' }}
+          id="timeline"
+        >
+          Personal Timeline
+        </h1>
+        <Timeline events={PERSONAL_TIMELINE} />
+      </div>
     </Layout>
   )
 }

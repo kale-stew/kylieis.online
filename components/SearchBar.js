@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   padding: 1rem 2rem;
   border-radius: 1rem;
   border: 2px solid var(--color-text-accent);
-  background: var(--color-primary-bg);
+  background: var(--color-bg-primary);
   color: var(--color-primary-text);
   font-size: 2rem;
   font-style: italic;

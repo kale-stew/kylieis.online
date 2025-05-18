@@ -57,12 +57,14 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
         {formatDateWithDayOfWeek(parseISO(currentPost.date))}
       </h2>
 
-      <NowItemsList>
-        {Object.entries(currentPost).map(
-          ([key, value]) =>
-            value && <NowItem key={key} label={key} entry={value} />
-        )}
-      </NowItemsList>
+      <div className={utilStyles.whiteBg}>
+        <NowItemsList>
+          {Object.entries(currentPost).map(
+            ([key, value]) =>
+              value && <NowItem key={key} label={key} entry={value} />
+          )}
+        </NowItemsList>
+      </div>
 
       <PageDivider />
       <h2
@@ -80,6 +82,7 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
         ))}
       </PastEntriesList>
       <StyledLink
+        color="orange"
         href="https://nownownow.com/about"
         target="_blank"
         rel="noopener noreferrer"

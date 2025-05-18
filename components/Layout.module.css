@@ -6,17 +6,21 @@
 }
 
 .wrapper {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 60vw;
+}
+
+.contentWrapper {
+  max-width: 70vw;
   margin: auto;
   padding-bottom: 4em;
 }
 
 @media (max-width: 1024px) {
-  .wrapper {
+  .contentWrapper {
     max-width: 85vw;
     margin: 0 auto;
   }

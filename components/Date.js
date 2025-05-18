@@ -1,6 +1,5 @@
 import { formatDate, formatDateWithDayOfWeek } from '../utils/helpers'
 import { parseISO } from 'date-fns'
-import utilStyles from '../styles/utils.module.css'
 
 const FormattedDate = ({ dateString, withDOW }) => {
   const date =
@@ -9,11 +8,7 @@ const FormattedDate = ({ dateString, withDOW }) => {
       : new Date(dateString)
 
   return (
-    <time
-      className={utilStyles.lightText}
-      dateTime={dateString}
-      style={{ fontSize: '14px' }}
-    >
+    <time dateTime={dateString} style={{ fontSize: '14px' }}>
       {withDOW ? formatDateWithDayOfWeek(date) : formatDate(date)}
     </time>
   )

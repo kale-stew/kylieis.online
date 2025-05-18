@@ -5,7 +5,7 @@ import { BsSearch } from 'react-icons/bs'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { IoEllipsisVerticalOutline } from 'react-icons/io5'
 import { IoMdClose } from 'react-icons/io'
-import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
+import { SOCIAL_LINKS } from '../utils/data/personal-info'
 import { MdOutlineMail } from 'react-icons/md'
 import { StyledButton } from './shared'
 import { useEffect, useRef, useState } from 'react'
@@ -38,7 +38,7 @@ const FullScreenNavigation = styled.div`
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 0.3rem;
   gap: 1rem;
   a {
     width: max-content;
