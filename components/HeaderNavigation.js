@@ -75,9 +75,6 @@ const HeaderNavigation = ({ isHome }) => {
 
   return (
     <header style={isHome ? { background: 'transparent' } : null}>
-      <h2>
-        <Link href="/">{METADATA.SITE_NAME}</Link>
-      </h2>
       {showMenu ? (
         <FullScreenNavigation ref={menuRef}>
           <MenuToggleButton
@@ -94,10 +91,10 @@ const HeaderNavigation = ({ isHome }) => {
             {!isHome && <Link href="/">Home</Link>}
             <Link href="/writing">Writing</Link>
             <Link href="/speaking">Speaking</Link>
-            <Link href="/notion">Notion</Link>
             <Link href="/projects">Projects</Link>
-            <Link href="/#timeline">Personal Timeline</Link>
-            <Link href="/now">Now</Link>
+            {/* <Link href="/about/#timeline">Personal Timeline</Link> */}
+            {/* <Link href="/now">Now</Link> */}
+            <Link href="/about">About</Link>
           </div>
           <div
             className={utilStyles.socialIcons}
@@ -125,7 +122,7 @@ const HeaderNavigation = ({ isHome }) => {
           <ThemeToggle />
         </FullScreenNavigation>
       ) : (
-        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)} >
+        <MenuToggleButton onClick={() => toggleShowMenu(!showMenu)}>
           <IoEllipsisVerticalOutline size="1.5rem" />
         </MenuToggleButton>
       )}

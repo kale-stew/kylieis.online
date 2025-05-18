@@ -28,7 +28,12 @@ export default function NotFoundPage() {
         <Image src={DenverImage} layout="intrinsic" placeholder="blur" />
         <div
           className={utilStyles.centerText}
-          style={{ fontSize: '0.8rem', maxWidth: '70%', margin: '0 auto' }}
+          style={{
+            fontSize: '14px',
+            fontFamily: "'Arsenal",
+            maxWidth: '70%',
+            margin: '0 auto',
+          }}
         >
           {METADATA.FIRST_NAME} presenting "How TypeScript Made me a Better JS
           Developer" at the FormidaDenver Open House in October of 2018.

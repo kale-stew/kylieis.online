@@ -5,15 +5,12 @@
     -ms-transform: translateY(0);
     transform: translateY(0);
   }
+
   50% {
     -webkit-transform: translateY(-6px);
     -ms-transform: translateY(-6px);
     transform: translateY(-6px);
   }
-}
-
-.backToHome {
-  margin-bottom: 2rem;
 }
 
 .centerText {
@@ -61,21 +58,6 @@
   display: flex;
   align-items: center;
   gap: 1em;
-}
-
-.socialIcons a {
-  cursor: pointer;
-}
-
-.socialIcons a > svg {
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.socialIcons a > svg:hover {
-  animation: jump 0.5s;
-  -moz-animation: jump 0.5s;
-  animation-iteration-count: infinite;
 }
 
 .vertical {
