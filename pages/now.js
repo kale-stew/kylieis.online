@@ -52,7 +52,7 @@ export default function NowPage({ mostRecentPost, allNowPosts }) {
       </h1>
       <h2
         className={`${utilStyles.centerText} ${utilStyles.headingMd}`}
-        style={{ fontStyle: 'italic', fontFamily: "'Fira Sans', sans-serif" }}
+        style={{ fontStyle: 'italic', fontFamily: "'Arsenal', sans-serif" }}
       >
         {formatDateWithDayOfWeek(parseISO(currentPost.date))}
       </h2>

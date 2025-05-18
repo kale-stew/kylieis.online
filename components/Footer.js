@@ -1,34 +1,40 @@
-import Link from 'next/link'
 import styled from '@emotion/styled'
-import { METADATA, SOURCE_CODE } from '../utils/data/personal-info'
+import { FaBluesky, FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
+import { MdOutlineMail } from 'react-icons/md'
+import { SOCIAL_LINKS } from '../utils/data/personal-info'
 
 const StyledFooter = styled.footer`
   background-image: var(--linear-gradient);
   color: white;
   bottom: 0;
   width: 100%;
-  height: 50px;
-  font-size: 0.8rem;
-  font-family: 'Fira Sans', sans-serif;
-  padding: 0.5rem 0;
+  font-size: 1.1rem;
+  padding: 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
   a {
     color: white;
-    margin: 0 5px;
-  }
-  a:hover {
-    text-decoration: underline;
+    margin: 0 0.75rem;
   }
 `
 
-const Footer = () => (
-  <StyledFooter>
-    © {new Date().getFullYear()}
-    <Link href="/">{METADATA.FULL_NAME}</Link>－ built with 🤍 on
-    <a href={SOURCE_CODE} target="_blank">
-      github
+const Footer = ({ isHome }) => (
+  <StyledFooter style={isHome ? { background: 'transparent' } : null}>
+    <a href={SOCIAL_LINKS.Email} network="email" target="_blank">
+      <MdOutlineMail />
+    </a>
+    <a href={SOCIAL_LINKS.Twitter} target="_blank">
+      <FaTwitter />
+    </a>
+    <a href={SOCIAL_LINKS.Bluesky} target="_blank">
+      <FaBluesky />
+    </a>
+    <a href={SOCIAL_LINKS.LinkedIn} target="_blank">
+      <FaLinkedinIn />
+    </a>
+    <a href={SOCIAL_LINKS.Github} target="_blank">
+      <FaGithub />
     </a>
   </StyledFooter>
 )

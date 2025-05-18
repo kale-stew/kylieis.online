@@ -22,7 +22,8 @@ const TimelineItem = styled.div`
 
 const ItemTitle = styled.span`
   font-weight: 500;
-  font-family: 'Fira Sans', sans-serif;
+  font-size: 18px;
+  font-family: 'Arsenal', sans-serif;
   padding-right: 2rem;
 `
 

@@ -17,7 +17,7 @@ export default function Layout({ children, home }) {
       <div className={styles.wrapper}>
         <main>{!loading ? children : <Loading />}</main>
       </div>
-      {!loading && <Footer />}
+      {!loading && <Footer isHome={home} />}
     </>
   )
 }

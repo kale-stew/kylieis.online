@@ -17,8 +17,7 @@ const BlogListWrapper = styled.ul`
   gap: 2;
   padding: 0;
   margin: 0 auto;
-  max-width: 50vw;
-
+  max-width: 80vw;
   @media (max-width: 1024px) {
     max-width: 90vw;
   }
@@ -91,8 +90,8 @@ export default function WritingPage({ allPostsData, title }) {
 }
 
 export async function getStaticProps() {
-  const title = 'Technical Writings and Tutorials'
-  const description = `${METADATA.FIRST_NAME} is writing about Javascript, GraphQl, open source, and more.`
+  const title = 'Technical Writings'
+  const description = `${METADATA.FIRST_NAME} is writing about Javascript, AI, and more.`
   const allPostsData = await getAllPostData()
 
   return {

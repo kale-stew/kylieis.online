@@ -1,4 +1,3 @@
-import ContactForm from '../components/ContactForm'
 import Layout from '../components/Layout'
 import ProjectCard, { ProjectCarousel } from '../components/ProjectCard'
 import { METADATA, SOCIAL_LINKS } from '../utils/data/personal-info'
@@ -15,7 +14,10 @@ import utilStyles from '../styles/utils.module.css'
 export default function ProjectsPage({ title, allProjects }) {
   return (
     <Layout>
-      <h1 className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}>
+      <h1
+        className={`${utilStyles.centerText} ${utilStyles.heading2Xl}`}
+        style={{ marginTop: '3rem' }}
+      >
         {title}
       </h1>
       <IntroParagraph className={utilStyles.centerText}>
@@ -39,14 +41,14 @@ export default function ProjectsPage({ title, allProjects }) {
       </ProjectCarousel>
 
       <PageDivider />
-      <h2 className={utilStyles.centerText}>📫 Get in Touch</h2>
+      <h2 className={utilStyles.centerText} style={{ marginTop: '5rem' }}>
+        📫 Get in Touch
+      </h2>
       <p style={captionStyles}>
         To stay up to date with {METADATA.FIRST_NAME}'s projects, follow her{' '}
         <a href={SOCIAL_LINKS.Twitter}>on Twitter</a>. To discuss working
-        together, send her <a href={SOCIAL_LINKS.Email}>an email</a> or use the
-        following form:
+        together, send her <a href={SOCIAL_LINKS.Email}>an email</a>.
       </p>
-      <ContactForm />
     </Layout>
   )
 }
