@@ -11,7 +11,7 @@ const StyledInput = styled.input`
   color: var(--color-primary-text);
   font-size: 2rem;
   font-style: italic;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Arsenal', sans-serif;
 
   &:focus {
     outline: none;

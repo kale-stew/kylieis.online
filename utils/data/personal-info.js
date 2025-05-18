@@ -6,6 +6,7 @@ export const METADATA = {
 
 export const SOCIAL_LINKS = {
   Email: 'mailTo:hello@kylieis.online',
+  Bluesky: 'https://bsky.app/profile/kylieis.online',
   Github: 'https://github.com/kale-stew',
   Instagram: 'https://instagram.com/kalestewski',
   LinkedIn: 'https://www.linkedin.com/in/kylieski/',
@@ -19,13 +20,12 @@ export const SOURCE_CODE = 'https://github.com/kale-stew/kylieis.online'
 
 export const PERSONAL_TIMELINE = [
   {
-    jobTitle: 'Engineering Manager, Workers',
+    jobTitle: 'Engineering Manager',
     company: 'Cloudflare',
     location: 'San Francisco, California',
     startDate: 'Jan 2025',
     endDate: 'beyond',
-    description:
-      'Leading a team focused on Growth of the Developer Platform.',
+    description: 'Leading a team focused on Growth of the Developer Platform.',
   },
   {
     jobTitle: 'Engineering Manager',

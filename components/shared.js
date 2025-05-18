@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 export const captionStyles = {
   margin: '0 auto 1rem auto',
   fontSize: '0.9rem',
-  fontFamily: "'Fira Sans', sans-serif",
+  fontFamily: "'Arsenal', sans-serif",
   textAlign: 'center',
   maxWidth: '80%',
 }

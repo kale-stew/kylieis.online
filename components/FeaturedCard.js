@@ -22,7 +22,7 @@ const AccordionCard = styled.div`
   p {
     max-width: ${(props) => (props.featured ? '70%' : 'auto')};
     margin: 1rem auto;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Arsenal', sans-serif;
   }
 
   &:hover {
