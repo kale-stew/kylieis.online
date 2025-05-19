@@ -4,7 +4,7 @@ date: '2019-09-26'
 category: 'notion'
 ---
 
-I use Notion as a one-stop shop for a lot of my life's work. Between planning camping trips and remembering to stop by the post office, I have to write things down or I simply will not remember to do them. Notion has helped me track these things in a very straightforward way. I start my workday on a single page from which I can view my week or month ahead, as well as the tasks I intend to accomplish in that time. I call this my **Basecamp**.
+I use Notion as a one-stop shop for a lot of my life's work. Between planning camping trips and remembering to stop by the post office, I've learned I have to write things down or I simply will not remember to do them. Notion has helped me track these things in a very straightforward way. I start my workday on a single page from which I can view my week or month ahead, as well as the tasks I intend to accomplish in that time. I call this my **Basecamp**.
 
 This Basecamp approach consists of two primary subsections: **The Week Ahead** and **The Tasks Ahead**.
 
@@ -56,7 +56,7 @@ By looking at The Weeks and Tasks Ahead this way, I manage to track most of the 
 
 ### Templates
 
-For inspiration or duplication.
+For inspiration or duplication:
 
 - [Sample Basecamp](https://notiondenver.notion.site/Basecamp-125f4a44fdc044779824269c4cd5ddf8)
 
