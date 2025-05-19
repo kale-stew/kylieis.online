@@ -1,25 +1,30 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import { miniAccordion } from '../styles/animations'
+import utilStyles from '../styles/utils.module.css'
+
+const BackToAll = ({ currentlyOnBlog }) => (
+  <span className={utilStyles.hideInMobile}>
+    Back to {currentlyOnBlog ? 'blog' : 'all talks'}
+  </span>
+)
 
 const BlogNavigation = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
   margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
 `
 
 const NavigationButton = styled.span`
   color: white;
   padding: 0.5rem 1rem;
   text-decoration: none;
-  background-color: ${(props) => `var(--color-${props.color}-0)`};
+  background-color: var(--color-orange-0);
   border-radius: 0.3rem;
-  box-shadow: ${(props) =>
-    `var(--color-${props.color}-1) -5px 5px, var(--color-${props.color}-2) -10px 10px;`};
+  box-shadow: var(--color-orange-1) -5px 5px, var(--color-orange-2) -10px 10px;
   &:hover {
     cursor: pointer;
-    animation: ${(props) => miniAccordion(props.color)} 0.5s ease-in-out;
-    animation-iteration-count: 2;
+    animation: ${miniAccordion('orange')} 0.5s ease-in-out;
   }
 `
 
@@ -43,47 +48,47 @@ export const buildNavigation = (postIds, postData) => {
   let nextPostLink
   let prevPostLink
 
-  // If previous post exists,
+  // If next post exists,
   if (selfPosition + 1 <= postIds.length - 1) {
     nextPost = selfPosition + 1
     nextPostLink = (
       <Link
         href="/[category]/[id]"
-        as={`/${
-          postIds[nextPost].type === 'blog'
+        as={`/${postIds[nextPost].type === 'blog'
             ? postIds[nextPost].category
             : 'speaking'
-        }/${postIds[nextPost].id}`}
+          }/${postIds[nextPost].id}`}
       >
-        <NavigationButton
-          color={postIds[nextPost].type === 'blog' ? 'red' : 'orange'}
-          style={{ textAlign: 'right' }}
-        >
-          {postIds[nextPost].title} →
+        <NavigationButton dir="right">
+          <span className={utilStyles.hideInMobile}>
+            {postIds[nextPost].title}
+          </span>
+          →
         </NavigationButton>
       </Link>
     )
   }
-  // If next post exists,
+  // If previous post exists,
   if (selfPosition - 1 >= 0) {
     prevPost = selfPosition - 1
     prevPostLink = (
       <Link
         href="/[category]/[id]"
-        as={`/${
-          postIds[prevPost].type === 'blog'
+        as={`/${postIds[prevPost].type === 'blog'
             ? postIds[prevPost].category
             : 'speaking'
-        }/${postIds[prevPost].id}`}
+          }/${postIds[prevPost].id}`}
       >
-        <NavigationButton
-          color={postIds[prevPost].type === 'blog' ? 'red' : 'orange'}
-        >
-          ← {postIds[prevPost].title}
+        <NavigationButton>
+          ←
+          <span className={utilStyles.hideInMobile}>
+            {postIds[prevPost].title}
+          </span>
         </NavigationButton>
       </Link>
     )
   }
+
   // If posts exist on both sides
   if (nextPost != -1 && prevPost != -1) {
     return (
@@ -94,13 +99,14 @@ export const buildNavigation = (postIds, postData) => {
       </BlogNavigation>
     )
   }
+
   // If there is no previous post, go back to all
   if (prevPost == -1 && nextPost != -1) {
     return (
       <BlogNavigation>
         <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
-          <NavigationButton color={currentlyOnBlog ? 'red' : 'orange'}>
-            ← Back to {currentlyOnBlog ? 'blog' : 'all talks'}
+          <NavigationButton>
+            ← <BackToAll currentlyOnBlog />
           </NavigationButton>
         </Link>
         <NavigationDivider></NavigationDivider>
@@ -115,12 +121,9 @@ export const buildNavigation = (postIds, postData) => {
         {prevPostLink}
         <NavigationDivider></NavigationDivider>
         <Link href={`/${currentlyOnBlog ? 'writing' : 'speaking'}`}>
-          <NavigationButton
-            color={currentlyOnBlog ? 'red' : 'orange'}
-            style={{ textAlign: 'right' }}
-          >
+          <NavigationButton dir="right">
             {' '}
-            Back to {currentlyOnBlog ? 'blog' : 'all talks'} →
+            <BackToAll currentlyOnBlog /> →
           </NavigationButton>
         </Link>
       </BlogNavigation>
@@ -130,7 +133,7 @@ export const buildNavigation = (postIds, postData) => {
   return (
     <BlogNavigation>
       <Link href="/blog">
-        <NavigationButton color="red">← Back to blog</NavigationButton>
+        <NavigationButton>← Back to blog</NavigationButton>
       </Link>
     </BlogNavigation>
   )

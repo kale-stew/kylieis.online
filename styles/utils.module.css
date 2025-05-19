@@ -42,6 +42,10 @@
   line-height: 1.5;
 }
 
+.hideInMobile {
+  display: inline;
+}
+
 .lightText {
   color: var(--color-text-secondary);
 }
@@ -94,5 +98,9 @@
 
   .headingLg {
     font-size: 1.4rem;
+  }
+
+  .hideInMobile {
+    display: none;
   }
 }

@@ -28,7 +28,6 @@ const AccordionCard = styled.div`
     cursor: pointer;
     animation: ${(props) => accordion(props.color)} 0.5s ease-in-out;
     animation-fill-mode: both;
-    animation-iteration-count: 1;
   }
 
   @media (max-width: 710px) {
