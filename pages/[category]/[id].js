@@ -45,6 +45,9 @@ export default function Post({ postData, postIds }) {
         <div className={utilStyles.whiteBg}>
           <ReactMarkdown
             components={{
+              img: (props) => {
+                return <img src={props.src} alt={props.alt} />
+              },
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '')
                 return !inline && match ? (
