@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kylieis-online",
+  "account_id": "bb52c0e5f3a93fc72779915d7dc6982b",
   "main": "src/index.ts",
   "compatibility_date": "2025-05-23",
   "compatibility_flags": ["nodejs_compat_v2"],
@@ -13,7 +14,7 @@
     {
       "binding": "DB",
       "database_name": "kylieis-online-db",
-      "database_id": "auto"
+      "database_id": "ceba1068-7e14-46dd-851b-140e13d4b842"
     }
   ],
   "observability": {
