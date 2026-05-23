@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "build": "node scripts/build-static.mjs",
+    "build": "tsx scripts/build-static.mjs",
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler deploy --env preview",
     "test": "vitest run",
@@ -26,6 +26,7 @@
     "@cloudflare/vitest-pool-workers": "^0.16.9",
     "@playwright/test": "^1.52.0",
     "@types/node": "^25.9.1",
+    "tsx": "^4.22.3",
     "typescript": "^5.8.3",
     "vitest": "^4.1.7",
     "wrangler": "^4.94.0"
