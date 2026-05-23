@@ -8,6 +8,7 @@ import { SpeakingPage } from '../src/pages/SpeakingPage.js'
 import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
+import { generateOgImages } from './generate-og-images.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
@@ -93,6 +94,12 @@ async function main() {
 
   // 404
   writeHtml('404.html', NotFoundPage())
+
+  try {
+    await generateOgImages(blogPosts)
+  } catch (e) {
+    console.log('  warning: could not generate og images:', e.message)
+  }
 
   console.log('Build complete')
 }
