@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-05-23",
   "compatibility_flags": ["nodejs_compat_v2"],
+  "workers_dev": true,
   "assets": {
     "directory": "./static",
     "not_found_handling": "404-page",
