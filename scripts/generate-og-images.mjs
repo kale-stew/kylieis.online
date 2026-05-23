@@ -38,6 +38,7 @@ const OG_IMAGES = {
   'home': { title: 'kylieis.online', description: 'Web developer and public speaker.' },
   'writing': { title: 'Written Thoughts', description: 'Kylie is writing about Javascript, AI, and more.' },
   'speaking': { title: 'Conference Talks & Presentations', description: 'Kylie is talking about Javascript, open source, GraphQL, and more.' },
+  'projects': { title: 'Projects', description: "A selection of Kylie's open source work." },
   'about': { title: 'About', description: 'Kylie Czajkowski — Web developer and public speaker.' },
 }
 

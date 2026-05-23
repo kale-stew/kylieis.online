@@ -8,6 +8,8 @@ import { SpeakingPage } from '../src/pages/SpeakingPage.js'
 import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
+import { ProjectsPage } from '../src/pages/ProjectsPage.js'
+import { PROJECTS, getFeaturedProjects } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -52,9 +54,6 @@ async function main() {
   copyDir(path.join(ROOT, 'styles'), path.join(OUT_DIR, 'styles'))
   console.log('  copied styles/ -> static/styles/')
 
-  // Home
-  writeHtml('index.html', HomePage())
-
   // About
   writeHtml('about/index.html', AboutPage())
 
@@ -83,6 +82,12 @@ async function main() {
     writeHtml(`writing/${post.id}/index.html`, BlogPostPage({ post }))
   }
 
+  // Home (needs blogPosts, so after blog loading above)
+  writeHtml('index.html', HomePage({
+    recentPosts: blogPosts.slice(0, 2).map(({ content, ...post }) => post),
+    featuredProjects: getFeaturedProjects(),
+  }))
+
   // Speaking - fetch from GitHub
   try {
     const resp = await fetch(TALK_DATA_URL)
@@ -91,6 +96,9 @@ async function main() {
   } catch {
     console.log('  warning: could not fetch talk data, skipping speaking page')
   }
+
+  // Projects
+  writeHtml('projects/index.html', ProjectsPage({ projects: PROJECTS }))
 
   // 404
   writeHtml('404.html', NotFoundPage())

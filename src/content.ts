@@ -21,6 +21,7 @@ export interface Project {
   previewImgUrl: string
   url: string
   date: string
+  type?: string
 }
 
 export interface TalkItem {
@@ -55,6 +56,33 @@ export const METADATA = {
   fullName: 'Kylie Czajkowski',
   firstName: 'Kylie',
   siteName: 'kylieis.online',
+}
+
+export const PROJECTS: Project[] = [
+  {
+    title: 'kylies.photos',
+    date: '2021-02-25',
+    type: 'project',
+    tech: ['next.js', 'node'],
+    featured: true,
+    description: 'My hiking blog and climbing log, built using the Notion API.',
+    previewImgUrl: 'https://raw.githubusercontent.com/kale-stew/climb-log/main/public/open-graph/home.jpg',
+    url: 'https://www.kylies.photos',
+  },
+  {
+    title: 'Now',
+    date: '2019-10-11',
+    type: 'project',
+    tech: ['react'],
+    featured: true,
+    description: "What I'm reading, listening to, working on, celebrating, and watching.",
+    previewImgUrl: 'https://raw.githubusercontent.com/kale-stew/kylieis.online/main/public/open-graph/now.jpg',
+    url: '/now',
+  },
+]
+
+export function getFeaturedProjects(): Project[] {
+  return PROJECTS.filter((p) => p.featured)
 }
 
 export const SOCIAL_LINKS = [
