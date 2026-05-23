@@ -16,6 +16,20 @@ const OUT_DIR = path.join(ROOT, 'static')
 
 const TALK_DATA_URL = 'https://raw.githubusercontent.com/kale-stew/all-talks/main/content/talks.json'
 
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return
+  fs.mkdirSync(dest, { recursive: true })
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name)
+    const destPath = path.join(dest, entry.name)
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath)
+    } else {
+      fs.copyFileSync(srcPath, destPath)
+    }
+  }
+}
+
 async function main() {
   console.log('Building static site...')
   fs.mkdirSync(OUT_DIR, { recursive: true })
@@ -28,6 +42,14 @@ async function main() {
     fs.writeFileSync(path.join(OUT_DIR, name), html.toString())
     console.log(`  wrote ${name}`)
   }
+
+  // Copy public assets (favicon, og images, etc.)
+  copyDir(path.join(ROOT, 'public'), OUT_DIR)
+  console.log('  copied public/ -> static/')
+
+  // Copy styles
+  copyDir(path.join(ROOT, 'styles'), path.join(OUT_DIR, 'styles'))
+  console.log('  copied styles/ -> static/styles/')
 
   // Home
   writeHtml('index.html', HomePage())

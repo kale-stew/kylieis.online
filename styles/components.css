@@ -1,0 +1,278 @@
+/* category buttons */
+.category-inline {
+  font-family: 'Fira Code', monospace;
+  margin-left: 1em;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.category-button {
+  font-family: 'Fira Code', monospace;
+  margin: 0 0.75em;
+  padding: 0.25em;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  background: transparent;
+}
+
+.category-selected,
+.category-button:hover {
+  box-shadow: inset 0 -2em 0 0 var(--color-text-accent);
+  font-weight: 800;
+  color: var(--color-bg-primary);
+}
+
+/* accordion card (featured card, talk card) */
+.accordion-card {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px var(--color-bg-secondary);
+  border-collapse: collapse;
+  border-radius: 0.75rem;
+  padding: 0.7rem 1.5rem 1rem 1.5rem;
+}
+
+.accordion-card:hover {
+  cursor: pointer;
+  animation: accordion 0.5s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.accordion-card p {
+  max-width: auto;
+  margin: 1rem auto;
+  font-family: 'Arsenal', sans-serif;
+}
+
+/* title link within cards */
+.title-link a {
+  color: var(--color-text-primary);
+}
+
+.title-link a:hover {
+  text-decoration: underline;
+  box-shadow: none;
+}
+
+/* event item (speaking page) */
+.event-item {
+  margin: 1rem 0;
+}
+
+.event-item a {
+  color: var(--color-text-accent);
+}
+
+.event-item a:hover {
+  text-decoration: underline;
+}
+
+/* flip button */
+.flip-button {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-red);
+  padding: 0.25em;
+  cursor: pointer;
+  border: none;
+  font-weight: 300;
+  font-size: 15px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.flip-button:hover {
+  box-shadow: inset 0 -2em 0 0 var(--color-red);
+  color: var(--color-bg-primary);
+  font-weight: 800;
+}
+
+/* styled button (search, etc) */
+.styled-button {
+  cursor: pointer;
+  border: 2px solid var(--color-text-accent);
+  border-radius: 0.3rem;
+  color: white;
+  font-size: 0.75rem;
+  background: transparent;
+  transition: background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  margin: 0 auto;
+  padding: 0.4em;
+  width: max-content;
+}
+
+.styled-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* project card styles */
+.project-carousel {
+  max-height: auto;
+  width: 55vw;
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .project-carousel {
+    width: 60vw;
+  }
+}
+
+.project-preview {
+  width: 25rem;
+  max-height: 12rem;
+  object-fit: cover;
+}
+
+.project-title {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.project-title a:hover {
+  text-decoration: underline;
+}
+
+.project-wrapper {
+  max-width: 30rem;
+  margin: 1em;
+}
+
+.project-pill {
+  vertical-align: center;
+  width: max-content;
+  height: max-content;
+  padding: 2px 4px;
+  font-size: 10px;
+  font-weight: 500;
+  margin-left: 8px;
+  border-radius: 0.3rem;
+  color: white;
+}
+
+/* now page */
+.now-items {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.past-entries {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+/* talk card (speaking grid) */
+.talk-card {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px var(--color-bg-secondary);
+  border-collapse: collapse;
+  border-radius: 0.75rem;
+  padding: 0.7rem 1.5rem 1rem 1.5rem;
+}
+
+/* menu / navigation */
+.fullscreen-nav {
+  background-image: var(--linear-gradient);
+  z-index: 100;
+  width: 15vw;
+  height: min-content;
+  margin: auto 0 auto auto;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3rem;
+  gap: 1rem;
+}
+
+.fullscreen-nav a {
+  width: max-content;
+}
+
+@media (max-width: 1024px) {
+  .fullscreen-nav {
+    height: max-content;
+    -webkit-transform: translate3d(0, 0, 0);
+    gap: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .fullscreen-nav {
+    margin: 0 0 auto auto;
+    width: max-content;
+    padding: 1.5rem;
+    font-size: 18px;
+  }
+}
+
+.menu-toggle-button {
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  float: right;
+  border: none;
+  font-weight: 300;
+  font-size: 15px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.social-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* blog post prose */
+.prose {
+  line-height: 1.8;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose h2 {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h3 {
+  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.35em;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-text-accent);
+  margin-left: 0;
+  padding-left: 1rem;
+  opacity: 0.85;
+}
+
+.prose pre {
+  margin: 1.25em 0;
+}
