@@ -40,7 +40,8 @@ export function NowPage({ entry, allEntries }: { entry: NowEntry; allEntries: Pi
 
   return Layout({
     title: 'Now',
-    description: "What Kylie is doing now.",
+    description: "What Kylie is reading, watching, learning, and celebrating.",
+    ogImage: 'https://kylieis.online/open-graph/now.jpg',
     content: html`
       ${Nav()}
       <main>
