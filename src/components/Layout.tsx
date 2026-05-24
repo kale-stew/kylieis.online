@@ -35,7 +35,9 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         <script>
           document.body.dataset.theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         </script>
-        ${content}
+        <div class="page">
+          ${content}
+        </div>
       </body>
     </html>
   `
