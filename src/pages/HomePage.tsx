@@ -89,7 +89,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
             ${items.map((item) => {
               if (item.type === 'photo') {
                 return html`
-                  <div class="card card-photo" onclick="openPhotoModal('${item.src}', '${item.alt.replace(/'/g, "\\'")}', '${item.location.replace(/'/g, "\\'")}')" style="cursor: pointer;">
+                  <div class="card card-photo" onclick="openPhotoModalBySrc('${item.src}')" style="cursor: pointer;">
                     <img src="${item.src}" alt="${item.alt}" />
                     <span class="photo-location">${item.location}</span>
                   </div>
@@ -109,77 +109,8 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
           </div>
         </div>
       </main>
-      <div id="photo-modal" class="photo-modal" onclick="closePhotoModalOnBackdrop(event)">
-        <button class="photo-modal-close" onclick="closePhotoModal()" aria-label="Close photo modal" title="Close (ESC)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-        <button class="photo-modal-nav photo-modal-prev" onclick="prevPhoto(event)" aria-label="Previous photo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button class="photo-modal-nav photo-modal-next" onclick="nextPhoto(event)" aria-label="Next photo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-        <div class="photo-modal-content">
-          <img id="photo-modal-img" src="" alt="" />
-          <div class="photo-modal-caption">
-            <p id="photo-modal-alt"></p>
-            <p class="photo-modal-location" id="photo-modal-location"></p>
-          </div>
-        </div>
-      </div>
       <script>
-        var pagePhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
-        var currentPhotoIndex = 0;
-
-        function openPhotoModal(src, alt, location) {
-          currentPhotoIndex = pagePhotos.findIndex(function(p) { return p.src === src; });
-          if (currentPhotoIndex === -1) currentPhotoIndex = 0;
-          updatePhotoModal();
-          const modal = document.getElementById('photo-modal');
-          modal.classList.add('open');
-          document.body.style.overflow = 'hidden';
-        }
-        function updatePhotoModal() {
-          const photo = pagePhotos[currentPhotoIndex];
-          const img = document.getElementById('photo-modal-img');
-          const altEl = document.getElementById('photo-modal-alt');
-          const locationEl = document.getElementById('photo-modal-location');
-          img.src = photo.src;
-          img.alt = photo.alt;
-          altEl.textContent = photo.alt;
-          locationEl.textContent = photo.location;
-        }
-        function closePhotoModal() {
-          const modal = document.getElementById('photo-modal');
-          modal.classList.remove('open');
-          document.body.style.overflow = '';
-        }
-        function closePhotoModalOnBackdrop(event) {
-          if (event.target === event.currentTarget) {
-            closePhotoModal();
-          }
-        }
-        function prevPhoto(e) {
-          e.stopPropagation();
-          currentPhotoIndex = (currentPhotoIndex - 1 + pagePhotos.length) % pagePhotos.length;
-          updatePhotoModal();
-        }
-        function nextPhoto(e) {
-          e.stopPropagation();
-          currentPhotoIndex = (currentPhotoIndex + 1) % pagePhotos.length;
-          updatePhotoModal();
-        }
-        document.addEventListener('keydown', function(e) {
-          const modal = document.getElementById('photo-modal');
-          if (!modal.classList.contains('open')) return;
-          if (e.key === 'Escape') {
-            closePhotoModal();
-          } else if (e.key === 'ArrowLeft') {
-            prevPhoto(e);
-          } else if (e.key === 'ArrowRight') {
-            nextPhoto(e);
-          }
-        });
+        photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
       </script>
       ${Footer()}
     `,

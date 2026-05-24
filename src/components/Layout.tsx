@@ -38,6 +38,87 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         <div class="page">
           ${content}
         </div>
+        <div id="photo-modal" class="photo-modal" onclick="closePhotoModalOnBackdrop(event)">
+          <button class="photo-modal-close" onclick="closePhotoModal()" aria-label="Close photo modal" title="Close (ESC)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <button class="photo-modal-nav photo-modal-prev" onclick="prevPhoto(event)" aria-label="Previous photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="photo-modal-nav photo-modal-next" onclick="nextPhoto(event)" aria-label="Next photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <div class="photo-modal-content">
+            <img id="photo-modal-img" src="" alt="" />
+            <div class="photo-modal-caption">
+              <p id="photo-modal-alt"></p>
+              <p class="photo-modal-location" id="photo-modal-location"></p>
+            </div>
+          </div>
+        </div>
+        <script>
+          var photoModalPhotos = [];
+          var photoModalCurrentIndex = 0;
+
+          function openPhotoModal(index) {
+            photoModalCurrentIndex = index;
+            updatePhotoModal();
+            var modal = document.getElementById('photo-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          }
+          function openPhotoModalBySrc(src) {
+            for (var i = 0; i < photoModalPhotos.length; i++) {
+              if (photoModalPhotos[i].src === src) {
+                openPhotoModal(i);
+                return;
+              }
+            }
+            openPhotoModal(0);
+          }
+          function updatePhotoModal() {
+            var photo = photoModalPhotos[photoModalCurrentIndex];
+            if (!photo) return;
+            var img = document.getElementById('photo-modal-img');
+            var altEl = document.getElementById('photo-modal-alt');
+            var locationEl = document.getElementById('photo-modal-location');
+            img.src = photo.src;
+            img.alt = photo.alt;
+            altEl.textContent = photo.alt;
+            locationEl.textContent = photo.location;
+          }
+          function closePhotoModal() {
+            var modal = document.getElementById('photo-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+          function closePhotoModalOnBackdrop(event) {
+            if (event.target === event.currentTarget) {
+              closePhotoModal();
+            }
+          }
+          function prevPhoto(e) {
+            e.stopPropagation();
+            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + photoModalPhotos.length) % photoModalPhotos.length;
+            updatePhotoModal();
+          }
+          function nextPhoto(e) {
+            e.stopPropagation();
+            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % photoModalPhotos.length;
+            updatePhotoModal();
+          }
+          document.addEventListener('keydown', function(e) {
+            var modal = document.getElementById('photo-modal');
+            if (!modal.classList.contains('open')) return;
+            if (e.key === 'Escape') {
+              closePhotoModal();
+            } else if (e.key === 'ArrowLeft') {
+              prevPhoto(e);
+            } else if (e.key === 'ArrowRight') {
+              nextPhoto(e);
+            }
+          });
+        </script>
       </body>
     </html>
   `
