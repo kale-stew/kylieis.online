@@ -22,7 +22,7 @@ export function SpeakingPage({ talks }: { talks: TalkListItem[] }) {
       ${Nav()}
       <main>
         <div class="container">
-          <div class="page-title">
+          <div class="page-title page-title--section">
             <h1>Speaking</h1>
             <p>Conference talks and presentations</p>
           </div>

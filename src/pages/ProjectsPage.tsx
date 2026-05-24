@@ -10,7 +10,7 @@ export function ProjectsPage({ projects }: { projects: Project[] }) {
       ${Nav()}
       <main>
         <div class="container">
-          <div class="page-title">
+          <div class="page-title page-title--section">
             <h1>Projects</h1>
             <p>Things I've built and maintained</p>
           </div>

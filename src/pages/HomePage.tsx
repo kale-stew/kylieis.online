@@ -8,6 +8,7 @@ interface HomePagePost {
   description: string | null
   category: string
   date: string
+  type?: 'blog' | 'talk'
 }
 
 interface HomePageProject {
@@ -25,7 +26,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
     ...recentPosts.slice(0, 3).map((p) => ({
       type: 'content' as const,
       title: p.title,
-      href: `/writing/${p.id}`,
+      href: p.type === 'talk' ? `/speaking/${p.id}` : `/writing/${p.id}`,
       description: p.description ?? '',
       date: p.date,
       tag: p.category,

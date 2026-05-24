@@ -10,7 +10,7 @@ export function NotFoundPage() {
       <main>
         <div class="container">
           <div class="content text-center">
-            <div class="page-title" style="margin-top:var(--space-3xl)">
+            <div class="page-title page-title--section" style="margin-top:var(--space-3xl)">
               <h1>404</h1>
               <p>Page not found</p>
             </div>

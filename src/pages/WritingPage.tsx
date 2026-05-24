@@ -12,27 +12,31 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
       ${Nav()}
       <main>
         <div class="container">
-          <div class="page-title">
-            <h1>Writing</h1>
-            <p>Thoughts on code, tools, and building things</p>
-          </div>
-          <div class="category-filters" id="category-filters">
-            <button class="category-filter active" data-category="all">#all</button>
-            ${categories.map((cat) => html`
-              <button class="category-filter" data-category="${cat}">#${cat}</button>
-            `)}
-          </div>
-          <div class="card-grid" id="post-grid">
-            ${posts.map((post) => html`
-              <article class="card" data-category="${post.category}">
-                <h3><a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}">${post.title}</a></h3>
-                <p>${post.description ?? ''}</p>
-                <div class="meta">
-                  ${post.type === 'talk' ? html`<span class="tag">#${post.category}</span><span class="tag tag-type">talk</span>` : html`<span class="tag">#${post.category}</span>`}
-                  ${post.date}
-                </div>
-              </article>
-            `)}
+          <div class="content">
+            <div class="page-title page-title--section">
+              <h1>Writing</h1>
+              <p>Thoughts on code, tools, and building things</p>
+            </div>
+            <div class="category-filters" id="category-filters">
+              <button class="category-filter active" data-category="all">#all</button>
+              ${categories.map((cat) => html`
+                <button class="category-filter" data-category="${cat}">#${cat}</button>
+              `)}
+            </div>
+            <ul class="post-list" id="post-grid">
+              ${posts.map((post) => html`
+                <li class="post-list-item" data-category="${post.category}">
+                  <a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}" class="post-list-link">
+                    <span class="post-list-title">${post.title}</span>
+                    <span class="post-list-meta">
+                      <span class="tag">#${post.category}</span>
+                      ${post.type === 'talk' ? html`<span class="tag tag-type">talk</span>` : ''}
+                      <span class="post-list-date">${post.date}</span>
+                    </span>
+                  </a>
+                </li>
+              `)}
+            </ul>
           </div>
         </div>
       </main>
@@ -46,8 +50,8 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
           document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'))
           btn.classList.add('active')
 
-          document.querySelectorAll('#post-grid .card').forEach(card => {
-            card.style.display = (category === 'all' || card.dataset.category === category) ? '' : 'none'
+          document.querySelectorAll('#post-grid .post-list-item').forEach(item => {
+            item.style.display = (category === 'all' || item.dataset.category === category) ? '' : 'none'
           })
 
           const url = category === 'all' ? '/writing' : '/writing?category=' + category

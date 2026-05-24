@@ -39,7 +39,7 @@ export function AboutPage() {
       <main>
         <div class="container">
           <div class="content">
-            <div class="page-title">
+            <div class="page-title page-title--section">
               <h1>About</h1>
             </div>
             <p class="text-center">
