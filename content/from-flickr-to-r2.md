@@ -5,7 +5,7 @@ category: 'typescript, workers'
 description: 'Consolidating photo storage from Flickr into a Workers-powered API with R2, D1, and on-demand image transforms.'
 ---
 
-I've had photos scattered across Flickr for years. Every page load on kylies.photos meant an API call to Flickr - rate limits were a constant concern, and I had no control over image sizing. The metadata lived in a Notion database, but the actual images were external. Time to consolidate.
+I've had photos scattered across [Flickr](https://flickr.com) for years. Every page load on [kylies.photos](https://kylies.photos) meant an API call to Flickr - rate limits were a constant concern, and I had no control over image sizing. The metadata lived in a [Notion](https://notion.so) database, but the actual images were external. Time to consolidate.
 
 ## The Old Setup
 
@@ -14,7 +14,7 @@ The previous architecture was fragile:
 - **Flickr API for images** - every page load fetched image URLs, which could fail or rate limit
 - **Notion for metadata** - title, location, date, tags all lived in a database I already maintained
 - **No resizing** - Flickr's `_b.jpg` suffix gave me 1024px max, but I couldn't request specific dimensions
-- **Duplicate logic** - both kylies.photos and kylieis.online needed the same Flickr/Notion integration
+- **Duplicate logic** - both [kylies.photos](https://kylies.photos) and [kylieis.online](https://kylieis.online) needed the same Flickr/Notion integration
 
 The Notion database was the source of truth for what photos existed and where they belonged. But the actual bytes lived somewhere else, governed by someone else's API.
 
@@ -89,7 +89,7 @@ See [scripts/migrate/from-notion.ts](https://github.com/kale-stew/photos-api/blo
 
 ## The Result
 
-The API is live at `photos-api.kylieski.workers.dev`. Both kylies.photos and kylieis.online can fetch from the same endpoint. Images resize on demand. Metadata queries are milliseconds against D1 instead of round-trips to Flickr and Notion.
+The API is live at [photos-api.kylieski.workers.dev](https://photos-api.kylieski.workers.dev). Both [kylies.photos](https://kylies.photos) and [kylieis.online](https://kylieis.online) can fetch from the same endpoint. Images resize on demand. Metadata queries are milliseconds against D1 instead of round-trips to Flickr and Notion. You can also see my favorites on my [about page](/about#photos).
 
 ```bash
 # Serve a resized variant
