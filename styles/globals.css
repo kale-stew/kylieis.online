@@ -642,7 +642,7 @@ main.home-main + footer {
 
 .photo-modal-content {
   position: relative;
-  max-width: 90vw;
+  max-width: 80vw;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -651,10 +651,43 @@ main.home-main + footer {
 
 .photo-modal-content img {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 75vh;
   object-fit: contain;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
+}
+
+.photo-modal-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  padding: var(--space-sm);
+  opacity: 0.8;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal-nav:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.photo-modal-prev {
+  left: var(--space-lg);
+}
+
+.photo-modal-next {
+  right: var(--space-lg);
 }
 
 .photo-modal-close {
