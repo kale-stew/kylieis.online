@@ -18,7 +18,7 @@ interface HomePageProject {
 }
 
 type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; tag: string }
-type PhotoCard = { type: 'photo'; src: string; alt: string; location: string }
+type PhotoCard = { type: 'photo'; src: string; alt: string; location: string; date: string }
 type CardItem = ContentCard | PhotoCard
 
 export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomePagePost[], featuredProjects: HomePageProject[] }) {
@@ -65,7 +65,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       return contentCards[ci++]
     }
     const photo = shuffled[pi++ % shuffled.length]
-    return { type: 'photo', src: photo.src, alt: photo.alt, location: photo.location }
+    return { type: 'photo', src: photo.src, alt: photo.alt, location: photo.location, date: photo.date }
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
@@ -74,7 +74,8 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
 
   return Layout({
     title: 'Home',
-    description: 'Kylie Czajkowski — Web developer and public speaker.',
+    description: 'Kylie Czajkowski — Engineering Manager at Cloudflare, public speaker, and mountaineer. Writing about JavaScript, AI, and building things.',
+    canonicalUrl: 'https://kylieis.online/',
     content: html`
       ${Nav()}
       <main class="home-main">
@@ -91,8 +92,8 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
               if (item.type === 'photo') {
                 return html`
                   <div class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" style="cursor: pointer;">
-                    <img src="${item.src}" alt="${item.alt}" data-photo-src="${item.src}" data-photo-alt="${item.alt}" data-photo-location="${item.location}" />
-                    <span class="photo-location">${item.location}</span>
+                    <img src="${item.src}" alt="${item.alt}" data-photo-src="${item.src}" data-photo-alt="${item.alt}" data-photo-location="${item.location}" data-photo-date="${item.date.split('-')[0]}" />
+                    <span class="photo-location">${item.location} · ${item.date.split('-')[0]}</span>
                   </div>
                 `
               }
@@ -111,7 +112,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
         </div>
       </main>
       <script>
-        window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
+        window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location, date: item.date })))};
       </script>
       ${Footer()}
     `,

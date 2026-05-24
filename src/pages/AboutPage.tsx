@@ -27,13 +27,15 @@ export function AboutPage() {
   const allPhotos: Photo[] = [
     ...PERSONAL_TIMELINE
       .filter((e): e is TimelineMilestone => e.type === 'milestone' && e.title !== 'First Conference Talk')
-      .map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '' })),
+      .map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '', date: e.photoDate ?? e.date })),
     ...PHOTOS
-  ]
+  ].sort((a, b) => b.date.localeCompare(a.date))
 
   return Layout({
     title: 'About',
-    description: `${METADATA.fullName} — Engineering Manager, public speaker, and mountaineer.`,
+    description: `${METADATA.fullName} — Engineering Manager at Cloudflare, public speaker, and mountaineer who has climbed over 109 peaks above 14,000 feet.`,
+    ogImage: 'https://kylieis.online/open-graph/about.jpg',
+    canonicalUrl: 'https://kylieis.online/about',
     content: html`
       ${Nav()}
       <main>
@@ -58,10 +60,10 @@ export function AboutPage() {
             <hr class="divider" />
             <h2 class="text-center">Photos</h2>
             <div class="photo-grid">
-              ${allPhotos.map((photo, i) => html`
+              ${allPhotos.map((photo) => html`
                 <div>
-                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onclick="openPhotoModalFromEl(this)" style="cursor: pointer;" data-photo-src="${photo.src}" data-photo-alt="${photo.alt}" data-photo-location="${photo.location}" />
-                  <p class="photo-label">${photo.location}</p>
+                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onclick="openPhotoModalFromEl(this)" style="cursor: pointer;" data-photo-src="${photo.src}" data-photo-alt="${photo.alt}" data-photo-location="${photo.location}" data-photo-date="${photo.date.split('-')[0]}" />
+                  <p class="photo-label">${photo.location} · ${photo.date.split('-')[0]}</p>
                 </div>
               `)}
             </div>
