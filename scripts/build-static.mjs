@@ -8,7 +8,7 @@ import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
-import { PROJECTS } from '../src/content.js'
+import { PROJECTS, CATEGORIES } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -80,7 +80,7 @@ async function main() {
   }))
 
   // Category filter pages
-  const categories = ['ai', 'react', 'nextjs', 'notion', 'typescript', 'graphql']
+  const categories = CATEGORIES.filter(c => c !== 'all')
   for (const category of categories) {
     const categoryPosts = postsWithoutContent.filter(p => p.category === category)
     if (categoryPosts.length > 0) {

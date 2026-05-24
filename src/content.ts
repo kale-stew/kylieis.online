@@ -151,20 +151,7 @@ export interface TimelineMilestone {
 export type TimelineEntry = TimelineJob | TimelineMilestone
 
 export const PERSONAL_TIMELINE: TimelineEntry[] = [
-  {
-    type: 'milestone',
-    title: 'Climbed Kilimanjaro',
-    date: 'Sep 2023',
-    location: 'Kilimanjaro National Park, Tanzania',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/3377d417-525a-46a7-c097-5bd1d396ef00/public',
-  },
-  {
-    type: 'milestone',
-    title: 'Moved to San Francisco',
-    date: 'Jul 2022',
-    location: 'San Francisco, CA',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
-  },
+  // 2025
   {
     type: 'job',
     jobTitle: 'Engineering Manager',
@@ -173,6 +160,22 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     startDate: 'Jan 2025',
     endDate: 'beyond',
     description: 'Leading a team focused on Growth of the Developer Platform.',
+  },
+  // 2023
+  {
+    type: 'milestone',
+    title: 'Climbed Kilimanjaro',
+    date: 'Sep 2023',
+    location: 'Kilimanjaro National Park, Tanzania',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/3377d417-525a-46a7-c097-5bd1d396ef00/public',
+  },
+  // 2022
+  {
+    type: 'milestone',
+    title: 'Moved to San Francisco',
+    date: 'Jul 2022',
+    location: 'San Francisco, CA',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
   },
   {
     type: 'job',
@@ -192,6 +195,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     endDate: 'Jul 2022',
     description: 'Introduced new features to the marketing website and platform product.',
   },
+  // 2020
   {
     type: 'job',
     jobTitle: 'Software + Solutions Engineer',
@@ -201,6 +205,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     endDate: 'Apr 2022',
     description: 'Consulted with businesses to address software and organizational needs.',
   },
+  // 2019
   {
     type: 'job',
     jobTitle: 'Ambassador',
@@ -219,6 +224,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     endDate: 'Sep 2020',
     description: 'Maintained Spectacle. Developed enterprise applications using React, AWS Lambdas, GraphQL, TypeScript, and Next.js.',
   },
+  // 2018
   {
     type: 'job',
     jobTitle: 'First Conference Talk',
@@ -236,6 +242,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     endDate: 'Jan 2019',
     description: 'Embedded engineer on enterprise teams. Developed microservices using Kubernetes, Firebase, Node.js, GCP.',
   },
+  // 2017
   {
     type: 'job',
     jobTitle: 'Student',
