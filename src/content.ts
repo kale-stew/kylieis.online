@@ -93,7 +93,6 @@ export interface Photo {
 
 export const PHOTOS: Photo[] = [
   // San Francisco / Bay Area
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/28d639b1-04bd-47ef-6445-07bd6618d400/public', alt: 'Golden Gate Bridge viewed from Fort Mason', location: 'Fort Mason, SF, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/d2b975ee-c056-45ea-833b-069480c72300/public', alt: 'Golden Gate Bridge tower from the walkway', location: 'San Francisco, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4d95873b-909c-464e-0617-1cde69bd5000/public', alt: 'Sunset behind the Cliff House', location: 'Ocean Beach, SF, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/20e6d214-7cbb-4434-efd8-bc8f6ddc5500/public', alt: 'Sunset over the Pacific at Baker Beach', location: 'Baker Beach, SF, CA' },
@@ -112,7 +111,6 @@ export const PHOTOS: Photo[] = [
   // Hawaii
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/aad40c68-a46b-4e2e-636a-7d1143197400/public', alt: 'HanakāpīʻAi Beach on the Napali Coast', location: 'Kauaʻi, HI' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7bce8dfc-e822-4754-35aa-534b1210e800/public', alt: 'Aerial view of the Napali Coast', location: 'Kauaʻi, HI' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/d86a79fe-92c4-4f76-e9a9-5be494c15a00/public', alt: 'Aerial view of the Napali Coast ridgeline', location: 'Kauaʻi, HI' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/a023ab45-f2d2-4bac-2265-bff003b13f00/public', alt: 'Sunrise from the Kailalau Trail', location: 'Kauaʻi, HI' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e7b1bcd5-13b7-45b9-aad6-510345539a00/public', alt: 'The Napali Coast seen from sea', location: 'Kauaʻi, HI' },
   // Other

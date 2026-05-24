@@ -98,6 +98,8 @@ body {
   color: var(--color-text);
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-orange) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -263,6 +265,7 @@ li code {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .container {
@@ -341,12 +344,20 @@ main {
   background: var(--color-bg);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  min-height: 100vh;
 }
 
 /* Home page: no white background, gradient shows through */
 main.home-main {
   background: none;
   border-radius: 0;
+  min-height: auto;
+  margin-bottom: 0;
+}
+
+/* Ensure footer stays at bottom and gradient is continuous */
+main.home-main ~ footer {
+  margin-top: auto;
 }
 
 /* Home page card sizing */
@@ -608,6 +619,118 @@ main.home-main {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5);
   pointer-events: none;
   z-index: 1;
+}
+
+/* === Photo Modal === */
+.photo-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.95);
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+}
+
+.photo-modal.open {
+  display: flex;
+}
+
+.photo-modal-content {
+  position: relative;
+  max-width: 80vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-modal-content img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.photo-modal-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  padding: var(--space-sm);
+  opacity: 0.8;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal-nav:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.photo-modal-prev {
+  left: var(--space-lg);
+}
+
+.photo-modal-next {
+  right: var(--space-lg);
+}
+
+.photo-modal-close {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  padding: var(--space-sm);
+  opacity: 0.9;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 10001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.photo-modal-caption {
+  margin-top: var(--space-lg);
+  text-align: center;
+  color: white;
+}
+
+.photo-modal-caption p {
+  margin: 0 0 var(--space-sm);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.photo-modal-location {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* === Footer === */

@@ -35,7 +35,116 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         <script>
           document.body.dataset.theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         </script>
-        ${content}
+        <script>
+          if (!window.photoModalPhotos) window.photoModalPhotos = [];
+          window.photoModalCurrentIndex = 0;
+
+          window.openPhotoModalFromEl = function(el) {
+            var src = el.getAttribute('data-photo-src') || el.src;
+            var alt = el.getAttribute('data-photo-alt') || el.alt;
+            var location = el.getAttribute('data-photo-location') || '';
+            
+            // Build photo array from all images with data-photo-src on the page
+            if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) {
+              window.photoModalPhotos = [];
+              var photoEls = document.querySelectorAll('[data-photo-src]');
+              for (var j = 0; j < photoEls.length; j++) {
+                window.photoModalPhotos.push({
+                  src: photoEls[j].getAttribute('data-photo-src'),
+                  alt: photoEls[j].getAttribute('data-photo-alt') || photoEls[j].alt || '',
+                  location: photoEls[j].getAttribute('data-photo-location') || ''
+                });
+              }
+            }
+            
+            var img = document.getElementById('photo-modal-img');
+            var altEl = document.getElementById('photo-modal-alt');
+            var locationEl = document.getElementById('photo-modal-location');
+            img.src = src;
+            img.alt = alt;
+            altEl.textContent = alt;
+            locationEl.textContent = location;
+            
+            var modal = document.getElementById('photo-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            
+            window.photoModalCurrentIndex = 0;
+            for (var i = 0; i < window.photoModalPhotos.length; i++) {
+              if (window.photoModalPhotos[i].src === src) {
+                window.photoModalCurrentIndex = i;
+                break;
+              }
+            }
+          };
+          window.updatePhotoModal = function() {
+            var photo = window.photoModalPhotos[window.photoModalCurrentIndex];
+            if (!photo) return;
+            var img = document.getElementById('photo-modal-img');
+            var altEl = document.getElementById('photo-modal-alt');
+            var locationEl = document.getElementById('photo-modal-location');
+            img.src = photo.src;
+            img.alt = photo.alt;
+            altEl.textContent = photo.alt;
+            locationEl.textContent = photo.location;
+          };
+          window.closePhotoModal = function() {
+            var modal = document.getElementById('photo-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+          };
+          window.closePhotoModalOnBackdrop = function(event) {
+            if (event.target === event.currentTarget) {
+              window.closePhotoModal();
+            }
+          };
+          window.prevPhoto = function(e) {
+            if (e) e.stopPropagation();
+            if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) return;
+            window.photoModalCurrentIndex = (window.photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
+            window.updatePhotoModal();
+          };
+          window.nextPhoto = function(e) {
+            if (e) e.stopPropagation();
+            if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) return;
+            window.photoModalCurrentIndex = (window.photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
+            window.updatePhotoModal();
+          };
+          document.addEventListener('keydown', function(e) {
+            var modal = document.getElementById('photo-modal');
+            if (!modal || !modal.classList.contains('open')) return;
+            if (e.key === 'Escape') {
+              window.closePhotoModal();
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              window.prevPhoto(e);
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              window.nextPhoto(e);
+            }
+          });
+        </script>
+        <div class="page">
+          ${content}
+        </div>
+        <div id="photo-modal" class="photo-modal" onclick="closePhotoModalOnBackdrop(event)">
+          <button class="photo-modal-close" onclick="closePhotoModal()" aria-label="Close photo modal" title="Close (ESC)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <button class="photo-modal-nav photo-modal-prev" onclick="prevPhoto(event)" aria-label="Previous photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="photo-modal-nav photo-modal-next" onclick="nextPhoto(event)" aria-label="Next photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <div class="photo-modal-content">
+            <img id="photo-modal-img" src="" alt="" />
+            <div class="photo-modal-caption">
+              <p id="photo-modal-alt"></p>
+              <p class="photo-modal-location" id="photo-modal-location"></p>
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   `

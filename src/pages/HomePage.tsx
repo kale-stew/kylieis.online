@@ -87,15 +87,15 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
           </div>
           <div class="card-grid">
             ${items.map((item) => {
-      if (item.type === 'photo') {
-        return html`
-                  <div class="card card-photo">
-                    <img src="${item.src}" alt="${item.alt}" />
+              if (item.type === 'photo') {
+                return html`
+                  <div class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" style="cursor: pointer;">
+                    <img src="${item.src}" alt="${item.alt}" data-photo-src="${item.src}" data-photo-alt="${item.alt}" data-photo-location="${item.location}" />
                     <span class="photo-location">${item.location}</span>
                   </div>
                 `
-      }
-      return html`
+              }
+              return html`
                 <article class="card">
                   <h3><a href="${item.href}">${item.title}</a></h3>
                   <p>${item.description}</p>
@@ -105,10 +105,13 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
                   </div>
                 </article>
               `
-    })}
+            })}
           </div>
         </div>
       </main>
+      <script>
+        window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
+      </script>
       ${Footer()}
     `,
   })

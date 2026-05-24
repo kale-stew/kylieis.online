@@ -1,6 +1,6 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry } from '../content'
+import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry, TimelineMilestone, Photo } from '../content'
 
 function renderTimelineEntry(entry: TimelineEntry) {
   if (entry.type === 'milestone') {
@@ -24,6 +24,13 @@ function renderTimelineEntry(entry: TimelineEntry) {
 }
 
 export function AboutPage() {
+  const allPhotos: Photo[] = [
+    ...PERSONAL_TIMELINE
+      .filter((e): e is TimelineMilestone => e.type === 'milestone' && e.title !== 'First Conference Talk')
+      .map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '' })),
+    ...PHOTOS
+  ]
+
   return Layout({
     title: 'About',
     description: `${METADATA.fullName} — Engineering Manager, public speaker, and mountaineer.`,
@@ -51,9 +58,9 @@ export function AboutPage() {
             <hr class="divider" />
             <h2 class="text-center">Photos</h2>
             <div class="photo-grid">
-              ${PHOTOS.map((photo) => html`
+              ${allPhotos.map((photo, i) => html`
                 <div>
-                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" />
+                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onclick="openPhotoModalFromEl(this)" style="cursor: pointer;" data-photo-src="${photo.src}" data-photo-alt="${photo.alt}" data-photo-location="${photo.location}" />
                   <p class="photo-label">${photo.location}</p>
                 </div>
               `)}
@@ -61,6 +68,9 @@ export function AboutPage() {
           </div>
         </div>
       </main>
+      <script>
+        window.photoModalPhotos = ${JSON.stringify(allPhotos)};
+      </script>
       ${Footer()}
     `,
   })
