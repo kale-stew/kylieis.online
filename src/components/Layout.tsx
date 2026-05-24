@@ -4,23 +4,30 @@ interface LayoutProps {
   title: string
   description?: string
   ogImage?: string
+  canonicalUrl?: string
   content: ReturnType<typeof html>
 }
 
-export function Layout({ title, description, ogImage, content }: LayoutProps) {
+export function Layout({ title, description, ogImage, canonicalUrl, content }: LayoutProps) {
   const ogImageUrl = ogImage ?? 'https://kylieis.online/open-graph/home.jpg'
+  const url = canonicalUrl ?? 'https://kylieis.online'
   
   return html`
     <!doctype html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <title>${title} — kylieis.online</title>
         <meta name="description" content="${description ?? ''}" />
+        <link rel="canonical" href="${url}" />
+        <meta property="og:url" content="${url}" />
         <meta property="og:title" content="${title} — kylieis.online" />
         <meta property="og:description" content="${description ?? ''}" />
         <meta property="og:image" content="${ogImageUrl}" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="${title} — kylieis.online" />
@@ -43,6 +50,7 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             var src = el.getAttribute('data-photo-src') || el.src;
             var alt = el.getAttribute('data-photo-alt') || el.alt;
             var location = el.getAttribute('data-photo-location') || '';
+            var date = el.getAttribute('data-photo-date') || '';
             
             // Build photo array from all images with data-photo-src on the page
             if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) {
@@ -52,7 +60,8 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
                 window.photoModalPhotos.push({
                   src: photoEls[j].getAttribute('data-photo-src'),
                   alt: photoEls[j].getAttribute('data-photo-alt') || photoEls[j].alt || '',
-                  location: photoEls[j].getAttribute('data-photo-location') || ''
+                  location: photoEls[j].getAttribute('data-photo-location') || '',
+                  date: photoEls[j].getAttribute('data-photo-date') || ''
                 });
               }
             }
@@ -63,7 +72,7 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             img.src = src;
             img.alt = alt;
             altEl.textContent = alt;
-            locationEl.textContent = location;
+            locationEl.textContent = location + (date ? ' · ' + date : '');
             
             var modal = document.getElementById('photo-modal');
             modal.classList.add('open');
@@ -86,7 +95,7 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             img.src = photo.src;
             img.alt = photo.alt;
             altEl.textContent = photo.alt;
-            locationEl.textContent = photo.location;
+            locationEl.textContent = photo.location + (photo.date ? ' · ' + photo.date : '');
           };
           window.closePhotoModal = function() {
             var modal = document.getElementById('photo-modal');
