@@ -603,7 +603,7 @@ footer {
 
 /* === Timeline === */
 .timeline-job {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
 }
 
 .timeline-milestone {
