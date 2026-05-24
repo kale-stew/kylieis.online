@@ -1,10 +1,9 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import type { PostMeta } from '../content'
-import { CATEGORIES } from '../content'
 
 export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], activeCategory?: string }) {
-  const categories = CATEGORIES.filter(c => c !== 'all')
+  const categories = [...new Set(posts.map(p => p.category))].sort()
   const filteredPosts = activeCategory && activeCategory !== 'all'
     ? posts.filter(p => p.category === activeCategory)
     : posts
