@@ -96,18 +96,18 @@ export const PHOTOS: Photo[] = [
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/52bfe7f1-63d7-4899-697c-22cabada3600/public', alt: 'Waimea Bay, Oahu', location: 'Oahu, HI' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', alt: 'Rush hour sunset on the Golden Gate Bridge', location: 'San Francisco, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e8183ede-c0cd-4c42-7e4d-753d0e672000/public', alt: 'Ocean panorama sailing through the Lyngen Alps, Norway', location: 'Lyngen Alps, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/363f550d-7d89-444a-685f-73a63268fa00/public', alt: 'Northern Lights seen off of a sailboat, Norway', location: 'Lyngen Alps, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7821ed9d-f915-4400-8d02-88e6909b4000/public', alt: 'Precamp sunset on the water, Norway', location: 'Lyngen Alps, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4c58f676-2f66-41b1-64aa-8d4f167c8300/public', alt: 'View out the back of our sailboat, Norway', location: 'Lyngen Alps, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/363f550d-7d89-444a-685f-73a63268fa00/public', alt: 'Northern Lights seen off of a sailboat, Norway', location: 'Stakkvik, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7821ed9d-f915-4400-8d02-88e6909b4000/public', alt: 'Precamp sunset on the water, Norway', location: 'Ulisuolu, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4c58f676-2f66-41b1-64aa-8d4f167c8300/public', alt: 'View out the back of our sailboat, Norway', location: 'Vannøya, Norway' },
 ]
 
 export const TAGLINES = [
-  'Web developer and public speaker',
-  'Building on the edge',
-  'Developing the agent development experience',
-  'Mountaineer on the weekends',
-  'Making things fast',
-  'Working with Workers',
+  'web developer and public speaker',
+  'building on the edge',
+  'developing the agent development experience',
+  'mountaineer on the weekends',
+  'making things fast',
+  'working with Workers',
 ]
 
 // Inline SVG icons for social links (no CDN dependency)
