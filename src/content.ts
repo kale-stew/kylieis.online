@@ -127,6 +127,16 @@ export const TAGLINES = [
   'mountaineer on the weekends',
   'making things fast',
   'working with Workers',
+  'shipping from the summit',
+  'peak bagger, problem solver',
+  "building things that don't crash (usually)",
+  'chronic early adopter',
+  'agent of chaos',
+  'hiking the sierras',
+  'making the web weirder',
+  'trying to make the machines like me',
+  'edge case enthusiast',
+  'learning in public',
 ]
 
 // Inline SVG icons for social links (no CDN dependency)
