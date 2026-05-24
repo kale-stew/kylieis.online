@@ -24,7 +24,12 @@ function renderTimelineEntry(entry: TimelineEntry) {
 }
 
 export function AboutPage() {
-  const allPhotos: Photo[] = [...PERSONAL_TIMELINE.filter((e): e is typeof e & { image: string } => e.type === 'milestone').map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '' })), ...PHOTOS]
+  const allPhotos: Photo[] = [
+    ...PERSONAL_TIMELINE
+      .filter((e): e is typeof e & { image: string } => e.type === 'milestone' && e.title !== 'First Conference Talk')
+      .map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '' })),
+    ...PHOTOS
+  ]
 
   return Layout({
     title: 'About',
