@@ -1,10 +1,10 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import type { BlogPost } from '../content'
-import { marked } from 'marked'
+import { renderMarkdown } from '../lib/markdown'
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
-  const htmlContent = marked.parse(post.content, { async: false }) as string
+  const htmlContent = renderMarkdown(post.content)
 
   return Layout({
     title: post.title,

@@ -184,6 +184,11 @@ pre {
   line-height: 1.7;
 }
 
+pre code {
+  background: none;
+  padding: 0;
+}
+
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
@@ -194,6 +199,63 @@ li code {
   background: var(--color-accent-light);
   padding: 0.125em 0.375em;
   border-radius: var(--radius-sm);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-type,
+.hljs-addition {
+  color: var(--color-accent);
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #2b8a3e;
+}
+
+.hljs-number,
+.hljs-deletion {
+  color: #d9480f;
+}
+
+.hljs-built_in,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #4263eb;
+}
+
+.hljs-variable,
+.hljs-params,
+.hljs-meta {
+  color: var(--color-text);
+}
+
+.hljs-tag,
+.hljs-name {
+  color: var(--color-accent);
+}
+
+.hljs-attr {
+  color: #4263eb;
+}
+
+.hljs-selector-class {
+  color: #2b8a3e;
+}
+
+.hljs-link {
+  text-decoration: underline;
 }
 
 /* === Layout === */
