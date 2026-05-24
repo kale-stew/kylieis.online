@@ -56,14 +56,31 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             window.openPhotoModal(0);
           };
           window.openPhotoModalFromEl = function(el) {
-            var src = el.getAttribute('data-photo-src');
-            for (var i = 0; i < window.photoModalPhotos.length; i++) {
-              if (window.photoModalPhotos[i].src === src) {
-                window.openPhotoModal(i);
-                return;
+            var src = el.getAttribute('data-photo-src') || el.src;
+            var alt = el.getAttribute('data-photo-alt') || el.alt;
+            var location = el.getAttribute('data-photo-location') || '';
+            
+            var img = document.getElementById('photo-modal-img');
+            var altEl = document.getElementById('photo-modal-alt');
+            var locationEl = document.getElementById('photo-modal-location');
+            img.src = src;
+            img.alt = alt;
+            altEl.textContent = alt;
+            locationEl.textContent = location;
+            
+            var modal = document.getElementById('photo-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            
+            if (window.photoModalPhotos.length > 1) {
+              for (var i = 0; i < window.photoModalPhotos.length; i++) {
+                if (window.photoModalPhotos[i].src === src) {
+                  photoModalCurrentIndex = i;
+                  return;
+                }
               }
             }
-            window.openPhotoModal(0);
+            photoModalCurrentIndex = 0;
           };
           window.updatePhotoModal = function() {
             var photo = window.photoModalPhotos[photoModalCurrentIndex];
