@@ -50,16 +50,111 @@ export function Nav() {
         <a href="/speaking">speaking</a>
         <a href="/projects">projects</a>
         <a href="/about">about</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search (Cmd+K)" aria-label="Open search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
       </nav>
     </header>
+
+    <div id="search-overlay" class="search-overlay" onclick="closeSearch(event)">
+      <div class="search-panel" onclick="event.stopPropagation()">
+        <div class="search-input-wrap">
+          <svg class="search-input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search-input" type="search" class="search-input" placeholder="Search posts and talks..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          <kbd class="search-hint">ESC</kbd>
+        </div>
+        <div id="search-results" class="search-results"></div>
+      </div>
+    </div>
+
     <script>
+      var searchTimeout;
+      var searchOverlay = document.getElementById('search-overlay');
+      var searchInput = document.getElementById('search-input');
+      var searchResults = document.getElementById('search-results');
+
+      function openSearch() {
+        searchOverlay.classList.add('open');
+        setTimeout(function() { searchInput.focus(); }, 100);
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSearch(e) {
+        if (e && e.target !== e.currentTarget) return;
+        searchOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+        clearTimeout(searchTimeout);
+      }
+
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        var q = searchInput.value.trim();
+        if (q.length === 0) {
+          searchResults.innerHTML = '';
+          return;
+        }
+        searchTimeout = setTimeout(function() {
+          fetch('/api/search?q=' + encodeURIComponent(q))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (!data.results || data.results.length === 0) {
+                searchResults.innerHTML = '<div class="search-empty">No results found</div>';
+                return;
+              }
+              searchResults.innerHTML = data.results.map(function(r) {
+                var link = '/' + (r.type === 'blog' ? 'writing' : 'speaking') + '/' + r.id;
+                return '<a href="' + link + '" class="search-result" onclick="closeSearch()">' +
+                  '<span class="search-result-title">' + escapeHtml(r.title) + '</span>' +
+                  '<span class="search-result-meta">' +
+                    '<span class="tag">#' + escapeHtml(r.category) + '</span>' +
+                    (r.date ? ' ' + r.date : '') +
+                    (r.type === 'talk' ? ' <span class="tag tag-type">talk</span>' : '') +
+                  '</span>' +
+                  '</a>';
+              }).join('');
+            })
+            .catch(function() {
+              searchResults.innerHTML = '<div class="search-empty">Something went wrong</div>';
+            });
+        }, 200);
+      });
+
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeSearch({ target: searchOverlay, currentTarget: searchOverlay });
+        }
+        if (e.key === 'Enter') {
+          var firstResult = searchResults.querySelector('.search-result');
+          if (firstResult) firstResult.click();
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (searchOverlay.classList.contains('open')) {
+            closeSearch({ target: searchOverlay, currentTarget: searchOverlay });
+          } else {
+            openSearch();
+          }
+        }
+      });
+
+      function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+      }
+
       function toggleTheme() {
-        const current = document.body.dataset.theme;
-        const next = current === 'dark' ? 'light' : 'dark';
+        var current = document.body.dataset.theme;
+        var next = current === 'dark' ? 'light' : 'dark';
         document.body.dataset.theme = next;
         localStorage.setItem('theme', next);
       }

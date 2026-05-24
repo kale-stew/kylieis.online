@@ -81,8 +81,8 @@ app.get('/search', async (c) => {
   }
 
   const stmt = c.env.DB.prepare(
-    "SELECT id, title, description, category, date, type FROM posts WHERE title LIKE ? OR description LIKE ? ORDER BY date DESC LIMIT 20"
-  ).bind(`%${query}%`, `%${query}%`)
+    "SELECT id, title, description, category, date, type FROM posts WHERE title LIKE ? OR description LIKE ? OR content LIKE ? ORDER BY date DESC LIMIT 20"
+  ).bind(`%${query}%`, `%${query}%`, `%${query}%`)
 
   const { results } = await stmt.all<{
     id: string
