@@ -96,4 +96,6 @@ The API is live at [photos-api.kylieski.workers.dev](https://photos-api.kylieski
 curl https://photos-api.kylieski.workers.dev/img/394f4ddc161b?w=800
 ```
 
+<img src="https://photos-api.kylieski.workers.dev/img/394f4ddc161b?w=800" alt="Example resized photo from the API" />
+
 This all provides an infinitiely simpler workflow and I'm really happy I spent the time cleaning it up.
