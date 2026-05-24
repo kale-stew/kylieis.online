@@ -67,7 +67,7 @@ export function AboutPage() {
         </div>
       </main>
       <script>
-        photoModalPhotos = ${JSON.stringify(allPhotos)};
+        window.photoModalPhotos = ${JSON.stringify(allPhotos)};
       </script>
       ${Footer()}
     `,

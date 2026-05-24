@@ -57,7 +57,7 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
           </div>
         </div>
         <script>
-          var photoModalPhotos = [];
+          if (!window.photoModalPhotos) window.photoModalPhotos = [];
           var photoModalCurrentIndex = 0;
 
           function openPhotoModal(index) {
@@ -68,8 +68,8 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             document.body.style.overflow = 'hidden';
           }
           function openPhotoModalBySrc(src) {
-            for (var i = 0; i < photoModalPhotos.length; i++) {
-              if (photoModalPhotos[i].src === src) {
+            for (var i = 0; i < window.photoModalPhotos.length; i++) {
+              if (window.photoModalPhotos[i].src === src) {
                 openPhotoModal(i);
                 return;
               }
@@ -77,7 +77,7 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             openPhotoModal(0);
           }
           function updatePhotoModal() {
-            var photo = photoModalPhotos[photoModalCurrentIndex];
+            var photo = window.photoModalPhotos[photoModalCurrentIndex];
             if (!photo) return;
             var img = document.getElementById('photo-modal-img');
             var altEl = document.getElementById('photo-modal-alt');
@@ -99,12 +99,12 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
           }
           function prevPhoto(e) {
             e.stopPropagation();
-            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + photoModalPhotos.length) % photoModalPhotos.length;
+            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
             updatePhotoModal();
           }
           function nextPhoto(e) {
             e.stopPropagation();
-            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % photoModalPhotos.length;
+            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
             updatePhotoModal();
           }
           document.addEventListener('keydown', function(e) {
