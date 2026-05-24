@@ -457,6 +457,8 @@ footer {
 .prose img {
   max-width: 100%;
   border-radius: var(--radius-md);
+  background: #fff;
+  padding: var(--space-sm);
 }
 
 /* === Now Page === */
