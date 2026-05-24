@@ -1,8 +1,20 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import type { TalkItem } from '../content'
 
-export function SpeakingPage({ talks }: { talks: TalkItem[] }) {
+export interface TalkListItem {
+  id: string
+  title: string
+  description: string | null
+  category: string
+  date: string
+  presentedAt: {
+    eventName: string
+    eventType: 'meetup' | 'conference'
+    location: string
+  }[]
+}
+
+export function SpeakingPage({ talks }: { talks: TalkListItem[] }) {
   return Layout({
     title: 'Speaking',
     description: 'Conference talks and presentations by Kylie Czajkowski.',
@@ -17,11 +29,14 @@ export function SpeakingPage({ talks }: { talks: TalkItem[] }) {
           <div class="card-grid">
             ${talks.map((talk) => html`
               <article class="card">
-                <h3>${talk.title}</h3>
+                <h3><a href="/speaking/${talk.id}">${talk.title}</a></h3>
                 <p>${talk.description}</p>
                 <div class="meta">
                   <span class="tag">${talk.category}</span>
-                  ${talk.date}
+                  ${talk.presentedAt.length > 0
+                    ? html`<span class="text-muted">${talk.presentedAt[0].eventName}</span>`
+                    : talk.date
+                  }
                 </div>
               </article>
             `)}
