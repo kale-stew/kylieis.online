@@ -24,11 +24,9 @@ jobs:
         run: |
           # extract branch name without prefix (blog/ or post/)
           BRANCH="${{ github.ref_name }}"
-          SLUG_BASE=$(echo "$BRANCH" | sed -E 's/^(blog|post)\///' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | cut -c1-15)
-          HASH=$(echo "$BRANCH" | sha256sum | cut -c1-6)
-          SLUG="${SLUG_BASE}-${HASH}"
-          echo "name=kio-draft-${SLUG}" >> $GITHUB_OUTPUT
-          echo "url=https://kio-draft-${SLUG}.kylieski.workers.dev" >> $GITHUB_OUTPUT
+          SLUG=$(echo "$BRANCH" | sed -E 's/^(blog|post)\///' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | cut -c1-30)
+          echo "name=post-${SLUG}" >> $GITHUB_OUTPUT
+          echo "url=https://post-${SLUG}.kylieski.workers.dev" >> $GITHUB_OUTPUT
 
       - name: create deployment
         id: deployment
