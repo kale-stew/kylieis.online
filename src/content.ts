@@ -85,14 +85,20 @@ export function getFeaturedProjects(): Project[] {
   return PROJECTS.filter((p) => p.featured)
 }
 
-export const PHOTOS = [
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/b966686d-364a-4364-60fe-2c5512b89a00/public', alt: 'Outside of Mammoth Lakes, California' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/52bfe7f1-63d7-4899-697c-22cabada3600/public', alt: 'Waimea Bay, Oahu' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', alt: 'Rush hour sunset on the Golden Gate Bridge' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e8183ede-c0cd-4c42-7e4d-753d0e672000/public', alt: 'Ocean panorama sailing through the Lyngen Alps, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/363f550d-7d89-444a-685f-73a63268fa00/public', alt: 'Northern Lights seen off of a sailboat, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7821ed9d-f915-4400-8d02-88e6909b4000/public', alt: 'Precamp sunset on the water, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4c58f676-2f66-41b1-64aa-8d4f167c8300/public', alt: 'View out the back of our sailboat, Norway' },
+export interface Photo {
+  src: string
+  alt: string
+  location: string
+}
+
+export const PHOTOS: Photo[] = [
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/b966686d-364a-4364-60fe-2c5512b89a00/public', alt: 'Outside of Mammoth Lakes, California', location: 'Mammoth Lakes, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/52bfe7f1-63d7-4899-697c-22cabada3600/public', alt: 'Waimea Bay, Oahu', location: 'Oahu, HI' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', alt: 'Rush hour sunset on the Golden Gate Bridge', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e8183ede-c0cd-4c42-7e4d-753d0e672000/public', alt: 'Ocean panorama sailing through the Lyngen Alps, Norway', location: 'Lyngen Alps, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/363f550d-7d89-444a-685f-73a63268fa00/public', alt: 'Northern Lights seen off of a sailboat, Norway', location: 'Lyngen Alps, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7821ed9d-f915-4400-8d02-88e6909b4000/public', alt: 'Precamp sunset on the water, Norway', location: 'Lyngen Alps, Norway' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4c58f676-2f66-41b1-64aa-8d4f167c8300/public', alt: 'View out the back of our sailboat, Norway', location: 'Lyngen Alps, Norway' },
 ]
 
 export const TAGLINES = [
@@ -124,8 +130,43 @@ export const SOCIAL_LINKS = [
 export const CATEGORIES = ['all', 'ai', 'react', 'nextjs', 'notion', 'typescript', 'graphql'] as const
 export type Category = (typeof CATEGORIES)[number]
 
-export const PERSONAL_TIMELINE = [
+export interface TimelineJob {
+  type: 'job'
+  jobTitle: string
+  company: string
+  location: string
+  startDate: string
+  endDate?: string
+  description: string
+}
+
+export interface TimelineMilestone {
+  type: 'milestone'
+  title: string
+  date: string
+  location?: string
+  image: string
+}
+
+export type TimelineEntry = TimelineJob | TimelineMilestone
+
+export const PERSONAL_TIMELINE: TimelineEntry[] = [
   {
+    type: 'milestone',
+    title: 'Climbed Kilimanjaro',
+    date: 'Sep 2023',
+    location: 'Kilimanjaro National Park, Tanzania',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/3377d417-525a-46a7-c097-5bd1d396ef00/public',
+  },
+  {
+    type: 'milestone',
+    title: 'Moved to San Francisco',
+    date: 'Jul 2022',
+    location: 'San Francisco, CA',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
+  },
+  {
+    type: 'job',
     jobTitle: 'Engineering Manager',
     company: 'Cloudflare',
     location: 'San Francisco, California',
@@ -134,6 +175,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Leading a team focused on Growth of the Developer Platform.',
   },
   {
+    type: 'job',
     jobTitle: 'Engineering Manager',
     company: 'Vercel',
     location: 'San Francisco, California',
@@ -142,6 +184,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Led the Growth, Marketing, and Domains teams.',
   },
   {
+    type: 'job',
     jobTitle: 'Software Engineer',
     company: 'Vercel',
     location: 'Colorado',
@@ -150,6 +193,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Introduced new features to the marketing website and platform product.',
   },
   {
+    type: 'job',
     jobTitle: 'Software + Solutions Engineer',
     company: 'freelance',
     location: 'Colorado',
@@ -158,6 +202,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Consulted with businesses to address software and organizational needs.',
   },
   {
+    type: 'job',
     jobTitle: 'Ambassador',
     company: 'Notion.so',
     location: 'Denver, Colorado',
@@ -166,6 +211,7 @@ export const PERSONAL_TIMELINE = [
     description: 'First official Ambassador in the United States.',
   },
   {
+    type: 'job',
     jobTitle: 'Software Engineer II',
     company: 'Formidable',
     location: 'Denver, Colorado',
@@ -174,6 +220,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Maintained Spectacle. Developed enterprise applications using React, AWS Lambdas, GraphQL, TypeScript, and Next.js.',
   },
   {
+    type: 'job',
     jobTitle: 'First Conference Talk',
     company: 'Zeit Day',
     location: 'San Francisco, California',
@@ -181,6 +228,7 @@ export const PERSONAL_TIMELINE = [
     description: "Presented 'Teaching Machines How to Do Cool Things with JavaScript'",
   },
   {
+    type: 'job',
     jobTitle: 'Software Engineer I',
     company: 'Formidable',
     location: 'Phoenix, Arizona',
@@ -189,6 +237,7 @@ export const PERSONAL_TIMELINE = [
     description: 'Embedded engineer on enterprise teams. Developed microservices using Kubernetes, Firebase, Node.js, GCP.',
   },
   {
+    type: 'job',
     jobTitle: 'Student',
     company: 'DevMountain',
     location: 'Phoenix, Arizona',

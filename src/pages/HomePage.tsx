@@ -17,7 +17,7 @@ interface HomePageProject {
 }
 
 type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; tag: string }
-type PhotoCard = { type: 'photo'; src: string; alt: string }
+type PhotoCard = { type: 'photo'; src: string; alt: string; location: string }
 type CardItem = ContentCard | PhotoCard
 
 export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomePagePost[], featuredProjects: HomePageProject[] }) {
@@ -64,7 +64,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       return contentCards[ci++]
     }
     const photo = shuffled[pi++ % shuffled.length]
-    return { type: 'photo', src: photo.src, alt: photo.alt }
+    return { type: 'photo', src: photo.src, alt: photo.alt, location: photo.location }
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
@@ -86,6 +86,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
                 return html`
                   <div class="card card-photo">
                     <img src="${item.src}" alt="${item.alt}" />
+                    <span class="photo-location">${item.location}</span>
                   </div>
                 `
               }

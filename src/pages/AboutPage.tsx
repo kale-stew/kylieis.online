@@ -1,6 +1,27 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE } from '../content'
+import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, TimelineEntry } from '../content'
+
+function renderTimelineEntry(entry: TimelineEntry) {
+  if (entry.type === 'milestone') {
+    return html`
+      <div class="timeline-milestone">
+        <img src="${entry.image}" alt="${entry.title}" />
+        <div class="timeline-milestone-content">
+          <h3>${entry.title}</h3>
+          <p class="text-muted">${entry.location ? `${entry.location} · ` : ''}${entry.date}</p>
+        </div>
+      </div>
+    `
+  }
+  return html`
+    <div class="timeline-job mb-lg">
+      <h3>${entry.jobTitle} @ ${entry.company}</h3>
+      <p class="text-muted">${entry.location} · ${entry.startDate}${entry.endDate ? ` — ${entry.endDate}` : ''}</p>
+      <p>${entry.description}</p>
+    </div>
+  `
+}
 
 export function AboutPage() {
   return Layout({
@@ -26,13 +47,7 @@ export function AboutPage() {
             </div>
             <hr class="divider" />
             <h2 class="text-center">Timeline</h2>
-            ${PERSONAL_TIMELINE.map((entry) => html`
-              <div class="mb-lg">
-                <h3>${entry.jobTitle} @ ${entry.company}</h3>
-                <p class="text-muted">${entry.location} · ${entry.startDate} — ${entry.endDate}</p>
-                <p>${entry.description}</p>
-              </div>
-            `)}
+            ${PERSONAL_TIMELINE.map((entry) => renderTimelineEntry(entry))}
           </div>
         </div>
       </main>
