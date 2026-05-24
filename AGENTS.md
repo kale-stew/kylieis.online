@@ -27,6 +27,34 @@ key decisions:
 - e2e: playwright against wrangler dev
 - ci visual diff: browser rendering api in github actions
 
-## branch
+## branches
 
-rewrite/workers — all work happens here, separate commits, one logical unit each
+- `main` — production, auto-deploys to kylieis.online
+- `rewrite/workers` — major refactor work
+- `blog/*` or `post/*` — draft blog posts, auto-deploys to preview environment
+
+## draft preview workflow
+
+for writing new blog posts without affecting production:
+
+1. create branch with `blog/` or `post/` prefix (e.g., `blog/photos-api-post`)
+2. add markdown file to `content/`
+3. push to remote — github actions will:
+   - build static assets
+   - seed preview d1 (not production)
+   - deploy to `https://post-{slug}.kylieski.workers.dev`
+4. review at the preview url
+5. when ready, open pr to main for final review and production deploy
+
+note: draft branches use the preview d1 database (`kylieis-online-db-preview`), so draft posts won't appear on the live site until merged to main.
+
+## draft access protection
+
+all draft previews are protected by cloudflare access. to customize the login page (logo, organization name, colors):
+
+1. cloudflare dashboard → **zero trust → reusable components → custom pages**
+2. select **access login page → manage**
+3. update organization name, logo, header/footer, and background color
+4. save — changes apply to all access applications in the account
+
+this controls the branding users see when accessing any draft preview url.

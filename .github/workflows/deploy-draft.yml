@@ -1,0 +1,107 @@
+name: deploy draft
+
+on:
+  push:
+    branches:
+      - 'blog/**'
+      - 'post/**'
+
+concurrency:
+  group: draft-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: generate draft name from branch
+        id: slug
+        run: |
+          # extract branch name without prefix (blog/ or post/)
+          BRANCH="${{ github.ref_name }}"
+          SLUG=$(echo "$BRANCH" | sed -E 's/^(blog|post)\///' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | cut -c1-30)
+          echo "name=post-${SLUG}" >> $GITHUB_OUTPUT
+          echo "url=https://post-${SLUG}.kylieski.workers.dev" >> $GITHUB_OUTPUT
+
+      - name: create deployment
+        id: deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: 'draft',
+              auto_merge: false,
+              required_contexts: [],
+              description: 'Draft preview for ${{ github.ref_name }}'
+            });
+            return deployment.data.id;
+          result-encoding: string
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: install deps
+        run: npm ci
+
+      - name: build static assets
+        run: npm run build
+
+      - name: apply migrations to preview db
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: d1 migrations apply kylieis-online-db-preview --remote --env preview
+
+      - name: seed preview db
+        run: npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: generate draft config
+        run: |
+          jq --arg name "${{ steps.slug.outputs.name }}" '
+            .name = $name
+            | .d1_databases[0].database_id = "77521670-d5ba-43af-bd95-c4370dfcba4b"
+            | .d1_databases[0].database_name = "kylieis-online-db-preview"
+            | del(.routes)
+            | del(.env)
+          ' wrangler.jsonc > wrangler-draft.jsonc
+
+      - name: deploy draft
+        run: npx wrangler deploy --config wrangler-draft.jsonc
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: update deployment status
+        if: always() && steps.deployment.outputs.result != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: ${{ steps.deployment.outputs.result }},
+              state: state,
+              environment_url: '${{ steps.slug.outputs.url }}',
+              log_url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}',
+              description: state === 'success' ? 'Draft deployed' : 'Draft deployment failed'
+            });
+
+      - name: output draft url
+        if: success()
+        run: |
+          echo "## Draft Preview" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "deployed to: ${{ steps.slug.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "branch: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
