@@ -278,10 +278,10 @@ main.home-main {
 }
 
 .home-h1-righteous { font-family: 'Righteous', sans-serif; }
-.home-h1-anton { font-family: 'Anton', sans-serif; }
-.home-h1-bebas { font-family: 'Bebas Neue', sans-serif; }
-.home-h1-bowlby { font-family: 'Bowlby One SC', sans-serif; }
-.home-h1-luckiest { font-family: 'Luckiest Guy', sans-serif; }
+.home-h1-marker { font-family: 'Permanent Marker', cursive; }
+.home-h1-bangers { font-family: 'Bangers', cursive; }
+.home-h1-monoton { font-family: 'Monoton', sans-serif; }
+.home-h1-glitch { font-family: 'Rubik Glitch', sans-serif; }
 
 [data-theme="dark"] .page-title.home-hero h1 {
   color: #fff;

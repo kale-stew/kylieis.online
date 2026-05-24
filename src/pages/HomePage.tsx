@@ -68,7 +68,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
-  const fontClasses = ['home-h1-righteous', 'home-h1-anton', 'home-h1-bebas', 'home-h1-bowlby', 'home-h1-luckiest']
+  const fontClasses = ['home-h1-righteous', 'home-h1-marker', 'home-h1-bangers', 'home-h1-monoton', 'home-h1-glitch']
   const h1FontClass = fontClasses[Math.floor(Math.random() * fontClasses.length)]
 
   return Layout({
