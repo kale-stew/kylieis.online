@@ -8,7 +8,9 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
   return Layout({
     title: post.title,
-    description: post.description ?? '',
+    description: post.description ?? `A post about ${post.category} by Kylie Czajkowski.`,
+    ogImage: `https://kylieis.online/open-graph/post-${post.id}.jpg`,
+    canonicalUrl: `https://kylieis.online/writing/${post.id}`,
     content: html`
       ${Nav()}
       <main>
