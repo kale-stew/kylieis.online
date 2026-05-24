@@ -625,8 +625,11 @@ main.home-main + footer {
 .photo-modal {
   display: none;
   position: fixed;
-  inset: 0;
-  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
   background: rgba(0, 0, 0, 0.95);
   align-items: center;
   justify-content: center;
@@ -655,21 +658,28 @@ main.home-main + footer {
 }
 
 .photo-modal-close {
-  position: absolute;
-  top: calc(-1 * var(--space-xl));
-  right: 0;
-  background: none;
-  border: none;
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
   color: white;
   cursor: pointer;
   padding: var(--space-sm);
-  opacity: 0.8;
-  transition: opacity 0.2s;
-  z-index: 1;
+  opacity: 0.9;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 10001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .photo-modal-close:hover {
   opacity: 1;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .photo-modal-caption {

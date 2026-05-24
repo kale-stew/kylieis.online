@@ -38,50 +38,6 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         <div class="page">
           ${content}
         </div>
-        <div id="photo-modal" class="photo-modal" onclick="closePhotoModalOnBackdrop(event)">
-          <div class="photo-modal-content">
-            <button class="photo-modal-close" onclick="closePhotoModal()" aria-label="Close photo modal" title="Close (ESC)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <img id="photo-modal-img" src="" alt="" />
-            <div class="photo-modal-caption">
-              <p id="photo-modal-alt"></p>
-              <p class="photo-modal-location" id="photo-modal-location"></p>
-            </div>
-          </div>
-        </div>
-        <script>
-          function openPhotoModal(src, alt, location) {
-            const modal = document.getElementById('photo-modal');
-            const img = document.getElementById('photo-modal-img');
-            const altEl = document.getElementById('photo-modal-alt');
-            const locationEl = document.getElementById('photo-modal-location');
-            img.src = src;
-            img.alt = alt;
-            altEl.textContent = alt;
-            locationEl.textContent = location;
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          }
-          function closePhotoModal() {
-            const modal = document.getElementById('photo-modal');
-            modal.classList.remove('open');
-            document.body.style.overflow = '';
-          }
-          function closePhotoModalOnBackdrop(event) {
-            if (event.target === event.currentTarget) {
-              closePhotoModal();
-            }
-          }
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-              const modal = document.getElementById('photo-modal');
-              if (modal.classList.contains('open')) {
-                closePhotoModal();
-              }
-            }
-          });
-        </script>
       </body>
     </html>
   `
