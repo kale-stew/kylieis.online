@@ -9,13 +9,14 @@ const app = new Hono<{ Bindings: Env }>()
 
 app.get('/', async (c) => {
   const { results: posts } = await c.env.DB.prepare(
-    "SELECT id, title, description, category, date FROM posts WHERE type = 'blog' ORDER BY date DESC LIMIT 3"
+    "SELECT id, title, description, category, date, type FROM posts ORDER BY date DESC LIMIT 3"
   ).all<{
     id: string
     title: string
     description: string | null
     category: string
     date: string
+    type: 'blog' | 'talk'
   }>()
 
   return c.html(

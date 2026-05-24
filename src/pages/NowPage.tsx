@@ -47,7 +47,7 @@ export function NowPage({ entry, allEntries }: { entry: NowEntry; allEntries: Pi
       <main>
         <div class="container">
           <div class="content">
-            <div class="page-title">
+            <div class="page-title page-title--section">
               <h1>Now</h1>
               <p>${formatDate(entry.date)}</p>
             </div>

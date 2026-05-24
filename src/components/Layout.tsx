@@ -154,18 +154,26 @@ export function Nav() {
   return html`
     <header>
       <nav>
-        <a href="/">home</a>
-        <a href="/writing">writing</a>
-        <a href="/speaking">speaking</a>
-        <a href="/projects">projects</a>
-        <a href="/about">about</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search (Cmd+K)" aria-label="Open search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-        </button>
+        <div class="nav-links">
+          <a href="/">home</a>
+          <a href="/writing">writing</a>
+          <a href="/speaking">speaking</a>
+          <a href="/projects">projects</a>
+          <a href="/about">about</a>
+        </div>
+        <div class="nav-actions">
+          <button class="search-toggle" onclick="openSearch()" title="Search (Cmd+K)" aria-label="Open search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -267,6 +275,27 @@ export function Nav() {
         document.body.dataset.theme = next;
         localStorage.setItem('theme', next);
       }
+
+      function toggleMobileNav() {
+        var nav = document.querySelector('header nav');
+        var toggle = document.querySelector('.nav-toggle');
+        var isOpen = nav.classList.toggle('nav-open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+
+      // Close mobile nav when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var nav = document.querySelector('header nav');
+          var toggle = document.querySelector('.nav-toggle');
+          if (nav.classList.contains('nav-open')) {
+            nav.classList.remove('nav-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          }
+        });
+      });
     </script>
   `
 }

@@ -97,7 +97,7 @@ export const PHOTOS: Photo[] = [
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4d95873b-909c-464e-0617-1cde69bd5000/public', alt: 'Sunset behind the Cliff House', location: 'Ocean Beach, SF, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/20e6d214-7cbb-4434-efd8-bc8f6ddc5500/public', alt: 'Sunset over the Pacific at Baker Beach', location: 'Baker Beach, SF, CA' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/b014a68a-10f8-4c86-9e64-4450ee609700/public', alt: 'Sunset on Mount Sutro', location: 'Inner Sunset, SF, CA' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c4caf090-5888-47fc-b6b7-deeddfa70500/public', alt: 'Sunset at Pedro Point', location: 'Pacifica, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c4caf090-5888-47fc-b6b7-deeddfa70500/public', alt: 'Otis on a hike at Pedro Point', location: 'Pacifica, CA' },
   // Colorado
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c58fda33-f329-4047-4f2e-fddb70a23a00/public', alt: 'Top of the Elk Camp chairlift', location: 'Aspen-Snowmass, CO' },
   { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/ea123215-7183-4a2e-e20b-a99d37d97500/public', alt: 'Scrambling up the second Flatiron', location: 'Boulder, CO' },

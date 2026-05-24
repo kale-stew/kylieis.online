@@ -19,7 +19,7 @@ export function SearchPage({ query, results }: { query?: string; results?: Searc
       <main>
         <div class="container">
           <div class="content">
-            <div class="page-title">
+            <div class="page-title page-title--section">
               <h1>Search</h1>
               <p>Search posts and talks across the site</p>
             </div>
