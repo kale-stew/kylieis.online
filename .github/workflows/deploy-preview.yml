@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  PREVIEW_NAME: kylieis-online-pr-${{ github.event.pull_request.number }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -44,19 +47,15 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --env preview
+          command: deploy --name ${{ env.PREVIEW_NAME }} --d1 DB=77521670-d5ba-43af-bd95-c4370dfcba4b
 
       - name: comment preview url
         uses: actions/github-script@v7
         with:
           script: |
-            const url = '${{ steps.deploy.outputs.deployment-url }}';
-            const body = url
-              ? `preview deployed: ${url}`
-              : 'preview deployed to https://kylieis-online-preview.${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.workers.dev';
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body
+              body: 'preview deployed: https://${{ env.PREVIEW_NAME }}.bb52c0e5f3a93fc72779915d7dc6982b.workers.dev'
             });
