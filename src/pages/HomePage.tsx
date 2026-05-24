@@ -74,11 +74,14 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
     description: 'Kylie Czajkowski — Web developer and public speaker.',
     content: html`
       ${Nav()}
-      <main>
+      <main class="home-main">
         <div class="container">
-          <div class="page-title" style="margin-top:var(--space-xl)">
+          <div class="page-title home-hero" style="margin-top:var(--space-xl)">
             <h1>kylieis.online</h1>
-            <p class="tagline">${tagline}</p>
+            <div class="tagline-row">
+              <p class="tagline">${tagline}</p>
+              <button class="refresh-btn" onclick="location.reload()" title="Refresh content">↻</button>
+            </div>
           </div>
           <div class="card-grid">
             ${items.map((item) => {

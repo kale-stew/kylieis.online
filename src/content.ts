@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     tech: ['react'],
     featured: true,
     description: "What I'm reading, listening to, working on, celebrating, and watching.",
-    previewImgUrl: 'https://raw.githubusercontent.com/kale-stew/kylieis.online/main/public/open-graph/now.jpg',
+    previewImgUrl: '/og?title=Now&subtitle=what%20i%27m%20up%20to',
     url: '/now',
   },
 ]
