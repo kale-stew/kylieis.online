@@ -5,7 +5,9 @@ import type { Project } from '../content'
 export function ProjectsPage({ projects }: { projects: Project[] }) {
   return Layout({
     title: 'Projects',
-    description: 'A selection of projects by Kylie Czajkowski.',
+    description: 'A selection of open source work and side projects by Kylie Czajkowski.',
+    ogImage: 'https://kylieis.online/open-graph/projects.jpg',
+    canonicalUrl: 'https://kylieis.online/projects',
     content: html`
       ${Nav()}
       <main>

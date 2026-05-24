@@ -7,7 +7,9 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
 
   return Layout({
     title: 'Writing',
-    description: 'Kylie is writing about Javascript, AI, and more.',
+    description: 'Blog posts and articles by Kylie Czajkowski about JavaScript, AI, TypeScript, and building on the web.',
+    ogImage: 'https://kylieis.online/open-graph/writing.jpg',
+    canonicalUrl: 'https://kylieis.online/writing',
     content: html`
       ${Nav()}
       <main>
