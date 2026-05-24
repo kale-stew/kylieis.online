@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
+import { PostMeta } from '../components/PostMeta'
 import type { BlogPost } from '../content'
 import { renderMarkdown } from '../lib/markdown'
 
@@ -19,10 +20,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <article class="prose">
               <header class="page-title">
                 <h1>${post.title}</h1>
-                <p>
-                  <span class="tag">${post.category}</span>
-                  ${post.date}
-                </p>
+                ${PostMeta({ category: post.category, date: post.date })}
               </header>
               ${html([htmlContent])}
             </article>

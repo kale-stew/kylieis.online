@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { METADATA, SOCIAL_LINKS, CATEGORIES } from '../../src/content'
+import matter from 'gray-matter'
+import { METADATA, SOCIAL_LINKS } from '../../src/content'
+
+function splitCategories(category: string): string[] {
+  return category.split(',').map((c) => c.trim())
+}
 
 describe('content constants', () => {
   it('has correct metadata', () => {
@@ -12,10 +17,15 @@ describe('content constants', () => {
     expect(SOCIAL_LINKS.length).toBeGreaterThan(0)
     expect(SOCIAL_LINKS.find((l) => l.label === 'Github')).toBeDefined()
   })
+})
 
-  it('has categories', () => {
-    expect(CATEGORIES).toContain('ai')
-    expect(CATEGORIES).toContain('react')
-    expect(CATEGORIES).toContain('typescript')
+describe('blog post frontmatter', () => {
+  it('rewrite post has expected categories', async () => {
+    const raw = await import('../../content/rewriting-my-site-with-cloudflare-workers.md?raw')
+    const { data } = matter(raw.default)
+    const categories = splitCategories(data.category)
+
+    expect(categories).toContain('typescript')
+    expect(categories).toContain('workers')
   })
 })

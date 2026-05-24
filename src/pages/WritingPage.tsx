@@ -1,9 +1,11 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
+import { splitCategories } from '../components/PostMeta'
 import type { PostMeta } from '../content'
 
 export function WritingPage({ posts }: { posts: PostMeta[] }) {
-  const categories = [...new Set(posts.map(p => p.category))].sort()
+  // Extract unique categories from all posts (splitting comma-separated values)
+  const categories = [...new Set(posts.flatMap((p) => splitCategories(p.category)))].sort()
 
   return Layout({
     title: 'Writing',
@@ -26,18 +28,20 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
               `)}
             </div>
             <ul class="post-list" id="post-grid">
-              ${posts.map((post) => html`
-                <li class="post-list-item" data-category="${post.category}">
+              ${posts.map((post) => {
+                const postCategories = splitCategories(post.category)
+                return html`
+                <li class="post-list-item" data-categories="${postCategories.join(' ')}">
                   <a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}" class="post-list-link">
                     <span class="post-list-title">${post.title}</span>
                     <span class="post-list-meta">
-                      <span class="tag">#${post.category}</span>
+                      ${postCategories.map((cat) => html`<span class="tag">#${cat}</span>`)}
                       ${post.type === 'talk' ? html`<span class="tag tag-type">talk</span>` : ''}
                       <span class="post-list-date">${post.date}</span>
                     </span>
                   </a>
                 </li>
-              `)}
+              `})}
             </ul>
           </div>
         </div>
@@ -52,9 +56,16 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
           document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'))
           btn.classList.add('active')
 
-          document.querySelectorAll('#post-grid .post-list-item').forEach(item => {
-            item.style.display = (category === 'all' || item.dataset.category === category) ? '' : 'none'
+          const items = document.querySelectorAll('#post-grid .post-list-item')
+          let lastVisible = null
+          items.forEach(item => {
+            const categories = (item.dataset.categories || '').split(' ')
+            const visible = category === 'all' || categories.includes(category)
+            item.style.display = visible ? '' : 'none'
+            item.classList.remove('last-visible')
+            if (visible) lastVisible = item
           })
+          if (lastVisible) lastVisible.classList.add('last-visible')
 
           const url = category === 'all' ? '/writing' : '/writing?category=' + category
           history.pushState({ category }, '', url)

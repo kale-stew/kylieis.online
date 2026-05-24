@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
+import { PostMeta } from '../components/PostMeta'
 import { renderMarkdown } from '../lib/markdown'
 
 export interface TalkPost {
@@ -36,10 +37,7 @@ export function TalkPage({ talk }: { talk: TalkPost }) {
             <article class="prose">
               <header class="page-title">
                 <h1>${talk.title}</h1>
-                <p>
-                  <span class="tag">${talk.category}</span>
-                  ${talk.date}
-                </p>
+                ${PostMeta({ category: talk.category, date: talk.date })}
               </header>
 
               <div class="talk-presentations">

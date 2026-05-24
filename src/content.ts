@@ -163,9 +163,6 @@ export const SOCIAL_LINKS = [
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/kylieski/', icon: 'linkedin' },
 ]
 
-export const CATEGORIES = ['ai', 'graphql', 'notion', 'react', 'typescript'] as const
-export type Category = (typeof CATEGORIES)[number]
-
 export interface TimelineJob {
   type: 'job'
   jobTitle: string
