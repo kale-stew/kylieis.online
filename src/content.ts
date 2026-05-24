@@ -251,7 +251,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     title: 'First Conference Talk',
     date: 'Apr 2018',
     location: 'San Francisco, CA',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', // TODO: replace with Zeit Day photo
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4bd25a08-6fc1-4558-a08d-602be8117900/public'
   },
   {
     type: 'job',
