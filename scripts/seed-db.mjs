@@ -42,6 +42,7 @@ if (existsSync(talksDir)) {
       type: 'talk',
       tags: null,
       content,
+      presentedAt: data.presentedAt || [],
     })
   }
 }
@@ -54,7 +55,8 @@ const blogInserts = posts.map((p) => {
 })
 
 const talkInserts = talks.map((t) => {
-  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}');`
+  const presentedAt = JSON.stringify(t.presentedAt)
+  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content, presented_at) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}');`
 })
 
 console.log([...blogInserts, ...talkInserts].join('\n'))
