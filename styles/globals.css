@@ -96,7 +96,12 @@ body {
   color: var(--color-text);
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-orange) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
-  animation: gradient-shift 15s ease infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: gradient-shift 15s ease infinite;
+  }
 }
 
 @keyframes gradient-shift {

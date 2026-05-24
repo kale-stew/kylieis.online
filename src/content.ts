@@ -226,12 +226,11 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
   },
   // 2018
   {
-    type: 'job',
-    jobTitle: 'First Conference Talk',
-    company: 'Zeit Day',
-    location: 'San Francisco, California',
-    startDate: 'Apr 27, 2018',
-    description: "Presented 'Teaching Machines How to Do Cool Things with JavaScript'",
+    type: 'milestone',
+    title: 'First Conference Talk',
+    date: 'Apr 2018',
+    location: 'San Francisco, CA',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', // TODO: replace with Zeit Day photo
   },
   {
     type: 'job',
