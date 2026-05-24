@@ -444,6 +444,40 @@ footer {
   height: 24px;
 }
 
+/* === Talk Presentations === */
+.talk-presentations {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--color-accent-light);
+}
+
+.talk-presentations h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+.presentation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.presentation-list li {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-accent-light);
+}
+
+.presentation-list li:last-child {
+  border-bottom: none;
+}
+
+.presentation-list .tag {
+  margin-left: var(--space-sm);
+  font-size: 0.7rem;
+}
+
 /* === Divider === */
 .divider {
   border: none;
