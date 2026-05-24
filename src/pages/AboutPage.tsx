@@ -15,7 +15,7 @@ function renderTimelineEntry(entry: TimelineEntry) {
     `
   }
   return html`
-    <div class="timeline-job mb-lg">
+    <div class="timeline-job">
       <h3>${entry.jobTitle} @ ${entry.company}</h3>
       <p class="text-muted">${entry.location} · ${entry.startDate}${entry.endDate ? ` — ${entry.endDate}` : ''}</p>
       <p>${entry.description}</p>
