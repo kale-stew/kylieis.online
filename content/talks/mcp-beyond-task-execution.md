@@ -9,7 +9,6 @@ presentedAt:
     eventType: 'meetup'
     eventUrl: 'https://lu.ma/quvg7kzs?tk=hC0BvS'
     location: 'San Francisco, CA'
-blogPost: 'mcp-beyond-task-execution'
 ---
 
 Anthropic's [Model Context Protocol](https://modelcontextprotocol.io/) is having a moment. Launched in October 2024, it introduces a standard protocol for enabling LLMs to do more things on the internet.
