@@ -1,0 +1,79 @@
+name: deploy preview
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: generate preview name from pr title
+        id: slug
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          # extract first meaningful word: skip prefixes like fix:, feat:, chore:, etc.
+          WORD=$(echo "$TITLE" | sed -E 's/^(fix|feat|chore|docs|refactor|test|ci|style|perf|build|revert|rewrite|add|update|remove|delete)(\([^)]*\))?[:\!]?\s*//i' | awk '{print $1}' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g' | cut -c1-12)
+          # fallback to pr number if empty
+          [ -z "$WORD" ] && WORD="pr${{ github.event.pull_request.number }}"
+          # add short pr number suffix for uniqueness
+          echo "name=kio-${WORD}-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: install deps
+        run: npm ci
+
+      - name: build static assets
+        run: npm run build
+
+      - name: apply migrations to preview db
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: d1 migrations apply kylieis-online-db-preview --remote --env preview
+
+      - name: seed preview db
+        run: npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: generate preview config
+        run: |
+          jq --arg name "${{ steps.slug.outputs.name }}" '
+            .name = $name
+            | .d1_databases[0].database_id = "77521670-d5ba-43af-bd95-c4370dfcba4b"
+            | .d1_databases[0].database_name = "kylieis-online-db-preview"
+            | del(.routes)
+            | del(.env)
+          ' wrangler.jsonc > wrangler-preview.jsonc
+          cat wrangler-preview.jsonc
+
+      - name: deploy to preview env
+        id: deploy
+        run: npx wrangler deploy --config wrangler-preview.jsonc
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: comment preview url
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'preview deployed: https://${{ steps.slug.outputs.name }}.kylieski.workers.dev'
+            });
