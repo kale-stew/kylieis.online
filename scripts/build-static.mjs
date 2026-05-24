@@ -11,6 +11,7 @@ import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
 import { PROJECTS } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
+import { getPhotos } from '../src/lib/photos-api.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
@@ -53,8 +54,13 @@ async function main() {
   copyDir(path.join(ROOT, 'styles'), path.join(OUT_DIR, 'styles'))
   console.log('  copied styles/ -> static/styles/')
 
+  // Fetch kylieis-online photos from photos-api (the curated personal photos)
+  console.log('  fetching kylieis-online photos from photos-api...')
+  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 50 })
+  console.log(`  fetched ${apiPhotos.length} photos`)
+
   // About
-  writeHtml('about/index.html', AboutPage())
+  writeHtml('about/index.html', AboutPage({ photos: apiPhotos }))
 
   // Read all content (blog posts + talks)
   const blogFiles = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'))

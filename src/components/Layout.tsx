@@ -1,41 +1,64 @@
 import { html } from 'hono/html'
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 interface LayoutProps {
   title: string
   description?: string
   ogImage?: string
   canonicalUrl?: string
+  ogType?: string
   content: ReturnType<typeof html>
 }
 
-export function Layout({ title, description, ogImage, canonicalUrl, content }: LayoutProps) {
-  const ogImageUrl = ogImage ?? 'https://kylieis.online/open-graph/home.jpg'
+export function Layout({ title, description, ogImage, canonicalUrl, ogType, content }: LayoutProps) {
+  const ogImageUrl = ogImage ?? 'https://kylieis.online/og/home.jpg'
   const url = canonicalUrl ?? 'https://kylieis.online'
-  
+  const safeTitle = escapeHtml(title)
+  const safeDescription = escapeHtml(description ?? '')
+  const safeUrl = escapeHtml(url)
+  const safeOgImage = escapeHtml(ogImageUrl)
+  const pageType = ogType ?? 'website'
+
   return html`
     <!doctype html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <title>${title} — kylieis.online</title>
-        <meta name="description" content="${description ?? ''}" />
-        <link rel="canonical" href="${url}" />
-        <meta property="og:url" content="${url}" />
-        <meta property="og:title" content="${title} — kylieis.online" />
-        <meta property="og:description" content="${description ?? ''}" />
-        <meta property="og:image" content="${ogImageUrl}" />
+        <title>${safeTitle} — kylieis.online</title>
+        <meta name="description" content="${safeDescription}" />
+        <link rel="canonical" href="${safeUrl}" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#e23500" />
+        <meta property="og:site_name" content="kylieis.online" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="${safeUrl}" />
+        <meta property="og:title" content="${safeTitle} — kylieis.online" />
+        <meta property="og:description" content="${safeDescription}" />
+        <meta property="og:image" content="${safeOgImage}" />
+        <meta property="og:image:secure_url" content="${safeOgImage}" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:type" content="website" />
+        <meta property="og:image:alt" content="${safeTitle}" />
+        <meta property="og:type" content="${pageType}" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="${title} — kylieis.online" />
-        <meta name="twitter:description" content="${description ?? ''}" />
-        <meta name="twitter:image" content="${ogImageUrl}" />
+        <meta name="twitter:title" content="${safeTitle} — kylieis.online" />
+        <meta name="twitter:description" content="${safeDescription}" />
+        <meta name="twitter:image" content="${safeOgImage}" />
+        <meta name="twitter:image:alt" content="${safeTitle}" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Monoton&family=Rubik+Glitch&family=Nabla&family=Silkscreen&family=Bitcount+Prop+Single&family=Megrim&family=Atomic+Age&family=Nanum+Gothic+Coding&family=Jersey+10&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Fira+Code:wght@400;500&family=Monoton&family=Rubik+Glitch&family=Nabla&family=Silkscreen&family=Bitcount+Prop+Single&family=Megrim&family=Atomic+Age&family=Jersey+10&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/styles/globals.css" />
       </head>
       <body>

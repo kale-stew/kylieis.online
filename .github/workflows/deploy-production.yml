@@ -21,6 +21,9 @@ jobs:
       - name: install deps
         run: npm ci
 
+      - name: install playwright browsers
+        run: npx playwright install chromium
+
       - name: build static assets
         run: npm run build
 

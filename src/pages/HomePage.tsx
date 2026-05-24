@@ -1,6 +1,7 @@
-import { html } from 'hono/html'
+import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { PHOTOS, TAGLINES, PROJECTS } from '../content'
+import { PHOTOS, TAGLINES, PROJECTS, type Photo } from '../content'
+import { getPhotoUrl, getPhotoSrcset, type Photo as ApiPhoto } from '../lib/photos-api'
 
 interface HomePagePost {
   id: string
@@ -18,10 +19,27 @@ interface HomePageProject {
 }
 
 type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; tag: string }
-type PhotoCard = { type: 'photo'; src: string; alt: string; location: string; date: string }
+type PhotoCard = { type: 'photo'; src: string; srcset?: string; alt: string; location: string; date: string; blurhash?: string }
 type CardItem = ContentCard | PhotoCard
 
-export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomePagePost[], featuredProjects: HomePageProject[] }) {
+interface HomePageProps {
+  recentPosts: HomePagePost[]
+  featuredProjects: HomePageProject[]
+  photos?: ApiPhoto[]
+}
+
+export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: HomePageProps) {
+  // Convert API photos to the Photo format, or fall back to hardcoded PHOTOS
+  const photoSource: Photo[] = apiPhotos && apiPhotos.length > 0
+    ? apiPhotos.map((p) => ({
+        src: getPhotoUrl(p.id, 800),
+        srcset: getPhotoSrcset(p.id),
+        alt: p.title ?? '',
+        location: p.location ?? '',
+        date: p.date ?? '',
+        blurhash: p.blurhash ?? undefined,
+      }))
+    : PHOTOS
   const contentCards: ContentCard[] = [
     ...recentPosts.slice(0, 3).map((p) => ({
       type: 'content' as const,
@@ -52,7 +70,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
     contentCards.push(fallbackProjects.shift()!)
   }
 
-  const shuffled = [...PHOTOS].sort(() => Math.random() - 0.5)
+  const shuffled = [...photoSource].sort(() => Math.random() - 0.5)
   const totalContent = Math.min(contentCards.length, 4)
   const slots: ('content' | 'photo')[] = [
     'content', 'content', 'photo',
@@ -65,16 +83,24 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       return contentCards[ci++]
     }
     const photo = shuffled[pi++ % shuffled.length]
-    return { type: 'photo', src: photo.src, alt: photo.alt, location: photo.location, date: photo.date }
+    return { 
+      type: 'photo', 
+      src: photo.src, 
+      srcset: photo.srcset,
+      alt: photo.alt, 
+      location: photo.location, 
+      date: photo.date,
+      blurhash: photo.blurhash,
+    }
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
-  const fontClasses = ['home-h1-monoton', 'home-h1-glitch', 'home-h1-nabla', 'home-h1-silkscreen', 'home-h1-bitcount', 'home-h1-megrim', 'home-h1-atomic', 'home-h1-nanum', 'home-h1-jersey']
+  const fontClasses = ['home-h1-monoton', 'home-h1-glitch', 'home-h1-nabla', 'home-h1-silkscreen', 'home-h1-bitcount', 'home-h1-megrim', 'home-h1-atomic', 'home-h1-fira', 'home-h1-jersey']
   const h1FontClass = fontClasses[Math.floor(Math.random() * fontClasses.length)]
 
   return Layout({
-    title: 'Home',
-    description: 'Kylie Czajkowski — Engineering Manager at Cloudflare, public speaker, and mountaineer. Writing about JavaScript, AI, and building things.',
+    title: 'kylieis.online',
+    description: 'Kylie Czajkowski — Engineering Manager at Cloudflare, public speaker, mountaineer. Writing about JavaScript, AI, and building things.',
     canonicalUrl: 'https://kylieis.online/',
     content: html`
       ${Nav()}
@@ -92,8 +118,18 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
               if (item.type === 'photo') {
                 return html`
                   <div class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" style="cursor: pointer;">
-                    <img src="${item.src}" alt="${item.alt}" data-photo-src="${item.src}" data-photo-alt="${item.alt}" data-photo-location="${item.location}" data-photo-date="${item.date.split('-')[0]}" />
-                    <span class="photo-location">${item.location} · ${item.date.split('-')[0]}</span>
+                    <img 
+                      src="${item.src}" 
+                      ${raw(item.srcset ? `srcset="${item.srcset}"` : '')}
+                      sizes="(max-width: 600px) 100vw, 400px"
+                      alt="${item.alt}" 
+                      data-photo-src="${item.src}" 
+                      data-photo-alt="${item.alt}" 
+                      data-photo-location="${item.location}" 
+                      data-photo-date="${item.date.split('-')[0]}"
+                      ${raw(item.blurhash ? `data-blurhash="${item.blurhash}"` : '')}
+                    />
+                    <span class="photo-location">${item.location}${item.location && item.date ? ' · ' : ''}${item.date.split('-')[0]}</span>
                   </div>
                 `
               }

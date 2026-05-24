@@ -18,7 +18,7 @@ export function SpeakingPage({ talks }: { talks: TalkListItem[] }) {
   return Layout({
     title: 'Speaking',
     description: 'Conference talks and presentations by Kylie Czajkowski on JavaScript, React, GraphQL, open source, and developer tools.',
-    ogImage: 'https://kylieis.online/open-graph/speaking.jpg',
+    ogImage: 'https://kylieis.online/og/speaking.jpg',
     canonicalUrl: 'https://kylieis.online/speaking',
     content: html`
       ${Nav()}
