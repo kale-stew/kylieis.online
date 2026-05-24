@@ -492,6 +492,12 @@ main.home-main {
   margin-right: var(--space-xs);
 }
 
+.card .tag.tag-type {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
 /* === Project Card with Image === */
 .card.with-image img {
   width: 100%;
@@ -685,32 +691,41 @@ footer {
 
 .timeline-milestone {
   margin: var(--space-2xl) 0;
+  position: relative;
   background: var(--color-bg-card);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  overflow: hidden;
   box-shadow: var(--shadow-md);
+  min-height: 180px;
 }
 
 .timeline-milestone img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   display: block;
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-md);
 }
 
 .timeline-milestone-content {
-  padding: 0 var(--space-sm);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-md);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .timeline-milestone-content h3 {
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   margin-bottom: var(--space-xs);
 }
 
 .timeline-milestone-content p {
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* === Talk Presentations === */

@@ -1,7 +1,7 @@
 ---
 title: 'Rewriting kylieis.online with Cloudflare Workers'
 date: '2026-05-23'
-category: 'cloudflare'
+category: 'typescript'
 description: 'Migrating from Next.js on Vercel to a hybrid static + edge-rendered site on Cloudflare Workers with D1 and Hono.'
 ---
 
@@ -105,7 +105,7 @@ I moved blog content from the Notion API to flat markdown files. Each post is a 
 ---
 title: 'Rewriting kylieis.online with Cloudflare Workers'
 date: '2026-05-23'
-category: 'cloudflare'
+category: 'typescript'
 description: 'Migrating from Next.js on Vercel to a hybrid static + edge-rendered site on Cloudflare Workers with D1 and Hono.'
 ---
 ```

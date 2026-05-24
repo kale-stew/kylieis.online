@@ -14,8 +14,8 @@ describe('content constants', () => {
   })
 
   it('has categories', () => {
-    expect(CATEGORIES).toContain('all')
     expect(CATEGORIES).toContain('ai')
     expect(CATEGORIES).toContain('react')
+    expect(CATEGORIES).toContain('typescript')
   })
 })

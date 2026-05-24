@@ -4,9 +4,6 @@ import type { PostMeta } from '../content'
 
 export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], activeCategory?: string }) {
   const categories = [...new Set(posts.map(p => p.category))].sort()
-  const filteredPosts = activeCategory && activeCategory !== 'all'
-    ? posts.filter(p => p.category === activeCategory)
-    : posts
 
   return Layout({
     title: activeCategory && activeCategory !== 'all' ? `Writing · #${activeCategory}` : 'Writing',
@@ -28,10 +25,10 @@ export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], acti
           <div class="card-grid" id="post-grid">
             ${posts.map((post) => html`
               <article class="card" data-category="${post.category}">
-                <h3><a href="/writing/${post.id}">${post.title}</a></h3>
+                <h3><a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}">${post.title}</a></h3>
                 <p>${post.description ?? ''}</p>
                 <div class="meta">
-                  <span class="tag">#${post.category}</span>
+                  ${post.type === 'talk' ? html`<span class="tag">#${post.category}</span><span class="tag tag-type">talk</span>` : html`<span class="tag">#${post.category}</span>`}
                   ${post.date}
                 </div>
               </article>

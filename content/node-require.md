@@ -1,7 +1,7 @@
 ---
 title: "How Node's require() Works"
 date: '2021-11-20'
-category: 'node'
+category: 'typescript'
 description: 'A look under the hood at Node.js module resolution and why understanding it matters for debugging import issues.'
 ---
 
