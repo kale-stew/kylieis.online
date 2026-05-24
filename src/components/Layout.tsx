@@ -72,15 +72,15 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             modal.classList.add('open');
             document.body.style.overflow = 'hidden';
             
-            if (window.photoModalPhotos.length > 1) {
+            photoModalCurrentIndex = 0;
+            if (window.photoModalPhotos && window.photoModalPhotos.length > 0) {
               for (var i = 0; i < window.photoModalPhotos.length; i++) {
                 if (window.photoModalPhotos[i].src === src) {
                   photoModalCurrentIndex = i;
-                  return;
+                  break;
                 }
               }
             }
-            photoModalCurrentIndex = 0;
           };
           window.updatePhotoModal = function() {
             var photo = window.photoModalPhotos[photoModalCurrentIndex];
