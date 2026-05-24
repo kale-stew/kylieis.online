@@ -92,13 +92,34 @@ export interface Photo {
 }
 
 export const PHOTOS: Photo[] = [
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/b966686d-364a-4364-60fe-2c5512b89a00/public', alt: 'Outside of Mammoth Lakes, California', location: 'Mammoth Lakes, CA' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/52bfe7f1-63d7-4899-697c-22cabada3600/public', alt: 'Waimea Bay, Oahu', location: 'Oahu, HI' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public', alt: 'Rush hour sunset on the Golden Gate Bridge', location: 'San Francisco, CA' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e8183ede-c0cd-4c42-7e4d-753d0e672000/public', alt: 'Ocean panorama sailing through the Lyngen Alps, Norway', location: 'Lyngen Alps, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/363f550d-7d89-444a-685f-73a63268fa00/public', alt: 'Northern Lights seen off of a sailboat, Norway', location: 'Stakkvik, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7821ed9d-f915-4400-8d02-88e6909b4000/public', alt: 'Precamp sunset on the water, Norway', location: 'Ulisuolu, Norway' },
-  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4c58f676-2f66-41b1-64aa-8d4f167c8300/public', alt: 'View out the back of our sailboat, Norway', location: 'Vannøya, Norway' },
+  // San Francisco / Bay Area
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/28d639b1-04bd-47ef-6445-07bd6618d400/public', alt: 'Golden Gate Bridge viewed from Fort Mason', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/d2b975ee-c056-45ea-833b-069480c72300/public', alt: 'Golden Gate Bridge tower from the walkway', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4d95873b-909c-464e-0617-1cde69bd5000/public', alt: 'Sunset behind the Cliff House', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/20e6d214-7cbb-4434-efd8-bc8f6ddc5500/public', alt: 'Sunset over the Pacific at Baker Beach', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/b014a68a-10f8-4c86-9e64-4450ee609700/public', alt: 'Trail through Mount Sutro', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4bd25a08-6fc1-4558-a08d-602be8117900/public', alt: 'Palace of Fine Arts rotunda', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/bba9e35b-37e3-457e-2c7d-97d4f1f46500/public', alt: 'Palace of Fine Arts colonnade', location: 'San Francisco, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c4caf090-5888-47fc-b6b7-deeddfa70500/public', alt: 'Sunset at Pedro Point', location: 'Pacifica, CA' },
+  // Colorado
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c58fda33-f329-4047-4f2e-fddb70a23a00/public', alt: 'Skiing through the trees at Aspen Snowmass', location: 'Aspen, CO' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/ea123215-7183-4a2e-e20b-a99d37d97500/public', alt: 'Scrambling up the Flatirons', location: 'Boulder, CO' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/26b26e1a-07e1-4881-a523-ee919401ba00/public', alt: 'Sunset from Little Bear Peak', location: 'San Juan Mountains, CO' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/f75c9da1-6767-4b82-ed99-5c202c176f00/public', alt: 'Skiing at Ski Cooper', location: 'Leadville, CO' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/43c1083e-1b74-4055-e962-6f9727091c00/public', alt: 'Summit ridge of Mount Sniktau', location: 'Colorado' },
+  // Yosemite
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c561c0ac-0866-4b4b-7777-c4d663580700/public', alt: 'Descending Glacier Point in Yosemite', location: 'Yosemite National Park, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/c939fc9b-a368-47e1-a3d0-afcf75a3ed00/public', alt: 'Storm clouds over Half Dome', location: 'Yosemite National Park, CA' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/8abfa21c-7c98-4ca0-0569-4d920e4fa000/public', alt: 'Tunnel View of Yosemite Valley', location: 'Yosemite National Park, CA' },
+  // Hawaii
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/aad40c68-a46b-4e2e-636a-7d1143197400/public', alt: 'HanakāpīʻAi Beach on the Napali Coast', location: 'Kauaʻi, HI' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/7bce8dfc-e822-4754-35aa-534b1210e800/public', alt: 'Aerial view of the Napali Coast', location: 'Kauaʻi, HI' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/d86a79fe-92c4-4f76-e9a9-5be494c15a00/public', alt: 'Aerial view of the Napali Coast ridge line', location: 'Kauaʻi, HI' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/a023ab45-f2d2-4bac-2265-bff003b13f00/public', alt: 'Sunrise over the Napali Coast', location: 'Kauaʻi, HI' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e7b1bcd5-13b7-45b9-aad6-510345539a00/public', alt: 'The Napali Coast', location: 'Kauaʻi, HI' },
+  // Other
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/ab9fd024-c8e4-4f96-4f17-7fde8d3f7b00/public', alt: 'Canyoneering through Horseplay Canyon', location: 'North Wash, UT' },
+  { src: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/f998d48a-6d38-4d08-d5d2-c08bc14c3800/public', alt: 'Chicago skyline along Lake Michigan', location: 'Chicago, IL' },
 ]
 
 export const TAGLINES = [
