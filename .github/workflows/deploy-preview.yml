@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PREVIEW_NAME: kylieis-online-pr-${{ github.event.pull_request.number }}
+  PREVIEW_NAME: kio-pr-${{ github.event.pull_request.number }}
 
 jobs:
   deploy:
@@ -67,5 +67,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'preview deployed: https://${{ env.PREVIEW_NAME }}.bb52c0e5f3a93fc72779915d7dc6982b.workers.dev'
+              body: 'preview deployed: https://${{ env.PREVIEW_NAME }}.kylieski.workers.dev'
             });
