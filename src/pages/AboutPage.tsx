@@ -1,6 +1,6 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry, Photo } from '../content'
+import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry, TimelineMilestone, Photo } from '../content'
 
 function renderTimelineEntry(entry: TimelineEntry) {
   if (entry.type === 'milestone') {
@@ -26,7 +26,7 @@ function renderTimelineEntry(entry: TimelineEntry) {
 export function AboutPage() {
   const allPhotos: Photo[] = [
     ...PERSONAL_TIMELINE
-      .filter((e): e is typeof e & { image: string } => e.type === 'milestone' && e.title !== 'First Conference Talk')
+      .filter((e): e is TimelineMilestone => e.type === 'milestone' && e.title !== 'First Conference Talk')
       .map((e) => ({ src: e.image, alt: e.title, location: e.location ?? '' })),
     ...PHOTOS
   ]

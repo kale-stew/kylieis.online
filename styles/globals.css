@@ -356,7 +356,7 @@ main.home-main {
 }
 
 /* Ensure footer stays at bottom and gradient is continuous */
-main.home-main + footer {
+main.home-main ~ footer {
   margin-top: auto;
 }
 

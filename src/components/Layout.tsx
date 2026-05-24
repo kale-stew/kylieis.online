@@ -37,24 +37,8 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         </script>
         <script>
           if (!window.photoModalPhotos) window.photoModalPhotos = [];
-          var photoModalCurrentIndex = 0;
+          window.photoModalCurrentIndex = 0;
 
-          window.openPhotoModal = function(index) {
-            photoModalCurrentIndex = index;
-            window.updatePhotoModal();
-            var modal = document.getElementById('photo-modal');
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          };
-          window.openPhotoModalBySrc = function(src) {
-            for (var i = 0; i < window.photoModalPhotos.length; i++) {
-              if (window.photoModalPhotos[i].src === src) {
-                window.openPhotoModal(i);
-                return;
-              }
-            }
-            window.openPhotoModal(0);
-          };
           window.openPhotoModalFromEl = function(el) {
             var src = el.getAttribute('data-photo-src') || el.src;
             var alt = el.getAttribute('data-photo-alt') || el.alt;
@@ -85,16 +69,16 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             modal.classList.add('open');
             document.body.style.overflow = 'hidden';
             
-            photoModalCurrentIndex = 0;
+            window.photoModalCurrentIndex = 0;
             for (var i = 0; i < window.photoModalPhotos.length; i++) {
               if (window.photoModalPhotos[i].src === src) {
-                photoModalCurrentIndex = i;
+                window.photoModalCurrentIndex = i;
                 break;
               }
             }
           };
           window.updatePhotoModal = function() {
-            var photo = window.photoModalPhotos[photoModalCurrentIndex];
+            var photo = window.photoModalPhotos[window.photoModalCurrentIndex];
             if (!photo) return;
             var img = document.getElementById('photo-modal-img');
             var altEl = document.getElementById('photo-modal-alt');
@@ -117,13 +101,13 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
           window.prevPhoto = function(e) {
             if (e) e.stopPropagation();
             if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) return;
-            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
+            window.photoModalCurrentIndex = (window.photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
             window.updatePhotoModal();
           };
           window.nextPhoto = function(e) {
             if (e) e.stopPropagation();
             if (!window.photoModalPhotos || window.photoModalPhotos.length === 0) return;
-            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
+            window.photoModalCurrentIndex = (window.photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
             window.updatePhotoModal();
           };
           document.addEventListener('keydown', function(e) {
