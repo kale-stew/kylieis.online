@@ -32,7 +32,12 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: d1 migrations apply kylieis-online-db-preview --remote
+          command: d1 migrations apply kylieis-online-db-preview --remote --env preview
+
+      - name: seed preview db
+        run: npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: deploy to preview env
         id: deploy
