@@ -68,6 +68,8 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
+  const fontClasses = ['home-h1-righteous', 'home-h1-anton', 'home-h1-bebas', 'home-h1-bowlby', 'home-h1-luckiest']
+  const h1FontClass = fontClasses[Math.floor(Math.random() * fontClasses.length)]
 
   return Layout({
     title: 'Home',
@@ -77,7 +79,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       <main class="home-main">
         <div class="container">
           <div class="page-title home-hero" style="margin-top:var(--space-xl)">
-            <h1>kylieis.online</h1>
+            <h1 class="${h1FontClass}">kylieis.online</h1>
             <div class="tagline-row">
               <p class="tagline">${tagline}</p>
               <button class="refresh-btn" onclick="location.reload()" title="Refresh content">↻</button>

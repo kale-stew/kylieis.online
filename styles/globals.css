@@ -273,10 +273,15 @@ main.home-main {
 
 /* Home page hero styling */
 .page-title.home-hero h1 {
-  font-family: var(--font-display);
   color: #000;
   font-size: 3rem;
 }
+
+.home-h1-righteous { font-family: 'Righteous', sans-serif; }
+.home-h1-anton { font-family: 'Anton', sans-serif; }
+.home-h1-bebas { font-family: 'Bebas Neue', sans-serif; }
+.home-h1-bowlby { font-family: 'Bowlby One SC', sans-serif; }
+.home-h1-luckiest { font-family: 'Luckiest Guy', sans-serif; }
 
 [data-theme="dark"] .page-title.home-hero h1 {
   color: #fff;
@@ -549,6 +554,26 @@ footer {
 }
 
 /* === Social Icons === */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.photo-grid .photo-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+}
+
 .social-icons {
   display: flex;
   justify-content: center;
@@ -573,7 +598,7 @@ footer {
 
 /* === Timeline === */
 .timeline-job {
-  /* Default job styling - inherits from mb-lg */
+  margin-bottom: var(--space-2xl);
 }
 
 .timeline-milestone {
