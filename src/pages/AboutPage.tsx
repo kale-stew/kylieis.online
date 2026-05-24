@@ -55,14 +55,11 @@ export function AboutPage() {
             <div class="photo-grid">
               ${allPhotos.map((photo, i) => html`
                 <div>
-                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onclick="openPhotoModal(${i})" style="cursor: pointer;" />
+                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onclick="openPhotoModalFromEl(this)" style="cursor: pointer;" data-photo-src="${photo.src}" data-photo-alt="${photo.alt}" data-photo-location="${photo.location}" />
                   <p class="photo-label">${photo.location}</p>
                 </div>
               `)}
             </div>
-          </div>
-        </div>
-      </main>
           </div>
         </div>
       </main>

@@ -55,6 +55,16 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             }
             window.openPhotoModal(0);
           };
+          window.openPhotoModalFromEl = function(el) {
+            var src = el.getAttribute('data-photo-src');
+            for (var i = 0; i < window.photoModalPhotos.length; i++) {
+              if (window.photoModalPhotos[i].src === src) {
+                window.openPhotoModal(i);
+                return;
+              }
+            }
+            window.openPhotoModal(0);
+          };
           window.updatePhotoModal = function() {
             var photo = window.photoModalPhotos[photoModalCurrentIndex];
             if (!photo) return;

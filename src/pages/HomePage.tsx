@@ -89,8 +89,8 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
             ${items.map((item) => {
               if (item.type === 'photo') {
                 return html`
-                  <div class="card card-photo" onclick="openPhotoModalBySrc('${item.src}')" style="cursor: pointer;">
-                    <img src="${item.src}" alt="${item.alt}" />
+                  <div class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" style="cursor: pointer;">
+                    <img src="${item.src}" alt="${item.alt}" data-photo-src="${item.src}" data-photo-alt="${item.alt}" data-photo-location="${item.location}" />
                     <span class="photo-location">${item.location}</span>
                   </div>
                 `
@@ -111,7 +111,6 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       </main>
       <script>
         window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
-        if (window.initPhotoModal) window.initPhotoModal();
       </script>
       ${Footer()}
     `,
