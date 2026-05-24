@@ -111,6 +111,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       </main>
       <script>
         window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location })))};
+        if (window.initPhotoModal) window.initPhotoModal();
       </script>
       ${Footer()}
     `,

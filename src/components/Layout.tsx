@@ -35,6 +35,69 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
         <script>
           document.body.dataset.theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         </script>
+        <script>
+          if (!window.photoModalPhotos) window.photoModalPhotos = [];
+          var photoModalCurrentIndex = 0;
+
+          window.openPhotoModal = function(index) {
+            photoModalCurrentIndex = index;
+            window.updatePhotoModal();
+            var modal = document.getElementById('photo-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          };
+          window.openPhotoModalBySrc = function(src) {
+            for (var i = 0; i < window.photoModalPhotos.length; i++) {
+              if (window.photoModalPhotos[i].src === src) {
+                window.openPhotoModal(i);
+                return;
+              }
+            }
+            window.openPhotoModal(0);
+          };
+          window.updatePhotoModal = function() {
+            var photo = window.photoModalPhotos[photoModalCurrentIndex];
+            if (!photo) return;
+            var img = document.getElementById('photo-modal-img');
+            var altEl = document.getElementById('photo-modal-alt');
+            var locationEl = document.getElementById('photo-modal-location');
+            img.src = photo.src;
+            img.alt = photo.alt;
+            altEl.textContent = photo.alt;
+            locationEl.textContent = photo.location;
+          };
+          window.closePhotoModal = function() {
+            var modal = document.getElementById('photo-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+          };
+          window.closePhotoModalOnBackdrop = function(event) {
+            if (event.target === event.currentTarget) {
+              window.closePhotoModal();
+            }
+          };
+          window.prevPhoto = function(e) {
+            e.stopPropagation();
+            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
+            window.updatePhotoModal();
+          };
+          window.nextPhoto = function(e) {
+            e.stopPropagation();
+            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
+            window.updatePhotoModal();
+          };
+          document.addEventListener('keydown', function(e) {
+            var modal = document.getElementById('photo-modal');
+            if (!modal.classList.contains('open')) return;
+            if (e.key === 'Escape') {
+              window.closePhotoModal();
+            } else if (e.key === 'ArrowLeft') {
+              window.prevPhoto(e);
+            } else if (e.key === 'ArrowRight') {
+              window.nextPhoto(e);
+            }
+          });
+        </script>
         <div class="page">
           ${content}
         </div>
@@ -56,69 +119,6 @@ export function Layout({ title, description, ogImage, content }: LayoutProps) {
             </div>
           </div>
         </div>
-        <script>
-          if (!window.photoModalPhotos) window.photoModalPhotos = [];
-          var photoModalCurrentIndex = 0;
-
-          function openPhotoModal(index) {
-            photoModalCurrentIndex = index;
-            updatePhotoModal();
-            var modal = document.getElementById('photo-modal');
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          }
-          function openPhotoModalBySrc(src) {
-            for (var i = 0; i < window.photoModalPhotos.length; i++) {
-              if (window.photoModalPhotos[i].src === src) {
-                openPhotoModal(i);
-                return;
-              }
-            }
-            openPhotoModal(0);
-          }
-          function updatePhotoModal() {
-            var photo = window.photoModalPhotos[photoModalCurrentIndex];
-            if (!photo) return;
-            var img = document.getElementById('photo-modal-img');
-            var altEl = document.getElementById('photo-modal-alt');
-            var locationEl = document.getElementById('photo-modal-location');
-            img.src = photo.src;
-            img.alt = photo.alt;
-            altEl.textContent = photo.alt;
-            locationEl.textContent = photo.location;
-          }
-          function closePhotoModal() {
-            var modal = document.getElementById('photo-modal');
-            modal.classList.remove('open');
-            document.body.style.overflow = '';
-          }
-          function closePhotoModalOnBackdrop(event) {
-            if (event.target === event.currentTarget) {
-              closePhotoModal();
-            }
-          }
-          function prevPhoto(e) {
-            e.stopPropagation();
-            photoModalCurrentIndex = (photoModalCurrentIndex - 1 + window.photoModalPhotos.length) % window.photoModalPhotos.length;
-            updatePhotoModal();
-          }
-          function nextPhoto(e) {
-            e.stopPropagation();
-            photoModalCurrentIndex = (photoModalCurrentIndex + 1) % window.photoModalPhotos.length;
-            updatePhotoModal();
-          }
-          document.addEventListener('keydown', function(e) {
-            var modal = document.getElementById('photo-modal');
-            if (!modal.classList.contains('open')) return;
-            if (e.key === 'Escape') {
-              closePhotoModal();
-            } else if (e.key === 'ArrowLeft') {
-              prevPhoto(e);
-            } else if (e.key === 'ArrowRight') {
-              nextPhoto(e);
-            }
-          });
-        </script>
       </body>
     </html>
   `
