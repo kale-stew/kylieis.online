@@ -49,12 +49,13 @@ jobs:
             | .d1_databases[0].database_id = "77521670-d5ba-43af-bd95-c4370dfcba4b"
             | .d1_databases[0].database_name = "kylieis-online-db-preview"
             | del(.routes)
-          ' wrangler.jsonc > /tmp/wrangler-preview.jsonc
-          cat /tmp/wrangler-preview.jsonc
+            | del(.env)
+          ' wrangler.jsonc > wrangler-preview.jsonc
+          cat wrangler-preview.jsonc
 
       - name: deploy to preview env
         id: deploy
-        run: npx wrangler deploy --config /tmp/wrangler-preview.jsonc
+        run: npx wrangler deploy --config wrangler-preview.jsonc
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
