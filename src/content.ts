@@ -159,7 +159,15 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     location: 'San Francisco, California',
     startDate: 'Jan 2025',
     endDate: 'beyond',
-    description: 'Leading a team focused on Growth of the Developer Platform.',
+    description: 'Leads the Agent Experience team, building the developer experience for AI agents on the Workers platform.',
+  },
+  // 2024
+  {
+    type: 'milestone',
+    title: 'Moved to San Francisco',
+    date: 'Jun 2024',
+    location: 'San Francisco, CA',
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
   },
   // 2023
   {
@@ -168,14 +176,6 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     date: 'Sep 2023',
     location: 'Kilimanjaro National Park, Tanzania',
     image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/3377d417-525a-46a7-c097-5bd1d396ef00/public',
-  },
-  // 2022
-  {
-    type: 'milestone',
-    title: 'Moved to San Francisco',
-    date: 'Jun 2024',
-    location: 'San Francisco, CA',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
   },
   {
     type: 'job',

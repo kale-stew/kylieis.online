@@ -26,7 +26,7 @@ function renderTimelineEntry(entry: TimelineEntry) {
 export function AboutPage() {
   return Layout({
     title: 'About',
-    description: `${METADATA.fullName} — Web developer and public speaker.`,
+    description: `${METADATA.fullName} — Engineering Manager, public speaker, and mountaineer.`,
     content: html`
       ${Nav()}
       <main>
@@ -36,7 +36,7 @@ export function AboutPage() {
               <h1>About</h1>
             </div>
             <p class="text-center">
-              ${METADATA.firstName} is a web developer and public speaker based in San Francisco, California.
+              ${METADATA.firstName} leads the Agent Experience team at Cloudflare, building the developer experience for AI agents on the Workers platform. Outside of work, she's a mountaineer who has climbed over 109 peaks above 4,267 meters (14,000 feet).
             </p>
             <div class="social-icons">
               ${SOCIAL_LINKS.map((link) => html`
