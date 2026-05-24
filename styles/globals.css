@@ -277,11 +277,16 @@ main.home-main {
   font-size: 3rem;
 }
 
-.home-h1-righteous { font-family: 'Righteous', sans-serif; }
-.home-h1-marker { font-family: 'Permanent Marker', cursive; }
-.home-h1-bangers { font-family: 'Bangers', cursive; }
 .home-h1-monoton { font-family: 'Monoton', sans-serif; }
 .home-h1-glitch { font-family: 'Rubik Glitch', sans-serif; }
+.home-h1-nabla { font-family: 'Nabla', sans-serif; }
+.home-h1-silkscreen { font-family: 'Silkscreen', sans-serif; }
+.home-h1-bitcount { font-family: 'Bitcount Prop Single', sans-serif; }
+.home-h1-megrim { font-family: 'Megrim', sans-serif; }
+.home-h1-atomic { font-family: 'Atomic Age', sans-serif; }
+.home-h1-major { font-family: 'Major Mono Display', monospace; }
+.home-h1-nanum { font-family: 'Nanum Gothic Coding', monospace; }
+.home-h1-jersey { font-family: 'Jersey 10', sans-serif; }
 
 [data-theme="dark"] .page-title.home-hero h1 {
   color: #fff;
