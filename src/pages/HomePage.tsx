@@ -78,7 +78,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
       ${Nav()}
       <main class="home-main">
         <div class="container">
-          <div class="page-title home-hero" style="margin-top:var(--space-xl)">
+          <div class="page-title home-hero">
             <h1 class="${h1FontClass}">kylieis.online</h1>
             <div class="tagline-row">
               <p class="tagline">${tagline}</p>
@@ -87,15 +87,15 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
           </div>
           <div class="card-grid">
             ${items.map((item) => {
-              if (item.type === 'photo') {
-                return html`
+      if (item.type === 'photo') {
+        return html`
                   <div class="card card-photo">
                     <img src="${item.src}" alt="${item.alt}" />
                     <span class="photo-location">${item.location}</span>
                   </div>
                 `
-              }
-              return html`
+      }
+      return html`
                 <article class="card">
                   <h3><a href="${item.href}">${item.title}</a></h3>
                   <p>${item.description}</p>
@@ -105,7 +105,7 @@ export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomeP
                   </div>
                 </article>
               `
-            })}
+    })}
           </div>
         </div>
       </main>

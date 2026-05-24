@@ -300,13 +300,17 @@ main.home-main {
 }
 
 .page-title h1 {
-  margin-bottom: var(--space-sm);
+  margin: var(--space-sm) 0;
   text-transform: lowercase;
 }
 
 /* Home page hero styling */
+.page-title.home-hero {
+  margin-top: 0;
+}
+
 .page-title.home-hero h1 {
-  color: #000;
+  color: var(--color-text);
   font-size: 3rem;
 }
 
@@ -368,7 +372,7 @@ main.home-main {
   font-family: var(--font-mono);
   font-style: italic;
   text-transform: lowercase;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .home-hero .refresh-btn {
@@ -663,12 +667,17 @@ footer {
 /* === Timeline === */
 .timeline-job {
   margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
 }
 
-/* Space between groups: milestone creates a visual break */
+.timeline-job:last-child {
+  margin-bottom: 0;
+}
+
 .timeline-milestone {
-  margin-top: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
+  margin: var(--space-2xl) 0;
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -687,13 +696,11 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-md);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .timeline-milestone-content h3 {
   color: white;
-  margin-bottom: var(--space-xs);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
