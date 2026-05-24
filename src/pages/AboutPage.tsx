@@ -46,7 +46,7 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
 
   return Layout({
     title: 'About',
-    description: `${METADATA.fullName} — Engineering Manager at Cloudflare, public speaker, and mountaineer who has climbed over 109 peaks above 14,000 feet.`,
+    description: `${METADATA.fullName} — Engineering Manager at Cloudflare, public speaker, mountaineer who has climbed over 109 peaks above 14,000 feet.`,
     ogImage: 'https://kylieis.online/og/about.jpg',
     canonicalUrl: 'https://kylieis.online/about',
     content: html`
@@ -61,7 +61,7 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
               <img src="${METADATA.profilePhoto}" alt="${METADATA.fullName}" />
             </div>
             <p class="text-center">
-              ${METADATA.firstName} leads the Agent Experience team at Cloudflare, building the developer experience for AI agents on the Workers platform. Outside of work, she's a mountaineer who has climbed over 109 peaks above 4,267 meters (14,000 feet).
+              ${METADATA.firstName} leads the Agent Experience team at Cloudflare, building the developer experience for AI agents on the Workers platform. Outside of work, she's a mountaineer who has been above 4,267 meters (14,000 feet) more than 109 times.
             </p>
             <div class="social-icons">
               ${SOCIAL_LINKS.map((link) => html`

@@ -27,7 +27,7 @@ jobs:
             const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: context.sha,
+              ref: '${{ github.event.pull_request.head.sha }}',
               environment: 'preview',
               auto_merge: false,
               required_contexts: [],
@@ -41,7 +41,7 @@ jobs:
         run: |
           TITLE="${{ github.event.pull_request.title }}"
           # extract first meaningful word: skip prefixes like fix:, feat:, chore:, etc.
-          WORD=$(echo "$TITLE" | sed -E 's/^(fix|feat|chore|docs|refactor|test|ci|style|perf|build|revert|rewrite|add|update|remove|delete)(\([^)]*\))?[:\!]?\s*//i' | awk '{print $1}' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g' | cut -c1-12)
+          WORD=$(echo "$TITLE" | sed -E 's/^(fix|feat|chore|docs|refactor|test|ci|style|perf|build|revert|rewrite|add|update|remove|delete)(\([^)]*\))?[:\!]?\s*//i' | awk '{print $1}' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]//g' | cut -c1-12)
           # fallback to pr number if empty
           [ -z "$WORD" ] && WORD="pr${{ github.event.pull_request.number }}"
           # add short pr number suffix for uniqueness
@@ -67,6 +67,7 @@ jobs:
         run: npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          DRAFT: 1
 
       - name: generate preview config
         run: |

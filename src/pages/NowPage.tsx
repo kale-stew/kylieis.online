@@ -41,7 +41,7 @@ export function NowPage({ entry, allEntries }: { entry: NowEntry; allEntries: Pi
   return Layout({
     title: 'Now',
     description: "What Kylie is reading, watching, learning, and celebrating right now.",
-    ogImage: 'https://kylieis.online/open-graph/now.jpg',
+    ogImage: 'https://kylieis.online/og/now.jpg',
     canonicalUrl: 'https://kylieis.online/now',
     content: html`
       ${Nav()}

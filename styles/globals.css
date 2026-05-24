@@ -474,8 +474,8 @@ main.home-main ~ footer {
   font-family: 'Atomic Age', sans-serif;
 }
 
-.home-h1-nanum {
-  font-family: 'Nanum Gothic Coding', monospace;
+.home-h1-fira {
+  font-family: 'Fira Code', monospace;
 }
 
 .home-h1-jersey {
@@ -1059,6 +1059,7 @@ footer {
   display: flex;
   justify-content: center;
   gap: var(--space-lg);
+  margin-top: var(--space-2xl);
   margin-bottom: var(--space-xl);
 }
 

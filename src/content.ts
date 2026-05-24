@@ -131,7 +131,7 @@ export const PHOTOS: Photo[] = [
 ]
 
 export const TAGLINES = [
-  'web developer and public speaker',
+  'web developer, public speaker',
   'building on the edge',
   'developing the agent development experience',
   'mountaineer on the weekends',

@@ -8,8 +8,11 @@ import { getFeaturedProjects } from '../content'
 const app = new Hono<{ Bindings: Env }>()
 
 app.get('/', async (c) => {
+  // Fetch posts from D1
+  // Note: Photos for homepage are currently hardcoded in content.ts
+  // Future: fetch random mix from photos-api
   const { results: posts } = await c.env.DB.prepare(
-    "SELECT id, title, description, category, date, type FROM posts ORDER BY date DESC LIMIT 3"
+    "SELECT id, title, description, category, date, type FROM posts WHERE draft = 0 OR draft IS NULL ORDER BY date DESC LIMIT 3"
   ).all<{
     id: string
     title: string
@@ -82,7 +85,7 @@ app.get('/search', async (c) => {
   }
 
   const stmt = c.env.DB.prepare(
-    "SELECT id, title, description, category, date, type FROM posts WHERE title LIKE ? OR description LIKE ? OR content LIKE ? ORDER BY date DESC LIMIT 20"
+    "SELECT id, title, description, category, date, type FROM posts WHERE (draft = 0 OR draft IS NULL) AND (title LIKE ? OR description LIKE ? OR content LIKE ?) ORDER BY date DESC LIMIT 20"
   ).bind(`%${query}%`, `%${query}%`, `%${query}%`)
 
   const { results } = await stmt.all<{

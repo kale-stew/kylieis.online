@@ -27,8 +27,9 @@ export function TalkPage({ talk }: { talk: TalkPost }) {
   return Layout({
     title: talk.title,
     description: talk.description ?? `A talk by Kylie Czajkowski about ${talk.category}.`,
-    ogImage: `https://kylieis.online/open-graph/post-${talk.id}.jpg`,
+    ogImage: `https://kylieis.online/og/post-${talk.id}.jpg`,
     canonicalUrl: `https://kylieis.online/speaking/${talk.id}`,
+    ogType: 'article',
     content: html`
       ${Nav()}
       <main>

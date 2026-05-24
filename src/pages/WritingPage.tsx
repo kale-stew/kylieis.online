@@ -10,7 +10,7 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
   return Layout({
     title: 'Writing',
     description: 'Blog posts and articles by Kylie Czajkowski about JavaScript, AI, TypeScript, and building on the web.',
-    ogImage: 'https://kylieis.online/open-graph/writing.jpg',
+    ogImage: 'https://kylieis.online/og/writing.jpg',
     canonicalUrl: 'https://kylieis.online/writing',
     content: html`
       ${Nav()}
