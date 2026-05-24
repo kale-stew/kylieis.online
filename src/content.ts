@@ -56,6 +56,7 @@ export const METADATA = {
   fullName: 'Kylie Czajkowski',
   firstName: 'Kylie',
   siteName: 'kylieis.online',
+  profilePhoto: 'https://pbs.twimg.com/profile_images/2058684479225610241/5SP70J78_400x400.jpg',
 }
 
 export const PROJECTS: Project[] = [
@@ -87,9 +88,11 @@ export function getFeaturedProjects(): Project[] {
 
 export interface Photo {
   src: string
+  srcset?: string
   alt: string
   location: string
   date: string
+  blurhash?: string
 }
 
 export const PHOTOS: Photo[] = [
@@ -149,15 +152,17 @@ export const TAGLINES = [
 // Inline SVG icons for social links (no CDN dependency)
 export const SOCIAL_ICONS: Record<string, string> = {
   mail: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
-  bluesky: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg>',
+  bluesky: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-1 -1 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg>',
   github: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
   instagram: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>',
   linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>',
+  x: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>',
 }
 
 export const SOCIAL_LINKS = [
   { label: 'Email', url: 'mailto:hello@kylieis.online', icon: 'mail' },
   { label: 'Bluesky', url: 'https://bsky.app/profile/kylieis.online', icon: 'bluesky' },
+  { label: 'X', url: 'https://x.com/kyliestew', icon: 'x' },
   { label: 'Github', url: 'https://github.com/kale-stew', icon: 'github' },
   { label: 'Instagram', url: 'https://instagram.com/kalestewski', icon: 'instagram' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/kylieski/', icon: 'linkedin' },
@@ -201,7 +206,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     title: 'Moved to San Francisco',
     date: 'Jun 2024',
     location: 'San Francisco, CA',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
+    image: 'https://photos-api.kylieski.workers.dev/img/d1806c642ad6?w=800',
     photoDate: '2025-11',
   },
   // 2023
@@ -210,7 +215,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     title: 'Climbed Kilimanjaro',
     date: 'Sep 2023',
     location: 'Kilimanjaro National Park, Tanzania',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/3377d417-525a-46a7-c097-5bd1d396ef00/public',
+    image: 'https://photos-api.kylieski.workers.dev/img/0a90a01f9022?w=800',
     photoDate: '2023-09',
   },
   {
@@ -266,8 +271,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     title: 'First Conference Talk',
     date: 'Apr 2018',
     location: 'San Francisco, CA',
-    // palace of the fine arts
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/1a8ad2d9-9f80-45ad-1ccb-ca8fbd1f4000/public'
+    image: 'https://photos-api.kylieski.workers.dev/img/3767021c0e7d?w=800',
   },
   {
     type: 'job',

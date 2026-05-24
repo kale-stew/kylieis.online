@@ -1018,6 +1018,22 @@ footer {
   margin-bottom: var(--space-xs);
 }
 
+/* === Profile Photo === */
+.profile-photo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+}
+
+.profile-photo img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--color-bg-card);
+}
+
 /* === Social Icons === */
 .photo-grid {
   display: grid;
