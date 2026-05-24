@@ -678,37 +678,28 @@ footer {
 
 .timeline-milestone {
   margin: var(--space-2xl) 0;
-  position: relative;
+  background: var(--color-bg-card);
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  min-height: 180px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .timeline-milestone img {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
   display: block;
-}
-
-.timeline-milestone-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
 }
 
 .timeline-milestone-content h3 {
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: var(--space-xs);
 }
 
 .timeline-milestone-content p {
-  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   font-size: 0.9rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* === Talk Presentations === */
