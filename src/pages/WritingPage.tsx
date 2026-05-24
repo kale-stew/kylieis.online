@@ -2,11 +2,11 @@ import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import type { PostMeta } from '../content'
 
-export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], activeCategory?: string }) {
+export function WritingPage({ posts }: { posts: PostMeta[] }) {
   const categories = [...new Set(posts.map(p => p.category))].sort()
 
   return Layout({
-    title: activeCategory && activeCategory !== 'all' ? `Writing · #${activeCategory}` : 'Writing',
+    title: 'Writing',
     description: 'Kylie is writing about Javascript, AI, and more.',
     content: html`
       ${Nav()}
@@ -17,9 +17,9 @@ export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], acti
             <p>Thoughts on code, tools, and building things</p>
           </div>
           <div class="category-filters" id="category-filters">
-            <button class="category-filter ${!activeCategory || activeCategory === 'all' ? 'active' : ''}" data-category="all">#all</button>
+            <button class="category-filter active" data-category="all">#all</button>
             ${categories.map((cat) => html`
-              <button class="category-filter ${activeCategory === cat ? 'active' : ''}" data-category="${cat}">#${cat}</button>
+              <button class="category-filter" data-category="${cat}">#${cat}</button>
             `)}
           </div>
           <div class="card-grid" id="post-grid">
@@ -54,10 +54,22 @@ export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], acti
           history.pushState({ category }, '', url)
         })
 
+        window.addEventListener('popstate', () => {
+          const params = new URLSearchParams(location.search)
+          const cat = params.get('category')
+          document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'))
+          if (cat) {
+            const btn = Array.from(document.querySelectorAll('.category-filter'))
+              .find(el => el.dataset.category === cat)
+            if (btn) btn.click()
+          }
+        })
+
         const params = new URLSearchParams(location.search)
         const cat = params.get('category')
         if (cat) {
-          const btn = document.querySelector('.category-filter[data-category="' + cat + '"]')
+          const btn = Array.from(document.querySelectorAll('.category-filter'))
+            .find(el => el.dataset.category === cat)
           if (btn) btn.click()
         }
       </script>
