@@ -173,7 +173,7 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
   {
     type: 'milestone',
     title: 'Moved to San Francisco',
-    date: 'Jul 2022',
+    date: 'Jun 2024',
     location: 'San Francisco, CA',
     image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/e781d047-cb85-4ff1-c159-713d9d4ba300/public',
   },

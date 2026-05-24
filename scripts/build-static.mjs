@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import { fileURLToPath } from 'url'
 import { WritingPage } from '../src/pages/WritingPage.js'
 import { SpeakingPage } from '../src/pages/SpeakingPage.js'
+import { TalkPage } from '../src/pages/TalkPage.js'
 import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
@@ -14,9 +15,8 @@ import { generateOgImages } from './generate-og-images.mjs'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const CONTENT_DIR = path.join(ROOT, 'content')
+const TALKS_DIR = path.join(CONTENT_DIR, 'talks')
 const OUT_DIR = path.join(ROOT, 'static')
-
-const TALK_DATA_URL = 'https://raw.githubusercontent.com/kale-stew/all-talks/main/content/talks.json'
 
 function copyDir(src, dest) {
   if (!fs.existsSync(src)) return
@@ -96,13 +96,32 @@ async function main() {
     writeHtml(`writing/${post.id}/index.html`, BlogPostPage({ post }))
   }
 
-  // Speaking - fetch from GitHub
-  try {
-    const resp = await fetch(TALK_DATA_URL)
-    const talks = await resp.json()
-    writeHtml('speaking/index.html', SpeakingPage({ talks }))
-  } catch {
-    console.log('  warning: could not fetch talk data, skipping speaking page')
+  // Speaking - read talks from content/talks/
+  const talks = []
+  if (fs.existsSync(TALKS_DIR)) {
+    const talkFiles = fs.readdirSync(TALKS_DIR).filter((f) => f.endsWith('.md'))
+    for (const fileName of talkFiles) {
+      const fileContents = fs.readFileSync(path.join(TALKS_DIR, fileName), 'utf8')
+      const { data, content } = matter(fileContents)
+      talks.push({
+        id: fileName.replace(/\.md$/, ''),
+        title: data.title || fileName.replace(/\.md$/, ''),
+        description: data.description || null,
+        category: data.category || 'general',
+        date: data.date || '',
+        presentedAt: data.presentedAt || [],
+        blogPost: data.blogPost || null,
+        content,
+      })
+    }
+    talks.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  }
+
+  writeHtml('speaking/index.html', SpeakingPage({ talks }))
+
+  // Individual talk pages
+  for (const talk of talks) {
+    writeHtml(`speaking/${talk.id}/index.html`, TalkPage({ talk }))
   }
 
   // Projects
