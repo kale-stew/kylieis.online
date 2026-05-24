@@ -1,33 +1,108 @@
 import { html } from 'hono/html'
-import { Layout, PageHeader, Footer } from '../components/Layout'
-import type { PostMeta, Project } from '../content'
+import { Layout, Nav, Footer } from '../components/Layout'
+import { PHOTOS, TAGLINES, PROJECTS } from '../content'
 
-export function HomePage({ recentPosts, featuredProjects }: { recentPosts: PostMeta[], featuredProjects: Project[] }) {
+interface HomePagePost {
+  id: string
+  title: string
+  description: string | null
+  category: string
+  date: string
+}
+
+interface HomePageProject {
+  title: string
+  description: string
+  url: string
+}
+
+type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; tag: string }
+type PhotoCard = { type: 'photo'; src: string; alt: string }
+type CardItem = ContentCard | PhotoCard
+
+export function HomePage({ recentPosts, featuredProjects }: { recentPosts: HomePagePost[], featuredProjects: HomePageProject[] }) {
+  const contentCards: ContentCard[] = [
+    ...recentPosts.slice(0, 3).map((p) => ({
+      type: 'content' as const,
+      title: p.title,
+      href: `/writing/${p.id}`,
+      description: p.description ?? '',
+      date: p.date,
+      tag: p.category,
+    })),
+    ...featuredProjects.slice(0, 1).map((p) => ({
+      type: 'content' as const,
+      title: p.title,
+      href: p.url,
+      description: p.description,
+      tag: 'project',
+    })),
+  ]
+
+  const fallbackProjects = PROJECTS.filter((p) => !p.featured).map((p) => ({
+    type: 'content' as const,
+    title: p.title,
+    href: p.url,
+    description: p.description,
+    tag: 'project',
+  }))
+
+  while (contentCards.length < 3 && fallbackProjects.length > 0) {
+    contentCards.push(fallbackProjects.shift()!)
+  }
+
+  const shuffled = [...PHOTOS].sort(() => Math.random() - 0.5)
+  const totalContent = Math.min(contentCards.length, 4)
+  const slots: ('content' | 'photo')[] = [
+    'content', 'content', 'photo',
+    'content', 'content', 'photo',
+  ]
+  let ci = 0
+  let pi = 0
+  const items: CardItem[] = slots.map((slot) => {
+    if (slot === 'content' && ci < totalContent) {
+      return contentCards[ci++]
+    }
+    const photo = shuffled[pi++ % shuffled.length]
+    return { type: 'photo', src: photo.src, alt: photo.alt }
+  })
+
+  const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]
+
   return Layout({
     title: 'Home',
+    description: 'Kylie Czajkowski — Web developer and public speaker.',
     content: html`
-      ${PageHeader()}
-      <div style="z-index:-50;position:absolute;top:0;left:0;width:100%;height:100%;background-image:var(--linear-gradient)"></div>
-      <div style="height:70vh;display:flex;text-align:center;flex-direction:column;align-items:center;justify-content:center">
-        <div style="display:flex;flex-direction:column;gap:2rem">
-          <h1 style="color:white;font-size:2rem;margin:0">kylieis.online</h1>
-          ${recentPosts.map((post) => html`
-            <div style="background:var(--color-bg-secondary);color:var(--color-text-primary);border-radius:0.75rem;padding:1rem 2rem;max-width:500px;box-shadow:var(--color-red-1) -5px 5px,var(--color-red-2) -10px 10px,var(--color-red-3) -15px 15px">
-              <h2 style="margin:0 0 0.25rem"><a href="/writing/${post.id}" style="color:var(--color-text-primary);text-decoration:none">${post.title}</a></h2>
-              <small style="opacity:0.7">${post.date}</small>
-              <p style="font-family:Arsenal,sans-serif;margin:0.5rem 0">${post.description}</p>
-            </div>
-          `)}
-          ${featuredProjects.length > 0 && html`
-            <div style="margin-top:1rem">
-              <h3 style="color:white;margin-bottom:0.5rem">Featured Projects</h3>
-              ${featuredProjects.map((p) => html`
-                <a href="${p.url}" style="color:var(--color-text-accent);display:block;margin:0.25rem 0">${p.title}</a>
-              `)}
-            </div>
-          `}
+      ${Nav()}
+      <main>
+        <div class="container">
+          <div class="page-title" style="margin-top:var(--space-xl)">
+            <h1>kylieis.online</h1>
+            <p class="tagline">${tagline}</p>
+          </div>
+          <div class="card-grid">
+            ${items.map((item) => {
+              if (item.type === 'photo') {
+                return html`
+                  <div class="card card-photo">
+                    <img src="${item.src}" alt="${item.alt}" />
+                  </div>
+                `
+              }
+              return html`
+                <article class="card">
+                  <h3><a href="${item.href}">${item.title}</a></h3>
+                  <p>${item.description}</p>
+                  <div class="meta">
+                    <span class="tag">${item.tag}</span>
+                    ${item.date ?? ''}
+                  </div>
+                </article>
+              `
+            })}
+          </div>
         </div>
-      </div>
+      </main>
       ${Footer()}
     `,
   })

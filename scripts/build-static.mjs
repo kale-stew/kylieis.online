@@ -2,14 +2,13 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { fileURLToPath } from 'url'
-import { HomePage } from '../src/pages/HomePage.js'
 import { WritingPage } from '../src/pages/WritingPage.js'
 import { SpeakingPage } from '../src/pages/SpeakingPage.js'
 import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
-import { PROJECTS, getFeaturedProjects } from '../src/content.js'
+import { PROJECTS } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -81,12 +80,6 @@ async function main() {
   for (const post of blogPosts) {
     writeHtml(`writing/${post.id}/index.html`, BlogPostPage({ post }))
   }
-
-  // Home (needs blogPosts, so after blog loading above)
-  writeHtml('index.html', HomePage({
-    recentPosts: blogPosts.slice(0, 2).map(({ content, ...post }) => post),
-    featuredProjects: getFeaturedProjects(),
-  }))
 
   // Speaking - fetch from GitHub
   try {

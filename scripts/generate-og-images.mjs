@@ -11,22 +11,19 @@ const OG_TEMPLATE = `<!doctype html>
 <html lang="en">
 <head><meta charset="UTF-8" />
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     width: 1200px; height: 630px;
-    background: linear-gradient(217deg, #ffbc2d, #e23500),
-                linear-gradient(336deg, #e23500, #e23500, #ffbc2d 70.71%),
-                linear-gradient(336deg, #e23500, #ffbc2d, #ffbc2d 70.71%);
+    background: linear-gradient(135deg, #e23500 0%, #ffbc2d 100%);
     display: flex; flex-direction: column;
     justify-content: center; align-items: center;
     text-align: center; color: white;
-    font-family: 'EB Garamond', serif; padding: 4rem;
+    font-family: 'Fraunces', serif; padding: 4rem;
   }
   h1 { font-size: 3.5rem; font-weight: 400; line-height: 1.2; max-width: 900px; margin-bottom: 1rem; }
-  p { font-family: 'Arsenal', sans-serif; font-size: 1.4rem; opacity: 0.9; max-width: 700px; }
-  .site { position: absolute; bottom: 2rem; font-family: 'Arsenal', sans-serif; font-size: 1rem; opacity: 0.7; letter-spacing: 0.1em; text-transform: lowercase; }
+  p { font-family: 'Inter', sans-serif; font-size: 1.4rem; opacity: 0.9; max-width: 700px; }
+  .site { position: absolute; bottom: 2rem; font-family: 'Inter', sans-serif; font-size: 1rem; opacity: 0.7; letter-spacing: 0.05em; }
 </style></head>
 <body>
   <h1 id="t">TITLE</h1>

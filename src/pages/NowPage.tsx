@@ -1,5 +1,5 @@
 import { html } from 'hono/html'
-import { Layout, PageHeader, Footer } from '../components/Layout'
+import { Layout, Nav, Footer } from '../components/Layout'
 
 interface NowEntry {
   date: string
@@ -13,61 +13,65 @@ interface NowEntry {
   work: string | null
 }
 
-const NOW_LABELS: Record<string, string> = {
-  celebrate: '🎉 Celebrating',
-  learn: '📚 Learning',
-  listen: '🎧 Listening To',
+const LABELS: Record<string, string> = {
   location: '📍 Location',
+  celebrate: '🎉 Celebrating',
   read: '📖 Reading',
-  travel: '🛫 Travel',
+  travel: '✈️ Travel',
+  learn: '📚 Learning',
   watch: '📺 Watching',
-  work: '👩🏼‍💻 Working On',
-}
-
-export function NowPage({ entry, allEntries }: { entry: NowEntry; allEntries: Pick<NowEntry, 'date'>[] }) {
-  return Layout({
-    title: 'Now',
-    content: html`
-      ${PageHeader()}
-      <div class="wrapper">
-        <main class="content-wrapper">
-          <h1 class="center-text heading-2xl">What I'm Doing "Now"</h1>
-          <h2 class="center-text heading-md" style="font-style:italic;font-family:'Arsenal',sans-serif">
-            ${formatDate(entry.date)}
-          </h2>
-          <div class="white-bg">
-            <ul class="now-items">
-              ${Object.entries(entry)
-                .filter(([key]) => key !== 'id' && key !== 'date')
-                .filter(([, value]) => value)
-                .map(([key, value]) => html`
-                  <li><b>${NOW_LABELS[key] ?? key}:</b> ${value}</li>
-                `)}
-            </ul>
-          </div>
-          <hr class="page-divider" />
-          <h2 class="center-text heading-lg">All Entries, Past & Present:</h2>
-          <ul class="past-entries">
-            ${allEntries.map((e) => html`
-              <li>${formatDate(e.date)}</li>
-            `)}
-          </ul>
-          <div class="center-text" style="margin:2rem">
-            <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" class="styled-link">What is this page?</a>
-          </div>
-        </main>
-      </div>
-      ${Footer()}
-    `,
-  })
+  listen: '🎧 Listening',
+  work: '💻 Working On',
 }
 
 function formatDate(date: string) {
-  const d = new Date(date)
-  return d.toLocaleDateString('en-US', {
+  return new Date(date).toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+  })
+}
+
+export function NowPage({ entry, allEntries }: { entry: NowEntry; allEntries: Pick<NowEntry, 'date'>[] }) {
+  const items = Object.entries(entry)
+    .filter(([key]) => key !== 'date')
+    .filter(([, value]) => value != null)
+
+  return Layout({
+    title: 'Now',
+    description: "What Kylie is doing now.",
+    content: html`
+      ${Nav()}
+      <main>
+        <div class="container">
+          <div class="content">
+            <div class="page-title">
+              <h1>Now</h1>
+              <p>${formatDate(entry.date)}</p>
+            </div>
+            <ul class="now-list">
+              ${items.map(([key, value]) => html`
+                <li>
+                  <b>${LABELS[key] ?? key}</b>
+                  ${value}
+                </li>
+              `)}
+            </ul>
+            <hr class="divider" />
+            <h2 class="text-center">Past Entries</h2>
+            <ul class="now-list text-center">
+              ${allEntries.map((e) => html`
+                <li>${formatDate(e.date)}</li>
+              `)}
+            </ul>
+            <p class="text-center mt-xl">
+              <a href="https://nownownow.com/about" target="_blank" rel="noopener" class="link-accent">What is this page?</a>
+            </p>
+          </div>
+        </div>
+      </main>
+      ${Footer()}
+    `,
   })
 }

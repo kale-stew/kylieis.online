@@ -1,19 +1,26 @@
 import { html } from 'hono/html'
-import { Layout, PageHeader } from '../components/Layout'
+import { Layout, Nav, Footer } from '../components/Layout'
 
 export function NotFoundPage() {
   return Layout({
-    title: 'Not Found',
-    description: 'The page you are looking for does not exist.',
+    title: '404',
+    description: 'Page not found',
     content: html`
-      ${PageHeader()}
-      <div class="wrapper">
-        <main class="content-wrapper" style="text-align:center;padding:4rem 0">
-          <h1 class="heading-2xl">404</h1>
-          <p>This page doesn't exist.</p>
-          <a href="/" class="styled-link">Go home</a>
-        </main>
-      </div>
+      ${Nav()}
+      <main>
+        <div class="container">
+          <div class="content text-center">
+            <div class="page-title" style="margin-top:var(--space-3xl)">
+              <h1>404</h1>
+              <p>Page not found</p>
+            </div>
+            <p>
+              <a href="/" class="link-accent">← Go home</a>
+            </p>
+          </div>
+        </div>
+      </main>
+      ${Footer()}
     `,
   })
 }

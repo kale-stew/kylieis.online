@@ -1,27 +1,33 @@
 import { html } from 'hono/html'
-import { Layout, PageHeader, Footer } from '../components/Layout'
+import { Layout, Nav, Footer } from '../components/Layout'
 import type { TalkItem } from '../content'
 
 export function SpeakingPage({ talks }: { talks: TalkItem[] }) {
   return Layout({
     title: 'Speaking',
-    description: "Kylie is talking about Javascript, open source, GraphQL, and more.",
+    description: 'Conference talks and presentations by Kylie Czajkowski.',
     content: html`
-      ${PageHeader()}
-      <div class="wrapper">
-        <main class="content-wrapper">
-          <h1 class="center-text heading-2xl">Conference Talks & Presentations</h1>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(345px,1fr));grid-gap:2em;margin:2.2em 0">
+      ${Nav()}
+      <main>
+        <div class="container">
+          <div class="page-title">
+            <h1>Speaking</h1>
+            <p>Conference talks and presentations</p>
+          </div>
+          <div class="card-grid">
             ${talks.map((talk) => html`
-              <div class="talk-card">
-                <h3 class="heading-sm">${talk.title}</h3>
+              <article class="card">
+                <h3>${talk.title}</h3>
                 <p>${talk.description}</p>
-                <small style="opacity:0.7">${talk.category} · ${talk.date}</small>
-              </div>
+                <div class="meta">
+                  <span class="tag">${talk.category}</span>
+                  ${talk.date}
+                </div>
+              </article>
             `)}
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
       ${Footer()}
     `,
   })

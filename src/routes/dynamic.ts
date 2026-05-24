@@ -1,9 +1,31 @@
 import { Hono } from 'hono'
 import type { Env } from '../env'
+import { HomePage } from '../pages/HomePage'
 import { NowPage } from '../pages/NowPage'
 import { SearchPage } from '../pages/SearchPage'
+import { getFeaturedProjects } from '../content'
 
 const app = new Hono<{ Bindings: Env }>()
+
+app.get('/', async (c) => {
+  const { results: posts } = await c.env.DB.prepare(
+    "SELECT id, title, description, category, date FROM posts WHERE type = 'blog' ORDER BY date DESC LIMIT 3"
+  ).all<{
+    id: string
+    title: string
+    description: string | null
+    category: string
+    date: string
+  }>()
+
+  return c.html(
+    HomePage({
+      recentPosts: posts ?? [],
+      featuredProjects: getFeaturedProjects(),
+    }).toString(),
+    200
+  )
+})
 
 app.get('/now', async (c) => {
   const latest = await c.env.DB.prepare(
@@ -25,10 +47,22 @@ app.get('/now', async (c) => {
   ).all<{ date: string }>()
 
   if (!latest) {
+    // No entries yet — show empty state
     return c.html(
-      SearchPage({ results: [], query: '' })
-        .toString()
-        .replace('<title>Search', '<title>Now'),
+      NowPage({
+        entry: {
+          date: new Date().toISOString().split('T')[0],
+          location: null,
+          celebrate: null,
+          read: null,
+          travel: null,
+          learn: null,
+          watch: null,
+          listen: null,
+          work: 'Setting up this page...',
+        },
+        allEntries: [],
+      }).toString(),
       200
     )
   }

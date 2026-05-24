@@ -1,5 +1,5 @@
 import { html } from 'hono/html'
-import { Layout, PageHeader, Footer } from '../components/Layout'
+import { Layout, Nav, Footer } from '../components/Layout'
 
 interface SearchResult {
   id: string
@@ -13,47 +13,49 @@ interface SearchResult {
 export function SearchPage({ query, results }: { query?: string; results?: SearchResult[] }) {
   return Layout({
     title: 'Search',
+    description: 'Search posts on kylieis.online',
     content: html`
-      ${PageHeader()}
-      <div class="wrapper">
-        <main class="content-wrapper">
-          <h1 class="center-text heading-2xl">Search</h1>
-          <form action="/search" method="get" style="display:flex;gap:0.5rem;justify-content:center;margin:2rem 0">
-            <input
-              type="search"
-              name="q"
-              value="${query ?? ''}"
-              placeholder="Search posts..."
-              style="padding:0.5rem;font-size:1rem;flex:1;max-width:400px"
-            />
-            <button type="submit" style="padding:0.5rem 1rem;font-size:1rem">Search</button>
-          </form>
-          ${query
-            ? html`
-              <p class="center-text" style="margin-bottom:1.5rem">
-                ${results && results.length > 0
-                  ? `${results.length} result${results.length === 1 ? '' : 's'} for "${query}"`
-                  : `No results found for "${query}"`}
-              </p>
-            `
-            : ''}
-          ${results && results.length > 0
-            ? html`
-              <ul style="list-style:none;padding:0">
-                ${results.map((r) => html`
-                  <li style="margin-bottom:1.5rem">
-                    <a href="/${r.type === 'talk' ? 'speaking' : 'writing'}/${r.id}" class="styled-link" style="font-size:1.2rem">
-                      ${r.title}
-                    </a>
-                    <p style="margin:0.25rem 0">${r.description ?? ''}</p>
-                    <small style="opacity:0.7">${r.category} · ${r.date}</small>
-                  </li>
-                `)}
-              </ul>
-            `
-            : ''}
-        </main>
-      </div>
+      ${Nav()}
+      <main>
+        <div class="container">
+          <div class="content">
+            <div class="page-title">
+              <h1>Search</h1>
+            </div>
+            <form action="/search" method="get" style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-xl)">
+              <input
+                type="search"
+                name="q"
+                value="${query ?? ''}"
+                placeholder="Search posts..."
+                style="flex:1;padding:var(--space-sm) var(--space-md);font-size:1rem;border:1px solid var(--color-text-muted);border-radius:var(--radius-md)"
+              />
+              <button type="submit" style="padding:var(--space-sm) var(--space-md);background:var(--color-accent);color:white;border:none;border-radius:var(--radius-md);cursor:pointer">
+                Search
+              </button>
+            </form>
+            ${results && results.length > 0
+              ? html`
+                <div class="card-grid">
+                  ${results.map((r) => html`
+                    <article class="card">
+                      <h3><a href="/${r.type === 'blog' ? 'writing' : 'speaking'}/${r.id}">${r.title}</a></h3>
+                      <p>${r.description ?? ''}</p>
+                      <div class="meta">
+                        <span class="tag">${r.category}</span>
+                        ${r.date}
+                      </div>
+                    </article>
+                  `)}
+                </div>
+              `
+              : query
+                ? html`<p class="text-center text-muted">No results found for "${query}"</p>`
+                : ''
+            }
+          </div>
+        </div>
+      </main>
       ${Footer()}
     `,
   })
