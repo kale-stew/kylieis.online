@@ -6,7 +6,8 @@ create table if not exists posts (
   category text not null,
   date text not null,
   type text not null default 'blog',
-  tags text
+  tags text,
+  content text
 );
 
 create index idx_posts_category on posts(category);

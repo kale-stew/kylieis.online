@@ -11,7 +11,7 @@ const talksDir = join(contentDir, 'talks')
 const blogFiles = readdirSync(contentDir).filter(f => f.endsWith('.md'))
 const posts = blogFiles.map((f) => {
   const raw = readFileSync(join(contentDir, f), 'utf-8')
-  const { data } = matter(raw)
+  const { data, content } = matter(raw)
   const id = f.replace(/\.md$/, '')
   return {
     id,
@@ -21,6 +21,7 @@ const posts = blogFiles.map((f) => {
     date: data.date ?? new Date().toISOString().split('T')[0],
     type: 'blog',
     tags: null,
+    content,
   }
 })
 
@@ -30,7 +31,7 @@ if (existsSync(talksDir)) {
   const talkFiles = readdirSync(talksDir).filter(f => f.endsWith('.md'))
   for (const f of talkFiles) {
     const raw = readFileSync(join(talksDir, f), 'utf-8')
-    const { data } = matter(raw)
+    const { data, content } = matter(raw)
     const id = f.replace(/\.md$/, '')
     talks.push({
       id,
@@ -40,6 +41,7 @@ if (existsSync(talksDir)) {
       date: data.date ?? new Date().toISOString().split('T')[0],
       type: 'talk',
       tags: null,
+      content,
     })
   }
 }
@@ -48,11 +50,11 @@ if (existsSync(talksDir)) {
 const esc = (s) => (s ?? '').replace(/'/g, "''")
 
 const blogInserts = posts.map((p) => {
-  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', NULL);`
+  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', NULL, '${esc(p.content)}');`
 })
 
 const talkInserts = talks.map((t) => {
-  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL);`
+  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}');`
 })
 
 console.log([...blogInserts, ...talkInserts].join('\n'))
