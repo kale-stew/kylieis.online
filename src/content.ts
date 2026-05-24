@@ -249,7 +249,8 @@ export const PERSONAL_TIMELINE: TimelineEntry[] = [
     title: 'First Conference Talk',
     date: 'Apr 2018',
     location: 'San Francisco, CA',
-    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/4bd25a08-6fc1-4558-a08d-602be8117900/public'
+    // palace of the fine arts
+    image: 'https://imagedelivery.net/I5sMCdZloThK9NfMgVFKOw/1a8ad2d9-9f80-45ad-1ccb-ca8fbd1f4000/public'
   },
   {
     type: 'job',
