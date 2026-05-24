@@ -19,6 +19,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.0",
     "hono": "^4.7.5",
+    "hono-og": "^0.0.29",
     "marked": "^15.0.7",
     "marked-highlight": "^2.2.1"
   },

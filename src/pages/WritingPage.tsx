@@ -1,16 +1,12 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import type { PostMeta } from '../content'
-import { CATEGORIES } from '../content'
 
-export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], activeCategory?: string }) {
-  const categories = CATEGORIES.filter(c => c !== 'all')
-  const filteredPosts = activeCategory && activeCategory !== 'all'
-    ? posts.filter(p => p.category === activeCategory)
-    : posts
+export function WritingPage({ posts }: { posts: PostMeta[] }) {
+  const categories = [...new Set(posts.map(p => p.category))].sort()
 
   return Layout({
-    title: activeCategory && activeCategory !== 'all' ? `Writing · #${activeCategory}` : 'Writing',
+    title: 'Writing',
     description: 'Kylie is writing about Javascript, AI, and more.',
     content: html`
       ${Nav()}
@@ -20,19 +16,19 @@ export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], acti
             <h1>Writing</h1>
             <p>Thoughts on code, tools, and building things</p>
           </div>
-          <div class="category-filters">
-            <a href="/writing" class="category-filter ${!activeCategory || activeCategory === 'all' ? 'active' : ''}">#all</a>
+          <div class="category-filters" id="category-filters">
+            <button class="category-filter active" data-category="all">#all</button>
             ${categories.map((cat) => html`
-              <a href="/writing/category/${cat}" class="category-filter ${activeCategory === cat ? 'active' : ''}">#${cat}</a>
+              <button class="category-filter" data-category="${cat}">#${cat}</button>
             `)}
           </div>
-          <div class="card-grid">
-            ${filteredPosts.map((post) => html`
-              <article class="card">
-                <h3><a href="/writing/${post.id}">${post.title}</a></h3>
+          <div class="card-grid" id="post-grid">
+            ${posts.map((post) => html`
+              <article class="card" data-category="${post.category}">
+                <h3><a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}">${post.title}</a></h3>
                 <p>${post.description ?? ''}</p>
                 <div class="meta">
-                  <a href="/writing/category/${post.category}" class="tag">#${post.category}</a>
+                  ${post.type === 'talk' ? html`<span class="tag">#${post.category}</span><span class="tag tag-type">talk</span>` : html`<span class="tag">#${post.category}</span>`}
                   ${post.date}
                 </div>
               </article>
@@ -41,6 +37,42 @@ export function WritingPage({ posts, activeCategory }: { posts: PostMeta[], acti
         </div>
       </main>
       ${Footer()}
+      <script>
+        document.getElementById('category-filters')?.addEventListener('click', (e) => {
+          const btn = e.target.closest('.category-filter')
+          if (!btn) return
+          const category = btn.dataset.category
+
+          document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'))
+          btn.classList.add('active')
+
+          document.querySelectorAll('#post-grid .card').forEach(card => {
+            card.style.display = (category === 'all' || card.dataset.category === category) ? '' : 'none'
+          })
+
+          const url = category === 'all' ? '/writing' : '/writing?category=' + category
+          history.pushState({ category }, '', url)
+        })
+
+        window.addEventListener('popstate', () => {
+          const params = new URLSearchParams(location.search)
+          const cat = params.get('category')
+          document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'))
+          if (cat) {
+            const btn = Array.from(document.querySelectorAll('.category-filter'))
+              .find(el => el.dataset.category === cat)
+            if (btn) btn.click()
+          }
+        })
+
+        const params = new URLSearchParams(location.search)
+        const cat = params.get('category')
+        if (cat) {
+          const btn = Array.from(document.querySelectorAll('.category-filter'))
+            .find(el => el.dataset.category === cat)
+          if (btn) btn.click()
+        }
+      </script>
     `,
   })
 }

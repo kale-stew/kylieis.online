@@ -34,9 +34,10 @@ export function SpeakingPage({ talks }: { talks: TalkListItem[] }) {
                 <div class="meta">
                   <span class="tag">${talk.category}</span>
                   ${talk.presentedAt.length > 0
-                    ? html`<span class="text-muted">${talk.presentedAt[0].eventName}</span>`
-                    : talk.date
+                    ? html`<span class="tag">${talk.presentedAt[0].eventName}</span>`
+                    : ''
                   }
+                  ${talk.date}
                 </div>
               </article>
             `)}

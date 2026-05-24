@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { marked } from 'marked'
+import { renderMarkdown } from '../lib/markdown'
 
 export interface TalkPost {
   id: string
@@ -21,7 +21,7 @@ export interface TalkPost {
 }
 
 export function TalkPage({ talk }: { talk: TalkPost }) {
-  const htmlContent = marked.parse(talk.content, { async: false }) as string
+  const htmlContent = renderMarkdown(talk.content)
 
   return Layout({
     title: talk.title,

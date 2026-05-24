@@ -9,7 +9,7 @@ import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
-import { PROJECTS, CATEGORIES } from '../src/content.js'
+import { PROJECTS } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -56,7 +56,7 @@ async function main() {
   // About
   writeHtml('about/index.html', AboutPage())
 
-  // Writing list - read blog posts from content/
+  // Read all content (blog posts + talks)
   const blogFiles = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'))
   const blogPosts = blogFiles.map((fileName) => {
     const fileContents = fs.readFileSync(path.join(CONTENT_DIR, fileName), 'utf8')
@@ -72,31 +72,6 @@ async function main() {
     }
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  const postsWithoutContent = blogPosts.map(({ content, ...post }) => post)
-  
-  // Writing index (all posts)
-  writeHtml('writing/index.html', WritingPage({
-    posts: postsWithoutContent,
-  }))
-
-  // Category filter pages
-  const categories = CATEGORIES.filter(c => c !== 'all')
-  for (const category of categories) {
-    const categoryPosts = postsWithoutContent.filter(p => p.category === category)
-    if (categoryPosts.length > 0) {
-      writeHtml(`writing/category/${category}/index.html`, WritingPage({
-        posts: postsWithoutContent,
-        activeCategory: category,
-      }))
-    }
-  }
-
-  // Blog posts
-  for (const post of blogPosts) {
-    writeHtml(`writing/${post.id}/index.html`, BlogPostPage({ post }))
-  }
-
-  // Speaking - read talks from content/talks/
   const talks = []
   if (fs.existsSync(TALKS_DIR)) {
     const talkFiles = fs.readdirSync(TALKS_DIR).filter((f) => f.endsWith('.md'))
@@ -117,6 +92,23 @@ async function main() {
     talks.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 
+  // Writing index — combine blog posts and talks, sorted by date
+  const postsWithoutContent = blogPosts.map(({ content, ...post }) => post)
+  const talkMetas = talks.map(({ content, presentedAt, blogPost, ...talk }) => ({
+    ...talk,
+    type: 'talk',
+  }))
+  const allContent = [...postsWithoutContent, ...talkMetas].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+  writeHtml('writing/index.html', WritingPage({ posts: allContent }))
+
+  // Blog posts
+  for (const post of blogPosts) {
+    writeHtml(`writing/${post.id}/index.html`, BlogPostPage({ post }))
+  }
+
+  // Speaking
   writeHtml('speaking/index.html', SpeakingPage({ talks }))
 
   // Individual talk pages

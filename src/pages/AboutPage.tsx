@@ -1,6 +1,6 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, TimelineEntry } from '../content'
+import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry } from '../content'
 
 function renderTimelineEntry(entry: TimelineEntry) {
   if (entry.type === 'milestone') {
@@ -15,7 +15,7 @@ function renderTimelineEntry(entry: TimelineEntry) {
     `
   }
   return html`
-    <div class="timeline-job mb-lg">
+    <div class="timeline-job">
       <h3>${entry.jobTitle} @ ${entry.company}</h3>
       <p class="text-muted">${entry.location} · ${entry.startDate}${entry.endDate ? ` — ${entry.endDate}` : ''}</p>
       <p>${entry.description}</p>
@@ -48,6 +48,16 @@ export function AboutPage() {
             <hr class="divider" />
             <h2 class="text-center">Timeline</h2>
             ${PERSONAL_TIMELINE.map((entry) => renderTimelineEntry(entry))}
+            <hr class="divider" />
+            <h2 class="text-center">Photos</h2>
+            <div class="photo-grid">
+              ${PHOTOS.map((photo) => html`
+                <div>
+                  <img src="${photo.src}" alt="${photo.alt}" loading="lazy" />
+                  <p class="photo-label">${photo.location}</p>
+                </div>
+              `)}
+            </div>
           </div>
         </div>
       </main>

@@ -1,7 +1,7 @@
 ---
 title: 'Performant Experimentation at Scale'
 date: '2023-10-22'
-category: 'nextjs'
+category: 'react'
 description: 'Developing data-driven experiments without introducing layout shift, using Next.js and Edge Middleware.'
 presentedAt:
   - eventDate: '2023-10-22'
