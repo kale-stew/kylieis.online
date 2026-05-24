@@ -37,6 +37,7 @@ const OG_IMAGES = {
   'speaking': { title: 'Conference Talks & Presentations', description: 'Kylie is talking about Javascript, open source, GraphQL, and more.' },
   'projects': { title: 'Projects', description: "A selection of Kylie's open source work." },
   'about': { title: 'About', description: 'Kylie Czajkowski — Web developer and public speaker.' },
+  'now': { title: 'Now', description: "What Kylie is reading, watching, learning, and celebrating." },
 }
 
 export async function generateOgImages(posts) {

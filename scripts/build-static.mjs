@@ -72,9 +72,24 @@ async function main() {
     }
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
+  const postsWithoutContent = blogPosts.map(({ content, ...post }) => post)
+  
+  // Writing index (all posts)
   writeHtml('writing/index.html', WritingPage({
-    posts: blogPosts.map(({ content, ...post }) => post),
+    posts: postsWithoutContent,
   }))
+
+  // Category filter pages
+  const categories = ['ai', 'react', 'nextjs', 'notion', 'typescript', 'graphql']
+  for (const category of categories) {
+    const categoryPosts = postsWithoutContent.filter(p => p.category === category)
+    if (categoryPosts.length > 0) {
+      writeHtml(`writing/category/${category}/index.html`, WritingPage({
+        posts: postsWithoutContent,
+        activeCategory: category,
+      }))
+    }
+  }
 
   // Blog posts
   for (const post of blogPosts) {
