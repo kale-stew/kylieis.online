@@ -58,7 +58,7 @@ export function AboutPage() {
             <h2 class="text-center">Timeline</h2>
             ${PERSONAL_TIMELINE.map((entry) => renderTimelineEntry(entry))}
             <hr class="divider" />
-            <h2 class="text-center">Photos</h2>
+            <h2 class="text-center" id="photos">Photos</h2>
             <div class="photo-grid">
               ${allPhotos.map((photo) => html`
                 <div>

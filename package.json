@@ -9,6 +9,7 @@
     "build": "tsx scripts/build-static.mjs",
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler deploy --env preview",
+    "deploy:draft": "tsx scripts/deploy-draft.mjs",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
