@@ -20,7 +20,7 @@ It worked. But there were things that bugged me:
 
 - The Notion API rate limits and block rendering complexity were overhead I didn't need for a personal blog
 - ISR was overkill - I publish posts manually, I don't need incremental regeneration
-- The CSS setup (emotion) added complexity with no real benefit for a mostly-static site
+- CSS modules added unnecessary abstraction for a mostly-static site
 - I wanted to move the stack entirely to Cloudflare
 
 ## The New Stack
@@ -143,4 +143,4 @@ Every PR gets its own preview deployment. The workflow extracts a short slug fro
 
 ## TL;DR
 
-The site is simpler now. A Honojs app that builds static HTML at deploy time, serves dynamic routes from the edge via D1, and doesn't depend on any external CMS or framework. Deployment is a single `wrangler deploy` command. Would recommend.
+The site is simpler now. A Hono app that builds static HTML at deploy time, serves dynamic routes from the edge via D1, and doesn't depend on any external CMS or framework. Deployment is a single `wrangler deploy` command. Would recommend.
