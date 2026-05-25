@@ -5,52 +5,58 @@ category: 'notion'
 description: 'Using Notion to codify internal systems as a living knowledge base at scale.'
 ---
 
-While Notion is already known to be handy for personal task management, it can be even more useful when leveraged as a documentation tool within a team. Organizations of all sizes benefit from documenting their more common-use systems for both current and future employees. These living documents become an asset to teams as they evolve over time, broadening the company's knowledge base with every contribution.
+A team I worked with had their docs scattered across Google Drive, Evernote, Dropbox, and even some PDFs saved to personal Slack spaces. New hires had no idea where anything lived, and when someone updated a document in their own drive, nobody else knew about it. It was a mess.
 
-I have been asked by a few teams to codify their shared knowledge base in the form of an internal resource library, documented in Notion. The following is a closer look at one of those cases.
+I was asked to consolidate everything into a single Notion workspace. Here's what I learned.
 
-## Previous State
+## Before
 
-Before moving to Notion, this company had all of their documents in various locations. Google Drive, Evernote, Dropbox, and even some exported PDFs saved to their personal slack spaces all needed to be codified and organized in a way that would be navigable to new hires and the old guard alike.
+The company's documents were everywhere. Some teams preferred Google Drive, others used Evernote, and a few people had been dumping exported PDFs into Slack DMs for years. When a new hire started, someone had to manually grant access to five different services and then guess which version of a PDF was current.
 
-Many of this team’s PDFs were constantly evolving, so we had to compare some versions against each other to ensure we were referring to the most recent version. One of the benefits of using Notion to document this moving forward was that these PDFs would no longer conflict. The team would now have a navigable history to refer to for every change made in any single document, dated and credited to an individual within the organization.
+Many of the PDFs were living documents, revised monthly. Comparing versions to find the latest one was a regular task. Moving to Notion meant every change would be tracked with a timestamp and a name. No more version guessing.
 
-Another benefit to this new strategy would be company-wide accessibility. With the prior scattered approach of hosting documents in various clouds, individual proactivity was required to ensure each new hire had access to old documents. On occasion, someone would make a small change and save it to their own drive, and no other user of that document would have a way to know about it. Organization-wide information parity would improve if it all lived in Notion.
+## After
 
-## New State
+We built a central wiki: one place for every piece of company knowledge, accessible to anyone with a company email. It had a few key sections.
 
-We built a comprehensive wiki: documenting every crumb of company-related information that had been found across those clouds into one central repository, now accessible to anyone with a company email address. The following are a few of the more important subsections of that information.
+### Company culture
 
-### Company Culture
+This covered the full range: custom Slack emojis, nicknames, a glossary of inside jokes, and the employee handbook. Sometimes I was documenting a silly definition next to serious legal language. Notion's flexible structure handled both without issue.
 
-A key subsection to this particular company’s internal wiki covered company culture. This included custom slack emojis, nicknames, a glossary of company-specific terms (essentially a dictionary of inside jokes), as well as employee handbook information. I was asked to document sometimes silly definitions alongside very serious legal jargon, but found this easily achieved through Notion’s flexible architecture.
+The employee handbook was previously a PDF reassessed once a month. In Notion, edits are historically catalogued alongside an employee's name, so it just made sense to move it there. We grouped related topics together: the At-Home Office Stipend lived with other remote work info, and the Continuous Education budget sat next to conference speaking guidelines.
 
-Transitioning the employee handbook to Notion was straightforward. This document existed as a living PDF that was reassessed once a month, so moving to Notion where edits would be historically catalogued alongside an employee’s name just made sense. We coupled similar concerns: A definition of the At-Home Office Stipend would go with other remote work information, the bottomless Continuous Education budget was displayed alongside information about speaking at conferences or moving open-sourced software under the company umbrella, etc.
+The culture section ended up with five main parts: **Never Stop Learning**, **Remote Work Policies**, **Slack Etiquette**, **How to be [Company A]**, and **Culture FAQs**.
 
-We found ourselves with 5 primary sub-sections for the Company Culture header: **Continuous Education** (named “Never Stop Learning”), **Remote Work Policies**, **Slack Etiquette**, **How to be [Company A]**, and **Culture FAQs**.
+"Never Stop Learning" was particularly important for this team. Everything from identifying worthwhile conferences to sharing internal codes for free online courses went there. We built a living database of events the company was sponsoring or attending, filterable by location and hemisphere. For an international team, that was a lot of data to keep consistent.
 
-“Never Stop Learning” was an important page to define for this company in particular, as they had a strong emphasis on the continuing of education for developers in this space. Everything from identifying worthwhile conferences to attend, to sharing internal codes that would allow a fellow employee free access to an online education tool was documented. We wound up building a living database of events that the consultancy would be sponsoring or attending that the individuals at the company could contribute to any time. As an international company, this was a fairly large task: making sure the properties were cohesive across the board and that a user could filter by location, or even hemisphere, for events of interest.
+#### Locking things down
 
-#### Monitoring Document Access
+Most culture documents needed to stay editable by everyone, not just executives. But Notion can be confusing for new users — it's easy to accidentally drag a block while scrolling. We ended up unlocking the databases so people could edit tables, but keeping the surrounding pages locked so the structure stayed intact.
 
-Many of these company culture documents were to remain living and therefor editable by individuals of all levels within the company. It shouldn’t just be executives allowed to change these culture documents, new hires to mid-levels to engineering managers should all be able to make valuable changes as they see fit. This was an interesting challenge to confront, as most organizations prefer to make their content fixed and more difficult to modify. We ran the risk of allowing lesser-experienced users to accidentally move an important informational block just by scrolling through the page if they didn’t fully understand the software this was all documented within. We would end up unlocking the databases themselves but keeping the pages they were displayed in locked, so users could modify the tables but not move informative blocks around.
+### Developer strategies
 
-### Developer Strategies
+This company was almost entirely developers, so documenting how they worked was critical. The section had three main parts: **Code Conventions**, **OSS Library Review**, and **Open Sourcing your Project**.
 
-As a developer-focused company with more than 97% of its staff being dedicated independent contributors, codifying the developer strategies was an important goal of this project. **Code Conventions**, **OSS Library Review**, and **Open Sourcing your Project** were three primary headers defined in this section.
+The OSS review database was the most interesting. It gave developers a place to honestly review libraries they'd worked with — what they liked, what annoyed them, whether the release cycle was a pain. We opened it to contributions early, and it evolved into a technology recommendation list: what to use, what to avoid. The company eventually used it to track which technologies were trending up or down. For a team always looking for the latest tech, this became surprisingly valuable.
 
-The OSS (open-sourced software) library review was one of the most interesting databases to create for this company. This database served to give employees a place to honestly review an OSS library, whether they enjoyed working with it, or maybe found the release cycle to be a nuisance, etc. We opened this database up to employee contribution fairly early on for honest feedback of libraries these developers had worked on or were still building, so the information was always available when a dev needed to assess a new technology. Iterating over this database with the team in real-time was helpful, as we were able to address features they wanted or were not using early-on, and therefor improve them more quickly. Long-term, this turned into the database of technology recommendations, advising employees what to use and what to avoid entirely. The company would eventually refer to this database to monitor which technologies were increasing in popularity and which were in decline. As a forward-thinking consultancy that was always on the lookout for the latest and greatest tech, this was a valuable asset for the team to gain.
+Other pages were more standard. The open-source guide walked developers through starting a large-scale project and moving it under the company umbrella if they wanted broader support. The code conventions guide was revisited quarterly in all-hands meetings to keep biases in check.
 
-Other pages within this section were a little more standard to develop, as a Notion consultant: the document outlining how to open-source your project told a developer where to begin if they wanted to create a large-scale OSS, and how they might be able to transition it to the consultancy’s umbrella of software if they were interested in broader support. The code conventions guide also needed to be constantly evolving, and this company chose to circle back to it in a quarterly all-hands meeting to ensure they were also reconsidering their biases.
+### Sales strategies
 
-### Sales Strategies
+Only two people were in sales, but they wanted to make sure no knowledge disappeared if someone left. As they documented their process, three sections emerged: **Approaching a Client**, **Sealing the Deal**, and **Long-Term Relationships**.
 
-Although there were only two sales-specific employees at this company, they sought to certify that no knowledge would be lost between them and any future addition to the intimate team. As sales strategies were established and then documented, some specific sub-sections began to arise. Sales-specific headers catalogued included **Approaching a Client**, **Sealing the Deal**, and **Long-Term Relationships**.
+When someone hit a snag, they'd leave a comment in the document. This meant no concern was forgotten, and everyone could resolve their own questions later. Some questions kept coming up, so the team mined their page history and built a FAQ list. Each sub-section linked to its related questions, which also linked back to a master FAQ. I liked this pattern so much I've used it with three other clients since.
 
-Each of these sub-sections would guide a new or existing sales team member through the process of that subset of client contact. If anyone ran into an issue, they would leave a comment within the document to be addressed at a future time. This ensured no concerns or questions that arose were neglected over time, and everyone had the chance to address or resolve their own comment after it had been made.
+## What I'd do differently
 
-As some questions began to resurface, this team went back through their Sales page’s history and codified some of the Frequently Asked Questions in their own synced block. Now, each sub-section would have its related questions, which also linked back to a primary list of FAQs. We began to use this practice in other specified sections of the codebase, and found it to be very helpful. This eventually involved into one large FAQs list with toggle headers for each smaller, more focused section of questions and answers, which is now a practice I’ve implemented with more than three other clients’ large, living knowledge bases.
+**Start with permissions.** We figured out the lock/unlock strategy after a few accidental edits. Setting page-level restrictions from the start would have saved some cleanup.
 
-## In Summary
+**Fewer categories in the FAQ.** The master FAQ eventually had toggle headers for every sub-section, which got unwieldy. A flatter structure with good search would have been easier to maintain.
 
-In my past year as a Solutions Engineer, building out internal systems in Notion and other cloud-based tools for larger teams, I've found that living wikis are best managed in one central repository. Be it Notion or another piece of software, organizations of all sizes can benefit from having their systems codified in one location.
+**Document the migration process itself.** We focused on the destination but didn't write down how we got there. When a similar project came up six months later, I had to reconstruct the steps from memory.
+
+## The result
+
+The team stopped losing documents. New hires could find everything in one place. And when someone made an edit, everyone saw it.
+
+Would recommend.
