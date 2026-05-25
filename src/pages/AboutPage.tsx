@@ -30,14 +30,29 @@ interface AboutPageProps {
 
 export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
   // Convert API photos to the Photo format used by the modal
-  const photosFromApi: Photo[] = (apiPhotos ?? []).map((p) => ({
-    src: getPhotoUrl(p.id, 800),
-    srcset: getPhotoSrcset(p.id),
-    alt: p.title ?? '',
-    location: p.location ?? '',
-    date: p.date ?? '',
-    blurhash: p.blurhash ?? undefined,
-  }))
+  // Handles both API format (with .id) and hardcoded format (with .src)
+  const photosFromApi: Photo[] = (apiPhotos ?? []).map((p) => {
+    // If already has src (hardcoded format), use directly
+    if ('src' in p && p.src) {
+      return {
+        src: p.src,
+        srcset: p.srcset,
+        alt: p.alt ?? '',
+        location: p.location ?? '',
+        date: p.date ?? '',
+        blurhash: p.blurhash,
+      }
+    }
+    // API format - needs conversion
+    return {
+      src: getPhotoUrl(p.id, 800),
+      srcset: getPhotoSrcset(p.id),
+      alt: p.title ?? '',
+      location: p.location ?? '',
+      date: p.date ?? '',
+      blurhash: p.blurhash ?? undefined,
+    }
+  })
 
   // Use API photos for the photo grid (fallback to hardcoded PHOTOS if API fails)
   // Timeline milestones have their own photos shown inline, so we don't duplicate them here
@@ -89,10 +104,10 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
                     data-photo-src="${photo.src}" 
                     data-photo-alt="${photo.alt}" 
                     data-photo-location="${photo.location}" 
-                    data-photo-date="${photo.date.split('-')[0]}"
+                    data-photo-date="${photo.date}"
                     ${raw(photo.blurhash ? `data-blurhash="${photo.blurhash}"` : '')}
                   />
-                  <p class="photo-label">${photo.location}${photo.location && photo.date ? ' · ' : ''}${photo.date.split('-')[0]}</p>
+                   <p class="photo-label">${photo.location}${photo.location && photo.date ? ' · ' : ''}${photo.date.split('-')[0]}</p>
                 </div>
               `)}
             </div>

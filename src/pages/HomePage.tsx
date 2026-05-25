@@ -126,7 +126,7 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
                       data-photo-src="${item.src}" 
                       data-photo-alt="${item.alt}" 
                       data-photo-location="${item.location}" 
-                      data-photo-date="${item.date.split('-')[0]}"
+                      data-photo-date="${item.date}"
                       ${raw(item.blurhash ? `data-blurhash="${item.blurhash}"` : '')}
                     />
                     <span class="photo-location">${item.location}${item.location && item.date ? ' · ' : ''}${item.date.split('-')[0]}</span>

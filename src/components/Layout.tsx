@@ -71,6 +71,7 @@ export function Layout({ title, description, ogImage, canonicalUrl, ogType, cont
 
           window.openPhotoModalFromEl = function(el) {
             var src = el.getAttribute('data-photo-src') || el.src;
+            var srcLarge = el.getAttribute('data-photo-src-large') || src.replace('?w=800', '?w=1600');
             var alt = el.getAttribute('data-photo-alt') || el.alt;
             var location = el.getAttribute('data-photo-location') || '';
             var date = el.getAttribute('data-photo-date') || '';
@@ -82,6 +83,7 @@ export function Layout({ title, description, ogImage, canonicalUrl, ogType, cont
               for (var j = 0; j < photoEls.length; j++) {
                 window.photoModalPhotos.push({
                   src: photoEls[j].getAttribute('data-photo-src'),
+                  srcLarge: photoEls[j].getAttribute('data-photo-src-large') || photoEls[j].getAttribute('data-photo-src').replace('?w=800', '?w=1600'),
                   alt: photoEls[j].getAttribute('data-photo-alt') || photoEls[j].alt || '',
                   location: photoEls[j].getAttribute('data-photo-location') || '',
                   date: photoEls[j].getAttribute('data-photo-date') || ''
@@ -92,7 +94,7 @@ export function Layout({ title, description, ogImage, canonicalUrl, ogType, cont
             var img = document.getElementById('photo-modal-img');
             var altEl = document.getElementById('photo-modal-alt');
             var locationEl = document.getElementById('photo-modal-location');
-            img.src = src;
+            img.src = srcLarge;
             img.alt = alt;
             altEl.textContent = alt;
             locationEl.textContent = location + (date ? ' · ' + date : '');
@@ -115,7 +117,7 @@ export function Layout({ title, description, ogImage, canonicalUrl, ogType, cont
             var img = document.getElementById('photo-modal-img');
             var altEl = document.getElementById('photo-modal-alt');
             var locationEl = document.getElementById('photo-modal-location');
-            img.src = photo.src;
+            img.src = photo.srcLarge || photo.src;
             img.alt = photo.alt;
             altEl.textContent = photo.alt;
             locationEl.textContent = photo.location + (photo.date ? ' · ' + photo.date : '');
