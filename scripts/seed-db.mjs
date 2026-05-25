@@ -54,12 +54,12 @@ const esc = (s) => (s ?? '').replace(/'/g, "''")
 const isDraft = process.env.DRAFT ? 1 : 0
 
 const blogInserts = posts.map((p) => {
-  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content, draft) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', NULL, '${esc(p.content)}', ${isDraft});`
+  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, draft) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', NULL, '${esc(p.content)}', ${isDraft});`
 })
 
 const talkInserts = talks.map((t) => {
   const presentedAt = JSON.stringify(t.presentedAt)
-  return `INSERT OR IGNORE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${isDraft});`
+  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${isDraft});`
 })
 
 console.log([...blogInserts, ...talkInserts].join('\n'))

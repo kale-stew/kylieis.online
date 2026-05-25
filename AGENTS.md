@@ -31,22 +31,48 @@ key decisions:
 
 - `main` — production, auto-deploys to kylieis.online
 - `rewrite/workers` — major refactor work
-- `blog/*` or `post/*` — draft blog posts, auto-deploys to preview environment
+- `blog/*` or `post/*` — draft blog posts, auto-deploys to isolated **draft** workers (protected by cloudflare access)
 
-## draft preview workflow
+## deployment targets — critical
+
+this project has **two separate deployment targets**. using the wrong one will expose unpublished content on a shared, potentially discoverable url.
+
+### 1. preview deployment (`npm run deploy:preview`) — never use for drafts
+- **target**: `kylieis-online-preview.kylieski.workers.dev`
+- **purpose**: testing production-like builds before going live
+- **warning**: this is a **shared worker**. deploying here overwrites the previous preview. any draft blog posts will be publicly accessible at this url without access protection.
+- **when to use**: final sanity check before production deploy. **never for drafts.**
+
+### 2. draft deployment (`npm run deploy:draft`) — use for all blog post drafts
+- **target**: isolated worker per branch (e.g., `post-photos-api.kylieski.workers.dev`)
+- **purpose**: sharing specific blog posts for review without affecting preview or production
+- **safe**: each draft gets its own url. drafts are protected by cloudflare access and are **not** indexed or linked from the main site.
+- **when to use**: reviewing blog post drafts, sharing with editors, getting feedback before publishing.
+
+## draft workflow
 
 for writing new blog posts without affecting production:
 
-1. create branch with `blog/` or `post/` prefix (e.g., `blog/photos-api-post`)
-2. add markdown file to `content/`
-3. push to remote — github actions will:
-   - build static assets
-   - seed preview d1 (not production)
-   - deploy to `https://post-{slug}.kylieski.workers.dev`
-4. review at the preview url
-5. when ready, open pr to main for final review and production deploy
+```bash
+# for blog post drafts:
+git checkout -b blog/my-post        # create branch
+git add content/my-post.md
+git commit -m "blog: add my post"
+npm run deploy:draft                # isolated, access-protected url for review only
+# → https://post-my-post.kylieski.workers.dev
 
-note: draft branches use the preview d1 database (`kylieis-online-db-preview`), so draft posts won't appear on the live site until merged to main.
+# never do this for drafts:
+npm run deploy:preview              # ❌ exposes draft on shared, unprotected preview url
+
+# for production:
+git checkout main
+npm run deploy                      # deploy to kylieis.online
+```
+
+### why this matters
+- preview urls may be cached, bookmarked, or scraped
+- draft content could leak before you're ready
+- the draft pipeline exists specifically to avoid this risk
 
 ## draft access protection
 
