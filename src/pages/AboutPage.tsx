@@ -1,6 +1,6 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer, jsonForScript } from '../components/Layout'
-import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry, TimelineMilestone, Photo } from '../content'
+import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, TimelineEntry, TimelineMilestone, Photo } from '../content'
 import { getPhotoUrl, getPhotoSrcset, type Photo as ApiPhoto } from '../lib/photos-api'
 
 function renderTimelineEntry(entry: TimelineEntry) {
@@ -55,9 +55,9 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
     }
   })
 
-  // Use API photos for the photo grid (fallback to hardcoded PHOTOS if API fails)
+  // Use API photos for the photo grid
   // Timeline milestones have their own photos shown inline, so we don't duplicate them here
-  const allPhotos: Photo[] = (photosFromApi.length > 0 ? photosFromApi : PHOTOS)
+  const allPhotos: Photo[] = photosFromApi
     .sort((a, b) => b.date.localeCompare(a.date))
 
   return Layout({

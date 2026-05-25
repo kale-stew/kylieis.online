@@ -1,7 +1,7 @@
 import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer, jsonForScript } from '../components/Layout'
 import { CategoryTags } from '../components/PostMeta'
-import { PHOTOS, TAGLINES, PROJECTS, type Photo } from '../content'
+import { TAGLINES, PROJECTS, type Photo } from '../content'
 import { getPhotoUrl, getPhotoSrcset, type Photo as ApiPhoto } from '../lib/photos-api'
 
 interface HomePagePost {
@@ -30,17 +30,15 @@ interface HomePageProps {
 }
 
 export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: HomePageProps) {
-  // Convert API photos to the Photo format, or fall back to hardcoded PHOTOS
-  const photoSource: Photo[] = apiPhotos && apiPhotos.length > 0
-    ? apiPhotos.map((p) => ({
-        src: getPhotoUrl(p.id, 800),
-        srcset: getPhotoSrcset(p.id),
-        alt: p.title ?? '',
-        location: p.location ?? '',
-        date: p.date ?? '',
-        blurhash: p.blurhash ?? undefined,
-      }))
-    : PHOTOS
+  // Convert API photos to the Photo format
+  const photoSource: Photo[] = (apiPhotos ?? []).map((p) => ({
+    src: getPhotoUrl(p.id, 800),
+    srcset: getPhotoSrcset(p.id),
+    alt: p.title ?? '',
+    location: p.location ?? '',
+    date: p.date ?? '',
+    blurhash: p.blurhash ?? undefined,
+  }))
   const contentCards: ContentCard[] = [
     ...recentPosts.slice(0, 3).map((p) => ({
       type: 'content' as const,

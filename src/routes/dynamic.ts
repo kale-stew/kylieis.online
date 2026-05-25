@@ -4,13 +4,12 @@ import { HomePage } from '../pages/HomePage'
 import { NowPage, type NowEntry } from '../pages/NowPage'
 import { SearchPage } from '../pages/SearchPage'
 import { getFeaturedProjects } from '../content'
+import { getPhotos } from '../lib/photos-api'
 
 const app = new Hono<{ Bindings: Env }>()
 
 app.get('/', async (c) => {
   // Fetch posts from D1
-  // Note: Photos for homepage are currently hardcoded in content.ts
-  // Future: fetch random mix from photos-api
   const { results: posts } = await c.env.DB.prepare(
     "SELECT id, title, description, category, date, type FROM posts WHERE draft = 0 OR draft IS NULL ORDER BY date DESC LIMIT 3"
   ).all<{
@@ -22,10 +21,14 @@ app.get('/', async (c) => {
     type: 'blog' | 'talk'
   }>()
 
+  // Fetch photos from the central photos-api
+  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
+
   return c.html(
     HomePage({
       recentPosts: posts ?? [],
       featuredProjects: getFeaturedProjects(),
+      photos: apiPhotos,
     }).toString(),
     200
   )

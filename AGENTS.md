@@ -75,6 +75,18 @@ npm run deploy                      # deploy to kylieis.online
 - draft content could leak before you're ready
 - the draft pipeline exists specifically to avoid this risk
 
+## photos
+
+all photos are fetched from the central **photos-api** (`photos-api.kylieski.workers.dev`). do not hard-code photo arrays in `src/content.ts` or anywhere else.
+
+- the api is queried with `site='kylieis-online'` which returns photos tagged as either `kylieis-online` or `both`
+- both `HomePage` and `AboutPage` receive `photos` from the api and convert them to the local `Photo` format
+- `build-static.mjs` fetches photos at build time for the static about page
+- `src/routes/dynamic.ts` fetches photos at request time for the server-rendered homepage
+- timeline milestones that reference photos already use `photos-api.kylieski.workers.dev/img/{id}` urls directly
+
+never add a `PHOTOS` export to `src/content.ts`. if photos are missing from the site, add them to the central photos-api and ensure they are tagged with `site='kylieis-online'` or `site='both'` in the database.
+
 ## draft access protection
 
 all draft previews are protected by cloudflare access. to customize the login page (logo, organization name, colors):

@@ -9,7 +9,7 @@ import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
-import { PROJECTS, PHOTOS, METADATA } from '../src/content.js'
+import { PROJECTS, METADATA } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 import { getPhotos } from '../src/lib/photos-api.js'
 
@@ -85,32 +85,14 @@ async function main() {
   copyDir(path.join(ROOT, 'styles'), path.join(OUT_DIR, 'styles'))
   console.log('  copied styles/ -> static/styles/')
 
-  // Fetch kylieis-online photos from photos-api (the curated personal photos)
-  console.log('  fetching kylieis-online photos from photos-api...')
-  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 50 })
+  // Fetch all photos for kylieis.online from the central photos-api
+  // site='kylieis-online' returns both 'kylieis-online' and 'both' tagged photos
+  console.log('  fetching photos from photos-api...')
+  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
   console.log(`  fetched ${apiPhotos.length} photos`)
 
-  // Merge API photos with hardcoded featured photos from content.ts
-  // This ensures climb-log featured photos are included
-  // Get IDs from API photos
-  const apiPhotoIds = new Set(apiPhotos.map((p) => p.id))
-  // Add hardcoded photos that aren't already in the API results
-  const hardcodedExtras = PHOTOS.filter((p) => {
-    // Skip imagedelivery photos (already in API)
-    if (p.src.startsWith('https://imagedelivery.net')) return false
-    // Skip climb-log photos (different domain, always include)
-    if (p.src.startsWith('https://climb-log.kylieski.workers.dev')) return true
-    // Extract ID from photos-api URL
-    const match = p.src.match(/\/img\/([^?]+)/)
-    const id = match ? match[1] : null
-    // Only include if not already in API results
-    return id && !apiPhotoIds.has(id)
-  })
-  const mergedPhotos = [...apiPhotos, ...hardcodedExtras]
-  console.log(`  merged ${mergedPhotos.length} total photos (${apiPhotos.length} API + ${hardcodedExtras.length} hardcoded) for about page`)
-
   // About
-  writeHtml('about/index.html', AboutPage({ photos: mergedPhotos }))
+  writeHtml('about/index.html', AboutPage({ photos: apiPhotos }))
 
   // Read all content (blog posts + talks)
   const blogFiles = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'))
