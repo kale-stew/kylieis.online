@@ -81,7 +81,7 @@ See [scripts/migrate/from-notion.ts](https://github.com/kale-stew/photos-api/blo
 
 ## What I'd do differently
 
-**Schema design upfront.** I added `flickr_id`, `accent_color`, and `source_url` columns mid-migration after realizing I needed them. Starting with a comprehensive schema (even if some columns are nullable) helped me avoid the `ALTER TABLE` dance.
+**Schema design upfront.** I added `flickr_id`, `accent_color`, and `source_url` columns mid-migration after realizing I needed them. Then I did it again with the AI columns (`ai_caption`, `ai_quality_score`, etc.) in migration 0003. Starting with a comprehensive schema (even if some columns are nullable) would have saved me multiple `ALTER TABLE` iterations.
 
 **Batch the Flickr downloads.** The current script processes photos sequentially. Parallel downloads with a concurrency limit would have cut migration time significantly.
 
@@ -102,6 +102,81 @@ curl https://photos-api.kylieski.workers.dev/img/394f4ddc161b?w=800
 
 <img src="https://photos-api.kylieski.workers.dev/img/394f4ddc161b?w=800" alt="Example resized photo from the API" />
 
-This all provides an infinitely simpler workflow. One less API to worry about. Do recommend.
+## Talking to my photos
+
+Now that the API was running, I found myself wanting to interact with it conversationally. Writing curl commands to search photos or update metadata felt clunky. I wanted to ask "show me sunset photos from Joshua Tree" and get results.
+
+[MCP](https://modelcontextprotocol.io/) (Model Context Protocol) is a standard for connecting AI assistants to external tools. Think of it like a plugin system — instead of the AI hallucinating photo data, it calls my actual API.
+
+I built a local MCP server in `mcp-server/` that exposes the photos API as AI-native tools. It runs over stdio, which means any MCP client (Claude Desktop, Cursor, or in my case, opencode) can use it.
+
+### The tools
+
+**Phase 1 — Core API wrappers:**
+- `get_random_photo` — "show me a random photo" with optional site/tag/quality filters
+- `search_photos` — "find sunset photos" using FTS5 full-text search across titles, captions, locations, and AI-generated keywords
+- `get_photo` — "tell me about this specific photo" with optional EXIF and AI analysis
+- `update_photo` — "change the title to X" (admin only, requires Cloudflare Access JWT)
+
+**Phase 2 — AI generation:**
+- `ai_caption` — "describe this photo for me" using Llama 3.2 Vision. Generates a caption, extracts keywords, optionally rates quality, and caches everything in D1
+- `evaluate_quality` — "how good is this photo technically?" Combines EXIF analysis (ISO, aperture, shutter speed) with a vision model composition score into a 0-1 composite
+
+**Phase 3 — Batch & cleanup:**
+- `extract_exif` — "what camera settings were used?" Downloads the original and parses EXIF with `sharp`
+- `cleanup_metadata` — "improve the title and tags" using Llama 3.2 3B to suggest better metadata, with a dry-run mode by default
+- `deduplicate` — "find duplicate photos" via strict (exact flickr_id/size), loose (fuzzy title+date matching), or AI (vision model confirmation of near-duplicates)
+
+### How the AI works
+
+The vision model is `@cf/meta/llama-3.2-11b-vision-instruct`, which accepts base64-encoded images. Before using it, you have to send a one-time `prompt: "agree"` to accept Meta's license terms. For text tasks like keyword extraction and metadata cleanup, I use the smaller `@cf/meta/llama-3.2-3b-instruct`.
+
+The key insight: **never re-process the same photo twice**. Every AI result gets cached in D1:
+
+| Column | What it stores |
+|--------|---------------|
+| `ai_caption` | Vision model description |
+| `ai_keywords` | JSON array of extracted keywords |
+| `ai_quality_score` | 0.0–1.0 composite score |
+| `ai_processed_at` | ISO timestamp of last analysis |
+
+The `ai_caption` tool checks D1 first. If a caption exists and `regenerate: false`, it returns the cached result instantly. This matters because the vision model takes 3–5 seconds per image and costs ~$0.001–$0.005 per call. For 573 photos, that's a $2–$3 one-time backfill, not a recurring expense.
+
+Two database migrations support this:
+- **0003** — adds the AI columns and a `photos_fts` virtual table (FTS5) for full-text search, kept in sync via triggers
+- **0004** — adds a `photo_exif` table for camera make/model, lens, settings, and GPS
+
+### Integration
+
+The MCP server is wired into my opencode config:
+
+```json
+{
+  "mcp": {
+    "photos-api": {
+      "type": "local",
+      "command": ["node", "./mcp-server/dist/index.js"],
+      "environment": {
+        "PHOTOS_API_URL": "http://localhost:8787",
+        "CLOUDFLARE_ACCOUNT_ID": "...",
+        "CF_WORKERS_AI_API_TOKEN": "..."
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+For the backfill script (`scripts/backfill-ai.ts`), I added resume capability via a local `.backfill-progress.json` file and exponential backoff for Workers AI rate limits. It processes photos sequentially with a small delay between requests — nothing fancy, but it won't blow through a quota or re-process on interruption.
+
+### What I'd do differently
+
+The vision model is slow. 3–5 seconds per image means batch processing is essential for any non-trivial collection. I wouldn't want to wait for real-time captioning during a chat session.
+
+AI deduplication — downloading candidate pairs and asking the vision model "are these the same photo?" — works but is expensive. The strict and loose modes (exact flickr_id matching and fuzzy title+date similarity) catch most duplicates without any AI calls. I built the AI mode because the architecture plan called for it, but in practice I haven't needed it yet.
+
+Admin tools like `update_photo` need a Cloudflare Access JWT. I grab mine from the browser cookie after logging into the admin UI, then pass it via the `CF_ACCESS_TOKEN` env var. It's a bit manual — a proper OAuth flow would be nicer, but Access JWTs work fine for personal use.
+
+Now I can ask my assistant to find duplicates, caption photos, or evaluate quality without touching a database client. One API, nine tools, and I never have to write SQL by hand again.
 
 If you're curious about the broader site rewrite that this API supports, I wrote about [migrating from Next.js to Cloudflare Workers](/writing/rewriting-my-site-with-cloudflare-workers).
