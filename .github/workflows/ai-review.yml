@@ -92,7 +92,7 @@ jobs:
               --arg system "$SYSTEM_PROMPT" \
               --arg diff "$DIFF" \
               '{
-                model: "claude-3-5-haiku-20241022",
+                model: "claude-3-5-haiku-latest",
                 max_tokens: 4096,
                 system: $system,
                 messages: [{role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}]
