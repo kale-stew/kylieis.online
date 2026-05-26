@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+concurrency:
+  group: ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   review:
     runs-on: ubuntu-latest
@@ -15,55 +19,212 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: get diff
+      - name: get diff and context
+        id: context
         run: |
+          # get the diff, excluding lock files and generated content
           git diff origin/${{ github.base_ref }}...HEAD -- . \
-            ':(exclude)package-lock.json' ':(exclude)pnpm-lock.yaml' \
-            ':(exclude)*.lock' > /tmp/diff.txt
-          echo "diff size: $(wc -c < /tmp/diff.txt) bytes"
+            ':(exclude)package-lock.json' \
+            ':(exclude)pnpm-lock.yaml' \
+            ':(exclude)*.lock' \
+            ':(exclude)static/og/*' \
+            ':(exclude).next/*' \
+            > /tmp/diff.txt
 
-      - name: review
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          if [ -n "$OPENAI_API_KEY" ]; then
-            echo "using openai"
-            DIFF=$(head -c 16000 /tmp/diff.txt)
-            jq -n --arg diff "$DIFF" '{
-              model: "gpt-4o",
-              messages: [
-                {role: "system", content: "Review this pull request diff. Check for bugs, security issues, and adherence to conventions. Be concise. Output as bullet points. If nothing to flag, say looks good."},
-                {role: "user", content: $diff}
-              ]
-            }' | curl -s https://api.openai.com/v1/chat/completions \
-              -H "Authorization: Bearer $OPENAI_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d @- | jq -r '.choices[0].message.content' > /tmp/review.md
-          elif [ -n "$ANTHROPIC_API_KEY" ]; then
-            echo "using anthropic"
-            DIFF=$(head -c 16000 /tmp/diff.txt)
-            jq -n --arg diff "$DIFF" '{
-              model: "claude-sonnet-4-20250514",
-              max_tokens: 4096,
-              system: "Review this pull request diff. Check for bugs, security issues, and adherence to conventions. Be concise. Output as bullet points. If nothing to flag, say looks good.",
-              messages: [{role: "user", content: $diff}]
-            }' | curl -s https://api.anthropic.com/v1/messages \
-              -H "x-api-key: $ANTHROPIC_API_KEY" \
-              -H "anthropic-version: 2023-06-01" \
-              -H "Content-Type: application/json" \
-              -d @- | jq -r '.content[0].text' > /tmp/review.md
+          DIFF_SIZE=$(wc -c < /tmp/diff.txt)
+          echo "diff size: $DIFF_SIZE bytes"
+          echo "diff_size=$DIFF_SIZE" >> "$GITHUB_OUTPUT"
+
+          # extract AGENTS.md for project context (if it exists)
+          if [ -f AGENTS.md ]; then
+            head -c 4000 AGENTS.md > /tmp/agents.txt
+            echo "agents_exists=true" >> "$GITHUB_OUTPUT"
           else
-            echo "no api key configured"
-            touch /tmp/review.md
+            touch /tmp/agents.txt
+            echo "agents_exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: post review
+      - name: review with ai
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          if [ -s /tmp/review.md ]; then
-            gh pr review ${{ github.event.pull_request.number }} \
-              --repo ${{ github.repository }} \
-              --comment --body-file /tmp/review.md
+          set -e
+
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
+            echo "::warning::No AI API key configured. Set ANTHROPIC_API_KEY or OPENAI_API_KEY in repo secrets."
+            echo "review_status=skipped" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          if [ "${{ steps.context.outputs.diff_size }}" -lt 100 ]; then
+            echo "diff too small to review"
+            echo "review_status=skipped" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          AGENTS_CONTEXT=""
+          if [ "${{ steps.context.outputs.agents_exists }}" = "true" ]; then
+            AGENTS_CONTEXT=$(cat /tmp/agents.txt)
+          fi
+
+          # 60k chars for diff to leave room for prompt
+          DIFF=$(head -c 60000 /tmp/diff.txt)
+
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            echo "using anthropic claude-haiku-4-5 (fast + cheap)"
+
+            SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
+
+          Review this pull request diff and output your review in this exact format:
+
+          ### 📋 Summary
+          One sentence summary of what this PR does.
+
+          ### 🚨 Critical Issues
+          List any bugs, security vulnerabilities, or breaking changes. If none, write \"None found.\"
+
+          ### ⚠️ Warnings  
+          List any performance concerns, potential edge cases, or code smells. If none, write \"None found.\"
+
+          ### 💡 Suggestions
+          List any style improvements, refactoring ideas, or minor nits. If none, write \"None found.\"
+
+          ### ✅ What Looks Good
+          Brief note on what's done well (1-2 sentences max).
+
+          Be concise. Use bullet points within each section.
+
+          PROJECT CONVENTIONS:
+          $AGENTS_CONTEXT"
+
+            RESPONSE=$(jq -n \
+              --arg system "$SYSTEM_PROMPT" \
+              --arg diff "$DIFF" \
+              '{
+                model: "claude-haiku-4-5",
+                max_tokens: 4096,
+                system: $system,
+                messages: [{role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}]
+              }' | curl -s -w "\n%{http_code}" https://api.anthropic.com/v1/messages \
+                -H "x-api-key: $ANTHROPIC_API_KEY" \
+                -H "anthropic-version: 2023-06-01" \
+                -H "Content-Type: application/json" \
+                -d @-)
+
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            BODY=$(echo "$RESPONSE" | sed '$d')
+
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::error::Anthropic API returned $HTTP_CODE"
+              echo "$BODY" | jq -r '.error.message // .' || echo "$BODY"
+              echo "review_status=error" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
+
+            echo "$BODY" | jq -r '.content[0].text // "No response"' > /tmp/review.md
+
+          elif [ -n "$OPENAI_API_KEY" ]; then
+            echo "using openai gpt-4o-mini (fast + cheap)"
+
+            SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
+
+          Review this pull request diff and output your review in this exact format:
+
+          ### 📋 Summary
+          One sentence summary of what this PR does.
+
+          ### 🚨 Critical Issues
+          List any bugs, security vulnerabilities, or breaking changes. If none, write \"None found.\"
+
+          ### ⚠️ Warnings  
+          List any performance concerns, potential edge cases, or code smells. If none, write \"None found.\"
+
+          ### 💡 Suggestions
+          List any style improvements, refactoring ideas, or minor nits. If none, write \"None found.\"
+
+          ### ✅ What Looks Good
+          Brief note on what's done well (1-2 sentences max).
+
+          Be concise. Use bullet points within each section.
+
+          PROJECT CONVENTIONS:
+          $AGENTS_CONTEXT"
+
+            RESPONSE=$(jq -n \
+              --arg system "$SYSTEM_PROMPT" \
+              --arg diff "$DIFF" \
+              '{
+                model: "gpt-4o-mini",
+                messages: [
+                  {role: "system", content: $system},
+                  {role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}
+                ]
+              }' | curl -s -w "\n%{http_code}" https://api.openai.com/v1/chat/completions \
+                -H "Authorization: Bearer $OPENAI_API_KEY" \
+                -H "Content-Type: application/json" \
+                -d @-)
+
+            HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+            BODY=$(echo "$RESPONSE" | sed '$d')
+
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::error::OpenAI API returned $HTTP_CODE"
+              echo "$BODY" | jq -r '.error.message // .' || echo "$BODY"
+              echo "review_status=error" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
+
+            echo "$BODY" | jq -r '.choices[0].message.content // "No response"' > /tmp/review.md
+          fi
+
+          if [ -s /tmp/review.md ]; then
+            echo "review_status=success" >> "$GITHUB_OUTPUT"
+            echo "--- review output ---"
+            cat /tmp/review.md
+          else
+            echo "review_status=empty" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: post or update comment
+        if: steps.review.outputs.review_status == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
+        run: |
+          REVIEW_CONTENT=$(cat /tmp/review.md)
+          SHORT_SHA=$(echo "${{ github.event.pull_request.head.sha }}" | cut -c1-7)
+
+          cat > /tmp/comment.md << EOF
+          <!-- ai-review -->
+          ## 🤖 ai review
+
+          <sup>reviewing \`${SHORT_SHA}\` · powered by claude-haiku-4-5</sup>
+
+          ---
+
+          $REVIEW_CONTENT
+
+          ---
+          <sub>🔄 this comment updates automatically on each push</sub>
+          EOF
+
+          # find existing ai-review comment
+          EXISTING_COMMENT=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
+            --jq '.[] | select(.body | contains("<!-- ai-review -->")) | .id' | head -1 || true)
+
+          if [ -n "$EXISTING_COMMENT" ]; then
+            echo "updating existing comment $EXISTING_COMMENT"
+            gh api \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT" \
+              -f body="$(cat /tmp/comment.md)"
+          else
+            echo "creating new comment"
+            gh pr comment ${{ github.event.pull_request.number }} \
+              --repo ${{ github.repository }} \
+              --body-file /tmp/comment.md
+          fi

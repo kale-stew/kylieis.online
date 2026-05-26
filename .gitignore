@@ -4,3 +4,4 @@ static/
 dist/
 playwright-report/
 test-results/
+.env

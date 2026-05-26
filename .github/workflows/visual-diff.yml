@@ -1,0 +1,138 @@
+name: visual diff
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_run:
+    workflows: ["deploy preview"]
+    types: [completed]
+
+concurrency:
+  group: visual-diff-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  ACCOUNT_ID: bb52c0e5f3a93fc72779915d7dc6982b
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run == null || github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: get preview url
+        id: url
+        run: |
+          # TODO: for workflow_run trigger, fetch dynamic URL from deploy-preview artifacts
+          # for now, use the static preview URL (works for PR trigger)
+          echo "url=https://kylieis-online-preview.kylieski.workers.dev" >> "$GITHUB_OUTPUT"
+
+      - name: screenshot key pages
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_BROWSER_RENDERING_TOKEN }}
+        run: |
+          mkdir -p screenshots
+          URL="${{ steps.url.outputs.url }}"
+          FAILED=0
+
+          pages=(
+            "/:home"
+            "/blog:blog"
+            "/about:about"
+            "/now:now"
+            "/photos:photos"
+          )
+
+          for page in "${pages[@]}"; do
+            path="${page%%:*}"
+            name="${page##*:}"
+            echo "screenshotting $URL$path → $name.png"
+            
+            HTTP_CODE=$(curl -s -X POST \
+              "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/browser-rendering/screenshot" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"url\": \"${URL}${path}\",
+                \"gotoOptions\": {\"waitUntil\": \"networkidle0\"},
+                \"screenshotOptions\": {\"fullPage\": true, \"type\": \"png\"}
+              }" \
+              --output "screenshots/${name}.png" \
+              --write-out "%{http_code}" \
+              -L)
+            
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::warning::Screenshot failed for $path (HTTP $HTTP_CODE)"
+              FAILED=$((FAILED + 1))
+            else
+              echo "✓ $name.png captured"
+            fi
+          done
+
+          ls -la screenshots/
+          
+          if [ "$FAILED" -eq "${#pages[@]}" ]; then
+            echo "::error::All screenshots failed"
+            exit 1
+          fi
+
+      - name: upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-pr-${{ github.event.pull_request.number || github.run_id }}
+          path: screenshots/*.png
+          retention-days: 30
+
+      - name: post or update comment
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          # count successful screenshots
+          CAPTURED=$(ls -1 screenshots/*.png 2>/dev/null | wc -l | tr -d ' ')
+          
+          cat > /tmp/comment.md << EOF
+          <!-- visual-diff -->
+          ## 📸 visual diff
+
+          <sup>preview deployment screenshots · captured ${CAPTURED} pages</sup>
+
+          ---
+
+          | page | route |
+          |------|-------|
+          | 🏠 home | \`/\` |
+          | 📝 blog | \`/blog\` |
+          | 👤 about | \`/about\` |
+          | 📍 now | \`/now\` |
+          | 🖼️ photos | \`/photos\` |
+
+          **📦 [download screenshots](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+
+          ---
+          <sub>🔄 screenshots update on each push · [view workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})</sub>
+          EOF
+
+          # find existing visual-diff comment
+          EXISTING_COMMENT=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/issues/${PR}/comments" \
+            --jq '.[] | select(.body | contains("<!-- visual-diff -->")) | .id' | head -1 || true)
+
+          if [ -n "$EXISTING_COMMENT" ]; then
+            echo "updating existing comment $EXISTING_COMMENT"
+            gh api \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT" \
+              -f body="$(cat /tmp/comment.md)"
+          else
+            echo "creating new comment"
+            gh pr comment "$PR" --repo ${{ github.repository }} --body-file /tmp/comment.md
+          fi
