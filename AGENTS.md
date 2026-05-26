@@ -25,7 +25,47 @@ key decisions:
 - unit: vitest (pure functions, helpers)
 - integration: vitest-pool-workers (worker routes, d1 queries)
 - e2e: playwright against wrangler dev
-- ci visual diff: browser rendering api in github actions
+- ci visual diff: cloudflare browser rendering api in github actions
+
+## browser automation
+
+### local agent use (agent-browser)
+
+for ai agents to interact with deployments locally:
+
+```bash
+agent-browser open https://kylieis.online
+agent-browser snapshot -i
+agent-browser screenshot --full ./home.png
+agent-browser close
+```
+
+skill file: `~/.config/opencode/skills/agent-browser/SKILL.md`
+
+security defaults (optional):
+```bash
+export AGENT_BROWSER_CONTENT_BOUNDARIES=1
+export AGENT_BROWSER_MAX_OUTPUT=50000
+export AGENT_BROWSER_ALLOWED_DOMAINS="kylieis.online,*.kylieis.online"
+```
+
+### ci visual diff (browser rendering api)
+
+workflow: `.github/workflows/visual-diff.yml`
+
+on every PR, screenshots are captured for key pages:
+- home (`/`)
+- blog (`/blog`)
+- about (`/about`)
+- now (`/now`)
+- photos (`/photos`)
+
+screenshots are uploaded as artifacts and linked in PR comments.
+
+**required secret**: `CLOUDFLARE_BROWSER_RENDERING_TOKEN`
+- create at: cloudflare dashboard → my profile → api tokens
+- permissions: browser rendering - edit
+- add to repo: settings → secrets → actions
 
 ## branches
 
