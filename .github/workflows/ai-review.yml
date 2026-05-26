@@ -73,17 +73,28 @@ jobs:
           DIFF=$(head -c 60000 /tmp/diff.txt)
 
           if [ -n "$ANTHROPIC_API_KEY" ]; then
-            echo "using anthropic claude-3-5-haiku (fast + cheap)"
+            echo "using anthropic claude-3-haiku (fast + cheap)"
 
             SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
 
-          Review this pull request diff. Check for:
-          - Bugs and logic errors
-          - Security issues
-          - Performance problems
-          - Adherence to project conventions
+          Review this pull request diff and output your review in this exact format:
 
-          Be concise. Use bullet points. If nothing significant to flag, say \"Looks good\" with a brief summary of changes.
+          ### 📋 Summary
+          One sentence summary of what this PR does.
+
+          ### 🚨 Critical Issues
+          List any bugs, security vulnerabilities, or breaking changes. If none, write \"None found.\"
+
+          ### ⚠️ Warnings  
+          List any performance concerns, potential edge cases, or code smells. If none, write \"None found.\"
+
+          ### 💡 Suggestions
+          List any style improvements, refactoring ideas, or minor nits. If none, write \"None found.\"
+
+          ### ✅ What Looks Good
+          Brief note on what's done well (1-2 sentences max).
+
+          Be concise. Use bullet points within each section.
 
           PROJECT CONVENTIONS:
           $AGENTS_CONTEXT"
@@ -92,7 +103,7 @@ jobs:
               --arg system "$SYSTEM_PROMPT" \
               --arg diff "$DIFF" \
               '{
-                model: "claude-3-5-haiku-latest",
+                model: "claude-3-haiku-20240307",
                 max_tokens: 4096,
                 system: $system,
                 messages: [{role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}]
@@ -119,13 +130,24 @@ jobs:
 
             SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
 
-          Review this pull request diff. Check for:
-          - Bugs and logic errors
-          - Security issues
-          - Performance problems
-          - Adherence to project conventions
+          Review this pull request diff and output your review in this exact format:
 
-          Be concise. Use bullet points. If nothing significant to flag, say \"Looks good\" with a brief summary of changes.
+          ### 📋 Summary
+          One sentence summary of what this PR does.
+
+          ### 🚨 Critical Issues
+          List any bugs, security vulnerabilities, or breaking changes. If none, write \"None found.\"
+
+          ### ⚠️ Warnings  
+          List any performance concerns, potential edge cases, or code smells. If none, write \"None found.\"
+
+          ### 💡 Suggestions
+          List any style improvements, refactoring ideas, or minor nits. If none, write \"None found.\"
+
+          ### ✅ What Looks Good
+          Brief note on what's done well (1-2 sentences max).
+
+          Be concise. Use bullet points within each section.
 
           PROJECT CONVENTIONS:
           $AGENTS_CONTEXT"
@@ -171,16 +193,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           REVIEW_CONTENT=$(cat /tmp/review.md)
+          SHORT_SHA=$(echo "${{ github.event.pull_request.head.sha }}" | cut -c1-7)
 
           cat > /tmp/comment.md << EOF
           <!-- ai-review -->
-          ## ai review
+          ## 🤖 ai review
 
-          *automated review of \`${{ github.event.pull_request.head.sha }}\`*
+          <sup>reviewing \`${SHORT_SHA}\` · powered by claude-3-haiku</sup>
 
           ---
 
           $REVIEW_CONTENT
+
+          ---
+          <sub>🔄 this comment updates automatically on each push</sub>
           EOF
 
           # find existing ai-review comment
