@@ -28,12 +28,9 @@ jobs:
       - name: get preview url
         id: url
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "url=https://kylieis-online-preview.kylieski.workers.dev" >> "$GITHUB_OUTPUT"
-          else
-            # get url from deploy-preview workflow artifacts
-            echo "url=https://kylieis-online-preview.kylieski.workers.dev" >> "$GITHUB_OUTPUT"
-          fi
+          # TODO: for workflow_run trigger, fetch dynamic URL from deploy-preview artifacts
+          # for now, use the static preview URL (works for PR trigger)
+          echo "url=https://kylieis-online-preview.kylieski.workers.dev" >> "$GITHUB_OUTPUT"
 
       - name: screenshot key pages
         env:
@@ -41,6 +38,7 @@ jobs:
         run: |
           mkdir -p screenshots
           URL="${{ steps.url.outputs.url }}"
+          FAILED=0
 
           pages=(
             "/:home"
@@ -54,7 +52,8 @@ jobs:
             path="${page%%:*}"
             name="${page##*:}"
             echo "screenshotting $URL$path → $name.png"
-            curl -s -X POST \
+            
+            HTTP_CODE=$(curl -s -X POST \
               "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/browser-rendering/screenshot" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
@@ -65,11 +64,23 @@ jobs:
                 \"screenshotOptions\": {\"fullPage\": true, \"type\": \"png\"}
               }" \
               --output "screenshots/${name}.png" \
-              --write-out "%{http_code}\n" \
-              -L
+              --write-out "%{http_code}" \
+              -L)
+            
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::warning::Screenshot failed for $path (HTTP $HTTP_CODE)"
+              FAILED=$((FAILED + 1))
+            else
+              echo "✓ $name.png captured"
+            fi
           done
 
           ls -la screenshots/
+          
+          if [ "$FAILED" -eq "${#pages[@]}" ]; then
+            echo "::error::All screenshots failed"
+            exit 1
+          fi
 
       - name: upload screenshots
         uses: actions/upload-artifact@v4
