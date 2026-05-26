@@ -58,7 +58,12 @@ jobs:
               "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/browser-rendering/screenshot" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
-              -d "{\"url\":\"${URL}${path}\",\"screenshotOptions\":{\"fullPage\":true,\"type\":\"png\"}}" \
+              -d "{
+                \"url\": \"${URL}${path}\",
+                \"viewport\": {\"width\": 1440, \"height\": 900},
+                \"waitUntil\": \"networkIdle\",
+                \"screenshotOptions\": {\"fullPage\": true, \"type\": \"png\"}
+              }" \
               --output "screenshots/${name}.png" \
               --write-out "%{http_code}\n" \
               -L

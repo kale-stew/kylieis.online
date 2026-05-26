@@ -73,7 +73,7 @@ jobs:
           DIFF=$(head -c 60000 /tmp/diff.txt)
 
           if [ -n "$ANTHROPIC_API_KEY" ]; then
-            echo "using anthropic claude-sonnet-4-20250514"
+            echo "using anthropic claude-3-5-haiku (fast + cheap)"
 
             SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
 
@@ -92,7 +92,7 @@ jobs:
               --arg system "$SYSTEM_PROMPT" \
               --arg diff "$DIFF" \
               '{
-                model: "claude-sonnet-4-20250514",
+                model: "claude-3-5-haiku-20241022",
                 max_tokens: 4096,
                 system: $system,
                 messages: [{role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}]
@@ -115,7 +115,7 @@ jobs:
             echo "$BODY" | jq -r '.content[0].text // "No response"' > /tmp/review.md
 
           elif [ -n "$OPENAI_API_KEY" ]; then
-            echo "using openai gpt-4o"
+            echo "using openai gpt-4o-mini (fast + cheap)"
 
             SYSTEM_PROMPT="You are a code reviewer for a Cloudflare Workers project.
 
@@ -134,7 +134,7 @@ jobs:
               --arg system "$SYSTEM_PROMPT" \
               --arg diff "$DIFF" \
               '{
-                model: "gpt-4o",
+                model: "gpt-4o-mini",
                 messages: [
                   {role: "system", content: $system},
                   {role: "user", content: ("Review this diff:\n\n```diff\n" + $diff + "\n```")}
