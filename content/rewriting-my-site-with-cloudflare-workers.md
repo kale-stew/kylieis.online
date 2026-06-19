@@ -7,7 +7,7 @@ description: 'Migrating from Next.js on Vercel to a hybrid static + edge-rendere
 
 My site has been running on Next.js and Vercel since 2021. It was a fine setup - ISR for blog pages, Notion as a headless CMS, static generation for everything else. But I've been working at Cloudflare for over a year now, and I wanted to eat my own dogfood. More importantly, I wanted something simpler.
 
-## The Old Setup
+## My old setup
 
 The previous version was a relatively standard Next.js app:
 
@@ -23,7 +23,7 @@ It worked. But there were things that bugged me:
 - CSS modules added unnecessary abstraction for a mostly-static site
 - I wanted to move the stack entirely to Cloudflare
 
-## The New Stack
+## My new stack
 
 The rewrite is built on:
 
@@ -35,7 +35,7 @@ The rewrite is built on:
 - **Playwright** - headless browser for OG image generation at build time
 - **hono-og** - runtime JSX-to-image for dynamic OG images on the edge
 
-### Hybrid Rendering
+### Hybrid rendering
 
 The site uses a hybrid approach. Most pages are built at deploy time by a build script, which renders each page via the same Hono JSX components and writes the HTML to a `static/` directory. These are served as static assets by Cloudflare Workers with no runtime overhead.
 
@@ -61,7 +61,7 @@ Four routes stay dynamic and run on the edge:
 
 The rest - writing index, individual blog posts, speaking index, talk pages, projects, about, and 404 - are all static HTML.
 
-### D1 for Structured Data
+### D1 for structured data
 
 Instead of Next.js data files, structured content lives in D1:
 
@@ -139,7 +139,7 @@ presentedAt:
 
 The build script generates both the speaking index and individual talk pages from the same markdown files.
 
-### OG Images: Build Time + Runtime
+### OG images: build time vs runtime
 
 The old setup used resoc templates. The new one uses Playwright to render HTML screenshots during the build:
 
@@ -200,7 +200,7 @@ const stmt = c.env.DB.prepare(
 
 It's not fuzzy search, but for a personal blog with a few dozen posts, `LIKE` is fast enough and requires zero infrastructure. The key insight: don't over-engineer search until you actually need to.
 
-### Talks & Speaking
+### Talks & speaking
 
 I wanted a proper speaking section, not just a list of links. Each talk gets its own markdown file with full presentation metadata - where it was presented, event type (conference vs meetup), location, date, and recording URL if one exists.
 
@@ -208,7 +208,7 @@ The build script generates both the speaking index (`/speaking`) and individual 
 
 This is one of those content types that doesn't fit a standard blog post model. Keeping it in markdown with a structured frontmatter schema let me avoid a CMS entirely.
 
-### Draft Previews with Cloudflare Access
+### Draft previews with Cloudflare Access
 
 Every PR gets its own preview deployment. But I also wanted a way to write and preview blog posts without opening a PR.
 
@@ -223,7 +223,7 @@ Branches with a `blog/` or `post/` prefix trigger a separate workflow:
 
 These draft previews are protected by [Cloudflare Access](https://www.cloudflare.com/zero-trust/products/access/), so only I can see them. The preview database is completely separate from production, so draft posts never leak to the live site.
 
-### UI Details
+### UI details
 
 The site has a few interactive touches that I wasn't sure would work without a client-side framework. Turns out vanilla JS is fine for this.
 
@@ -236,13 +236,13 @@ The site has a few interactive touches that I wasn't sure would work without a c
 </script>
 ```
 
-**Photo gallery & lightbox** — The homepage and about page have photo grids. Clicking a photo opens a modal with the full image, caption, and location. Arrow keys navigate between photos, escape closes the modal. All vanilla JS, no framework.
+**Photo gallery & lightbox** — The homepage and about page have photo grids powered by a [self-hosted photo API](/writing/from-flickr-to-r2). Clicking a photo opens a modal with the full image, caption, and location. Arrow keys navigate between photos, escape closes the modal. All vanilla JS, no framework.
 
 **Mobile nav** — A hamburger menu with proper `aria-expanded` toggling. Clicking a link closes the menu automatically.
 
 **Dynamic homepage** — The hero title uses a random display font on every load (Monoton, Glitch, Nabla, Silkscreen, etc.), pulled from Google Fonts. There's a rotating tagline and a refresh button that reloads the page to reshuffle everything. The card grid mixes recent posts, featured projects, and random photos in a fixed slot pattern.
 
-### AI Code Review
+### AI code review
 
 I added a GitHub Actions workflow that runs on every PR, sends the diff to OpenAI or Anthropic, and posts the review as a PR comment. It checks for bugs, security issues, and adherence to conventions.
 
@@ -263,7 +263,7 @@ I added a GitHub Actions workflow that runs on every PR, sends the diff to OpenA
 
 It's not a replacement for human review, but it's caught a few issues I missed. The tricky part is keeping the diff under the token limit — I cap it at 16KB and truncate if needed.
 
-## What I'd Do Differently
+## What I'd do differently
 
 **D1 schema design early.** I initially had posts, now entries, talks, and projects all planned out. I should have committed to the migration orders sooner - adding `projects` as a hardcoded TypeScript array was a shortcut I'll need to revisit.
 
@@ -273,13 +273,13 @@ It's not a replacement for human review, but it's caught a few issues I missed. 
 
 **I should have put projects in D1 from day one.** The hardcoded `PROJECTS` array in `content.ts` works, but it means I can't update projects without a deploy. D1 would have been the right call.
 
-## TL;DR
+## tl;dr
 
 The site is simpler now. A Hono app that builds static HTML at deploy time, serves dynamic routes from the edge via D1, and doesn't depend on any external CMS or framework. Deployment is a single [`wrangler deploy`](https://developers.cloudflare.com/workers/wrangler/commands/deploy/) command. Would recommend.
 
-## What We Shipped
+## What I used
 
-A complete list of everything that went into the rewrite:
+If you're building something similar, here's the full inventory:
 
 - **Hono** for routing and JSX templating
 - **[Cloudflare Workers](https://workers.cloudflare.com)** as the runtime

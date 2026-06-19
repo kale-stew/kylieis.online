@@ -5,9 +5,9 @@ category: 'typescript'
 description: 'A look under the hood at Node.js module resolution and why understanding it matters for debugging import issues.'
 ---
 
-I've been debugging module resolution issues at work and finally sat down to understand how `require()` actually works. Turns out it's more interesting than I expected.
+I've been debugging module resolution issues at work and finally sat down to understand how `require()` actually works. Turns out, it's far more interesting than I expected.
 
-## The Resolution Algorithm
+## The resolution algorithm
 
 When you call `require('foo')`, Node runs through this sequence:
 
@@ -15,7 +15,7 @@ When you call `require('foo')`, Node runs through this sequence:
 2. **Does it start with `/`, `./`, or `../`?** - treat it as a file path
 3. **Otherwise** - search `node_modules` directories
 
-## File Resolution
+## File resolution
 
 For relative paths, Node tries these extensions in order:
 
@@ -26,7 +26,7 @@ For relative paths, Node tries these extensions in order:
 
 If `foo` is a directory with a `package.json`, Node reads the `main` field to find the entry point.
 
-## The node_modules Search
+## The node_modules search
 
 For bare specifiers like `require('lodash')`, Node walks up the directory tree:
 
@@ -41,7 +41,7 @@ For bare specifiers like `require('lodash')`, Node walks up the directory tree:
 
 It stops at the first match. This is why you can have different versions of the same package at different levels of your project.
 
-## The Module Cache
+## The module cache
 
 Every module is cached after first load:
 
@@ -52,7 +52,7 @@ require('./foo') // returns cached exports, doesn't re-execute
 
 You can inspect the cache at `require.cache` and even delete entries to force a reload. Useful for hot reloading in dev.
 
-## Circular Dependencies
+## Circular dependencies
 
 Node handles circular requires by returning a *partial* export object:
 
