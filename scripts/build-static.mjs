@@ -41,18 +41,25 @@ function copyDir(src, dest) {
 async function refreshProfilePhoto() {
   const url = `https://unavatar.io/x/${METADATA.xHandle}?fallback=false`
   const dest = path.join(OUT_DIR, METADATA.profilePhoto)
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
-    const type = res.headers.get('content-type') ?? ''
-    const bytes = Buffer.from(await res.arrayBuffer())
-    if (!res.ok || !type.startsWith('image/') || bytes.length < 1024) {
-      throw new Error(`HTTP ${res.status}, ${type || 'no content-type'}, ${bytes.length} bytes`)
+  let lastError
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
+      const type = res.headers.get('content-type') ?? ''
+      const bytes = Buffer.from(await res.arrayBuffer())
+      if (!res.ok || !type.startsWith('image/') || bytes.length < 1024) {
+        throw new Error(`HTTP ${res.status}, ${type || 'no content-type'}, ${bytes.length} bytes`)
+      }
+      fs.writeFileSync(dest, bytes)
+      console.log(`  refreshed profile photo from X (@${METADATA.xHandle})`)
+      return
+    } catch (err) {
+      lastError = err
     }
-    fs.writeFileSync(dest, bytes)
-    console.log(`  refreshed profile photo from X (@${METADATA.xHandle})`)
-  } catch (err) {
-    console.warn(`  could not refresh profile photo from X, keeping committed copy: ${err.message}`)
   }
+  const msg = `could not refresh profile photo from X (@${METADATA.xHandle}), keeping committed copy: ${lastError.message}`
+  // annotate the CI run so a stale photo is visible without failing the deploy
+  console.warn(process.env.GITHUB_ACTIONS ? `::warning::${msg}` : `  ${msg}`)
 }
 
 async function main() {
