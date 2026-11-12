@@ -93,9 +93,17 @@ async function main() {
       category: data.category || 'uncategorized',
       date: data.date || '',
       type: 'blog',
+      draft: data.draft === true,
       content,
     }
-  }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  })
+    // posts marked `draft: true` are only rendered in draft builds (DRAFT=1)
+    .filter((p) => {
+      if (!p.draft || process.env.DRAFT) return true
+      console.log(`  skipping draft post: ${p.id}`)
+      return false
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const talks = []
   if (fs.existsSync(TALKS_DIR)) {

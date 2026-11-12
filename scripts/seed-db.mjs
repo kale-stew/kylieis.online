@@ -20,7 +20,8 @@ const posts = blogFiles.map((f) => {
     category: data.category ?? 'general',
     date: data.date ?? new Date().toISOString().split('T')[0],
     type: 'blog',
-    tags: null,
+    tags: data.tags ?? null,
+    draft: data.draft === true,
     content,
   }
 })
@@ -50,17 +51,20 @@ if (existsSync(talksDir)) {
 // Generate SQL insert statements
 const esc = (s) => (s ?? '').replace(/'/g, "''")
 
-// DRAFT env var is set by draft/preview workflows to mark posts as draft
-const isDraft = process.env.DRAFT ? 1 : 0
+// DRAFT env var is set by draft/preview workflows to mark ALL posts as draft.
+// Otherwise, a post is draft iff its frontmatter says `draft: true`.
+const envDraft = process.env.DRAFT ? 1 : 0
 
 const blogInserts = posts.map((p) => {
-  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, draft) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', NULL, '${esc(p.content)}', ${isDraft});`
+  const draftFlag = envDraft || (p.draft ? 1 : 0)
+  const tags = p.tags ? `'${esc(p.tags)}'` : 'NULL'
+  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, draft) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', ${tags}, '${esc(p.content)}', ${draftFlag});`
 })
 
 const talkInserts = talks.map((t) => {
   const presentedAt = JSON.stringify(t.presentedAt)
-  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${isDraft});`
+  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${envDraft});`
 })
 
 console.log([...blogInserts, ...talkInserts].join('\n'))
-console.error(`Generated ${blogInserts.length} blog posts and ${talkInserts.length} talks (${isDraft ? 'draft' : 'production'} mode)`)
+console.error(`Generated ${blogInserts.length} blog posts and ${talkInserts.length} talks (${envDraft ? 'all-draft' : 'production'} mode)`)
