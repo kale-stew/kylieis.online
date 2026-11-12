@@ -1,5 +1,5 @@
 ---
-title: 'Why Our 43KB Skill Files Are Rotting'
+title: 'Why our 43KB skill files are rotting'
 date: '2026-04-22'
 category: 'ai,agents'
 description: 'Why structured skill files are breaking down at scale, and what I think we should do about it.'
@@ -9,7 +9,7 @@ I'm on a small team building Cloudflare Agent, the platform's agentic harness. W
 
 The approach we landed on early (structured skills and recipes contributed by product teams) seemed right. Each product team owns their domain knowledge: they write the troubleshooting guides, update in response to quirks and edge cases. In theory, this scales horizontally as the company grows. In practice, it really doesn't.
 
-## The Current Setup
+## The current setup
 
 Skills are structured Markdown files that are co-located with the agent, contributed by product teams.
 
@@ -34,21 +34,21 @@ Our DNS skill is ~10KB. The Registrar skill is ~43KB - 4.3x larger with complex 
 
 This is knowledge that doesn't belong in public docs, but is crucial for correct agent behavior. Support learned this through ticket mitigation; it's the kind of thing that turns a confused user into a successful one. The problem is keeping it current.
 
-## Why It's Breaking Down
+## Why it's breaking down
 
 Three things broke.
 
-### The Evals Requirement
+### The evals requirement
 
 Teams are expected to validate skill changes before shipping: understand the product _and_ potential agent failure modes, write test cases in [Braintrust](https://braintrust.dev/) that verify correct behavior, actively maintain these as products evolve. Most teams don't have experience writing evals, and the tooling has a steep learning curve. This requirement becomes a barrier to entry.
 
 Our [R2](https://developers.cloudflare.com/r2/) skill contains 39 distinct troubleshooting recipes. Each requires understanding of both S3 API standards _and_ Cloudflare-specific quirks. Maintaining test coverage for edge cases like "presigned URLs cannot be used with custom domains" requires deep product expertise that team bandwidth rarely allows.
 
-### The Maintenance Burden
+### The maintenance burden
 
 Skills reflect point-in-time product state. Without clear, ongoing ownership, a product's refund policies could change. Edge cases accumulate, skills silently become outdated. Larger skills require more frequent updates and deeper expertise, but being co-located with the agent means changes go through our release process. Product teams don't control that cadence. They can't iterate independently.
 
-### The Categorization Problem
+### Our categorization problem
 
 Where does knowledge belong?
 
@@ -62,7 +62,7 @@ Where does knowledge belong?
 
 When uncertain, teams typically default to adding everything into skill files, which leads to bloat with mixed content types. And honestly, I don't blame them - the categorization is genuinely hard.
 
-## What I Think We Should Do
+## What I think we should do
 
 ### Vectorize + Artifacts
 
@@ -74,11 +74,11 @@ Artifacts is built for the era of agents: Git-compatible storage, tens of millio
 
 The key insight: decouple contribution from deployment. A product team shouldn't need to understand our release process to fix an outdated troubleshooting guide or react to a negative user experience. Eventually, these artifacts could ship to user-facing MCPs that directly benefit developer workflows - the same knowledge that powers internal support could power external tooling.
 
-### What About Sub-Agents?
+### What about sub-agents?
 
 We're likely to add sub-agents for dedicated product domains - specialized agents owning their domain, with focused context, contained tools, potentially different models for different complexity levels. But sub-agents alone don't solve knowledge maintenance. Each sub-agent still needs maintained knowledge; the contribution bottleneck moves rather than disappearing. Sub-agents combine well with a Vectorize-backed knowledge layer, but they're solving different problems: isolation, model selection, tool scoping. Not "how do we keep 43KB of Registrar knowledge current."
 
-### What I Considered and Rejected
+### What I considered and rejected
 
 **AutoRAG for internal content.** Extend our developer docs RAG pattern to internal skills and runbooks. The problem: current skills use structured XML-like tags, and chunking could break semantic relationships - splitting sequential recipe steps, separating rules from their context. The structure matters.
 
@@ -86,7 +86,7 @@ We're likely to add sub-agents for dedicated product domains - specialized agent
 
 **Expand developer docs scope.** Include non-sensitive operational guidance in public docs, forcing explicit categorization. Doesn't solve truly internal knowledge (Salesforce workflows requiring support employee involvement), and it's still subject to the same maintenance bottlenecks developer docs already suffer from.
 
-## What I'd Do Differently
+## What I'd do differently
 
 If we were starting from scratch, I'd push to separate the knowledge layer from day one. Skills as code made sense when we had five of them. With 30+, the coupling is the problem.
 

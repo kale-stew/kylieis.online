@@ -1,5 +1,5 @@
 ---
-title: 'How I Use Notion as a Personal Wiki'
+title: 'How I use Notion as a personal wiki'
 date: '2019-09-26'
 category: 'notion'
 ---
@@ -22,7 +22,7 @@ I like to keep a card view of my week in sight, but I find myself mostly alterna
 
 _What one of my weeks looks like, with its applied filters._
 
-### Relational Databases
+### Relational databases
 
 A prime example of a relational database I derive from this Primary Schedule is the view I link to within my **The Great Outdoors** page, which is filtered using a defined `Category` of "Hiking":
 
@@ -50,7 +50,7 @@ _A look at my simple to-do list._
 
 The **Backlog** is where I typically throw items I want to look into within the next few weeks, but aren't a pressing priority. **Doing** is where the higher priority items typically land, things I believe I can accomplish that day or week. **Done** only exists as a point of pride; it's nice to see all those checked-off items populating the far right column at the end of a long week. I always end up deleting the completed tasks, but it's nice to bask in your accomplishments for a day or two beforehand (I used to maintain an Archive, but I never revisited it).
 
-## In Conclusion
+## In conclusion
 
 By looking at The Weeks and Tasks Ahead this way, I manage to track most of the things I need to do in my personal life within a week. Hopefully you can get some use out of a similar approach!
 
@@ -59,7 +59,5 @@ By looking at The Weeks and Tasks Ahead this way, I manage to track most of the 
 For inspiration or duplication:
 
 - [Sample Basecamp](https://notiondenver.notion.site/Basecamp-125f4a44fdc044779824269c4cd5ddf8)
-
 - [The Week Ahead (a.k.a. **Primary Schedule**)](https://notiondenver.notion.site/0de5c8318a944e39a7bb9ba0942269ea?v=70ccd14075c44c48bed9878451b5f4da)
-
 - [The Great Outdoors](https://notiondenver.notion.site/The-Great-Outdoors-e12974b53ac440bd9733549640996fac)
