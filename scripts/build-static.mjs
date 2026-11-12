@@ -9,7 +9,7 @@ import { AboutPage } from '../src/pages/AboutPage.js'
 import { BlogPostPage } from '../src/pages/BlogPostPage.js'
 import { NotFoundPage } from '../src/pages/NotFoundPage.js'
 import { ProjectsPage } from '../src/pages/ProjectsPage.js'
-import { PROJECTS, PHOTOS } from '../src/content.js'
+import { PROJECTS, PHOTOS, METADATA } from '../src/content.js'
 import { generateOgImages } from './generate-og-images.mjs'
 import { getPhotos } from '../src/lib/photos-api.js'
 
@@ -33,6 +33,28 @@ function copyDir(src, dest) {
   }
 }
 
+/**
+ * Pull the current X avatar into static/ so the about page always serves a
+ * local file. Hotlinked pbs.twimg.com URLs 404 as soon as the avatar changes.
+ * On any failure the committed public/ copy (already copied) is kept.
+ */
+async function refreshProfilePhoto() {
+  const url = `https://unavatar.io/x/${METADATA.xHandle}?fallback=false`
+  const dest = path.join(OUT_DIR, METADATA.profilePhoto)
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
+    const type = res.headers.get('content-type') ?? ''
+    const bytes = Buffer.from(await res.arrayBuffer())
+    if (!res.ok || !type.startsWith('image/') || bytes.length < 1024) {
+      throw new Error(`HTTP ${res.status}, ${type || 'no content-type'}, ${bytes.length} bytes`)
+    }
+    fs.writeFileSync(dest, bytes)
+    console.log(`  refreshed profile photo from X (@${METADATA.xHandle})`)
+  } catch (err) {
+    console.warn(`  could not refresh profile photo from X, keeping committed copy: ${err.message}`)
+  }
+}
+
 async function main() {
   console.log('Building static site...')
   fs.mkdirSync(OUT_DIR, { recursive: true })
@@ -49,6 +71,8 @@ async function main() {
   // Copy public assets (favicon, og images, etc.)
   copyDir(path.join(ROOT, 'public'), OUT_DIR)
   console.log('  copied public/ -> static/')
+
+  await refreshProfilePhoto()
 
   // Copy styles
   copyDir(path.join(ROOT, 'styles'), path.join(OUT_DIR, 'styles'))

@@ -56,7 +56,10 @@ export const METADATA = {
   fullName: 'Kylie Czajkowski',
   firstName: 'Kylie',
   siteName: 'kylieis.online',
-  profilePhoto: 'https://pbs.twimg.com/profile_images/2058684479225610241/5SP70J78_400x400.jpg',
+  // Served from the site. scripts/build-static.mjs refreshes it from the X
+  // avatar of `xHandle` on every build; public/images/profile.jpg is the fallback.
+  profilePhoto: '/images/profile.jpg',
+  xHandle: 'kyliestew',
 }
 
 export const PROJECTS: Project[] = [
