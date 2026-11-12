@@ -13,7 +13,8 @@
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
-    "test:e2e": "playwright test tests/e2e"
+    "test:e2e": "playwright test tests/e2e",
+    "screenshots": "node scripts/screenshot-pages.mjs"
   },
   "dependencies": {
     "date-fns": "^4.1.0",

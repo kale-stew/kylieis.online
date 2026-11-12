@@ -25,7 +25,8 @@ key decisions:
 - unit: vitest (pure functions, helpers)
 - integration: vitest-pool-workers (worker routes, d1 queries)
 - e2e: playwright against wrangler dev
-- ci visual diff: browser rendering api in github actions
+- ci visual diff: `.github/workflows/visual-diff.yml` builds the PR, runs it under `wrangler dev` with a locally seeded d1, and screenshots key pages with playwright (`scripts/screenshot-pages.mjs`, desktop + mobile). screenshots are a workflow artifact linked from a sticky PR comment. it never targets deployed previews (those sit behind cloudflare access) and skips `blog/*` and `post/*` branches, since artifacts on this public repo are downloadable by any signed-in github user
+- `npm run screenshots` does the same against a local `npm run dev`
 
 ## branches
 
