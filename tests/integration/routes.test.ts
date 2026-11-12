@@ -54,6 +54,37 @@ describe('api routes', () => {
   })
 })
 
+describe('now routes', () => {
+  it('shows an empty state when there are no entries', async () => {
+    const res = await SELF.fetch('http://localhost/now')
+    expect(res.status).toBe(200)
+    expect(await res.text()).toContain('No updates yet')
+  })
+
+  it('shows the latest entry at /now and older ones at /now/:date', async () => {
+    await env.DB.prepare(
+      "INSERT INTO now_entries (date, location, read) VALUES ('2022-03-31', 'Georgetown', 'Newest book'), ('2020-01-05', 'Denver', 'Older book')"
+    ).run()
+
+    const latest = await (await SELF.fetch('http://localhost/now')).text()
+    expect(latest).toContain('Newest book')
+    expect(latest).toContain('href="/now/2020-01-05"')
+    expect(latest).toContain('aria-current="page">Thursday, March 31, 2022')
+
+    const older = await SELF.fetch('http://localhost/now/2020-01-05')
+    expect(older.status).toBe(200)
+    const olderText = await older.text()
+    expect(olderText).toContain('Older book')
+    expect(olderText).toContain('An older entry')
+    expect(olderText).toContain('<link rel="canonical" href="https://kylieis.online/now/2020-01-05"')
+  })
+
+  it('404s for a date with no entry', async () => {
+    const res = await SELF.fetch('http://localhost/now/2099-01-01')
+    expect(res.status).toBe(404)
+  })
+})
+
 describe('dynamic routes', () => {
   it('search page renders html', async () => {
     const res = await SELF.fetch('http://localhost/search')

@@ -18,7 +18,7 @@ key decisions:
 - search: workers-based search with d1 (like query)
 - og images: pre-generate at build time
 - styles: port emotion/css modules to plain css, keep globals.css and theme vars as-is
-- now entries: local cli script for creation
+- now entries: `content/now.json` is the source of truth (newest first), seeded into d1 `now_entries` on every deploy. add one with `npm run now:new`; past entries live at `/now/YYYY-MM-DD`
 
 ## testing
 

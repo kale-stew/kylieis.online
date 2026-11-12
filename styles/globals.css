@@ -1108,6 +1108,30 @@ footer {
   margin-bottom: var(--space-xs);
 }
 
+.now-archive-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.now-archive {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.now-archive a {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+
+.now-archive a[aria-current='page'] {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
 /* === Profile Photo === */
 .profile-photo {
   display: flex;

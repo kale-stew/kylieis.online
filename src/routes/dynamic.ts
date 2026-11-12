@@ -1,7 +1,7 @@
-import { Hono } from 'hono'
+import { Hono, type Context } from 'hono'
 import type { Env } from '../env'
 import { HomePage } from '../pages/HomePage'
-import { NowPage } from '../pages/NowPage'
+import { NowPage, type NowEntry } from '../pages/NowPage'
 import { SearchPage } from '../pages/SearchPage'
 import { getFeaturedProjects } from '../content'
 
@@ -31,51 +31,26 @@ app.get('/', async (c) => {
   )
 })
 
-app.get('/now', async (c) => {
-  const latest = await c.env.DB.prepare(
-    'SELECT date, location, celebrate, read, travel, learn, watch, listen, work FROM now_entries ORDER BY date DESC LIMIT 1'
-  ).first<{
-    date: string
-    location: string | null
-    celebrate: string | null
-    read: string | null
-    travel: string | null
-    learn: string | null
-    watch: string | null
-    listen: string | null
-    work: string | null
-  }>()
+const NOW_COLUMNS = 'date, location, celebrate, read, travel, learn, watch, listen, work'
+
+async function renderNow(c: Context<{ Bindings: Env }>, date?: string) {
+  const entry = date
+    ? await c.env.DB.prepare(`SELECT ${NOW_COLUMNS} FROM now_entries WHERE date = ? LIMIT 1`).bind(date).first<NowEntry>()
+    : await c.env.DB.prepare(`SELECT ${NOW_COLUMNS} FROM now_entries ORDER BY date DESC LIMIT 1`).first<NowEntry>()
+
+  // unknown date: let the assets binding serve the site's 404 page
+  if (date && !entry) return c.env.ASSETS.fetch(c.req.raw)
 
   const { results: allEntries } = await c.env.DB.prepare(
     'SELECT date FROM now_entries ORDER BY date DESC'
   ).all<{ date: string }>()
 
-  if (!latest) {
-    // No entries yet — show empty state
-    return c.html(
-      NowPage({
-        entry: {
-          date: new Date().toISOString().split('T')[0],
-          location: null,
-          celebrate: null,
-          read: null,
-          travel: null,
-          learn: null,
-          watch: null,
-          listen: null,
-          work: 'Setting up this page...',
-        },
-        allEntries: [],
-      }).toString(),
-      200
-    )
-  }
+  return c.html(NowPage({ entry, allEntries: allEntries ?? [] }).toString(), 200)
+}
 
-  return c.html(
-    NowPage({ entry: latest, allEntries }).toString(),
-    200
-  )
-})
+app.get('/now', (c) => renderNow(c))
+
+app.get('/now/:date{[0-9]{4}-[0-9]{2}-[0-9]{2}}', (c) => renderNow(c, c.req.param('date')))
 
 app.get('/search', async (c) => {
   const query = c.req.query('q')
