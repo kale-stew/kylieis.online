@@ -29,7 +29,7 @@ describe('api routes', () => {
   it('search returns empty results with no query', async () => {
     const res = await SELF.fetch('http://localhost/api/search')
     expect(res.status).toBe(200)
-    const body = await res.json()
+    const body = await res.json<{ results: unknown[] }>()
     expect(body.results).toEqual([])
   })
 
@@ -39,7 +39,7 @@ describe('api routes', () => {
 
     const res = await SELF.fetch('http://localhost/api/search?q=workers')
     expect(res.status).toBe(200)
-    const body = await res.json()
+    const body = await res.json<{ results: { id: string }[] }>()
     expect(body.results.length).toBe(2)
     const ids = body.results.map((r) => r.id)
     expect(ids).toContain('test-post')
@@ -49,7 +49,7 @@ describe('api routes', () => {
   it('search returns no results for unknown term', async () => {
     const res = await SELF.fetch('http://localhost/api/search?q=zzzznotfound')
     expect(res.status).toBe(200)
-    const body = await res.json()
+    const body = await res.json<{ results: unknown[] }>()
     expect(body.results).toEqual([])
   })
 })

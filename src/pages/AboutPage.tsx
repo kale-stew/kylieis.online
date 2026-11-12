@@ -25,7 +25,8 @@ function renderTimelineEntry(entry: TimelineEntry) {
 }
 
 interface AboutPageProps {
-  photos?: ApiPhoto[]
+  /** photos-api results, plus hardcoded content photos merged in by build-static */
+  photos?: Array<ApiPhoto | Photo>
 }
 
 export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
@@ -33,7 +34,7 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
   // Handles both API format (with .id) and hardcoded format (with .src)
   const photosFromApi: Photo[] = (apiPhotos ?? []).map((p) => {
     // If already has src (hardcoded format), use directly
-    if ('src' in p && p.src) {
+    if ('src' in p) {
       return {
         src: p.src,
         srcset: p.srcset,

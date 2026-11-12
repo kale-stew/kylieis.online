@@ -1,4 +1,4 @@
-import { html } from 'hono/html'
+import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import { PostMeta } from '../components/PostMeta'
 import { renderMarkdown } from '../lib/markdown'
@@ -72,7 +72,7 @@ export function TalkPage({ talk }: { talk: TalkPost }) {
 
               <hr class="divider" />
 
-              ${html([htmlContent])}
+              ${raw(htmlContent)}
             </article>
             <hr class="divider" />
             <p class="text-center">
