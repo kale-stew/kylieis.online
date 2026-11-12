@@ -6,7 +6,7 @@ beforeAll(async () => {
     {
       name: '0001_initial_schema',
       queries: [
-        `create table if not exists posts (id text primary key, title text not null, description text, category text not null, date text not null, type text not null default 'blog', tags text, content text)`,
+        `create table if not exists posts (id text primary key, title text not null, description text, category text not null, date text not null, type text not null default 'blog', tags text, content text, draft integer default 0)`,
       ],
     },
     {
