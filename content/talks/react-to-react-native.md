@@ -15,38 +15,33 @@ presentedAt:
     location: 'Denver, CO'
 ---
 
-"If I already know React, how hard could it be to learn React Native?" is a question I've heard a lot as a React consultant. This talk aims to answer it honestly.
+As a React consultant, I've been asked "how hard would it be to take our React app and build it in React Native?" more than a few times. The short answer is "harder than you might think," and this talk walks through the four big issues that come up when you take your React source and try to rewrite it in React Native.
 
-## What Transfers
+## Challenge One: Syntax
 
-The good news - a lot transfers:
-- Component model and JSX
-- State management (useState, useReducer, Redux, etc.)
-- Hooks and lifecycle concepts
-- Most of your JavaScript/TypeScript knowledge
+The first obstacle is the very different API React Native uses to tap into native functionality across the huge range of phones out there. When you think of mobile development, you might think Android vs. iOS, which is certainly one of the biggest divides. But then consider all the flavors of Android, or the lifetime of iPhones still in people's pockets, with different screen sizes and physical capabilities. The volume button on an iPhone XR might be reachable with one command, but not on an iPhone 6s. React Native bridges these native bindings for you, but your existing React app hasn't had to think about these corner cases. Adding that coverage often takes more time than starting fresh would.
 
-## What's Different
+## Challenge Two: Styling
 
-The challenging parts:
-- **No DOM** - div, span, p become View, Text
-- **Styling** - Flexbox by default, no CSS cascade
-- **Navigation** - React Navigation vs React Router
-- **Platform differences** - iOS and Android have different conventions
-- **Native modules** - Sometimes you need to bridge to native code
+There's no DOM to handle your stylesheet. You're working with inline styles, and the wide variety of CSS-in-JS libraries can be daunting for a team with little experience (or preference) here. Each solution is differently opinionated, and rolling one out across a large team can be a headache.
 
-## Do You Even Need Native?
+## Challenge Three: Navigation
 
-Before diving into React Native, consider:
-- **PWA** - Progressive Web Apps cover many use cases
-- **Capacitor/Ionic** - Web views with native capabilities
-- **Expo** - Managed React Native without native code
+Without an in-browser router to lean on, navigation brings you right back to cross-platform functionality. Tab and drawer navigation are the two patterns thoroughly supported across devices, which can force a team into decisions they wouldn't otherwise care to make.
 
-## The Verdict
+## Challenge Four: Environment
 
-React Native is learnable for React developers, but it's not "just React." Budget time for:
-- Learning the component primitives
-- Understanding the build/deploy pipeline
-- Platform-specific debugging
-- Performance optimization (it's different from web)
+Handling secrets can be finicky, especially depending on where you deploy. People have been known to unpack a deployed app build to discover planned features or secrets hidden in plain sight. Not to mention app store compliance, which is notoriously tricky to both achieve and maintain.
 
-The talk includes demos of common gotchas and how to solve them.
+## In Conclusion
+
+With those four challenges in mind, I've found that clients usually don't need a native app at all. PWA techniques, or wrapping an existing web app in a native shell (Capacitor, for example), can be a better option for teams that don't rely on native phone features like biometrics or encryption. A bank should build a native app; an online shop doesn't necessarily need to.
+
+## Looking Ahead
+
+React Native is open source, so you can follow its public roadmap to see whether a bug you care about has been prioritized, or what features are coming. If you want to get started, I'd recommend [the docs](https://reactnative.dev/docs/getting-started): they're comprehensive and highlight the differences between the two frameworks well.
+
+## Slides
+
+- [Live slides](https://kale-stew.github.io/react-native-slides/)
+- [Exported PDF](https://github.com/kale-stew/all-talks/blob/main/content/2019/react-to-react-native/final.pdf)

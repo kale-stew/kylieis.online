@@ -2,7 +2,7 @@
 title: 'Evolution of an API: A Case for GraphQL'
 date: '2019-09-20'
 category: 'graphql'
-description: 'Looking at the history of best practices for API development and the timeline that got us to where we are today.'
+description: 'Following API development from the early 2000s to today, and making a case for GraphQL along the way.'
 presentedAt:
   - eventDate: '2019-09-20'
     eventName: 'UtahJS'
@@ -11,9 +11,11 @@ presentedAt:
     location: 'Salt Lake City, UT'
 ---
 
-APIs have evolved significantly over the decades. This talk traces that evolution and makes the case for why GraphQL represents the next step forward.
+In this talk, I follow API development over the years, along with the fundamentals of GraphQL, all while making a case for using it.
 
-## A Brief History
+## The History
+
+APIs pre-date the web, and even personal computing. But the story I wanted to tell starts in 2000, when eBay launched its developer program, and moves through del.icio.us's dead-simple tag URLs (2003), the founding of ProgrammableWeb (2005), and the SOAP vs. REST years. Along the way, the APIs that succeeded (Amazon S3, Google Maps, Foursquare, Twilio) had two things in common: they scaled, and they delivered meaningful services.
 
 ### RPC (1980s-1990s)
 Remote Procedure Calls - tightly coupled, language-specific protocols.
@@ -27,19 +29,18 @@ Resource-oriented, HTTP-native, simpler than SOAP but with its own challenges:
 - Multiple round trips for related data
 - Versioning headaches
 
-### GraphQL (2015-Present)
-- Client specifies exactly what data it needs
-- Single endpoint, single request
-- Strongly typed schema
-- Introspection built-in
+## Now: GraphQL
 
-## Why GraphQL Now?
+The pros that matter most:
 
-The shift to mobile and the proliferation of client types made REST's limitations more apparent:
-- Mobile apps need minimal data transfer
-- Different clients need different data shapes
-- Real-time requirements are increasing
+- The client specifies exactly what it needs
+- It's easier to aggregate data from multiple sources
+- Types define your data
 
-## Getting Started
+From there, the talk introduces resolvers and walks through getting started with a [sample GraphQL server](https://github.com/kale-stew/sample-server).
 
-The talk concludes with practical advice for adopting GraphQL incrementally alongside existing REST APIs.
+For a clear guide to what's actually happening under the hood of a query, GraphQL's [documentation on execution](https://graphql.org/learn/execution/) is a great, thorough walkthrough.
+
+## Slides
+
+- [Exported PDF](https://github.com/kale-stew/all-talks/blob/main/content/2019/evolution-of-an-api/final.pdf)

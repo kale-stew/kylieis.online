@@ -12,47 +12,32 @@ presentedAt:
     location: 'Los Angeles, CA'
 ---
 
-Machine learning doesn't have to mean Python and Jupyter notebooks. This talk explores how to build ML-powered CLI tools using Node.js.
+Machine learning is everywhere, but how easy is it to get started? Could your small project benefit from some simple ML? In this talk, I cover the very basics of artificial intelligence, plus a Python-free approach to big data, basic algorithms, and how easy all of this is to implement in your average shopping cart with a single Node.js file.
 
-## Why CLI?
+## Agenda
 
-- **Scriptable** - Integrate into existing workflows
-- **Fast iteration** - No UI to build
-- **Composable** - Unix philosophy, pipe data between tools
-- **Accessible** - Every developer has a terminal
+- What is machine learning? ("The ability to learn without being explicitly programmed," per Arthur Samuel)
+- Some machine learning types: supervised, unsupervised, and reinforcement learning (via Markov decision processes)
+- The bias-variance tradeoff, deep learning then vs. now, and artificial vs. convolutional neural networks
+- What are the advantages of using JavaScript for ML?
+- Demos!
 
-## Tools and Libraries
+## Demos
 
-### TensorFlow.js
-Run TensorFlow models in Node.js:
-```javascript
-const tf = require('@tensorflow/tfjs-node')
-const model = await tf.loadLayersModel('file://./model/model.json')
-```
+Each demo lives in its own repo:
 
-### Natural
-NLP toolkit for Node:
-```javascript
-const natural = require('natural')
-const tokenizer = new natural.WordTokenizer()
-tokenizer.tokenize("This is a sentence")
-```
+1. [personal-parody-bot](https://github.com/kale-stew/personal-parody-bot): your own personal parody Twitter bot
+2. [finish-my-thought-bot](https://github.com/kale-stew/finish-my-thought-bot)
+3. [smart-shopping-cart](https://github.com/kale-stew/smart-shopping-cart)
 
-### Brain.js
-Simple neural networks:
-```javascript
-const brain = require('brain.js')
-const net = new brain.NeuralNetwork()
-net.train([{ input: [0, 0], output: [0] }])
-```
+Shoutout to [TensorFlow.js](https://www.tensorflow.org/js) and [Synaptic](https://github.com/cazala/synaptic), which made these possible.
 
-## Demo Projects
+## Further Reading
 
-The talk walks through building:
-1. A sentiment analysis CLI
-2. A text classifier for categorizing input
-3. An image recognition tool using pre-trained models
+- [Machine Learning for Web Developers](https://www.robinwieruch.de/machine-learning-javascript-web-developers/) by Robin Wieruch
+- [Machine Learning in Other Languages](http://burakkanber.com/blog/machine-learning-in-other-languages-introduction/) by Burak Kanber
 
-## Getting Started
+## Slides
 
-All demo code is available on GitHub with step-by-step instructions.
+- [Live slides](https://kale-stew.github.io/ml-on-the-cl)
+- [Exported PDF](https://github.com/kale-stew/ml-on-the-cl/blob/master/final.pdf)
