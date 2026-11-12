@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
+import { CategoryTags } from '../components/PostMeta'
 
 export interface TalkListItem {
   id: string
@@ -34,12 +35,12 @@ export function SpeakingPage({ talks }: { talks: TalkListItem[] }) {
                 <h3><a href="/speaking/${talk.id}">${talk.title}</a></h3>
                 <p>${talk.description}</p>
                 <div class="meta">
-                  <span class="tag">${talk.category}</span>
+                  ${CategoryTags({ category: talk.category })}
                   ${talk.presentedAt.length > 0
-                    ? html`<span class="tag">${talk.presentedAt[0].eventName}</span>`
+                    ? html`<span class="tag tag-type">${talk.presentedAt[0].eventName}</span>`
                     : ''
                   }
-                  ${talk.date}
+                  <span class="meta-date">${talk.date}</span>
                 </div>
               </article>
             `)}

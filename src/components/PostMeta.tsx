@@ -7,7 +7,15 @@ interface PostMetaProps {
 
 /** Splits comma-separated category string into trimmed array */
 export function splitCategories(category: string): string[] {
-  return category.split(',').map((c) => c.trim())
+  return category
+    .split(',')
+    .map((c) => c.trim())
+    .filter(Boolean)
+}
+
+/** Category pills for cards and lists: one `#tag` per comma-separated category. */
+export function CategoryTags({ category }: { category: string }) {
+  return html`${splitCategories(category).map((cat) => html`<span class="tag">#${cat}</span>`)}`
 }
 
 /**

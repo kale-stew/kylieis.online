@@ -1,5 +1,5 @@
 import { html, raw } from 'hono/html'
-import { Layout, Nav, Footer } from '../components/Layout'
+import { Layout, Nav, Footer, jsonForScript } from '../components/Layout'
 import { METADATA, SOCIAL_LINKS, SOCIAL_ICONS, PERSONAL_TIMELINE, PHOTOS, TimelineEntry, TimelineMilestone, Photo } from '../content'
 import { getPhotoUrl, getPhotoSrcset, type Photo as ApiPhoto } from '../lib/photos-api'
 
@@ -73,7 +73,7 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
               <h1>About</h1>
             </div>
             <div class="profile-photo">
-              <img src="${METADATA.profilePhoto}" alt="${METADATA.fullName}" />
+              <img src="${METADATA.profilePhoto}" alt="${METADATA.fullName}" width="140" height="140" />
             </div>
             <p class="text-center">
               ${METADATA.firstName} leads the Agent Experience team at Cloudflare, building the developer experience for AI agents on the Workers platform. Outside of work, she's a mountaineer who has been above 4,267 meters (14,000 feet) more than 109 times.
@@ -90,23 +90,24 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
             ${PERSONAL_TIMELINE.map((entry) => renderTimelineEntry(entry))}
             <hr class="divider" />
             <h2 class="text-center" id="photos">photos</h2>
-            <div class="photo-grid">
+            <div class="photo-grid" id="photo-grid">
+              <span class="photo-grid-midpoint" aria-hidden="true"></span>
               ${allPhotos.map((photo) => html`
                 <div>
+                  <button type="button" class="photo-tile" onclick="openPhotoModalFromEl(this.querySelector('img'))" aria-label="View photo: ${photo.alt || photo.location}">
                   <img 
                     src="${photo.src}" 
                     ${raw(photo.srcset ? `srcset="${photo.srcset}"` : '')}
                     sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 400px"
                     alt="${photo.alt}" 
                     loading="lazy" 
-                    onclick="openPhotoModalFromEl(this)" 
-                    style="cursor: pointer;" 
                     data-photo-src="${photo.src}" 
                     data-photo-alt="${photo.alt}" 
                     data-photo-location="${photo.location}" 
                     data-photo-date="${photo.date}"
                     ${raw(photo.blurhash ? `data-blurhash="${photo.blurhash}"` : '')}
                   />
+                  </button>
                    <p class="photo-label">${photo.location}${photo.location && photo.date ? ' · ' : ''}${photo.date.split('-')[0]}</p>
                 </div>
               `)}
@@ -114,8 +115,31 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
           </div>
         </div>
       </main>
+      <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+      </button>
       <script>
-        window.photoModalPhotos = ${JSON.stringify(allPhotos)};
+        window.photoModalPhotos = ${jsonForScript(allPhotos)};
+
+        // Show "back to top" once the middle of the photo grid has scrolled into view
+        (function() {
+          var btn = document.getElementById('back-to-top');
+          var midpoint = document.querySelector('.photo-grid-midpoint');
+          if (!btn || !midpoint || !('IntersectionObserver' in window)) return;
+          btn.hidden = false;
+          new IntersectionObserver(function(entries) {
+            var e = entries[0];
+            var past = e.isIntersecting || e.boundingClientRect.top < 0;
+            btn.classList.toggle('visible', past);
+            btn.tabIndex = past ? 0 : -1;
+          }).observe(midpoint);
+          btn.addEventListener('click', function() {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+            var heading = document.querySelector('main h1');
+            if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+          });
+        })();
       </script>
       ${Footer()}
     `,
