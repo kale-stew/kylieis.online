@@ -89,6 +89,10 @@ jobs:
 
           # 60k chars for diff to leave room for prompt
           head -c 60000 /tmp/diff.txt > /tmp/diff-trimmed.txt
+          if [ "${{ steps.context.outputs.diff_size }}" -gt 60000 ]; then
+            echo "::warning::diff is ${{ steps.context.outputs.diff_size }} bytes; only the first 60000 were reviewed"
+            echo "truncated=true" >> "$GITHUB_OUTPUT"
+          fi
 
           # small, cheap models: this runs on every push to every PR
           if [ -n "$ANTHROPIC_API_KEY" ]; then
@@ -149,12 +153,15 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           MODEL: ${{ steps.review.outputs.model }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          TRUNCATED: ${{ steps.review.outputs.truncated }}
         run: |
+          NOTE=""
+          [ "$TRUNCATED" = "true" ] && NOTE=" · ⚠️ diff truncated to 60k chars"
           {
             echo "<!-- ai-review -->"
             echo "## 🤖 ai review"
             echo
-            echo "<sup>reviewing \`${HEAD_SHA:0:7}\` · powered by ${MODEL}</sup>"
+            echo "<sup>reviewing \`${HEAD_SHA:0:7}\` · powered by ${MODEL}${NOTE}</sup>"
             echo
             echo "---"
             echo
