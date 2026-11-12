@@ -9,6 +9,7 @@
   ],
   "workers_dev": true,
   "assets": {
+    "binding": "ASSETS",
     "directory": "./static",
     "not_found_handling": "404-page",
     "html_handling": "drop-trailing-slash",
