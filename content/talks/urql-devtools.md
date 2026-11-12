@@ -1,6 +1,6 @@
 ---
-title: 'Demystifying urql Using the Dev Tools'
-date: '2020-07-16'
+title: 'Demystifying urql using the dev tools'
+date: '2020-05-26'
 category: 'graphql'
 description: 'Taking a closer look at the urql browser dev tools and using them to better understand urql as a GraphQL client.'
 presentedAt:
@@ -15,32 +15,45 @@ presentedAt:
     location: 'virtual'
 ---
 
-urql is a highly customizable and versatile GraphQL client. This talk explores how to use the urql dev tools to better understand what's happening under the hood.
+In this talk, I give a high-level overview of urql's features before diving into how to explore those features using the urql DevTools browser extension. (Full disclosure: urql is built by Formidable, where I worked at the time.)
 
-## Why urql?
+## What Is urql?
 
-urql offers a balance between simplicity and power:
-- Smaller bundle size than Apollo Client
-- Highly extensible exchange system
-- First-class React hooks support
-- Normalized caching (optional)
+urql (Universal React Query Language) is a lightweight GraphQL client for the frontend. Why I like it:
 
-## The Dev Tools
+- It's extremely customizable
+- It has a simple default cache
+- It's small (around 6.5kb min+gzip at the time)
+- Exchanges!
 
-The urql dev tools browser extension gives you visibility into:
-- **Operations** - See every query, mutation, and subscription
-- **Cache** - Inspect the normalized cache state
-- **Exchanges** - Understand how data flows through the exchange pipeline
-- **Timeline** - Debug the sequence of events
+## The DevTools
 
-## Key Insights
+The [urql DevTools](https://github.com/urql-graphql/urql-devtools) extension gives you:
 
-Using the dev tools, you can:
-1. Debug why a query isn't updating
-2. Understand cache invalidation
-3. Optimize your exchange pipeline
-4. Identify unnecessary network requests
+- 🔎 Cache exploration
+- 🚀 A way to trigger requests directly from the client
+- 🌐 A place to test your queries in the browser
 
-## Demo
+Setup is two steps. Install the package:
 
-The talk includes a live demo walking through common debugging scenarios using the dev tools.
+```sh
+yarn add @urql/devtools
+```
+
+Then add the exchange to your urql client:
+
+```js
+import { createClient, defaultExchanges } from 'urql'
+import { devtoolsExchange } from '@urql/devtools'
+
+const client = createClient({
+  url: 'http://localhost:3001/graphql',
+  exchanges: [devtoolsExchange, ...defaultExchanges],
+})
+```
+
+## Further Reading
+
+- [How to GraphQL: React + urql](https://www.howtographql.com/react-urql/1-getting-started/), a step-by-step tutorial by two of urql's lead developers
+- The [urql docs](https://formidable.com/open-source/urql/docs), with an FAQ, API reference, and overview of the basic concepts
+- [Exploring urql from an Apollo perspective](https://blog.logrocket.com/exploring-urql-from-an-apollo-perspective/) by Peter Nycander

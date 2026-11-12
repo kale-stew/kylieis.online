@@ -1,5 +1,5 @@
 ---
-title: 'Building an Internal Resource Library in Notion'
+title: 'Building an internal resource library in Notion'
 date: '2022-03-06'
 category: 'notion'
 description: 'Using Notion to codify internal systems as a living knowledge base at scale.'
@@ -9,7 +9,7 @@ While Notion is already known to be handy for personal task management, it can b
 
 I have been asked by a few teams to codify their shared knowledge base in the form of an internal resource library, documented in Notion. The following is a closer look at one of those cases.
 
-## Previous State
+## Previous state
 
 Before moving to Notion, this company had all of their documents in various locations. Google Drive, Evernote, Dropbox, and even some exported PDFs saved to their personal slack spaces all needed to be codified and organized in a way that would be navigable to new hires and the old guard alike.
 
@@ -17,11 +17,11 @@ Many of this team’s PDFs were constantly evolving, so we had to compare some v
 
 Another benefit to this new strategy would be company-wide accessibility. With the prior scattered approach of hosting documents in various clouds, individual proactivity was required to ensure each new hire had access to old documents. On occasion, someone would make a small change and save it to their own drive, and no other user of that document would have a way to know about it. Organization-wide information parity would improve if it all lived in Notion.
 
-## New State
+## New format
 
 We built a comprehensive wiki: documenting every crumb of company-related information that had been found across those clouds into one central repository, now accessible to anyone with a company email address. The following are a few of the more important subsections of that information.
 
-### Company Culture
+### Company culture
 
 A key subsection to this particular company’s internal wiki covered company culture. This included custom slack emojis, nicknames, a glossary of company-specific terms (essentially a dictionary of inside jokes), as well as employee handbook information. I was asked to document sometimes silly definitions alongside very serious legal jargon, but found this easily achieved through Notion’s flexible architecture.
 
@@ -31,11 +31,11 @@ We found ourselves with 5 primary sub-sections for the Company Culture header: *
 
 “Never Stop Learning” was an important page to define for this company in particular, as they had a strong emphasis on the continuing of education for developers in this space. Everything from identifying worthwhile conferences to attend, to sharing internal codes that would allow a fellow employee free access to an online education tool was documented. We wound up building a living database of events that the consultancy would be sponsoring or attending that the individuals at the company could contribute to any time. As an international company, this was a fairly large task: making sure the properties were cohesive across the board and that a user could filter by location, or even hemisphere, for events of interest.
 
-#### Monitoring Document Access
+#### Monitoring document access
 
 Many of these company culture documents were to remain living and therefor editable by individuals of all levels within the company. It shouldn’t just be executives allowed to change these culture documents, new hires to mid-levels to engineering managers should all be able to make valuable changes as they see fit. This was an interesting challenge to confront, as most organizations prefer to make their content fixed and more difficult to modify. We ran the risk of allowing lesser-experienced users to accidentally move an important informational block just by scrolling through the page if they didn’t fully understand the software this was all documented within. We would end up unlocking the databases themselves but keeping the pages they were displayed in locked, so users could modify the tables but not move informative blocks around.
 
-### Developer Strategies
+### Developer strategies
 
 As a developer-focused company with more than 97% of its staff being dedicated independent contributors, codifying the developer strategies was an important goal of this project. **Code Conventions**, **OSS Library Review**, and **Open Sourcing your Project** were three primary headers defined in this section.
 
@@ -43,7 +43,7 @@ The OSS (open-sourced software) library review was one of the most interesting d
 
 Other pages within this section were a little more standard to develop, as a Notion consultant: the document outlining how to open-source your project told a developer where to begin if they wanted to create a large-scale OSS, and how they might be able to transition it to the consultancy’s umbrella of software if they were interested in broader support. The code conventions guide also needed to be constantly evolving, and this company chose to circle back to it in a quarterly all-hands meeting to ensure they were also reconsidering their biases.
 
-### Sales Strategies
+### Sales strategies
 
 Although there were only two sales-specific employees at this company, they sought to certify that no knowledge would be lost between them and any future addition to the intimate team. As sales strategies were established and then documented, some specific sub-sections began to arise. Sales-specific headers catalogued included **Approaching a Client**, **Sealing the Deal**, and **Long-Term Relationships**.
 
@@ -51,6 +51,6 @@ Each of these sub-sections would guide a new or existing sales team member throu
 
 As some questions began to resurface, this team went back through their Sales page’s history and codified some of the Frequently Asked Questions in their own synced block. Now, each sub-section would have its related questions, which also linked back to a primary list of FAQs. We began to use this practice in other specified sections of the codebase, and found it to be very helpful. This eventually involved into one large FAQs list with toggle headers for each smaller, more focused section of questions and answers, which is now a practice I’ve implemented with more than three other clients’ large, living knowledge bases.
 
-## In Summary
+## In summary
 
 In my past year as a Solutions Engineer, building out internal systems in Notion and other cloud-based tools for larger teams, I've found that living wikis are best managed in one central repository. Be it Notion or another piece of software, organizations of all sizes can benefit from having their systems codified in one location.

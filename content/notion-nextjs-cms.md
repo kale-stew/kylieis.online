@@ -1,5 +1,5 @@
 ---
-title: 'Building a Notion-Powered CMS for My Blog'
+title: 'Building a Notion-powered CMS for my blog'
 date: '2022-01-15'
 category: 'notion'
 description: 'How I used the Notion API to turn my personal database into a headless CMS for my Next.js blog.'
@@ -7,7 +7,7 @@ description: 'How I used the Notion API to turn my personal database into a head
 
 When Notion released their public API in May 2021, I immediately saw an opportunity. I already tracked all my blog ideas in a Notion database. Why not use that database as the actual CMS?
 
-## The Setup
+## The setup
 
 My blog ideas database has a simple structure:
 
@@ -33,7 +33,7 @@ async function getPost(pageId: string) {
 }
 ```
 
-## Rendering Blocks to HTML
+## Rendering blocks to HTML
 
 The tricky part is converting Notion's block format to HTML. Each block type needs its own renderer:
 
@@ -53,7 +53,7 @@ function renderBlock(block: BlockObjectResponse): string {
 
 Rich text is its own beast. Each text span can have annotations (bold, italic, code, links) that need to be converted to HTML tags.
 
-## The Caching Problem
+## The caching problem
 
 Notion's API has rate limits, and fetching blocks for every page view would be slow. I solved this with ISR (Incremental Static Regeneration) in Next.js:
 
@@ -69,7 +69,7 @@ export async function getStaticProps({ params }) {
 
 For development, I cache responses locally so I'm not constantly hitting the API.
 
-## What I'd Do Differently
+## What I'd do differently
 
 **Block rendering is tedious.** I ended up handling 15+ block types, each with edge cases. Libraries like `notion-to-md` or the `@notionhq/client` helpers would have saved time.
 
@@ -77,7 +77,7 @@ For development, I cache responses locally so I'm not constantly hitting the API
 
 **Nested blocks are recursive.** Toggle lists, callouts, and columns can contain child blocks. My initial flat rendering didn't handle this. Had to refactor to recursive descent.
 
-## Was It Worth It?
+## Was it worth it?
 
 Absolutely. Writing in Notion is frictionless - I already have it open all day. The API is well-designed, and the database properties give me exactly the metadata I need. The main downside is the rendering complexity, but that's a one-time cost.
 
