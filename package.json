@@ -10,6 +10,7 @@
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler deploy --env preview",
     "deploy:draft": "tsx scripts/deploy-draft.mjs",
+    "draft:pull": "tsx scripts/notion-export.mjs",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
@@ -27,8 +28,10 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.16.9",
+    "@notionhq/client": "^2.3.0",
     "@playwright/test": "^1.52.0",
     "@types/node": "^25.9.1",
+    "notion-to-md": "^3.1.9",
     "tsx": "^4.22.3",
     "typescript": "^5.8.3",
     "vitest": "^4.1.7",

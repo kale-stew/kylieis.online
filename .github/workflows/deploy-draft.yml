@@ -58,6 +58,8 @@ jobs:
 
       - name: build static assets
         run: npm run build
+        env:
+          DRAFT: 1
 
       - name: apply migrations to preview db
         uses: cloudflare/wrangler-action@v3
