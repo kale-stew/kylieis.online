@@ -9,15 +9,6 @@ export function jsonForScript(value: unknown) {
   return raw(JSON.stringify(value).replace(/</g, '\\u003c'))
 }
 
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
-
 interface LayoutProps {
   title: string
   description?: string
@@ -30,10 +21,11 @@ interface LayoutProps {
 export function Layout({ title, description, ogImage, canonicalUrl, ogType, content }: LayoutProps) {
   const ogImageUrl = ogImage ?? 'https://kylieis.online/og/home.jpg'
   const url = canonicalUrl ?? 'https://kylieis.online'
-  const safeTitle = escapeHtml(title)
-  const safeDescription = escapeHtml(description ?? '')
-  const safeUrl = escapeHtml(url)
-  const safeOgImage = escapeHtml(ogImageUrl)
+  // hono's html`` escapes interpolated strings; escaping here too double-encodes (&amp;#39;)
+  const safeTitle = title
+  const safeDescription = description ?? ''
+  const safeUrl = url
+  const safeOgImage = ogImageUrl
   const pageType = ogType ?? 'website'
 
   return html`
