@@ -1,5 +1,6 @@
 import { html, raw } from 'hono/html'
-import { Layout, Nav, Footer } from '../components/Layout'
+import { Layout, Nav, Footer, jsonForScript } from '../components/Layout'
+import { CategoryTags } from '../components/PostMeta'
 import { PHOTOS, TAGLINES, PROJECTS, type Photo } from '../content'
 import { getPhotoUrl, getPhotoSrcset, type Photo as ApiPhoto } from '../lib/photos-api'
 
@@ -18,7 +19,7 @@ interface HomePageProject {
   url: string
 }
 
-type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; tag: string }
+type ContentCard = { type: 'content'; title: string; href: string; description: string; date?: string; category?: string }
 type PhotoCard = { type: 'photo'; src: string; srcset?: string; alt: string; location: string; date: string; blurhash?: string }
 type CardItem = ContentCard | PhotoCard
 
@@ -47,14 +48,13 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
       href: p.type === 'talk' ? `/speaking/${p.id}` : `/writing/${p.id}`,
       description: p.description ?? '',
       date: p.date,
-      tag: p.category,
+      category: p.category,
     })),
     ...featuredProjects.slice(0, 1).map((p) => ({
       type: 'content' as const,
       title: p.title,
       href: p.url,
       description: p.description,
-      tag: 'project',
     })),
   ]
 
@@ -63,7 +63,6 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
     title: p.title,
     href: p.url,
     description: p.description,
-    tag: 'project',
   }))
 
   while (contentCards.length < 3 && fallbackProjects.length > 0) {
@@ -117,7 +116,7 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
             ${items.map((item) => {
               if (item.type === 'photo') {
                 return html`
-                  <div class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" style="cursor: pointer;">
+                  <button type="button" class="card card-photo" onclick="openPhotoModalFromEl(this.querySelector('img'))" aria-label="View photo: ${item.alt || item.location}">
                     <img 
                       src="${item.src}" 
                       ${raw(item.srcset ? `srcset="${item.srcset}"` : '')}
@@ -130,7 +129,7 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
                       ${raw(item.blurhash ? `data-blurhash="${item.blurhash}"` : '')}
                     />
                     <span class="photo-location">${item.location}${item.location && item.date ? ' · ' : ''}${item.date.split('-')[0]}</span>
-                  </div>
+                  </button>
                 `
               }
               return html`
@@ -138,8 +137,8 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
                   <h3><a href="${item.href}">${item.title}</a></h3>
                   <p>${item.description}</p>
                   <div class="meta">
-                    <span class="tag">${item.tag}</span>
-                    ${item.date ?? ''}
+                    ${item.category ? CategoryTags({ category: item.category }) : html`<span class="tag tag-type">project</span>`}
+                    <span class="meta-date">${item.date ?? ''}</span>
                   </div>
                 </article>
               `
@@ -148,7 +147,7 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
         </div>
       </main>
       <script>
-        window.photoModalPhotos = ${JSON.stringify(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location, date: item.date })))};
+        window.photoModalPhotos = ${jsonForScript(items.filter((item): item is PhotoCard => item.type === 'photo').map((item) => ({ src: item.src, alt: item.alt, location: item.location, date: item.date })))};
       </script>
       ${Footer()}
     `,

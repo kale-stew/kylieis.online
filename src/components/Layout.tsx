@@ -1,4 +1,13 @@
-import { html } from 'hono/html'
+import { html, raw } from 'hono/html'
+
+/**
+ * Embed a value as a JS literal inside an inline <script>. Interpolating
+ * JSON.stringify() directly gets HTML-escaped (&quot;) and breaks the script.
+ * Escaping < keeps a "</script>" inside the data from closing the tag.
+ */
+export function jsonForScript(value: unknown) {
+  return raw(JSON.stringify(value).replace(/</g, '\\u003c'))
+}
 
 function escapeHtml(str: string): string {
   return str
@@ -263,7 +272,8 @@ export function Nav() {
                 return '<a href="' + link + '" class="search-result" onclick="closeSearch()">' +
                   '<span class="search-result-title">' + escapeHtml(r.title) + '</span>' +
                   '<span class="search-result-meta">' +
-                    '<span class="tag">#' + escapeHtml(r.category) + '</span>' +
+                    String(r.category || '').split(',').map(function(c) { return c.trim(); }).filter(Boolean)
+                      .map(function(c) { return '<span class="tag">#' + escapeHtml(c) + '</span>'; }).join('') +
                     (r.date ? ' ' + r.date : '') +
                     (r.type === 'talk' ? ' <span class="tag tag-type">talk</span>' : '') +
                   '</span>' +

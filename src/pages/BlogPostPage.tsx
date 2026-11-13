@@ -1,4 +1,4 @@
-import { html } from 'hono/html'
+import { html, raw } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
 import { PostMeta } from '../components/PostMeta'
 import type { BlogPost } from '../content'
@@ -23,7 +23,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 <h1>${post.title}</h1>
                 ${PostMeta({ category: post.category, date: post.date })}
               </header>
-              ${html([htmlContent])}
+              ${raw(htmlContent)}
             </article>
             <hr class="divider" />
             <p class="text-center">

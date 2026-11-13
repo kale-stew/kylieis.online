@@ -4,7 +4,7 @@
     "module": "ES2022",
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
-    "types": ["@types/node"],
+    "types": ["@types/node", "@cloudflare/vitest-pool-workers/types"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "noEmit": true,

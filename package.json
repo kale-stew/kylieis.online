@@ -11,10 +11,12 @@
     "deploy:preview": "npm run build && wrangler deploy --env preview",
     "deploy:draft": "tsx scripts/deploy-draft.mjs",
     "draft:pull": "tsx scripts/notion-export.mjs",
+    "now:new": "node scripts/now-new.mjs",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test tests/e2e",
+    "typecheck": "tsc --noEmit -p .",
     "screenshots": "node scripts/screenshot-pages.mjs"
   },
   "dependencies": {

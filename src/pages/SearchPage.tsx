@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
+import { CategoryTags } from '../components/PostMeta'
 
 interface SearchResult {
   id: string
@@ -48,9 +49,9 @@ export function SearchPage({ query, results }: { query?: string; results?: Searc
                       <h3><a href="/${r.type === 'blog' ? 'writing' : 'speaking'}/${r.id}">${r.title}</a></h3>
                       <p>${r.description ?? ''}</p>
                       <div class="meta">
-                        <span class="tag">#${r.category}</span>
+                        ${CategoryTags({ category: r.category })}
                         ${r.type === 'talk' ? html`<span class="tag tag-type">talk</span>` : ''}
-                        ${r.date}
+                        <span class="meta-date">${r.date}</span>
                       </div>
                     </article>
                   `)}

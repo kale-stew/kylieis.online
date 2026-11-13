@@ -66,5 +66,29 @@ const talkInserts = talks.map((t) => {
   return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${envDraft});`
 })
 
-console.log([...blogInserts, ...talkInserts].join('\n'))
-console.error(`Generated ${blogInserts.length} blog posts and ${talkInserts.length} talks (${envDraft ? 'all-draft' : 'production'} mode)`)
+// /now entries: content/now.json is the source of truth, so replace the table
+// wholesale (in every environment) to keep edits and deletions in sync.
+const NOW_FIELDS = ['date', 'location', 'celebrate', 'read', 'travel', 'learn', 'watch', 'listen', 'work']
+const nowPath = join(contentDir, 'now.json')
+const nowEntries = existsSync(nowPath) ? JSON.parse(readFileSync(nowPath, 'utf-8')) : []
+const sqlValue = (v) => (v == null || v === '' ? 'NULL' : `'${esc(String(v))}'`)
+const nowStatements = nowEntries.length
+  ? [
+      'DELETE FROM now_entries;',
+      ...nowEntries.map(
+        (e) => `INSERT INTO now_entries (${NOW_FIELDS.join(', ')}) VALUES (${NOW_FIELDS.map((f) => sqlValue(e[f])).join(', ')});`
+      ),
+    ]
+  : []
+
+// In production, drop rows whose content file no longer exists so deleted or
+// never-merged posts stop appearing on the home page and in search. Skipped in
+// draft mode: the preview db is shared by every open PR.
+const ids = [...posts, ...talks].map((p) => `'${esc(p.id)}'`)
+const prune =
+  !envDraft && ids.length > 0 ? [`DELETE FROM posts WHERE id NOT IN (${ids.join(', ')});`] : []
+
+console.log([...blogInserts, ...talkInserts, ...prune, ...nowStatements].join('\n'))
+console.error(
+  `Generated ${blogInserts.length} blog posts, ${talkInserts.length} talks, and ${nowEntries.length} now entries (${envDraft ? 'all-draft' : 'production'} mode${prune.length ? ', pruning rows without content files' : ''})`
+)

@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 import { Layout, Nav, Footer } from '../components/Layout'
-import { splitCategories } from '../components/PostMeta'
+import { CategoryTags, splitCategories } from '../components/PostMeta'
 import type { PostMeta } from '../content'
 
 export function WritingPage({ posts }: { posts: PostMeta[] }) {
@@ -35,7 +35,7 @@ export function WritingPage({ posts }: { posts: PostMeta[] }) {
                   <a href="/${post.type === 'talk' ? 'speaking' : 'writing'}/${post.id}" class="post-list-link">
                     <span class="post-list-title">${post.title}</span>
                     <span class="post-list-meta">
-                      ${postCategories.map((cat) => html`<span class="tag">#${cat}</span>`)}
+                      ${CategoryTags({ category: post.category })}
                       ${post.type === 'talk' ? html`<span class="tag tag-type">talk</span>` : ''}
                       <span class="post-list-date">${post.date}</span>
                     </span>
