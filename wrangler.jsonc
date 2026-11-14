@@ -25,6 +25,7 @@
     "html_handling": "drop-trailing-slash",
     "run_worker_first": [
       "/",
+      "/about",
       "/api/*",
       "/now",
       "/now/*",
@@ -32,6 +33,12 @@
       "/og"
     ]
   },
+  "services": [
+    {
+      "binding": "PHOTOS_API",
+      "service": "photos-api"
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DB",
@@ -46,6 +53,12 @@
   "env": {
     "preview": {
       "name": "kylieis-online-preview",
+      "services": [
+        {
+          "binding": "PHOTOS_API",
+          "service": "photos-api"
+        }
+      ],
       "d1_databases": [
         {
           "binding": "DB",

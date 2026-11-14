@@ -1,6 +1,7 @@
 import { Hono, type Context } from 'hono'
 import type { Env } from '../env'
 import { HomePage } from '../pages/HomePage'
+import { AboutPage } from '../pages/AboutPage'
 import { NowPage, type NowEntry } from '../pages/NowPage'
 import { SearchPage } from '../pages/SearchPage'
 import { getFeaturedProjects } from '../content'
@@ -21,8 +22,9 @@ app.get('/', async (c) => {
     type: 'blog' | 'talk'
   }>()
 
-  // Fetch photos from the central photos-api
-  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
+  // Fetch photos from the central photos-api. Unlike /about there is no deploy-time
+  // copy of / to fall back to, so on failure the page renders without photo cards
+  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 }, c.env.PHOTOS_API)
 
   return c.html(
     HomePage({
@@ -32,6 +34,14 @@ app.get('/', async (c) => {
     }).toString(),
     200
   )
+})
+
+// Rendered per request so photo edits in photos-api show up without a redeploy.
+// If photos-api is down or returns nothing, fall back to the copy built at deploy time.
+app.get('/about', async (c) => {
+  const { photos } = await getPhotos({ site: 'kylieis-online', limit: 100 }, c.env.PHOTOS_API)
+  if (photos.length === 0) return c.env.ASSETS.fetch(c.req.raw)
+  return c.html(AboutPage({ photos }).toString(), 200)
 })
 
 const NOW_COLUMNS = 'date, location, celebrate, read, travel, learn, watch, listen, work'

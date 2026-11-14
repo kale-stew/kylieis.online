@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterEach, vi } from 'vitest'
 import { env, SELF, applyD1Migrations } from 'cloudflare:test'
 
 beforeAll(async () => {
@@ -109,4 +109,65 @@ describe('dynamic routes', () => {
     const text = await res.text()
     expect(text).toContain('Now')
   })
+})
+
+describe('about page', () => {
+  afterEach(() => vi.restoreAllMocks())
+
+  it('renders photos fetched from photos-api at request time', async () => {
+    const realFetch = globalThis.fetch
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+      const url = input instanceof Request ? input.url : String(input)
+      if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
+      return Response.json({
+        photos: [{ id: 'live-photo-1', title: 'Fresh from the api', caption: null, location: null, date: null, width: 800, height: 600, blurhash: null, format: 'jpeg', tags: null }],
+        meta: { limit: 100, offset: 0, count: 1 },
+      })
+    })
+
+    const res = await SELF.fetch('http://localhost/about')
+    expect(res.status).toBe(200)
+    const text = await res.text()
+    expect(text).toContain('photos-api.kylieski.workers.dev/img/live-photo-1')
+  })
+
+  it('falls back to the deploy-time page when photos-api fails', async () => {
+    const realFetch = globalThis.fetch
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+      const url = input instanceof Request ? input.url : String(input)
+      if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
+      return new Response('boom', { status: 500 })
+    })
+
+    const res = await SELF.fetch('http://localhost/about')
+    expect(res.status).not.toBe(500)
+    expect(await res.text()).not.toContain('live-photo-1')
+  })
+})
+
+describe('home page', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
+  const failures: Array<[string, () => Promise<Response>]> = [
+    ['returns an error', async () => new Response('boom', { status: 500 })],
+    ['returns non-json', async () => new Response('error code: 1042', { status: 200 })],
+    ['is unreachable', () => { throw new TypeError('network connection lost') }],
+  ]
+
+  for (const [name, respond] of failures) {
+    it(`renders without photos when photos-api ${name}`, async () => {
+      // a plain, non-async stub that throws synchronously: a rejected promise created in the test
+      // context is reported as unhandled by vitest-pool-workers even after the worker catches it
+      const realFetch = globalThis.fetch
+      vi.stubGlobal('fetch', (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = input instanceof Request ? input.url : String(input)
+        if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
+        return respond()
+      })
+
+      const res = await SELF.fetch('http://localhost/')
+      expect(res.status).toBe(200)
+      expect(await res.text()).not.toContain('photos-api.kylieski.workers.dev/img/')
+    })
+  }
 })
