@@ -88,11 +88,20 @@ async function main() {
   // Fetch all photos for kylieis.online from the central photos-api
   // site='kylieis-online' returns both 'kylieis-online' and 'both' tagged photos
   console.log('  fetching photos from photos-api...')
-  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
-  console.log(`  fetched ${apiPhotos.length} photos`)
-  // getPhotos returns [] on an API error; fail instead of shipping a photo-less fallback page
+  // getPhotos returns [] on any API error. retry briefly for transient blips, then fail
+  // instead of shipping a photo-less fallback page
+  let apiPhotos = []
+  for (let attempt = 1; attempt <= 3 && apiPhotos.length === 0; attempt++) {
+    if (attempt > 1) await new Promise((r) => setTimeout(r, 2000 * (attempt - 1)))
+    ;({ photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 }))
+    console.log(`  attempt ${attempt}: fetched ${apiPhotos.length} photos`)
+  }
   if (apiPhotos.length === 0) {
-    throw new Error('photos-api returned no photos for site=kylieis-online; refusing to build /about without them')
+    throw new Error(
+      'photos-api returned no photos after 3 attempts, refusing to build /about without them. ' +
+        'check https://photos-api.kylieski.workers.dev/api/photos?site=kylieis-online: ' +
+        'an error status means photos-api is down, an empty list means no photo is tagged kylieis-online or both'
+    )
   }
 
   // About

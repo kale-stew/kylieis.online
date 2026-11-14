@@ -22,7 +22,8 @@ app.get('/', async (c) => {
     type: 'blog' | 'talk'
   }>()
 
-  // Fetch photos from the central photos-api
+  // Fetch photos from the central photos-api. Unlike /about there is no deploy-time
+  // copy of / to fall back to, so on failure the page renders without photo cards
   const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 }, c.env.PHOTOS_API)
 
   return c.html(
