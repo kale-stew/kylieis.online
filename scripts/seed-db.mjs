@@ -51,19 +51,42 @@ if (existsSync(talksDir)) {
 // Generate SQL insert statements
 const esc = (s) => (s ?? '').replace(/'/g, "''")
 
-// DRAFT env var is set by draft/preview workflows to mark ALL posts as draft.
+// DRAFT env var is set by draft/preview workflows. Their db is shared, including
+// with the unprotected kylieis-online-preview worker, so in draft mode a post is
+// visible only if it is already published in production: PUBLISHED_IDS_FILE is
+// the output of `wrangler d1 execute kylieis-online-db --json` selecting published
+// ids. Without a readable file, every post is marked draft.
 // Otherwise, a post is draft iff its frontmatter says `draft: true`.
 const envDraft = process.env.DRAFT ? 1 : 0
 
+function readPublishedIds(file) {
+  if (!file) return null
+  try {
+    // wrangler can print a banner line ahead of its --json output
+    const raw = readFileSync(file, 'utf-8')
+    const rows = JSON.parse(raw.slice(raw.indexOf('['))).flatMap((r) => r.results ?? [])
+    return new Set(rows.map((r) => r.id))
+  } catch (e) {
+    console.error(`could not read published ids from ${file}, marking every post draft: ${e.message}`)
+    return null
+  }
+}
+const publishedIds = envDraft ? readPublishedIds(process.env.PUBLISHED_IDS_FILE) : null
+
+const draftFlagFor = (p) => {
+  if (!envDraft) return p.draft ? 1 : 0
+  return publishedIds?.has(p.id) && !p.draft ? 0 : 1
+}
+
 const blogInserts = posts.map((p) => {
-  const draftFlag = envDraft || (p.draft ? 1 : 0)
+  const draftFlag = draftFlagFor(p)
   const tags = p.tags ? `'${esc(p.tags)}'` : 'NULL'
   return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, draft) VALUES ('${esc(p.id)}', '${esc(p.title)}', '${esc(p.description)}', '${esc(p.category)}', '${esc(p.date)}', 'blog', ${tags}, '${esc(p.content)}', ${draftFlag});`
 })
 
 const talkInserts = talks.map((t) => {
   const presentedAt = JSON.stringify(t.presentedAt)
-  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${envDraft});`
+  return `INSERT OR REPLACE INTO posts (id, title, description, category, date, type, tags, content, presented_at, draft) VALUES ('${esc(t.id)}', '${esc(t.title)}', '${esc(t.description)}', '${esc(t.category)}', '${esc(t.date)}', 'talk', NULL, '${esc(t.content)}', '${esc(presentedAt)}', ${draftFlagFor(t)});`
 })
 
 // /now entries: content/now.json is the source of truth, so replace the table
@@ -88,7 +111,13 @@ const ids = [...posts, ...talks].map((p) => `'${esc(p.id)}'`)
 const prune =
   !envDraft && ids.length > 0 ? [`DELETE FROM posts WHERE id NOT IN (${ids.join(', ')});`] : []
 
+const modeLabel = !envDraft
+  ? 'production'
+  : publishedIds
+    ? `draft, ${[...posts, ...talks].filter((p) => draftFlagFor(p) === 0).length} visible as published in production`
+    : 'all-draft'
+
 console.log([...blogInserts, ...talkInserts, ...prune, ...nowStatements].join('\n'))
 console.error(
-  `Generated ${blogInserts.length} blog posts, ${talkInserts.length} talks, and ${nowEntries.length} now entries (${envDraft ? 'all-draft' : 'production'} mode${prune.length ? ', pruning rows without content files' : ''})`
+  `Generated ${blogInserts.length} blog posts, ${talkInserts.length} talks, and ${nowEntries.length} now entries (${modeLabel} mode${prune.length ? ', pruning rows without content files' : ''})`
 )

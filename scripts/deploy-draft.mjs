@@ -44,7 +44,7 @@ async function main() {
 
   // Build static assets
   console.log('Building static assets...')
-  run('npm run build')
+  run('npm run build', { env: { ...process.env, DRAFT: '1' } })
 
   // Apply migrations to preview db
   console.log('\nApplying D1 migrations to preview db...')
@@ -52,7 +52,18 @@ async function main() {
 
   // Seed preview db
   console.log('\nSeeding preview db...')
-  run('npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql')
+  // same rules as the deploy-draft workflow: only posts published in production are
+  // visible in the shared preview db, and seed-db marks every post draft if this read fails
+  try {
+    run(
+      'npx wrangler d1 execute kylieis-online-db --remote --json --command "SELECT id FROM posts WHERE draft = 0 OR draft IS NULL" > /tmp/published.json'
+    )
+  } catch {
+    console.warn('could not read published posts from production; preview posts will all be drafts')
+  }
+  run('npx tsx scripts/seed-db.mjs > /tmp/seed.sql && npx wrangler d1 execute kylieis-online-db-preview --remote --env preview --file /tmp/seed.sql', {
+    env: { ...process.env, DRAFT: '1', PUBLISHED_IDS_FILE: '/tmp/published.json' },
+  })
 
   // Generate draft wrangler config
   console.log('\nGenerating draft wrangler config...')
