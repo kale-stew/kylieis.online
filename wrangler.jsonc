@@ -25,6 +25,7 @@
     "html_handling": "drop-trailing-slash",
     "run_worker_first": [
       "/",
+      "/about",
       "/api/*",
       "/now",
       "/now/*",

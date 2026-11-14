@@ -90,6 +90,10 @@ async function main() {
   console.log('  fetching photos from photos-api...')
   const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
   console.log(`  fetched ${apiPhotos.length} photos`)
+  // getPhotos returns [] on an API error; fail instead of shipping a photo-less fallback page
+  if (apiPhotos.length === 0) {
+    throw new Error('photos-api returned no photos for site=kylieis-online; refusing to build /about without them')
+  }
 
   // About
   writeHtml('about/index.html', AboutPage({ photos: apiPhotos }))
@@ -177,4 +181,7 @@ async function main() {
   console.log('Build complete')
 }
 
-main().catch(console.error)
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

@@ -3,6 +3,8 @@ name: deploy production
 on:
   push:
     branches: [main]
+  # "run workflow" in the actions tab: rebuild and redeploy main without a new commit
+  workflow_dispatch:
 
 concurrency:
   group: production-deploy
@@ -10,6 +12,8 @@ concurrency:
 
 jobs:
   deploy:
+    # manual runs can pick any branch; only main may reach production
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4

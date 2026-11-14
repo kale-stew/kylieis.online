@@ -81,8 +81,9 @@ all photos are fetched from the central **photos-api** (`photos-api.kylieski.wor
 
 - the api is queried with `site='kylieis-online'` which returns photos tagged as either `kylieis-online` or `both`
 - both `HomePage` and `AboutPage` receive `photos` from the api and convert them to the local `Photo` format
-- `build-static.mjs` fetches photos at build time for the static about page
-- `src/routes/dynamic.ts` fetches photos at request time for the server-rendered homepage
+- `src/routes/dynamic.ts` fetches photos at request time for `/` and `/about`, so photo edits in photos-api go live without a redeploy
+- `build-static.mjs` also builds `about/index.html`. `/about` serves that deploy-time copy only when photos-api fails or returns nothing, and the build fails when photos-api returns no photos
+- to rebuild production without a new commit, run **deploy production** from the actions tab (`workflow_dispatch`, main only). re-running **check** only typechecks and tests; it never deploys
 - timeline milestones that reference photos already use `photos-api.kylieski.workers.dev/img/{id}` urls directly
 
 never add a `PHOTOS` export to `src/content.ts`. if photos are missing from the site, add them to the central photos-api and ensure they are tagged with `site='kylieis-online'` or `site='both'` in the database.
