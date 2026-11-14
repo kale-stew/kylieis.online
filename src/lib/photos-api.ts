@@ -69,7 +69,7 @@ export async function getPhoto(photoId: string): Promise<Photo | null> {
 }
 
 /**
- * Fetch photos with optional filtering
+ * Fetch photos with optional filtering. Never throws: any failure returns an empty list.
  */
 export async function getPhotos(options?: {
   site?: string
@@ -82,12 +82,14 @@ export async function getPhotos(options?: {
   if (options?.offset) params.set('offset', String(options.offset))
 
   const url = `${PHOTOS_API_BASE}/api/photos${params.toString() ? `?${params}` : ''}`
-  const res = await fetch(url)
-
-  if (!res.ok) {
-    return { photos: [], meta: { limit: 0, offset: 0, count: 0 } }
+  const empty: PhotosApiResponse = { photos: [], meta: { limit: 0, offset: 0, count: 0 } }
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return empty
+    const body = await res.json<PhotosApiResponse>()
+    return Array.isArray(body?.photos) ? body : empty
+  } catch {
+    return empty
   }
-
-  return res.json()
 }
 

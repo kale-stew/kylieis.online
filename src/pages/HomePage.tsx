@@ -75,20 +75,22 @@ export function HomePage({ recentPosts, featuredProjects, photos: apiPhotos }: H
   ]
   let ci = 0
   let pi = 0
-  const items: CardItem[] = slots.map((slot) => {
+  // photos-api can be down or return nothing: drop photo slots rather than index into an empty list
+  const items: CardItem[] = slots.flatMap((slot): CardItem[] => {
     if (slot === 'content' && ci < totalContent) {
-      return contentCards[ci++]
+      return [contentCards[ci++]]
     }
+    if (shuffled.length === 0) return []
     const photo = shuffled[pi++ % shuffled.length]
-    return { 
-      type: 'photo', 
-      src: photo.src, 
+    return [{
+      type: 'photo',
+      src: photo.src,
       srcset: photo.srcset,
-      alt: photo.alt, 
-      location: photo.location, 
+      alt: photo.alt,
+      location: photo.location,
       date: photo.date,
       blurhash: photo.blurhash,
-    }
+    }]
   })
 
   const tagline = TAGLINES[Math.floor(Math.random() * TAGLINES.length)]

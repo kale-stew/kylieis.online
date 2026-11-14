@@ -144,3 +144,30 @@ describe('about page', () => {
     expect(await res.text()).not.toContain('live-photo-1')
   })
 })
+
+describe('home page', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
+  const failures: Array<[string, () => Promise<Response>]> = [
+    ['returns an error', async () => new Response('boom', { status: 500 })],
+    ['returns non-json', async () => new Response('error code: 1042', { status: 200 })],
+    ['is unreachable', () => { throw new TypeError('network connection lost') }],
+  ]
+
+  for (const [name, respond] of failures) {
+    it(`renders without photos when photos-api ${name}`, async () => {
+      // a plain, non-async stub that throws synchronously: a rejected promise created in the test
+      // context is reported as unhandled by vitest-pool-workers even after the worker catches it
+      const realFetch = globalThis.fetch
+      vi.stubGlobal('fetch', (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = input instanceof Request ? input.url : String(input)
+        if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
+        return respond()
+      })
+
+      const res = await SELF.fetch('http://localhost/')
+      expect(res.status).toBe(200)
+      expect(await res.text()).not.toContain('photos-api.kylieski.workers.dev/img/')
+    })
+  }
+})
