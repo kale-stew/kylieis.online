@@ -23,6 +23,12 @@
       "/og"
     ]
   },
+  "services": [
+    {
+      "binding": "PHOTOS_API",
+      "service": "photos-api"
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DB",

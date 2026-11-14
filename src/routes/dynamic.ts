@@ -23,7 +23,7 @@ app.get('/', async (c) => {
   }>()
 
   // Fetch photos from the central photos-api
-  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
+  const { photos: apiPhotos } = await getPhotos({ site: 'kylieis-online', limit: 100 }, c.env.PHOTOS_API)
 
   return c.html(
     HomePage({
@@ -38,7 +38,7 @@ app.get('/', async (c) => {
 // Rendered per request so photo edits in photos-api show up without a redeploy.
 // If photos-api is down or returns nothing, fall back to the copy built at deploy time.
 app.get('/about', async (c) => {
-  const { photos } = await getPhotos({ site: 'kylieis-online', limit: 100 })
+  const { photos } = await getPhotos({ site: 'kylieis-online', limit: 100 }, c.env.PHOTOS_API)
   if (photos.length === 0) return c.env.ASSETS.fetch(c.req.raw)
   return c.html(AboutPage({ photos }).toString(), 200)
 })

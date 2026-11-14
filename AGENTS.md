@@ -82,6 +82,7 @@ all photos are fetched from the central **photos-api** (`photos-api.kylieski.wor
 - the api is queried with `site='kylieis-online'` which returns photos tagged as either `kylieis-online` or `both`
 - both `HomePage` and `AboutPage` receive `photos` from the api and convert them to the local `Photo` format
 - `src/routes/dynamic.ts` fetches photos at request time for `/` and `/about`, so photo edits in photos-api go live without a redeploy. `getPhotos` never throws (failures return `[]`), and `/` must still render with zero photos: it drops the photo cards
+- the worker reaches photos-api through the `PHOTOS_API` service binding, never a bare `fetch()`. previews and drafts live on `kylieski.workers.dev` next to photos-api, and same-zone worker-to-worker fetches fail with cloudflare error 1042. `getPhotos` falls back to the public url when the binding is missing or fails (node build, `wrangler dev`, tests); `vitest.config.ts` stubs the binding with a failing worker
 - `build-static.mjs` also builds `about/index.html`. `/about` serves that deploy-time copy only when photos-api fails or returns nothing, and the build fails when photos-api returns no photos
 - to rebuild production without a new commit, run **deploy production** from the actions tab (`workflow_dispatch`, main only). re-running **check** only typechecks and tests; it never deploys
 - timeline milestones that reference photos already use `photos-api.kylieski.workers.dev/img/{id}` urls directly

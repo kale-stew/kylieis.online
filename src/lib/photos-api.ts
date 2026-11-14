@@ -68,28 +68,47 @@ export async function getPhoto(photoId: string): Promise<Photo | null> {
   }
 }
 
+async function requestPhotos(
+  doFetch: (url: string) => Promise<Response>,
+  url: string
+): Promise<PhotosApiResponse | null> {
+  try {
+    const res = await doFetch(url)
+    if (!res.ok) return null
+    const body = await res.json<PhotosApiResponse>()
+    return Array.isArray(body?.photos) ? body : null
+  } catch {
+    return null
+  }
+}
+
 /**
  * Fetch photos with optional filtering. Never throws: any failure returns an empty list.
+ *
+ * Inside the Worker, pass the PHOTOS_API service binding. A plain fetch() to
+ * photos-api.kylieski.workers.dev from another Worker on kylieski.workers.dev
+ * (every preview and draft) fails with Cloudflare error 1042. The public URL is
+ * still tried when the binding is missing or fails, which covers the Node build,
+ * `wrangler dev`, and tests.
  */
-export async function getPhotos(options?: {
-  site?: string
-  limit?: number
-  offset?: number
-}): Promise<PhotosApiResponse> {
+export async function getPhotos(
+  options?: {
+    site?: string
+    limit?: number
+    offset?: number
+  },
+  binding?: Fetcher
+): Promise<PhotosApiResponse> {
   const params = new URLSearchParams()
   if (options?.site) params.set('site', options.site)
   if (options?.limit) params.set('limit', String(options.limit))
   if (options?.offset) params.set('offset', String(options.offset))
 
   const url = `${PHOTOS_API_BASE}/api/photos${params.toString() ? `?${params}` : ''}`
-  const empty: PhotosApiResponse = { photos: [], meta: { limit: 0, offset: 0, count: 0 } }
-  try {
-    const res = await fetch(url)
-    if (!res.ok) return empty
-    const body = await res.json<PhotosApiResponse>()
-    return Array.isArray(body?.photos) ? body : empty
-  } catch {
-    return empty
-  }
+  const viaBinding = binding ? await requestPhotos((u) => binding.fetch(u), url) : null
+  return (
+    viaBinding ??
+    (await requestPhotos((u) => fetch(u), url)) ?? { photos: [], meta: { limit: 0, offset: 0, count: 0 } }
+  )
 }
 
