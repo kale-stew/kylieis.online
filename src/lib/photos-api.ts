@@ -104,11 +104,48 @@ export async function getPhotos(
   if (options?.limit) params.set('limit', String(options.limit))
   if (options?.offset) params.set('offset', String(options.offset))
 
-  const url = `${PHOTOS_API_BASE}/api/photos${params.toString() ? `?${params}` : ''}`
+  return listPhotos(`/api/photos${params.toString() ? `?${params}` : ''}`, binding)
+}
+
+/** Same fallbacks as `getPhotos`. An unknown collection (404) returns an empty list. */
+export async function getCollectionPhotos(
+  slug: string,
+  options?: { limit?: number },
+  binding?: Fetcher
+): Promise<PhotosApiResponse> {
+  const params = new URLSearchParams()
+  if (options?.limit) params.set('limit', String(options.limit))
+  return listPhotos(`/api/collections/${encodeURIComponent(slug)}/photos${params.toString() ? `?${params}` : ''}`, binding)
+}
+
+async function listPhotos(path: string, binding?: Fetcher): Promise<PhotosApiResponse> {
+  const url = `${PHOTOS_API_BASE}${path}`
   const viaBinding = binding ? await requestPhotos((u) => binding.fetch(u), url) : null
   return (
     viaBinding ??
     (await requestPhotos((u) => fetch(u), url)) ?? { photos: [], meta: { limit: 0, offset: 0, count: 0 } }
   )
+}
+
+/** Exact, case-insensitive `kylie` tag: the rule photos-api uses for the `about` collection. */
+export function hasAboutTag(tags: string | null): boolean {
+  if (!tags) return false
+  let list: unknown
+  try {
+    list = JSON.parse(tags)
+  } catch {
+    list = tags.split(',')
+  }
+  return Array.isArray(list) && list.some((tag) => typeof tag === 'string' && tag.trim().toLowerCase() === 'kylie')
+}
+
+/**
+ * One photo for the /about rotation: from photos-api's `about` collection (shared with
+ * kylies.photos/about), or from `kylie`-tagged site photos when the collection is empty
+ * or unreachable. Null when neither has one.
+ */
+export function pickAboutPhoto(collection: Photo[], sitePhotos: Photo[], random = Math.random): Photo | null {
+  const pool = collection.length > 0 ? collection : sitePhotos.filter((photo) => hasAboutTag(photo.tags))
+  return pool[Math.floor(random() * pool.length)] ?? null
 }
 

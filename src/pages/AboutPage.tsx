@@ -27,12 +27,33 @@ function renderTimelineEntry(entry: TimelineEntry) {
 interface AboutPageProps {
   /** photos-api results, plus hardcoded content photos merged in by build-static */
   photos?: Array<ApiPhoto | Photo>
+  /** one photo from the `about` rotation, shown under the intro and left out of the grid */
+  featured?: ApiPhoto | null
 }
 
-export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
+function renderFeatured(photo: ApiPhoto) {
+  const place = [photo.title, photo.location].filter(Boolean).join(' · ')
+  const caption = [place, photo.date?.slice(0, 4)].filter(Boolean).join(' · ')
+  return html`
+    <figure class="about-feature">
+      <img
+        src="${getPhotoUrl(photo.id, 800)}"
+        srcset="${getPhotoSrcset(photo.id)}"
+        sizes="(max-width: 800px) 100vw, 720px"
+        ${raw(photo.width && photo.height ? `width="${photo.width}" height="${photo.height}"` : '')}
+        alt="${photo.caption || photo.title || `${METADATA.firstName} outside`}"
+        decoding="async"
+      />
+      ${caption ? html`<figcaption class="photo-label">${caption}</figcaption>` : ''}
+    </figure>
+  `
+}
+
+export function AboutPage({ photos: apiPhotos, featured = null }: AboutPageProps = {}) {
   // Convert API photos to the Photo format used by the modal
   // Handles both API format (with .id) and hardcoded format (with .src)
-  const photosFromApi: Photo[] = (apiPhotos ?? []).map((p) => {
+  const gridPhotos = (apiPhotos ?? []).filter((p) => !featured || !('id' in p) || p.id !== featured.id)
+  const photosFromApi: Photo[] = gridPhotos.map((p) => {
     // If already has src (hardcoded format), use directly
     if ('src' in p) {
       return {
@@ -86,6 +107,7 @@ export function AboutPage({ photos: apiPhotos }: AboutPageProps = {}) {
                 </a>
               `)}
             </div>
+            ${featured ? renderFeatured(featured) : ''}
             <hr class="divider" />
             <h2 class="text-center">timeline</h2>
             ${PERSONAL_TIMELINE.map((entry) => renderTimelineEntry(entry))}
