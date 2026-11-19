@@ -118,6 +118,7 @@ describe('about page', () => {
     const realFetch = globalThis.fetch
     vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
       const url = input instanceof Request ? input.url : String(input)
+      if (url.includes('/api/collections/')) return Response.json({ error: 'Collection not found' }, { status: 404 })
       if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
       return Response.json({
         photos: [{ id: 'live-photo-1', title: 'Fresh from the api', caption: null, location: null, date: null, width: 800, height: 600, blurhash: null, format: 'jpeg', tags: null }],
@@ -129,6 +130,25 @@ describe('about page', () => {
     expect(res.status).toBe(200)
     const text = await res.text()
     expect(text).toContain('photos-api.kylieski.workers.dev/img/live-photo-1')
+  })
+
+  it('features a photo from the about collection and leaves it out of the grid', async () => {
+    const photo = (id: string, title: string) => ({ id, title, caption: null, location: 'Boulder, Colorado', date: '2025-10-19', width: 4032, height: 3024, blurhash: null, format: 'jpeg', tags: '["kylie"]' })
+    const realFetch = globalThis.fetch
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+      const url = input instanceof Request ? input.url : String(input)
+      if (url.startsWith('https://photos-api.kylieski.workers.dev/api/collections/about/photos')) {
+        return Response.json({ photos: [photo('about-1', 'Climbing Royal Arch')], meta: { limit: 100, offset: 0, count: 1 } })
+      }
+      if (!url.startsWith('https://photos-api.kylieski.workers.dev/api/photos')) return realFetch(input, init)
+      return Response.json({ photos: [photo('about-1', 'Climbing Royal Arch'), photo('grid-1', 'Grid only')], meta: { limit: 100, offset: 0, count: 2 } })
+    })
+
+    const text = await (await SELF.fetch('http://localhost/about')).text()
+    expect(text).toContain('class="about-feature"')
+    expect(text).toContain('Climbing Royal Arch · Boulder, Colorado · 2025')
+    expect(text.match(/img\/about-1\?w=800"/g)).toHaveLength(1)
+    expect(text).toContain('img/grid-1?w=800')
   })
 
   it('falls back to the deploy-time page when photos-api fails', async () => {

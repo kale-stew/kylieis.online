@@ -1192,6 +1192,31 @@ footer {
   margin-top: var(--space-xs);
 }
 
+/* Rotating photo under the about intro. Shown whole, never cropped: the subject is
+   often small and off-center, so portraits shrink in width instead of being cut. */
+.about-feature {
+  margin: var(--space-2xl) 0 0;
+  text-align: center;
+}
+
+.about-feature img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(70svh, 34rem);
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--color-bg-card);
+}
+
+.about-feature .photo-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
 .social-icons {
   display: flex;
   justify-content: center;
